@@ -1,0 +1,182 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="bottomSheetDialogTheme">@style/BsdTheme</item>
+    </style>
+
+    <style name="BsdTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="MaterialDialogStyle" parent="@style/Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textViewStyle">@style/MaterialDialogTextStyle</item>
+        <item name="android:windowTitleStyle">@style/MaterialDialogTextStyle</item>
+    </style>
+
+    <style name="MaterialDialogTextStyle" parent="@android:style/Widget.Material.TextView">
+        <item name="android:textAppearance">@style/MaterialDialogFontStyle</item>
+    </style>
+
+    <style name="MaterialDialogFontStyle" parent="@style/TextAppearance.AppCompat.Title">
+        <!--<item name="android:fontFamily">@font/regular</item>-->
+    </style>
+
+    <style name="DialogStyle" parent="Theme.Transparent">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        <item name="android:windowEnterAnimation">@anim/slide_up</item>-->
+<!--        <item name="android:windowExitAnimation">@anim/slide_down</item>-->
+    </style>
+
+    <style name="DialogBodyStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/dialog_padding</item>
+        <item name="android:layout_marginEnd">@dimen/dialog_padding</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">
+            shortEdges
+        </item>
+    </style>
+
+    <style name="TextViewStyle">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12sp</item>
+        <!--<item name="android:fontFamily">@font/any</item>-->
+        <!--<item name="android:maxLines">1</item>-->
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <!--<item name="android:singleLine">true</item>-->
+        <!--<item name="android:maxLines">1</item>-->
+        <!--<item name="android:backgroundTint">@color/any</item>-->
+    </style>
+
+    <style name="RecyclerViewViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="LinearLayoutStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="FrameLayoutStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ConstraintLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="CheckButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_12sp</item>
+        <item name="android:buttonTint">@color/selector_checked_button</item>
+        <item name="android:textColor">@drawable/selector_checked_text</item>
+        <!--<item name="android:fontFamily">@font/any</item>-->
+    </style>
+
+    <style name="Theme.Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="VerticalSpaceStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="HorizontalSpaceStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView">
+        <item name="cardCornerRadius">@dimen/_10sp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ScrollViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:overScrollMode">ifContentScrolls</item>
+        <item name="android:fillViewport">true</item>
+    </style>
+
+    <!--<style name="RadioButtonStyle">-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:textSize">@dimen/_12ssp</item>-->
+    <!--<item name="android:buttonTint">@color/selector_checked_button</item>-->
+    <!--<item name="android:textColor">@drawable/selector_checked_text</item>-->
+    <!--&lt;!&ndash;<item name="android:fontFamily">@font/any</item>&ndash;&gt;-->
+    <!--</style>-->
+
+    <!--<style name="CheckBoxStyle">-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:textSize">@dimen/_12ssp</item>-->
+    <!--<item name="android:buttonTint">@color/selector_checked_button</item>-->
+    <!--<item name="android:textColor">@drawable/selector_checked_text</item>-->
+    <!--&lt;!&ndash;<item name="android:fontFamily">@font/any</item>&ndash;&gt;-->
+    <!--</style>-->
+
+</resources>

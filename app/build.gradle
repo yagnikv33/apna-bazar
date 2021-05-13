@@ -1,0 +1,122 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    defaultConfig {
+        def appName = "Android Skeleton"
+        def vCode = 1
+        def vName = "1.0.0"
+
+        applicationId "com.skeleton"
+
+        minSdkVersion 23
+        compileSdkVersion 29
+        targetSdkVersion 29
+
+        versionCode vCode
+        versionName vName
+
+        multiDexEnabled true
+        buildFeatures.dataBinding true
+
+        resValue "string", "app_name", appName
+        manifestPlaceholders = [appName: appName]
+        archivesBaseName = "${appName}_${vName}(v${vCode})_${new Date().format('ddMMMyy')}"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+dependencies {
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.0"
+
+    //android
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //fragments
+    implementation 'androidx.fragment:fragment-ktx:1.2.5'
+
+    //di
+    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+
+    //architecture components
+    def archCompVersion = '2.3.0-beta01'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archCompVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$archCompVersion"
+
+    //dimension
+    /*implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'*/
+
+    //recyclerview decoration
+    implementation 'com.github.fondesa:recycler-view-divider:3.3.0'
+
+    //image loading
+    implementation 'io.coil-kt:coil:0.8.0'
+
+    //api
+    def retrofitVersion = '2.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    //play services
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics'
+//    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
+
+    //db
+    def roomVersion = '2.2.5'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    //compressor
+    implementation 'id.zelory:compressor:2.1.0'
+
+    //memory leak detection
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
+
+    //image picker
+    implementation 'com.github.jkwiecien:EasyImage:3.0.3'
+
+    //security
+    implementation 'androidx.security:security-crypto:1.1.0-alpha02'
+    implementation 'net.zetetic:android-database-sqlcipher:4.3.0'
+
+    //permission
+    implementation 'com.github.smokelaboratory:freedom:1.0.0'
+}

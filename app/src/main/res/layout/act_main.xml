@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="MainActBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="url"
+            type="String" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="vm"
+            type="com.skeletonkotlin.e_cigarette.main.entrymodule.model.MainActVM" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/ConstraintLayoutStyle">
+
+        <TextView
+            android:id="@+id/tv"
+            style="@style/TextViewStyle"
+            android:onClick="@{click::onClick}"
+            android:text="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            style="@style/DividerStyle"
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv"
+            app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+        <EditText
+            android:id="@+id/et"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/_5dp"
+            android:hint="@string/app_name"
+            android:text="@={vm.emailData}"
+            app:layout_constraintStart_toStartOf="@+id/tv"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <CheckBox
+            android:id="@+id/cb"
+            style="@style/CheckButtonStyle"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/app_name"
+            app:layout_constraintStart_toStartOf="@+id/tv"
+            app:layout_constraintTop_toBottomOf="@+id/et" />
+
+        <RadioButton
+            android:id="@+id/rb"
+            style="@style/CheckButtonStyle"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/app_name"
+            app:layout_constraintStart_toStartOf="@+id/tv"
+            app:layout_constraintTop_toBottomOf="@+id/cb" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> vm.login(vm.emailData,vm.emailData)}"
+            app:layout_constraintStart_toStartOf="@id/tv"
+            app:layout_constraintTop_toBottomOf="@+id/rb" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:onClick="@{click::onClick}"
+            app:layout_constraintStart_toEndOf="@id/bt"
+            app:layout_constraintTop_toTopOf="@+id/bt" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{progress.booleanValue() ? View.VISIBLE :View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--coil transformations are not applied to placeholders. git issue : https://github.com/coil-kt/coil/issues/37-->
+        <ImageView
+            isCircular="@{true}"
+            path='@{url}'
+            android:layout_width="@dimen/_100dp"
+            android:layout_height="@dimen/_100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et" />
+
+        <!--unlike the <fragment> tag which doesn’t allow to replace the fragment defined statically
+        in the XML layout file via a FragmentTransaction, FragmentContainerView allows to dynamically
+        replace Fragments (just as you’d do if you used a FrameLayout).-->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
