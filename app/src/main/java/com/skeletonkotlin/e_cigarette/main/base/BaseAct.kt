@@ -305,4 +305,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
     override fun onClick(v: View) {
 
     }
+
+
 }

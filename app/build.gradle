@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
-        def appName = "Android Skeleton"
+        def appName = "E-Cigarette"
         def vCode = 1
         def vName = "1.0.0"
 
@@ -73,8 +73,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$archCompVersion"
 
     //dimension
-    /*implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.intuit.ssp:ssp-android:1.0.6'*/
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     //recyclerview decoration
     implementation 'com.github.fondesa:recycler-view-divider:3.3.0'
@@ -119,4 +119,13 @@ dependencies {
 
     //permission
     implementation 'com.github.smokelaboratory:freedom:1.0.0'
+
+    //exo player
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.13.3'
+
 }

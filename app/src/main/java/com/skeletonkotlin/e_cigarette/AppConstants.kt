@@ -34,7 +34,7 @@ class AppConstants {
 
     object Api {
 
-        val BASE_URL = "https://xyz.com/"
+        const val BASE_URL = "https://webdevprojects.cloud/php/laravel/ecigarette-admin/api/v1/"
 
         object ResponseCode {
             const val UNAUTHORIZED_CODE = 401
@@ -43,6 +43,11 @@ class AppConstants {
         object EndUrl {
             const val LOGIN = "login"
             const val SIGN_UP = "signup"
+            const val HOME = "home"
+        }
+
+        object Value {
+            const val COMPANY_ID = "rR6lWnPC"
         }
     }
 }

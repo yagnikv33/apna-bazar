@@ -1,3 +1,5 @@
 <resources>
+    <string name="video_url">http://51.89.149.227/assets/main_adverts/logic_1.mp4</string>
     <string name="map_key">2cc1e5ae9e7bc0a8c6cbf1e7d27eb1da16293246</string>
+    <string name="tv_make_the_switch">Make The Switch</string>
 </resources>

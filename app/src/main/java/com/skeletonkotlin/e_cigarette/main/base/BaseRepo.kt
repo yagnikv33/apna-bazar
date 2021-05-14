@@ -1,5 +1,6 @@
 package com.skeletonkotlin.e_cigarette.main.base
 
+import com.skeletonkotlin.e_cigarette.api.ErrorUtil
 import com.skeletonkotlin.e_cigarette.helper.util.NetworkUtil
 import com.skeletonkotlin.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.skeletonkotlin.e_cigarette.main.base.BaseRepo.ApiResultType.HTTP_ERROR
@@ -32,6 +33,8 @@ open class BaseRepo : KoinComponent {
             else
                 ApiResult(null, NO_INTERNET, "Internet not connected")
         } catch (e: HttpException) {
+           /* val error = e.response()?.let { ErrorUtil.parseError(it) }
+            ApiResult(null, HTTP_ERROR, error?.message, resCode = e.code())*/
             ApiResult(null, HTTP_ERROR, e.message ?: "Something went wrong", resCode = e.code())
         } catch (e: SocketTimeoutException) {
             ApiResult(null, TIME_OUT, "Time out")
