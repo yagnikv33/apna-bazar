@@ -161,6 +161,30 @@
         <item name="android:fillViewport">true</item>
     </style>
 
+    <style name="ExoMediaButton.Previous">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Next">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoStyledControls.Button">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="btnStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">@dimen/_280dp</item>
+        <item name="android:layout_height">@dimen/_45dp</item>
+        <item name="android:layout_marginStart">@dimen/_6sdp</item>
+        <item name="cornerRadius">@dimen/_8sdp</item>
+    </style>
+
+    <style name="CircularImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <!--<style name="RadioButtonStyle">-->
     <!--<item name="android:layout_width">wrap_content</item>-->
     <!--<item name="android:layout_height">wrap_content</item>-->

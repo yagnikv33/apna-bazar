@@ -44,6 +44,7 @@ class AppConstants {
             const val LOGIN = "login"
             const val SIGN_UP = "signup"
             const val HOME = "home"
+            const val PORTAL = "portal"
         }
 
         object Value {

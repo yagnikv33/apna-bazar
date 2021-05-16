@@ -11,8 +11,9 @@
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="viewModel"
-            type="com.skeletonkotlin.e_cigarette.main.entrymodule.model.EntryVM" />
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +25,10 @@
         android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:hide_on_touch="false"
-        app:layout_constraintBottom_toTopOf="@+id/edt_to_home"
+        app:use_controller="false"
+        app:show_shuffle_button="false"
+        app:layout_constraintDimensionRatio="@string/exo_controls_fullscreen_enter_description"
+        app:layout_constraintBottom_toTopOf="@+id/tv_to_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,17 +36,26 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/edt_to_home"
+        android:id="@+id/tv_to_home"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp"
-        android:text="@{viewModel.splashData.data.title}"
         android:textAllCaps="true"
         android:gravity="center"
         android:textSize="@dimen/_30sdp"
+        android:onClick="@{click::onClick}"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_to_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

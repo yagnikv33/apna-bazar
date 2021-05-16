@@ -6,6 +6,7 @@ import com.skeletonkotlin.e_cigarette.data.model.response.LoginResModel
 import com.skeletonkotlin.e_cigarette.data.model.response.SplashResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface EntryApiModule {
@@ -17,12 +18,6 @@ interface EntryApiModule {
         @Field("password") pass: String
     ): LoginResModel
 
-    @FormUrlEncoded
     @POST(HOME)
-    suspend fun getSplashData(
-        @Field("company-id") company_id:String
-    ):SplashResponse
+    suspend fun getSplashData(): SplashResponse
 }
-
-
-

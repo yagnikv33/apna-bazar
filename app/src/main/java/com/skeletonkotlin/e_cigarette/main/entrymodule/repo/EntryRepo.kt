@@ -7,10 +7,9 @@ import com.skeletonkotlin.e_cigarette.main.base.BaseRepo
 class EntryRepo(private val apiCall: EntryApiModule) : BaseRepo() {
 
     suspend fun getSplashData(
-        company_id: String,
-        onError: (ApiResult<Any>) -> Unit
+               onError: (ApiResult<Any>) -> Unit
     ): SplashResponse? {
-        return with(apiCall(executable = { apiCall.getSplashData(company_id) })) {
+        return with(apiCall(executable = { apiCall.getSplashData() })) {
             if (data == null)
                 onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
             this.data

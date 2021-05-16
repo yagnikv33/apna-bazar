@@ -2,8 +2,8 @@
   <library name="Gradle: com.github.jkwiecien:EasyImage:3.0.3@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

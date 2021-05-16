@@ -1,5 +1,6 @@
 package com.skeletonkotlin.e_cigarette.main.entrymodule.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -17,6 +18,7 @@ import com.skeletonkotlin.e_cigarette.helper.util.logE
 import com.skeletonkotlin.e_cigarette.main.base.BaseAct
 import com.skeletonkotlin.e_cigarette.main.common.ApiRenderState
 import com.skeletonkotlin.e_cigarette.main.entrymodule.model.EntryVM
+import com.skeletonkotlin.e_cigarette.main.home.HomeAct
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenAct :
@@ -33,17 +35,32 @@ class SplashScreenAct :
     override val hasProgress: Boolean = true
 
     override fun init() {
-
         vm.getSplashScreenData()
-        playerView = binding.playerView
-
         initListeners()
+        playerView = binding.playerView
+        initializePlayer()
+    }
 
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when (v) {
+            binding.tvToHome -> {
+                startActivity(Intent(application, HomeAct::class.java))
+                finish()
+            }
+        }
     }
 
     private fun initViews() {
+        binding.tvToHome.text = vm.splashData.value?.data?.title
 
-        vm.splashData.value?.data?.backgroundColor?.let { binding.edtToHome.setBackgroundColor(Color.parseColor(it)) }
+        vm.splashData.value?.data?.backgroundColor?.let {
+            binding.tvToHome.setBackgroundColor(
+                Color.parseColor(
+                    it
+                )
+            )
+        }
     }
 
     private fun initListeners() {
@@ -72,6 +89,7 @@ class SplashScreenAct :
         playerView!!.player = player
 
         val mediaItem: MediaItem = vm.splashData.value?.data?.video.let { MediaItem.fromUri(it!!) }
+        "Video: ${vm.splashData.value?.data?.video}"
         player!!.setMediaItem(mediaItem)
 
         player?.playWhenReady = playWhenReady
@@ -131,20 +149,21 @@ class SplashScreenAct :
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 if (apiRenderState.result is SplashResponse) {
-                    initializePlayer()
                     initViews()
+                    initializePlayer()
+                    hideProgress()
                 }
-                "Response: ${apiRenderState.result}".logE()
             }
             ApiRenderState.Idle -> {
-                "Idle".logE()
+                hideProgress()
             }
             ApiRenderState.Loading -> {
+                showProgress()
             }
             is ApiRenderState.ValidationError -> {
             }
             is ApiRenderState.ApiError<*> -> {
-                "Error".logE()
+                hideProgress()
             }
         }
     }
