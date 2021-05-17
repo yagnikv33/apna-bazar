@@ -26,16 +26,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".e_cigarette.main.home.HomeAct"></activity>
-        <activity
-            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
-            android:screenOrientation="landscape">
+        <activity android:name=".e_cigarette.main.home.HomeAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
+            android:screenOrientation="landscape">
+
         </activity>
         <activity
             android:name=".e_cigarette.main.entrymodule.view.MainAct"

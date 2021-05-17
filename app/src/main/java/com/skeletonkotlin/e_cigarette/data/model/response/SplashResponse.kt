@@ -32,11 +32,6 @@ data class Data(
     val video: String? = "",
 
     @field:SerializedName("title")
-    val title: String? = "",
-
-    @field:SerializedName("buttons")
-    val buttons: List<ButtonsItem?>? = null,
-
-    @field:SerializedName("brands")
-    val brands: List<BrandsItem?>? = null
+    val title: String? = ""
 )
+

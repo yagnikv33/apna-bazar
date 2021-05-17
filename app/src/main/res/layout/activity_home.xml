@@ -16,87 +16,50 @@
             android:layout_height="wrap_content"
             tools:context=".e_cigarette.main.home.HomeAct">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_brand_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_our_brand"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_click_here"
-                app:layout_constraintTop_toTopOf="@+id/btn_click_here" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_click_here"
-                android:layout_width="@dimen/_280dp"
-                android:layout_height="@dimen/_55dp"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_45dp"
-                android:drawableStart="@drawable/shopping_cart"
-                app:cornerRadius="@dimen/_8sdp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_atop"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_button_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/blue"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_our_brand"
-                style="@style/btnStyle"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:fontFamily="@font/biryani_extralight"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_atop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_click_here" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_brand_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rv_button_list"
+                app:layout_constraintTop_toTopOf="@+id/rv_button_list" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_what_is_vaping"
-                style="@style/btnStyle"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_atop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_our_brand" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_saving_calculator"
-                style="@style/btnStyle"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_atop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_what_is_vaping" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_testimonials"
-                style="@style/btnStyle"
-                android:layout_marginTop="@dimen/_4sdp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_atop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_saving_calculator" />
 
             <TextView
                 android:id="@+id/tv_lets_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="8dp"
                 android:text="Lets get started!"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_what_is_vaping"
-                app:layout_constraintTop_toTopOf="@+id/btn_what_is_vaping" />
+                app:layout_constraintEnd_toEndOf="@+id/rv_brand_list"
+                app:layout_constraintStart_toStartOf="@+id/rv_brand_list"
+                app:layout_constraintTop_toBottomOf="@+id/rv_brand_list" />
 
             <TextView
                 android:id="@+id/tv_select_your_option"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Select your option to begin"
                 android:textSize="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_what_is_vaping"
                 app:layout_constraintEnd_toEndOf="@+id/tv_lets_get"
                 app:layout_constraintStart_toStartOf="@+id/tv_lets_get"
                 app:layout_constraintTop_toBottomOf="@+id/tv_lets_get" />
@@ -105,9 +68,11 @@
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_80sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_testimonials"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_testimonials"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_select_your_option"
+                app:layout_constraintStart_toStartOf="@+id/tv_select_your_option"
+                app:layout_constraintTop_toBottomOf="@+id/tv_select_your_option"
                 tools:srcCompat="@drawable/left_arrow" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

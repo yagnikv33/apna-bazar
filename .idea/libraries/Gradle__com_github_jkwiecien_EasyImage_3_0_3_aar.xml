@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.jkwiecien:EasyImage:3.0.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f503a9145a091b734b72b7b7d582b810/jetified-EasyImage-3.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cbe9cf20d90d9df25f99a33fb0fc6af6/jetified-EasyImage-3.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cbe9cf20d90d9df25f99a33fb0fc6af6/jetified-EasyImage-3.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cbe9cf20d90d9df25f99a33fb0fc6af6/jetified-EasyImage-3.0.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jkwiecien/EasyImage/3.0.3/b3feecb2a6679864e0a33fa84588a49225fe622/EasyImage-3.0.3-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jkwiecien/EasyImage/3.0.3/1195d262aab19900b3f6272ca85c0f8a00e672bd/EasyImage-3.0.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

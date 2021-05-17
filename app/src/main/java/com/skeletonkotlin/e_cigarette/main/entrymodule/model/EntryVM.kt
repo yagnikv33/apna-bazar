@@ -9,7 +9,7 @@ import com.skeletonkotlin.e_cigarette.main.entrymodule.repo.EntryRepo
 class EntryVM(private val repo: EntryRepo) : BaseVM() {
 
     var splashData = MutableLiveData(SplashResponse())
-    val progressBar = MutableLiveData(false)
+    private val progressBar = MutableLiveData(false)
 
     fun getSplashScreenData() {
         scope {

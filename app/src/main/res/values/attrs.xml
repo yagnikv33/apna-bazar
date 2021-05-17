@@ -7,5 +7,4 @@
         <attr name="border_overlay" format="boolean" />
         <attr name="circle_background" format="color" />
     </declare-styleable>
-
 </resources>

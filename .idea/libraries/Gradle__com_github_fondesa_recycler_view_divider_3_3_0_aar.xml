@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.fondesa:recycler-view-divider:3.3.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3dc127916bc0ae824ce9fbef1312a55/jetified-recycler-view-divider-3.3.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3dc127916bc0ae824ce9fbef1312a55/jetified-recycler-view-divider-3.3.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3dc127916bc0ae824ce9fbef1312a55/jetified-recycler-view-divider-3.3.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66225f1b94f02715064706c439f73816/jetified-recycler-view-divider-3.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66225f1b94f02715064706c439f73816/jetified-recycler-view-divider-3.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66225f1b94f02715064706c439f73816/jetified-recycler-view-divider-3.3.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.fondesa/recycler-view-divider/3.3.0/2ca34d7c91590a5634fc95e1624735386c4259c5/recycler-view-divider-3.3.0-javadoc.jar!/" />
