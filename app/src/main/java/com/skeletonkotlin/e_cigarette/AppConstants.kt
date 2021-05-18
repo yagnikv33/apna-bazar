@@ -3,6 +3,24 @@ package com.skeletonkotlin.e_cigarette
 class AppConstants {
 
     object App {
+        object Buttons {
+            const val PERSONALISE_VAPE = "XoOcELl3"
+            const val OUR_BRANDS = "SsWZFFHf"
+            const val WHAT_IS_VAPING = "CyvHhRuT"
+            const val SAVING_CALCULATOR = "9jexWf0h"
+            const val TESTIMONIALS = "OYf9cupC"
+        }
+
+        object Brands {
+            const val VAMPIRE_VAPE = "1VomcQMR"
+            const val LOGIC = "ytuXNxrF"
+            const val BLU = "beBoAx6P"
+            const val VYPE = "dNJYw6ge"
+            const val TOTALLY_WICKED ="4ZHSfMi5"
+            const val JUUL ="qzavFobQ"
+            const val AQUA_VAPE ="wRZd2pNf"
+            const val VAPOURIZE ="SXRSX8Oh"
+        }
     }
 
     object Prefs {

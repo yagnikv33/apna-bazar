@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class HomeResponse(
 
+    var id: String? = "",
 
     @field:SerializedName("data")
     val data: PortalData? = PortalData(),

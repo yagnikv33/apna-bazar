@@ -5,6 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
     </data>
 
     <ScrollView
@@ -22,11 +31,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:backgroundTint="@color/blue"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/blue"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rv_brand_list"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,22 +45,24 @@
                 android:id="@+id/rv_brand_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rv_button_list"
                 app:layout_constraintTop_toTopOf="@+id/rv_button_list" />
-
 
             <TextView
                 android:id="@+id/tv_lets_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Lets get started!"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="@+id/rv_brand_list"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_40sdp"
+                android:text="@string/tv_lets"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="@+id/rv_brand_list"
                 app:layout_constraintTop_toBottomOf="@+id/rv_brand_list" />
 
@@ -58,22 +71,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Select your option to begin"
-                android:textSize="@dimen/_8sdp"
+                android:text="@string/tv_select"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_lets_get"
                 app:layout_constraintStart_toStartOf="@+id/tv_lets_get"
                 app:layout_constraintTop_toBottomOf="@+id/tv_lets_get" />
 
-            <ImageView
-                android:id="@+id/imageView"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_back"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_80sdp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:onClick="@{click::onClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_select_your_option"
                 app:layout_constraintStart_toStartOf="@+id/tv_select_your_option"
                 app:layout_constraintTop_toBottomOf="@+id/tv_select_your_option"
-                tools:srcCompat="@drawable/left_arrow" />
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/left_arrow" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

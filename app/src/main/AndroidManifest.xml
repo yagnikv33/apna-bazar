@@ -26,7 +26,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".e_cigarette.main.home.HomeAct">
+        <activity android:name=".e_cigarette.main.brand_list.VypeAct"></activity>
+        <activity android:name=".e_cigarette.main.brand_list.BluAct" />
+        <activity android:name=".e_cigarette.main.brand_list.LogicAct" />
+        <activity android:name=".e_cigarette.main.brand_list.VampireVapeAct" />
+        <activity android:name=".e_cigarette.main.testimonials.TestimonialsAct" />
+        <activity android:name=".e_cigarette.main.saving_calc.SavingCalcAct" />
+        <activity android:name=".e_cigarette.main.vaping.VapingAct" />
+        <activity android:name=".e_cigarette.main.our_brands.OurBrandsAct" />
+        <activity android:name=".e_cigarette.main.personalise_vape.PersonaliseVapeAct" />
+        <activity
+            android:name=".e_cigarette.main.home.HomeAct"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -36,12 +47,10 @@
         </activity>
         <activity
             android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".e_cigarette.main.entrymodule.view.MainAct"
-            android:screenOrientation="fullSensor"></activity>
+            android:screenOrientation="fullSensor" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
