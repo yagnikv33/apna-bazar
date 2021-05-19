@@ -2,6 +2,7 @@ package com.skeletonkotlin.e_cigarette.main.home
 
 import android.content.Intent
 import android.view.View
+import androidx.core.view.isVisible
 import com.skeletonkotlin.BR
 import com.skeletonkotlin.databinding.ActivityHomeBinding
 import com.skeletonkotlin.e_cigarette.AppConstants.App.Brands.AQUA_VAPE
@@ -50,6 +51,19 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
         vm.getPortalData()
         initButtonRecyclerView()
         initBrandRecyclerView()
+        hideViews()
+    }
+
+    private fun hideViews(){
+        binding.tvLetsGet.isVisible = false
+        binding.tvSelectYourOption.isVisible = false
+        binding.ivBack.isVisible = false
+    }
+
+    private fun showViews(){
+        binding.tvLetsGet.isVisible = true
+        binding.tvSelectYourOption.isVisible = true
+        binding.ivBack.isVisible = true
     }
 
     override fun onClick(v: View) {
@@ -153,6 +167,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
                         )
                     }
                     hideProgress()
+                    showViews()
                 }
             }
             ApiRenderState.Idle -> {

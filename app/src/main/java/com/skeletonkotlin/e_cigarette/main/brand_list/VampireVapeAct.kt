@@ -1,6 +1,5 @@
 package com.skeletonkotlin.e_cigarette.main.brand_list
 
-import com.skeletonkotlin.databinding.ActivityHomeBinding
 import com.skeletonkotlin.databinding.ActivityVampireVapeBinding
 import com.skeletonkotlin.e_cigarette.Layouts
 import com.skeletonkotlin.e_cigarette.main.base.BaseAct

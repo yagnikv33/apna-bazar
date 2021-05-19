@@ -19,35 +19,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile"
+            path="@{data.logo}"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_75sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{click::onClick}"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_profile"
-                path="@{data.logo}"
-                android:layout_width="@dimen/_55sdp"
-                android:layout_height="@dimen/_55sdp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/round_shape"
-                android:onClick="@{click::onClick}"
-                android:padding="@dimen/_2sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_person"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearance="@style/CircularImage"
-                app:strokeWidth="@dimen/_1sdp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/CircularImage"
+            app:strokeWidth="@dimen/_1sdp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

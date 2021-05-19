@@ -1,12 +1,12 @@
 package com.skeletonkotlin.e_cigarette.main.personalise_vape
 
-import com.skeletonkotlin.databinding.ActivityHomeBinding
+import com.skeletonkotlin.databinding.ActivityVypeBinding
 import com.skeletonkotlin.e_cigarette.Layouts
 import com.skeletonkotlin.e_cigarette.main.base.BaseAct
 import com.skeletonkotlin.e_cigarette.main.common.ApiRenderState
 import com.skeletonkotlin.e_cigarette.main.home.model.HomeVM
 
-class PersonaliseVapeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_personalise_vape) {
+class PersonaliseVapeAct : BaseAct<ActivityVypeBinding, HomeVM>(Layouts.activity_personalise_vape) {
 
     override val vm: HomeVM?
         get() = null

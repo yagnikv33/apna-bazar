@@ -17,7 +17,7 @@
 
     <application
         android:name=".e_cigarette.App"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:largeHeap="true"
@@ -25,8 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="n">
-        <activity android:name=".e_cigarette.main.brand_list.VypeAct"></activity>
+        tools:targetApi="n"
+        tools:replace="android:label">
+
+        <activity android:name=".e_cigarette.main.brand_list.VypeAct" />
         <activity android:name=".e_cigarette.main.brand_list.BluAct" />
         <activity android:name=".e_cigarette.main.brand_list.LogicAct" />
         <activity android:name=".e_cigarette.main.brand_list.VampireVapeAct" />
