@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.skeletonkotlin.BR
 
 open class BaseRvBindingAdapter<T>(
@@ -15,7 +16,8 @@ open class BaseRvBindingAdapter<T>(
     private var viewType: ((position : Int, item : T) -> Int)? = null,
     private var br: Int = -1,
     private var brs: Map<Int, Any>? = null,
-    private var clickListener: ((view: View, item: T, pos : Int) -> Unit)? = null
+    private var clickListener: ((view: View, item: T, pos : Int) -> Unit)? = null,
+    private var viewHolder: ((holder: RecyclerView.ViewHolder, position: Int) -> Unit)? = null
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<BaseRvBindingAdapter<T>.ViewHolder>() {
 
     override fun getItemCount() = list.size
@@ -48,6 +50,8 @@ open class BaseRvBindingAdapter<T>(
         }
 
 //        holder.binding.setVariable(BR.position, position)
+
+        viewHolder?.invoke(holder,position)
 
         holder.binding.setVariable(
             BR.click,

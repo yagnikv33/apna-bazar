@@ -3,6 +3,7 @@ package com.skeletonkotlin.e_cigarette.main.home
 import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.skeletonkotlin.BR
 import com.skeletonkotlin.databinding.ActivityHomeBinding
 import com.skeletonkotlin.e_cigarette.AppConstants.App.Brands.AQUA_VAPE
@@ -22,7 +23,6 @@ import com.skeletonkotlin.e_cigarette.Layouts
 import com.skeletonkotlin.e_cigarette.data.model.response.BrandsItem
 import com.skeletonkotlin.e_cigarette.data.model.response.ButtonsItem
 import com.skeletonkotlin.e_cigarette.data.model.response.HomeResponse
-import com.skeletonkotlin.e_cigarette.helper.util.logE
 import com.skeletonkotlin.e_cigarette.main.base.BaseAct
 import com.skeletonkotlin.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.skeletonkotlin.e_cigarette.main.brand_list.BluAct
@@ -41,11 +41,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
     override val vm: HomeVM by viewModel()
-
     override val hasProgress: Boolean = true
 
     private lateinit var buttonAdapter: BaseRvBindingAdapter<ButtonsItem>
     private lateinit var brandAdapter: BaseRvBindingAdapter<BrandsItem>
+    private var buttonPosition = 0
 
     override fun init() {
         vm.getPortalData()
@@ -54,13 +54,13 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
         hideViews()
     }
 
-    private fun hideViews(){
+    private fun hideViews() {
         binding.tvLetsGet.isVisible = false
         binding.tvSelectYourOption.isVisible = false
         binding.ivBack.isVisible = false
     }
 
-    private fun showViews(){
+    private fun showViews() {
         binding.tvLetsGet.isVisible = true
         binding.tvSelectYourOption.isVisible = true
         binding.ivBack.isVisible = true
@@ -80,7 +80,8 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
             Layouts.raw_buttons,
             mutableListOf(),
             clickListener = ::rvButtonClickListener,
-            br = BR.data
+            br = BR.data,
+            viewHolder = ::onBindViewHolder
         )
         binding.rvButtonList.adapter = buttonAdapter
     }
@@ -117,6 +118,14 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
             TESTIMONIALS -> {
                 startActivity(Intent(this, TestimonialsAct::class.java))
             }
+        }
+    }
+
+    private fun onBindViewHolder(holder: RecyclerView.ViewHolder, pos: Int) {
+        if (pos == buttonPosition) {
+            val params = holder.itemView.layoutParams as RecyclerView.LayoutParams
+            params.bottomMargin = 30
+            holder.itemView.layoutParams = params
         }
     }
 

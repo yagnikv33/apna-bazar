@@ -25,9 +25,10 @@
         android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.8"
         app:use_controller="false"
+        app:resize_mode="fill"
         app:show_shuffle_button="false"
-        app:layout_constraintDimensionRatio="@string/exo_controls_fullscreen_enter_description"
         app:layout_constraintBottom_toTopOf="@+id/tv_to_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,15 +39,18 @@
     <TextView
         android:id="@+id/tv_to_home"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
-        android:textAllCaps="true"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:textSize="@dimen/_30sdp"
         android:onClick="@{click::onClick}"
+        android:textAllCaps="true"
         android:textColor="@color/white"
+        android:textSize="@dimen/_30sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:visibility="@{progress ? View.VISIBLE : View.GONE}"

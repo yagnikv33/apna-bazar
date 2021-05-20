@@ -78,6 +78,7 @@ class SplashScreenAct :
     }
 
     private fun initializePlayer() {
+        player?.volume = 0f
 
         val trackSelector = DefaultTrackSelector(this)
         trackSelector.setParameters(trackSelector.buildUponParameters().setMaxVideoSizeSd())
@@ -100,7 +101,7 @@ class SplashScreenAct :
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer();
+            initializePlayer()
         }
     }
 
@@ -108,7 +109,7 @@ class SplashScreenAct :
         super.onResume()
         hideSystemUi()
         if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer();
+            initializePlayer()
         }
     }
 
@@ -124,15 +125,22 @@ class SplashScreenAct :
     override fun onPause() {
         super.onPause()
         if (Util.SDK_INT < 24) {
-            releasePlayer();
+            releasePlayer()
+            player?.stop()
         }
     }
 
     override fun onStop() {
         super.onStop()
         if (Util.SDK_INT >= 24) {
-            releasePlayer();
+            releasePlayer()
+            player?.stop()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player?.stop()
     }
 
     private fun releasePlayer() {

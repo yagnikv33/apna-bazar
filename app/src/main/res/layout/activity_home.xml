@@ -20,120 +20,110 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="horizontal"
             tools:context=".e_cigarette.main.home.HomeAct">
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_button_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:ignore="NestedWeights" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="@dimen/_240sdp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_button_list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintWidth_percent="0.5"
+                tools:ignore="NestedWeights" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_brand_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_26sdp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_22sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_button_list"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/progressBar3"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/rv_button_list"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintWidth_percent="0.5">
 
-                <ProgressBar
-                    android:id="@+id/progressBar3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_brand_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_26sdp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="@+id/rv_button_list"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/rv_button_list"
-                    app:layout_constraintTop_toTopOf="@+id/rv_button_list"
-                    app:layout_constraintVertical_bias="0.0">
+            <TextView
+                android:id="@+id/tv_lets_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/tv_lets"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rv_button_list"
+                app:layout_constraintTop_toBottomOf="@+id/rv_brand_list"
+                app:layout_constraintVertical_bias="0.0" />
 
-                </androidx.recyclerview.widget.RecyclerView>
+            <TextView
+                android:id="@+id/tv_select_your_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"
+                android:text="@string/tv_select"
+                android:textColor="@color/black_20"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_lets_get"
+                app:layout_constraintStart_toStartOf="@+id/tv_lets_get"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lets_get"
+                app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:id="@+id/tv_lets_get"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:gravity="center"
-                    android:text="@string/tv_lets"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="24dp"
+                android:onClick="@{click::onClick}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_select_your_option"
+                app:layout_constraintStart_toStartOf="@+id/tv_select_your_option"
+                app:layout_constraintTop_toBottomOf="@+id/tv_select_your_option"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/left_arrow" />
 
-                <TextView
-                    android:id="@+id/tv_select_your_option"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:gravity="center"
-                    android:text="@string/tv_select"
-                    android:textColor="@color/black_20"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_lets_get"
-                    app:layout_constraintStart_toStartOf="@+id/tv_lets_get"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_lets_get" />
+            <ProgressBar
+                android:id="@+id/progressBar3"
+                android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:onClick="@{click::onClick}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_select_your_option"
-                    app:layout_constraintStart_toStartOf="@+id/tv_select_your_option"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_select_your_option"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/left_arrow" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
