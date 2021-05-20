@@ -15,7 +15,6 @@ import com.skeletonkotlin.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED
 import com.skeletonkotlin.BR
 import com.skeletonkotlin.R
 import com.skeletonkotlin.e_cigarette.Styles
-import com.skeletonkotlin.e_cigarette.helper.util.LocationFetchUtil
 import com.skeletonkotlin.e_cigarette.helper.util.PrefUtil
 import com.skeletonkotlin.e_cigarette.helper.util.ToastUtil
 import com.skeletonkotlin.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
@@ -31,7 +30,6 @@ abstract class BaseDialFrag<binding : ViewDataBinding, VM : BaseVM> : DialogFrag
 
     protected lateinit var binding: binding
     protected val prefs by inject<PrefUtil>()
-    protected var locationFetchUtil: LocationFetchUtil? = null
     protected var freedom: Freedom? = null
 
     protected abstract val layoutId: Int
@@ -173,22 +171,6 @@ abstract class BaseDialFrag<binding : ViewDataBinding, VM : BaseVM> : DialogFrag
             delay(millis)
             executable.invoke()
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        locationFetchUtil?.onActivityResult(requestCode, resultCode, data)
-        freedom?.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        locationFetchUtil?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        freedom?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onClick(v: View) {

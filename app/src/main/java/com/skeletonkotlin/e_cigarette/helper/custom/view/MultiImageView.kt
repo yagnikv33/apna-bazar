@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import java.util.*
 
-class MultiImageView(context: Context, attrs: AttributeSet) : ImageView(context, attrs) {
+class MultiImageView(context: Context, attrs: AttributeSet) : androidx.appcompat.widget.AppCompatImageView(context, attrs) {
     //Shape of view
     var shape = Shape.NONE
         set(value) {

@@ -1,6 +1,5 @@
 package com.skeletonkotlin.e_cigarette.main.home
 
-import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -55,15 +54,19 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
     }
 
     private fun hideViews() {
-        binding.tvLetsGet.isVisible = false
-        binding.tvSelectYourOption.isVisible = false
-        binding.ivBack.isVisible = false
+        binding.apply {
+            tvLetsGet.isVisible = false
+            tvSelectYourOption.isVisible = false
+            ivBack.isVisible = false
+        }
     }
 
     private fun showViews() {
-        binding.tvLetsGet.isVisible = true
-        binding.tvSelectYourOption.isVisible = true
-        binding.ivBack.isVisible = true
+        binding.apply {
+            tvLetsGet.isVisible = true
+            tvSelectYourOption.isVisible = true
+            ivBack.isVisible = true
+        }
     }
 
     override fun onClick(v: View) {
@@ -98,25 +101,25 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
     private fun rvButtonClickListener(v: View, item: ButtonsItem, pos: Int) {
         vm.portalData.value?.id = item.id
-        onButtonClick(vm.portalData.value?.id)
+        onButtonClick(pos)
     }
 
-    private fun onButtonClick(id: String?) {
-        when (id) {
+    private fun onButtonClick(pos: Int?) {
+        when (pos) {
             PERSONALISE_VAPE -> {
-                startActivity(Intent(this, PersonaliseVapeAct::class.java))
+                startActivity(PersonaliseVapeAct::class.java, null, null, shouldAnimate = true)
             }
             OUR_BRANDS -> {
-                startActivity(Intent(this, OurBrandsAct::class.java))
+                startActivity(OurBrandsAct::class.java, null, null, shouldAnimate = true)
             }
             WHAT_IS_VAPING -> {
-                startActivity(Intent(this, VapingAct::class.java))
+                startActivity(VapingAct::class.java, null, null, shouldAnimate = true)
             }
             SAVING_CALCULATOR -> {
-                startActivity(Intent(this, SavingCalcAct::class.java))
+                startActivity(SavingCalcAct::class.java, null, null, shouldAnimate = true)
             }
             TESTIMONIALS -> {
-                startActivity(Intent(this, TestimonialsAct::class.java))
+                startActivity(TestimonialsAct::class.java, null, null, shouldAnimate = true)
             }
         }
     }
@@ -131,22 +134,22 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
     private fun rvBrandClickListener(v: View, item: BrandsItem, pos: Int) {
         vm.portalData.value?.id = item.id
-        onBrandClick(vm.portalData.value?.id)
+        onBrandClick(pos)
     }
 
-    private fun onBrandClick(id: String?) {
-        when (id) {
+    private fun onBrandClick(pos: Int?) {
+        when (pos) {
             VAMPIRE_VAPE -> {
-                startActivity(Intent(this, VampireVapeAct::class.java))
+                startActivity(VampireVapeAct::class.java, null, null, shouldAnimate = true)
             }
             LOGIC -> {
-                startActivity(Intent(this, LogicAct::class.java))
+                startActivity(LogicAct::class.java, null, null, shouldAnimate = true)
             }
             BLU -> {
-                startActivity(Intent(this, BluAct::class.java))
+                startActivity(BluAct::class.java, null, null, shouldAnimate = true)
             }
             VYPE -> {
-                startActivity(Intent(this, VypeAct::class.java))
+                startActivity(VypeAct::class.java, null, null, shouldAnimate = true)
             }
             TOTALLY_WICKED -> {
             }

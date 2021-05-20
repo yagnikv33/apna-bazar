@@ -10,12 +10,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.text.*
-import com.google.firebase.iid.FirebaseInstanceId
 import com.skeletonkotlin.e_cigarette.Colors
 import com.skeletonkotlin.e_cigarette.Layouts
 import com.skeletonkotlin.databinding.MainActBinding
-import com.skeletonkotlin.e_cigarette.helper.util.LocationFetchUtil
-import com.skeletonkotlin.e_cigarette.helper.util.MiscUtil.bgExecutor
 import com.skeletonkotlin.e_cigarette.helper.util.logE
 import com.skeletonkotlin.e_cigarette.main.base.BaseAct
 import com.skeletonkotlin.e_cigarette.main.common.ApiRenderState
@@ -44,18 +41,6 @@ class MainAct : BaseAct<MainActBinding, MainActVM>(Layouts.act_main/*, FragFacto
 
         prefs.authToken = "s"
 
-        //location fetch
-        locationFetchUtil = LocationFetchUtil(this@MainAct,
-            shouldRequestPermissions = true,
-            shouldRequestOptimization = true,
-            callbacks = object : LocationFetchUtil.Callbacks {
-                override fun onSuccess(location: Location) {
-                }
-
-                override fun onFailed(locationFailedEnum: LocationFetchUtil.LocationFailedEnum) {
-                }
-            })
-
         binding.tv.text = buildSpannedString {
             bold { append("hi") }
             underline { append(" how are you ") }
@@ -77,19 +62,6 @@ class MainAct : BaseAct<MainActBinding, MainActVM>(Layouts.act_main/*, FragFacto
          * added for click to work
          */
         binding.tv.movementMethod = LinkMovementMethod.getInstance()
-    }
-
-    private fun getFcmToken() {
-        bgExecutor(this, executable = {
-            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { result ->
-                if (result.token.isEmpty())
-                //handle error
-                else {
-                    prefs.fcmToken = result.token
-                    //send in api
-                }
-            }
-        })
     }
 
     override fun onClick(v: View) {

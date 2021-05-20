@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.EditText
 
-class CustomEditText : EditText {
+class CustomEditText : androidx.appcompat.widget.AppCompatEditText {
 
     private var drawableRight: Drawable? = null
     private var drawableLeft: Drawable? = null

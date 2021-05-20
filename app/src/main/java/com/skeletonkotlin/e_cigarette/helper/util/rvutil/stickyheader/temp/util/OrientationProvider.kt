@@ -1,4 +1,4 @@
-package com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util
+package com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util
 
 /**
  * Interface for getting the orientation of a RecyclerView from its LayoutManager

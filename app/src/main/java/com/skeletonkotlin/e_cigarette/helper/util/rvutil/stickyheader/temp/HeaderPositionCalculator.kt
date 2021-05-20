@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.caching.HeaderProvider
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.calculation.DimensionCalculator
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util.OrientationProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.caching.HeaderProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.calculation.DimensionCalculator
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util.OrientationProvider
 
 /**
  * Calculates the position and location of header views

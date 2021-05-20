@@ -24,10 +24,4 @@ class MainActVM(private val repo: MainActRepo) : BaseVM() {
             }
         }
     }
-
-    fun insertData() {
-        scope {
-            repo.insertData()
-        }
-    }
 }

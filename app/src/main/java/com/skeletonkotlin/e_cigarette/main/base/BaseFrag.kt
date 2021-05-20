@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import com.skeletonkotlin.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED_CODE
 import com.skeletonkotlin.BR
 import com.skeletonkotlin.R
-import com.skeletonkotlin.e_cigarette.helper.util.LocationFetchUtil
 import com.skeletonkotlin.e_cigarette.helper.util.PrefUtil
 import com.skeletonkotlin.e_cigarette.helper.util.ToastUtil
 import com.skeletonkotlin.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
@@ -34,7 +33,6 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
 
     protected val prefs by inject<PrefUtil>()
 
-    protected var locationFetchUtil: LocationFetchUtil? = null
     protected var freedom: Freedom? = null
 
     private var progress: ObservableField<Boolean>? = null
@@ -248,23 +246,6 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
             executable.invoke()
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        locationFetchUtil?.onActivityResult(requestCode, resultCode, data)
-        freedom?.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        locationFetchUtil?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        freedom?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
     override fun onClick(v: View) {
 
     }

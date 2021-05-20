@@ -1,5 +1,7 @@
 package com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util
 
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util.OrientationProvider
+
 /**
  * OrientationProvider for ReyclerViews who use a LinearLayoutManager
  */

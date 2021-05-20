@@ -1,6 +1,5 @@
 package com.skeletonkotlin.e_cigarette.main.entrymodule.view
 
-import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -8,9 +7,6 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.util.Log
-import com.google.android.exoplayer2.util.Util
 import com.skeletonkotlin.databinding.ActivitySplashScreenBinding
 import com.skeletonkotlin.e_cigarette.Layouts
 import com.skeletonkotlin.e_cigarette.data.model.response.SplashResponse
@@ -24,20 +20,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SplashScreenAct :
     BaseAct<ActivitySplashScreenBinding, EntryVM>(Layouts.activity_splash_screen) {
 
-    var playerView: PlayerView? = null
-    private var player: SimpleExoPlayer? = null
-    private var playWhenReady = true
-    private var currentWindow = 0
-    private var playbackPosition: Long = 0
-
     override val vm: EntryVM by viewModel()
-
     override val hasProgress: Boolean = true
+
+    private var player: SimpleExoPlayer? = null
 
     override fun init() {
         vm.getSplashScreenData()
         initListeners()
-        playerView = binding.playerView
         initializePlayer()
     }
 
@@ -45,7 +35,7 @@ class SplashScreenAct :
         super.onClick(v)
         when (v) {
             binding.tvToHome -> {
-                startActivity(Intent(application, HomeAct::class.java))
+                startActivity(HomeAct::class.java, null, null, true)
                 finish()
             }
         }
@@ -78,7 +68,6 @@ class SplashScreenAct :
     }
 
     private fun initializePlayer() {
-        player?.volume = 0f
 
         val trackSelector = DefaultTrackSelector(this)
         trackSelector.setParameters(trackSelector.buildUponParameters().setMaxVideoSizeSd())
@@ -87,34 +76,31 @@ class SplashScreenAct :
             .setTrackSelector(trackSelector)
             .build()
 
-        playerView!!.player = player
+        binding.playerView.player = player
 
         val mediaItem: MediaItem = vm.splashData.value?.data?.video.let { MediaItem.fromUri(it!!) }
-        "Video: ${vm.splashData.value?.data?.video}"
-        player!!.setMediaItem(mediaItem)
 
-        player?.playWhenReady = playWhenReady
-        player?.seekTo(currentWindow, playbackPosition)
-        player?.prepare()
+        player?.apply{
+            setMediaItem(mediaItem)
+            playWhenReady = true
+            prepare()
+            volume = 0f
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT >= 24) {
-            initializePlayer()
-        }
+        initializePlayer()
     }
 
     override fun onResume() {
         super.onResume()
         hideSystemUi()
-        if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer()
-        }
+        initializePlayer()
     }
 
     private fun hideSystemUi() {
-        playerView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        binding.playerView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -124,18 +110,14 @@ class SplashScreenAct :
 
     override fun onPause() {
         super.onPause()
-        if (Util.SDK_INT < 24) {
-            releasePlayer()
-            player?.stop()
-        }
+        releasePlayer()
+        player?.stop()
     }
 
     override fun onStop() {
         super.onStop()
-        if (Util.SDK_INT >= 24) {
-            releasePlayer()
-            player?.stop()
-        }
+        releasePlayer()
+        player?.stop()
     }
 
     override fun onDestroy() {
@@ -145,9 +127,6 @@ class SplashScreenAct :
 
     private fun releasePlayer() {
         if (player != null) {
-            playWhenReady = player?.playWhenReady!!
-            playbackPosition = player?.currentPosition!!
-            currentWindow = player!!.currentWindowIndex
             player!!.release()
             player = null
         }

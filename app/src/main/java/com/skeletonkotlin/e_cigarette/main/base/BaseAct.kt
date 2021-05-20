@@ -14,14 +14,10 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
-import com.skeletonkotlin.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED_CODE
-import com.skeletonkotlin.e_cigarette.AppConstants.Communication.BundleData.IS_UNAUTHORISED
 import com.skeletonkotlin.BR
 import com.skeletonkotlin.R
-import com.skeletonkotlin.e_cigarette.helper.util.LocationFetchUtil
-import com.skeletonkotlin.e_cigarette.helper.util.PrefUtil
-import com.skeletonkotlin.e_cigarette.helper.util.ToastUtil
-import com.skeletonkotlin.e_cigarette.helper.util.hideSoftKeyboard
+import com.skeletonkotlin.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED_CODE
+import com.skeletonkotlin.e_cigarette.AppConstants.Communication.BundleData.IS_UNAUTHORISED
 import com.skeletonkotlin.e_cigarette.helper.util.*
 import com.skeletonkotlin.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.skeletonkotlin.e_cigarette.main.common.ApiRenderState
@@ -38,7 +34,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
 
     protected val prefs by inject<PrefUtil>()
     protected lateinit var binding: binding
-    protected var locationFetchUtil: LocationFetchUtil? = null
     protected var freedom: Freedom? = null
     private var progress: ObservableField<Boolean>? = null
 
@@ -269,22 +264,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
             popFrag()
         else
             finishAct()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        locationFetchUtil?.onActivityResult(requestCode, resultCode, data)
-        freedom?.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        locationFetchUtil?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        freedom?.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun isApplicationInBackground(): Boolean {

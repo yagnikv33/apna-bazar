@@ -1,10 +1,10 @@
-package com.eastmeeteast.helper.recyclerViewUtil.sticky_header.caching
+package com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.caching
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.StickyRecyclerHeadersAdapter
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util.OrientationProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util.OrientationProvider
 
 /**
  * An implementation of [HeaderProvider] that creates and caches header views

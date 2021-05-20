@@ -5,12 +5,12 @@ import android.graphics.Rect
 import android.util.SparseArray
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.caching.HeaderProvider
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.caching.HeaderViewCache
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.calculation.DimensionCalculator
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.rendering.HeaderRenderer
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.caching.HeaderProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.caching.HeaderViewCache
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.calculation.DimensionCalculator
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.rendering.HeaderRenderer
 import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util.LinearLayoutOrientationProvider
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util.OrientationProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util.OrientationProvider
 
 class StickyRecyclerHeadersDecoration private constructor(
     private val mAdapter: StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>,

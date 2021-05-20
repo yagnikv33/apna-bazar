@@ -4,22 +4,22 @@ class AppConstants {
 
     object App {
         object Buttons {
-            const val PERSONALISE_VAPE = "XoOcELl3"
-            const val OUR_BRANDS = "SsWZFFHf"
-            const val WHAT_IS_VAPING = "CyvHhRuT"
-            const val SAVING_CALCULATOR = "9jexWf0h"
-            const val TESTIMONIALS = "OYf9cupC"
+            const val PERSONALISE_VAPE = 0
+            const val OUR_BRANDS = 1
+            const val WHAT_IS_VAPING = 2
+            const val SAVING_CALCULATOR = 3
+            const val TESTIMONIALS = 4
         }
 
         object Brands {
-            const val VAMPIRE_VAPE = "1VomcQMR"
-            const val LOGIC = "ytuXNxrF"
-            const val BLU = "beBoAx6P"
-            const val VYPE = "dNJYw6ge"
-            const val TOTALLY_WICKED ="4ZHSfMi5"
-            const val JUUL ="qzavFobQ"
-            const val AQUA_VAPE ="wRZd2pNf"
-            const val VAPOURIZE ="SXRSX8Oh"
+            const val VAMPIRE_VAPE = 0
+            const val LOGIC = 1
+            const val BLU = 2
+            const val VYPE = 3
+            const val TOTALLY_WICKED = 4
+            const val JUUL = 5
+            const val AQUA_VAPE = 6
+            const val VAPOURIZE = 7
         }
     }
 

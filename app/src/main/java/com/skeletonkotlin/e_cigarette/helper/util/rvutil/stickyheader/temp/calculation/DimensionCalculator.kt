@@ -1,4 +1,4 @@
-package com.eastmeeteast.helper.recyclerViewUtil.sticky_header.calculation
+package com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.calculation
 
 import android.graphics.Rect
 import android.view.View

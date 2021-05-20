@@ -26,8 +26,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.gson.Gson
 import com.skeletonkotlin.e_cigarette.Styles
 import com.skeletonkotlin.e_cigarette.helper.util.MiscUtil.throttleFirst
@@ -155,28 +153,6 @@ object MiscUtil {
 
     fun getInstalledLanguages(): LocaleListCompat {
         return ConfigurationCompat.getLocales(Resources.getSystem().configuration)
-    }
-
-    fun arePlayServicesAvailable(act: Activity, reqCode: Int): Boolean {
-        val googleApiAvailability = GoogleApiAvailability.getInstance()
-        val status = googleApiAvailability.isGooglePlayServicesAvailable(act)
-        if (status != ConnectionResult.SUCCESS) {
-            if (googleApiAvailability.isUserResolvableError(status)) {
-                googleApiAvailability.getErrorDialog(act, status, reqCode).show()
-            }
-            return false
-        }
-        return true
-    }
-
-    fun bgExecutor(
-        lifecycleOwner: LifecycleOwner,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO,
-        executable: suspend () -> Unit
-    ): Job {
-        return lifecycleOwner.lifecycleScope.launch(dispatcher) {
-            executable.invoke()
-        }
     }
 
     fun <T> throttleLatest(

@@ -30,7 +30,7 @@
             android:id="@+id/tv"
             style="@style/TextViewStyle"
             android:onClick="@{click::onClick}"
-            android:text="@string/app_name"
+            android:text="@string/appbar_scrolling_view_behavior"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,6 @@
             android:id="@+id/et"
             style="@style/EditTextStyle"
             android:layout_marginTop="@dimen/_5dp"
-            android:hint="@string/app_name"
             android:text="@={vm.emailData}"
             app:layout_constraintStart_toStartOf="@+id/tv"
             app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -54,7 +53,6 @@
             android:id="@+id/cb"
             style="@style/CheckButtonStyle"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="@string/app_name"
             app:layout_constraintStart_toStartOf="@+id/tv"
             app:layout_constraintTop_toBottomOf="@+id/et" />
 
@@ -62,7 +60,6 @@
             android:id="@+id/rb"
             style="@style/CheckButtonStyle"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="@string/app_name"
             app:layout_constraintStart_toStartOf="@+id/tv"
             app:layout_constraintTop_toBottomOf="@+id/cb" />
 

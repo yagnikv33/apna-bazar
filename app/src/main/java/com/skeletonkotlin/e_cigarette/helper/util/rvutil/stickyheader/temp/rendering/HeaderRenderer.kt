@@ -1,11 +1,11 @@
-package com.eastmeeteast.helper.recyclerViewUtil.sticky_header.rendering
+package com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.rendering
 
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.view.View
 import android.widget.LinearLayout
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.calculation.DimensionCalculator
-import com.eastmeeteast.helper.recyclerViewUtil.sticky_header.util.OrientationProvider
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.calculation.DimensionCalculator
+import com.skeletonkotlin.e_cigarette.helper.util.rvutil.stickyheader.temp.util.OrientationProvider
 
 /**
  * Responsible for drawing headers to the canvas provided by the item decoration
