@@ -10,7 +10,6 @@ class BaseVpFragAdapter(fm: FragmentManager, var arr: List<Fragment>) :
     override fun getItem(position: Int): Fragment = arr[position]
 
     override fun getCount() = arr.size
-
 }
 
 

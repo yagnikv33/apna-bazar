@@ -21,7 +21,6 @@ import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.IS_UNAUTHORIS
 import com.yudiz.e_cigarette.helper.util.*
 import com.yudiz.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.yudiz.e_cigarette.main.common.ApiRenderState
-import com.yudiz.e_cigarette.main.entrymodule.view.MainAct
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -49,7 +48,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
             lifecycleOwner = this@BaseAct
 
             vm?.let {
-                setVariable(BR.vm, it)
 
                 lifecycleScope.launch {
                     it.state().collect {
@@ -84,12 +82,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
 
     fun logout(isUnauthorised: Boolean = false) {
 
-        startActivity(
-            MainAct::class.java,
-            bundleOf(IS_UNAUTHORISED to isUnauthorised),
-            listOf(Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
-        finish()
     }
 
     fun startActivity(

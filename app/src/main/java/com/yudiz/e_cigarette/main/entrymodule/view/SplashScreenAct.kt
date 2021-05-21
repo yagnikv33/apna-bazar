@@ -14,7 +14,7 @@ import com.yudiz.e_cigarette.helper.util.logE
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.common.ApiRenderState
 import com.yudiz.e_cigarette.main.entrymodule.model.EntryVM
-import com.yudiz.e_cigarette.main.home.HomeAct
+import com.yudiz.e_cigarette.main.homemodule.HomeAct
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashScreenAct :

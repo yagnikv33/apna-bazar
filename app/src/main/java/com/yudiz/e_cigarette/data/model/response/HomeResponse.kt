@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class HomeResponse(
 
-    var id: String? = "",
-
     @field:SerializedName("data")
     val data: PortalData? = PortalData(),
 
@@ -43,5 +41,5 @@ data class BrandsItem(
     val logo: String? = "",
 
     @field:SerializedName("id")
-    val id: String? = ""
+    val id: String = ""
 )

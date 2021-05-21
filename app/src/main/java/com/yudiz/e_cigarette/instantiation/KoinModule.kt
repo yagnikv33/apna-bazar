@@ -7,13 +7,10 @@ import com.yudiz.e_cigarette.api.HeaderHttpInterceptor
 import com.yudiz.e_cigarette.api.service.EntryApiModule
 import com.yudiz.e_cigarette.api.service.HomeApiModule
 import com.yudiz.e_cigarette.helper.util.NetworkUtil
-
 import com.yudiz.e_cigarette.main.entrymodule.model.EntryVM
-import com.yudiz.e_cigarette.main.entrymodule.model.MainActVM
 import com.yudiz.e_cigarette.main.entrymodule.repo.EntryRepo
-import com.yudiz.e_cigarette.main.entrymodule.repo.MainActRepo
-import com.yudiz.e_cigarette.main.home.model.HomeVM
-import com.yudiz.e_cigarette.main.home.repo.HomeRepo
+import com.yudiz.e_cigarette.main.homemodule.model.HomeVM
+import com.yudiz.e_cigarette.main.homemodule.repo.HomeRepo
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -55,13 +52,11 @@ object KoinModule {
     }
 
     val repoModule = module {
-        factory { MainActRepo(get()) }
         factory { EntryRepo(get()) }
         factory { HomeRepo(get()) }
     }
 
     val vmModule = module {
-        viewModel { MainActVM(get()) }
         viewModel { EntryVM(get()) }
         viewModel { HomeVM(get()) }
     }

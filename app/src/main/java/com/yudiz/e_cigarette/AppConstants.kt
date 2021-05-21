@@ -11,16 +11,6 @@ class AppConstants {
             const val TESTIMONIALS = 4
         }
 
-        object Brands {
-            const val VAMPIRE_VAPE = 0
-            const val LOGIC = 1
-            const val BLU = 2
-            const val VYPE = 3
-            const val TOTALLY_WICKED = 4
-            const val JUUL = 5
-            const val AQUA_VAPE = 6
-            const val VAPOURIZE = 7
-        }
     }
 
     object Communication {
@@ -52,6 +42,7 @@ class AppConstants {
             const val SIGN_UP = "signup"
             const val HOME = "home"
             const val PORTAL = "portal"
+            const val BRAND_DETAIL = "brand-detail"
         }
 
         object Value {

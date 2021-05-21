@@ -56,7 +56,6 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
         binding = DataBindingUtil.inflate<binding>(inflater, layoutId, container, false).apply {
             lifecycleOwner = this@BaseFrag
             vm?.let {
-                setVariable(BR.vm, it)
 
                 lifecycleScope.launch {
                     it.state().collect {

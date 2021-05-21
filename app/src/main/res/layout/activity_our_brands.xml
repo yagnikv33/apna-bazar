@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".e_cigarette.main.our_brands.OurBrandsAct">
+        tools:context=".e_cigarette.main.categorymodule.our_brands.OurBrandsAct">
 
         <TextView
             android:id="@+id/textView2"
