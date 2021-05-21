@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.skeletonkotlin">
+    package="com.yudiz">
 
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- bluetooth -->
-    <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
-    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
-    <!-- location -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".e_cigarette.App"
+        android:name="com.yudiz.e_cigarette.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
@@ -28,24 +18,24 @@
         tools:replace="android:label"
         tools:targetApi="n">
 
-        <activity android:name=".e_cigarette.main.brand_list.VypeAct" />
-        <activity android:name=".e_cigarette.main.brand_list.BluAct" />
-        <activity android:name=".e_cigarette.main.brand_list.LogicAct" />
-        <activity android:name=".e_cigarette.main.brand_list.VampireVapeAct" />
-        <activity android:name=".e_cigarette.main.testimonials.TestimonialsAct" />
-        <activity android:name=".e_cigarette.main.saving_calc.SavingCalcAct" />
-        <activity android:name=".e_cigarette.main.vaping.VapingAct" />
-        <activity android:name=".e_cigarette.main.our_brands.OurBrandsAct" />
-        <activity android:name=".e_cigarette.main.personalise_vape.PersonaliseVapeAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.brand_list.VypeAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.brand_list.BluAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.brand_list.LogicAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.brand_list.VampireVapeAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.testimonials.TestimonialsAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.saving_calc.SavingCalcAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.vaping.VapingAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.our_brands.OurBrandsAct" />
+        <activity android:name="com.yudiz.e_cigarette.main.personalise_vape.PersonaliseVapeAct" />
 
         <activity
-            android:name=".e_cigarette.main.home.HomeAct"
+            android:name="com.yudiz.e_cigarette.main.home.HomeAct"
             android:screenOrientation="landscape">
 
         </activity>
 
         <activity
-            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
+            android:name="com.yudiz.e_cigarette.main.entrymodule.view.SplashScreenAct"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,26 +46,8 @@
         </activity>
 
         <activity
-            android:name=".e_cigarette.main.entrymodule.view.MainAct"
+            android:name="com.yudiz.e_cigarette.main.entrymodule.view.MainAct"
             android:screenOrientation="landscape" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
     </application>
 
 </manifest>

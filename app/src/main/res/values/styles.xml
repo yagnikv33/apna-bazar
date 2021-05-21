@@ -22,47 +22,11 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-    <style name="MaterialDialogStyle" parent="@style/Theme.MaterialComponents.Light.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textViewStyle">@style/MaterialDialogTextStyle</item>
-        <item name="android:windowTitleStyle">@style/MaterialDialogTextStyle</item>
-    </style>
-
-    <style name="MaterialDialogTextStyle" parent="@android:style/Widget.Material.TextView">
-        <item name="android:textAppearance">@style/MaterialDialogFontStyle</item>
-    </style>
-
-    <style name="MaterialDialogFontStyle" parent="@style/TextAppearance.AppCompat.Title">
-        <!--<item name="android:fontFamily">@font/regular</item>-->
-    </style>
-
     <style name="DialogStyle" parent="Theme.Transparent">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 <!--        <item name="android:windowTranslucentStatus">true</item>-->
 <!--        <item name="android:windowEnterAnimation">@anim/slide_up</item>-->
 <!--        <item name="android:windowExitAnimation">@anim/slide_down</item>-->
-    </style>
-
-    <style name="DialogBodyStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/dialog_padding</item>
-        <item name="android:layout_marginEnd">@dimen/dialog_padding</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-    </style>
-
-    <style name="FullScreenTheme" parent="AppTheme">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">
-            shortEdges
-        </item>
     </style>
 
     <style name="TextViewStyle">
@@ -85,25 +49,6 @@
         <!--<item name="android:singleLine">true</item>-->
         <!--<item name="android:maxLines">1</item>-->
         <!--<item name="android:backgroundTint">@color/any</item>-->
-    </style>
-
-    <style name="RecyclerViewViewStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:overScrollMode">never</item>
-        <item name="android:splitMotionEvents">false</item>
-        <item name="android:clipToPadding">false</item>
-    </style>
-
-    <style name="LinearLayoutStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="FrameLayoutStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="ConstraintLayoutStyle">
@@ -131,53 +76,6 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="VerticalSpaceStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="HorizontalSpaceStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="CardViewStyle" parent="CardView">
-        <item name="cardCornerRadius">@dimen/_10sp</item>
-        <item name="cardPreventCornerOverlap">false</item>
-        <item name="cardUseCompatPadding">false</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="ScrollViewStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:scrollbars">none</item>
-        <item name="android:overScrollMode">ifContentScrolls</item>
-        <item name="android:fillViewport">true</item>
-    </style>
-
-    <style name="ExoMediaButton.Previous">
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="ExoMediaButton.Next">
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="ExoStyledControls.Button">
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="btnStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">@dimen/_280dp</item>
-        <item name="android:layout_height">@dimen/_45dp</item>
-        <item name="android:layout_marginStart">@dimen/_6sdp</item>
-        <item name="cornerRadius">@dimen/_8sdp</item>
     </style>
 
     <style name="CircularImage">

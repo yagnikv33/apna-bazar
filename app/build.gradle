@@ -9,7 +9,7 @@ android {
         def vCode = 1
         def vName = "1.0.0"
 
-        applicationId "com.skeleton.e_cigarette"
+        applicationId "com.yudiz.e_cigarette"
 
         minSdkVersion 23
         compileSdkVersion 29
@@ -86,23 +86,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-
-
-
-    //compressor
-    implementation 'id.zelory:compressor:2.1.0'
-
-    //memory leak detection
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
-
-    //image picker
-    implementation 'com.github.jkwiecien:EasyImage:3.0.3'
-
-    //security
-    implementation 'androidx.security:security-crypto:1.1.0-alpha02'
-
-    //permission
-    implementation 'com.github.smokelaboratory:freedom:1.0.0'
 
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'

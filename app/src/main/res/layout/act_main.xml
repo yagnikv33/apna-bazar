@@ -16,7 +16,7 @@
 
         <variable
             name="vm"
-            type="com.skeletonkotlin.e_cigarette.main.entrymodule.model.MainActVM" />
+            type="com.yudiz.e_cigarette.main.entrymodule.model.MainActVM" />
 
         <variable
             name="click"

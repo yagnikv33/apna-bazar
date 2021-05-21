@@ -15,7 +15,7 @@
 
         <variable
             name="data"
-            type="com.skeletonkotlin.e_cigarette.data.model.response.ButtonsItem" />
+            type="com.yudiz.e_cigarette.data.model.response.ButtonsItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
