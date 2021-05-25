@@ -1,7 +1,8 @@
+
 package com.yudiz.e_cigarette.data.model.response
 
 import com.google.gson.annotations.SerializedName
-
+/*
 data class BrandDetailResponse(
 
     @field:SerializedName("data")
@@ -14,7 +15,7 @@ data class BrandDetailResponse(
 data class BrandData(
 
     @field:SerializedName("juices")
-    val juices: List<JuicesItem?>? = null,
+    val juices: List<JuicesItem>? = null,
 
     @field:SerializedName("ads")
     val ads: String? = null,
@@ -70,3 +71,4 @@ data class HardwareItem(
     @field:SerializedName("label")
     val label: String? = null
 )
+*/

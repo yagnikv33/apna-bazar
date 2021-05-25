@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
 import androidx.databinding.ViewDataBinding
@@ -16,10 +15,7 @@ import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
 import com.yudiz.BR
 import com.yudiz.R
-import com.yudiz.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED_CODE
-import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.IS_UNAUTHORISED
 import com.yudiz.e_cigarette.helper.util.*
-import com.yudiz.e_cigarette.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.yudiz.e_cigarette.main.common.ApiRenderState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -55,19 +51,7 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
                     }
                 }
 
-                lifecycleScope.launch {
-                    it.apiError.collect {
-                        if (it.resCode == UNAUTHORIZED_CODE)
-                            logout(true)
-                        else
-                            if (it.resultType != CANCELLED) {
-                                hideProgress()
-                                it.error?.let {
-                                    errorToast(it)
-                                }
-                            }
-                    }
-                }
+
             }
             setVariable(BR.click, this@BaseAct)
 
@@ -78,10 +62,6 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
         }
 
         init()
-    }
-
-    fun logout(isUnauthorised: Boolean = false) {
-
     }
 
     fun startActivity(

@@ -9,23 +9,15 @@ class AppConstants {
             const val WHAT_IS_VAPING = 2
             const val SAVING_CALCULATOR = 3
             const val TESTIMONIALS = 4
+
         }
 
     }
 
     object Communication {
 
-        object RequestCode {
-
-        }
-
-        object ResponseCode {
-
-        }
-
         object BundleData {
-            const val MAIN_ACT_HEADING = "1"
-            const val IS_UNAUTHORISED = "2"
+            const val BRAND_ITEM_ID = "1"
         }
     }
 
@@ -38,8 +30,6 @@ class AppConstants {
         }
 
         object EndUrl {
-            const val LOGIN = "login"
-            const val SIGN_UP = "signup"
             const val HOME = "home"
             const val PORTAL = "portal"
             const val BRAND_DETAIL = "brand-detail"
@@ -47,6 +37,8 @@ class AppConstants {
 
         object Value {
             const val COMPANY_ID = "rR6lWnPC"
+            const val TYPE_VIDEO = "video/webm"
+            const val TYPE_IMAGE = "image/jpeg"
         }
     }
 }

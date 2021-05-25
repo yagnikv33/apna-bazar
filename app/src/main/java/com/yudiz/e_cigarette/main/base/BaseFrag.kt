@@ -62,21 +62,6 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
                         renderState(it)
                     }
                 }
-
-                lifecycleScope.launch {
-                    it.apiError.collect {
-                        if (it.resCode == UNAUTHORIZED_CODE)
-                            (requireActivity() as BaseAct<ViewDataBinding, BaseVM>).logout(true)
-
-                        else
-                            if (it.resultType != CANCELLED) {
-                                hideProgress()
-                                it.error?.let {
-                                    errorToast(it)
-                                }
-                            }
-                    }
-                }
             }
             setVariable(BR.click, this@BaseFrag)
         }

@@ -7,7 +7,6 @@
 
     <application
         android:name=".e_cigarette.App"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:largeHeap="true"
@@ -17,7 +16,10 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
-        <activity android:name=".e_cigarette.main.brand_listmodule.BrandsDetailAct"></activity>
+
+        <activity
+            android:name=".e_cigarette.main.brand_listmodule.BrandsDetailAct"
+            android:screenOrientation="landscape" />
         <activity android:name=".e_cigarette.main.categorymodule.testimonials.TestimonialsAct" />
         <activity android:name=".e_cigarette.main.categorymodule.saving_calc.SavingCalcAct" />
         <activity android:name=".e_cigarette.main.categorymodule.vaping.VapingAct" />
@@ -25,7 +27,9 @@
         <activity android:name=".e_cigarette.main.categorymodule.personalise_vape.PersonaliseVapeAct" />
         <activity
             android:name=".e_cigarette.main.homemodule.HomeAct"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" >
+
+        </activity>
         <activity
             android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
             android:screenOrientation="landscape">

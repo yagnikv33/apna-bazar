@@ -1,5 +1,6 @@
 package com.yudiz.e_cigarette.main.homemodule
 
+import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.yudiz.e_cigarette.AppConstants.App.Buttons.PERSONALISE_VAPE
 import com.yudiz.e_cigarette.AppConstants.App.Buttons.SAVING_CALCULATOR
 import com.yudiz.e_cigarette.AppConstants.App.Buttons.TESTIMONIALS
 import com.yudiz.e_cigarette.AppConstants.App.Buttons.WHAT_IS_VAPING
+import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BRAND_ITEM_ID
 import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandsItem
 import com.yudiz.e_cigarette.data.model.response.ButtonsItem
@@ -116,14 +118,18 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
     private fun onBindViewHolder(holder: RecyclerView.ViewHolder, pos: Int) {
         if (pos == buttonPosition) {
             val params = holder.itemView.layoutParams as RecyclerView.LayoutParams
-            params.bottomMargin = 30
+            params.bottomMargin = 43
+            params.height = 250
             holder.itemView.layoutParams = params
         }
     }
 
     private fun rvBrandClickListener(v: View, item: BrandsItem, pos: Int) {
-        vm.getBrandData(item.id)
-        startActivity(BrandsDetailAct::class.java, null, null, true)
+
+        val idBundle = Bundle().apply {
+            this.putSerializable(BRAND_ITEM_ID, item.id)
+        }
+        startActivity(BrandsDetailAct::class.java, bundle = idBundle, null, true)
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
