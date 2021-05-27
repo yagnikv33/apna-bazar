@@ -15,6 +15,7 @@ import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandItemResponse
 import com.yudiz.e_cigarette.data.model.response.Juice
 import com.yudiz.e_cigarette.helper.util.logE
+import com.yudiz.e_cigarette.helper.util.rvutil.RvUtil
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.common.ApiRenderState
@@ -30,6 +31,7 @@ class BrandsDetailAct :
 
     private lateinit var brandAdapter: BaseRvBindingAdapter<Juice>
     private var player: SimpleExoPlayer? = null
+    lateinit var rvUtil: RvUtil
 
     override fun init() {
         val id = intent.getSerializableExtra(BRAND_ITEM_ID) as String
@@ -48,7 +50,7 @@ class BrandsDetailAct :
 
     private fun initBrandRecyclerView() {
         brandAdapter = BaseRvBindingAdapter(
-            Layouts.row_brand_detail_list,
+            Layouts.raw_brand_detail_list,
             mutableListOf(),
             br = BR.data
         )
@@ -84,6 +86,7 @@ class BrandsDetailAct :
         val mediaItem: MediaItem = vm.brandData.value?.data?.ads.let { MediaItem.fromUri(it!!) }
 
         player?.apply {
+            repeatMode = Player.REPEAT_MODE_ALL
             setMediaItem(mediaItem)
             playWhenReady = true
             prepare()

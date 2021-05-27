@@ -81,6 +81,7 @@ class SplashScreenAct :
         val mediaItem: MediaItem = vm.splashData.value?.data?.video.let { MediaItem.fromUri(it!!) }
 
         player?.apply{
+
             setMediaItem(mediaItem)
             playWhenReady = true
             prepare()

@@ -1,4 +1,5 @@
 <resources>
     <string name="tv_select">Select your option to begin</string>
     <string name="tv_lets">Lets get started!</string>
+    <string name="tv_no_data_found">No Data Avalible at the moment..</string>
 </resources>

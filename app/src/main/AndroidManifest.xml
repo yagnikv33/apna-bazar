@@ -27,11 +27,6 @@
         <activity android:name=".e_cigarette.main.categorymodule.personalise_vape.PersonaliseVapeAct" />
         <activity
             android:name=".e_cigarette.main.homemodule.HomeAct"
-            android:screenOrientation="landscape" >
-
-        </activity>
-        <activity
-            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +34,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
+            android:screenOrientation="landscape">
+
         </activity>
     </application>
 
