@@ -10,9 +10,9 @@
             name="click"
             type="android.view.View.OnClickListener" />
 
-        <variable
-            name="data"
-            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />
+        <!-- <variable
+             name="data"
+             type="" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,6 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_profile"
-            path="@{data.logo}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.77"
