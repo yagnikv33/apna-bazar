@@ -20,11 +20,22 @@
         <activity
             android:name=".e_cigarette.main.brand_listmodule.BrandsDetailAct"
             android:screenOrientation="landscape" />
-        <activity android:name=".e_cigarette.main.categorymodule.testimonials.TestimonialsAct" />
-        <activity android:name=".e_cigarette.main.categorymodule.saving_calc.SavingCalcAct" />
-        <activity android:name=".e_cigarette.main.categorymodule.vaping.VapingAct" />
-        <activity android:name=".e_cigarette.main.categorymodule.our_brands.OurBrandsAct" />
-        <activity android:name=".e_cigarette.main.categorymodule.personalise_vape.PersonaliseVapeAct" />
+
+        <activity android:name="com.yudiz.e_cigarette.main.homemodule.testimonials.TestimonialsAct"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name="com.yudiz.e_cigarette.main.homemodule.saving_calc.SavingCalcAct"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name="com.yudiz.e_cigarette.main.homemodule.vaping.VapingAct"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name="com.yudiz.e_cigarette.main.homemodule.our_brands.OurBrandsAct"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name="com.yudiz.e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct"
+            android:screenOrientation="landscape"/>
+
         <activity
             android:name=".e_cigarette.main.homemodule.HomeAct"
             android:screenOrientation="landscape">
@@ -35,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
             android:screenOrientation="landscape">

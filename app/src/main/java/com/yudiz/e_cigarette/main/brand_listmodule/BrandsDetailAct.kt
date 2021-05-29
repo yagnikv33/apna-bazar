@@ -15,7 +15,6 @@ import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandItemResponse
 import com.yudiz.e_cigarette.data.model.response.Juice
 import com.yudiz.e_cigarette.helper.util.logE
-import com.yudiz.e_cigarette.helper.util.rvutil.RvUtil
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.common.ApiRenderState
@@ -31,7 +30,6 @@ class BrandsDetailAct :
 
     private lateinit var brandAdapter: BaseRvBindingAdapter<Juice>
     private var player: SimpleExoPlayer? = null
-    lateinit var rvUtil: RvUtil
 
     override fun init() {
         val id = intent.getSerializableExtra(BRAND_ITEM_ID) as String

@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".e_cigarette.main.categorymodule.vaping.VapingAct">
+        tools:context=".e_cigarette.main.homemodule.vaping.VapingAct">
 
         <TextView
             android:id="@+id/textView3"

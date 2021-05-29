@@ -5,21 +5,134 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="data"
+            type="com.yudiz.e_cigarette.data.model.response.BrandListData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".e_cigarette.main.categorymodule.our_brands.OurBrandsAct">
+        tools:context=".e_cigarette.main.homemodule.our_brands.OurBrandsAct">
 
+        <!--home-->
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Our Brnds"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/helvetica_bold_font"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_1sdp"
+            android:text="@string/tv_brands"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/card_home"
+            app:layout_constraintHorizontal_bias="0.002"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_home"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_home"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:backgroundTint="@color/light_blue"
+            android:elevation="@dimen/_4sdp"
+            android:visibility="gone"
+            android:onClick="@{click::onClick}"
+            app:cardCornerRadius="-2dp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/home" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--recycler view-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_our_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/card_previous"
+            app:layout_constraintEnd_toStartOf="@+id/card_home"
+            app:layout_constraintStart_toEndOf="@+id/tv_brand"
+            app:layout_constraintTop_toBottomOf="@+id/tv_brand"
+            app:spanCount="3"
+            tools:itemCount="10"
+            tools:listitem="@layout/raw_our_brand" />
+
+        <!--previous-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_previous"
+            android:onClick="@{click::onClick}"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:backgroundTint="@color/light_blue"
+            android:elevation="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:visibility="gone"
+            app:cardCornerRadius="-2dp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_brand"
+            app:layout_constraintTop_toBottomOf="@+id/tv_brand"
+            app:layout_constraintVertical_bias="0.98">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/helvetica"
+                android:gravity="center"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="@string/tv_previous"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{progress ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,14 +16,15 @@ import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandsItem
 import com.yudiz.e_cigarette.data.model.response.ButtonsItem
 import com.yudiz.e_cigarette.data.model.response.HomeResponse
+import com.yudiz.e_cigarette.helper.util.logD
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.brand_listmodule.BrandsDetailAct
-import com.yudiz.e_cigarette.main.categorymodule.our_brands.OurBrandsAct
-import com.yudiz.e_cigarette.main.categorymodule.personalise_vape.PersonaliseVapeAct
-import com.yudiz.e_cigarette.main.categorymodule.saving_calc.SavingCalcAct
-import com.yudiz.e_cigarette.main.categorymodule.testimonials.TestimonialsAct
-import com.yudiz.e_cigarette.main.categorymodule.vaping.VapingAct
+import com.yudiz.e_cigarette.main.homemodule.our_brands.OurBrandsAct
+import com.yudiz.e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct
+import com.yudiz.e_cigarette.main.homemodule.saving_calc.SavingCalcAct
+import com.yudiz.e_cigarette.main.homemodule.testimonials.TestimonialsAct
+import com.yudiz.e_cigarette.main.homemodule.vaping.VapingAct
 import com.yudiz.e_cigarette.main.common.ApiRenderState
 import com.yudiz.e_cigarette.main.homemodule.model.HomeVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -141,6 +142,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
                             it,
                             isClear = true
                         )
+
                     }
                     apiRenderState.result.data?.brands?.let {
                         brandAdapter.addData(

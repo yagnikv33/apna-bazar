@@ -10,34 +10,40 @@
             name="click"
             type="android.view.View.OnClickListener" />
 
-        <!-- <variable
-             name="data"
-             type="" />-->
+        <variable
+            name="data"
+            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.77"
-            app:layout_constraintWidth_percent="0.9"
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_85sdp"
+            android:layout_height="@dimen/_85sdp"
+            android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:onClick="@{click::onClick}"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
+            android:elevation="@dimen/_4sdp"
+            android:shape="ring"
+            app:cardCornerRadius="75dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/CircularImage"
-            app:strokeWidth="@dimen/_1sdp" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile"
+                path="@{data.logo}"
+                android:layout_width="@dimen/_85sdp"
+                android:layout_height="@dimen/_85sdp"
+                android:onClick="@{click::onClick}"
+                android:padding="@dimen/_4sdp"
+                android:scaleType="centerCrop"
+                app:shapeAppearance="@style/CircularImage" />
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

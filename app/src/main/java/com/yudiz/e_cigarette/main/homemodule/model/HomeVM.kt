@@ -3,6 +3,7 @@ package com.yudiz.e_cigarette.main.homemodule.model
 import androidx.lifecycle.MutableLiveData
 import com.yudiz.e_cigarette.data.model.response.BrandItemResponse
 import com.yudiz.e_cigarette.data.model.response.HomeResponse
+import com.yudiz.e_cigarette.data.model.response.OurBrandsResponse
 import com.yudiz.e_cigarette.main.base.BaseVM
 import com.yudiz.e_cigarette.main.common.ApiRenderState
 import com.yudiz.e_cigarette.main.homemodule.repo.HomeRepo
@@ -11,6 +12,7 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
 
     var portalData = MutableLiveData(HomeResponse())
     var brandData = MutableLiveData(BrandItemResponse())
+    var brandList = MutableLiveData(OurBrandsResponse())
 
     private val progressBar = MutableLiveData(false)
 
@@ -42,4 +44,19 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
             }
         }
     }
+
+    fun getBrandList() {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getBrandList {
+                onApiError
+            }.let {
+                brandList.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(true)
+            }
+        }
+    }
+
 }

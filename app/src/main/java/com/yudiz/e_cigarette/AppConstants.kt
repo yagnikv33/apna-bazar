@@ -33,6 +33,7 @@ class AppConstants {
             const val HOME = "home"
             const val PORTAL = "portal"
             const val BRAND_DETAIL = "brand-detail"
+            const val BRAND_LIST = "brand-list"
         }
 
         object Value {
