@@ -32,8 +32,7 @@ class BrandsDetailAct :
     private var player: SimpleExoPlayer? = null
 
     override fun init() {
-        val id = intent.getSerializableExtra(BRAND_ITEM_ID) as String
-        vm.getBrandData(id)
+        vm.getBrandData(intent.getStringExtra(BRAND_ITEM_ID).orEmpty())
         setAdapter()
     }
 
@@ -131,6 +130,8 @@ class BrandsDetailAct :
                     )
 
                     formatType(vm.brandData.value?.data?.type)
+                } else {
+                    errorToast("Brand Item Not Found Please try Another")
                 }
                 hideProgress()
             }

@@ -19,27 +19,3 @@ data class PortalData(
     @field:SerializedName("brands")
     val brands: List<BrandsItem>? = null
 )
-
-data class ButtonsItem(
-
-    @field:SerializedName("background_color")
-    val backgroundColor: String? = "",
-
-    @field:SerializedName("name")
-    val name: String? = "",
-
-    @field:SerializedName("icon")
-    val icon: String? = "",
-
-    @field:SerializedName("id")
-    val id: String? = ""
-)
-
-data class BrandsItem(
-
-    @field:SerializedName("logo")
-    val logo: String? = "",
-
-    @field:SerializedName("id")
-    val id: String = ""
-)

@@ -34,6 +34,7 @@ class AppConstants {
             const val PORTAL = "portal"
             const val BRAND_DETAIL = "brand-detail"
             const val BRAND_LIST = "brand-list"
+            const val VAPING_LIST = "vaping-button-list"
         }
 
         object Value {

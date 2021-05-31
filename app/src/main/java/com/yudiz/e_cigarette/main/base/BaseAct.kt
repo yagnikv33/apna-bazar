@@ -235,23 +235,15 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
     }
 
     private fun isApplicationInBackground(): Boolean {
-//        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
         val runningTasks =
             (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningTasks(1)
         if (runningTasks.isNotEmpty())
             return runningTasks[0].topActivity?.packageName != packageName
         return false
-//        } else {
-//            val runningTasks = (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).appTasks
-//            if (runningTasks.isNotEmpty())
-//                return runningTasks[0].taskInfo.topActivity.packageName != packageName
-//            return false
-//        }
     }
 
     override fun onClick(v: View) {
 
     }
-
 
 }

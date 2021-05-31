@@ -4,4 +4,6 @@
     <string name="tv_no_data_found">No Data Available at the moment..</string>
     <string name="tv_brands">Brands</string>
     <string name="tv_previous">Previous</string>
+    <string name="tv_questions">Do you have questions?</string>
+    <string name="tv_answers">Here are the answers</string>
 </resources>

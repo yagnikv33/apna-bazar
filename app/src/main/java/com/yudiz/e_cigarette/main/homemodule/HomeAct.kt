@@ -1,6 +1,6 @@
 package com.yudiz.e_cigarette.main.homemodule
 
-import android.os.Bundle
+import android.content.Intent
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -16,18 +16,18 @@ import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandsItem
 import com.yudiz.e_cigarette.data.model.response.ButtonsItem
 import com.yudiz.e_cigarette.data.model.response.HomeResponse
-import com.yudiz.e_cigarette.helper.util.logD
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.brand_listmodule.BrandsDetailAct
+import com.yudiz.e_cigarette.main.common.ApiRenderState
+import com.yudiz.e_cigarette.main.homemodule.model.HomeVM
 import com.yudiz.e_cigarette.main.homemodule.our_brands.OurBrandsAct
 import com.yudiz.e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct
 import com.yudiz.e_cigarette.main.homemodule.saving_calc.SavingCalcAct
 import com.yudiz.e_cigarette.main.homemodule.testimonials.TestimonialsAct
 import com.yudiz.e_cigarette.main.homemodule.vaping.VapingAct
-import com.yudiz.e_cigarette.main.common.ApiRenderState
-import com.yudiz.e_cigarette.main.homemodule.model.HomeVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
@@ -73,7 +73,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
     private fun initButtonRecyclerView() {
         buttonAdapter = BaseRvBindingAdapter(
-            Layouts.raw_buttons,
+            Layouts.raw_home_buttons,
             mutableListOf(),
             clickListener = ::rvButtonClickListener,
             br = BR.data,
@@ -84,7 +84,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
 
     private fun initBrandRecyclerView() {
         brandAdapter = BaseRvBindingAdapter(
-            Layouts.raw_brand_list,
+            Layouts.raw_home_brand_list,
             mutableListOf(),
             clickListener = ::rvBrandClickListener,
             br = BR.data
@@ -126,11 +126,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
     }
 
     private fun rvBrandClickListener(v: View, item: BrandsItem, pos: Int) {
-
-        val idBundle = Bundle().apply {
-            this.putSerializable(BRAND_ITEM_ID, item.id)
-        }
-        startActivity(BrandsDetailAct::class.java, bundle = idBundle, null, true)
+        startActivity(Intent(this, BrandsDetailAct::class.java).putExtra(BRAND_ITEM_ID, item.id))
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
