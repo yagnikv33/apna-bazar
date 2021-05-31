@@ -26,11 +26,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_views"
@@ -94,7 +95,8 @@
                                 android:layout_marginStart="@dimen/_8sdp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="@dimen/_8sdp"
-                                android:fontFamily="@font/helvetica_bold_font"
+                                android:fontFamily="@font/helvetica"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="@{data.data.name}"
                                 android:textColor="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,8 +111,8 @@
                                 android:layout_marginTop="@dimen/_6sdp"
                                 android:layout_marginEnd="@dimen/_8sdp"
                                 android:layout_marginBottom="16dp"
-                                android:fontFamily="@font/helvetica_bold_font"
-                                android:maxLines="30"
+                                android:fontFamily="@font/helvetica"
+                                android:textSize="@dimen/_10sdp"
                                 android:text="@{data.data.description}"
                                 android:textColor="@color/black"
                                 app:layout_constrainedWidth="true"
@@ -220,15 +222,14 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <ProgressBar
                 android:id="@+id/progressBar3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="@{progress ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

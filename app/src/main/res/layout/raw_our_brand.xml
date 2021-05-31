@@ -47,7 +47,7 @@
                 path="@{data.logo}"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_90sdp"
-                android:padding="@dimen/_8sdp"
+                android:padding="@dimen/_2sdp"
                 android:scaleType="fitXY"
                 android:src="@drawable/logic"
                 app:layout_constraintBottom_toBottomOf="parent"

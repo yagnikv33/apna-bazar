@@ -20,13 +20,13 @@ data class BrandData(
     val description: String = "",
 
     @field:SerializedName("hardware")
-    val hardware: List<Hardware>? = null,
+    val hardware: List<JuiceAndHardware>? = null,
+
+    @field:SerializedName("juices")
+    val juices: List<JuiceAndHardware>? = null,
 
     @field:SerializedName("id")
     val id: String = "",
-
-    @field:SerializedName("juices")
-    val juices: List<Juice>? = null,
 
     @field:SerializedName("logo")
     val logo: String = "",
@@ -38,37 +38,58 @@ data class BrandData(
     val type: String = ""
 )
 
+data class JuiceAndHardware(
+
+    @field:SerializedName("background_color")
+    val background_color: String = "",
+
+    @field:SerializedName("id")
+    val id: String = "",
+
+    @field:SerializedName("image")
+    val image: String = "",
+
+    @field:SerializedName("label")
+    val label: String = "",
+
+    @field:SerializedName("label_name")
+    val label_name: String = ""
+)
+
+
 data class Juice(
 
     @field:SerializedName("background_color")
-    val background_color: String,
+    val background_color: String = "",
 
     @field:SerializedName("id")
-    val id: String,
+    val id: String = "",
 
     @field:SerializedName("image")
-    val image: String,
+    val image: String = "",
 
     @field:SerializedName("label")
-    val label: String,
+    val label: String = "",
 
     @field:SerializedName("label_name")
-    val label_name: String
+    val label_name: String = ""
+
 )
 
 data class Hardware(
 
     @field:SerializedName("background_color")
-    val background_color: String,
+    val background_color: String = "",
 
     @field:SerializedName("id")
-    val id: String,
+    val id: String = "",
 
     @field:SerializedName("image")
-    val image: String,
+    val image: String = "",
 
     @field:SerializedName("label")
-    val label: String
+    val label: String = ""
+
 )
 
 data class BrandMeta(

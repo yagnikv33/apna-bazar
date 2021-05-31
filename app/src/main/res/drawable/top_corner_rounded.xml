@@ -7,12 +7,7 @@
         android:topLeftRadius="@dimen/_16sdp"
         android:topRightRadius="@dimen/_16sdp" />
 
-    <!-- This is the border color -->
-    <stroke
-        android:width="@dimen/_1sdp"
-        android:color="@color/white" />
-
     <!--- This is the background color -->
-    <solid android:color="@color/white" />
+    <solid android:color="@color/light_blue" />
 
 </shape>

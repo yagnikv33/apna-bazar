@@ -12,8 +12,7 @@ import com.yudiz.e_cigarette.AppConstants.Api.Value.TYPE_IMAGE
 import com.yudiz.e_cigarette.AppConstants.Api.Value.TYPE_VIDEO
 import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BRAND_ITEM_ID
 import com.yudiz.e_cigarette.Layouts
-import com.yudiz.e_cigarette.data.model.response.BrandItemResponse
-import com.yudiz.e_cigarette.data.model.response.Juice
+import com.yudiz.e_cigarette.data.model.response.*
 import com.yudiz.e_cigarette.helper.util.logE
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
@@ -28,13 +27,14 @@ class BrandsDetailAct :
 
     override val hasProgress: Boolean = true
 
-    private lateinit var brandAdapter: BaseRvBindingAdapter<Juice>
+    private lateinit var brandAdapter: BaseRvBindingAdapter<JuiceAndHardware>
+
     private var player: SimpleExoPlayer? = null
 
     override fun init() {
         val id = intent.getSerializableExtra(BRAND_ITEM_ID) as String
         vm.getBrandData(id)
-        initBrandRecyclerView()
+        setAdapter()
     }
 
     override fun onClick(v: View) {
@@ -46,11 +46,12 @@ class BrandsDetailAct :
         }
     }
 
-    private fun initBrandRecyclerView() {
+    private fun setAdapter() {
+
         brandAdapter = BaseRvBindingAdapter(
             Layouts.raw_brand_detail_list,
             mutableListOf(),
-            br = BR.data
+            br = BR.items
         )
         binding.rvBrandDetailList.adapter = brandAdapter
     }
@@ -119,12 +120,16 @@ class BrandsDetailAct :
 
                     setViews()
 
-                    apiRenderState.result.data?.juices?.let {
-                        brandAdapter.addData(
-                            it,
-                            isClear = true
-                        )
+                    val list = ArrayList<JuiceAndHardware>().apply {
+                        apiRenderState.result.data?.hardware?.let { addAll(it) }
+                        apiRenderState.result.data?.juices?.let { addAll(it) }
                     }
+
+                    brandAdapter.addData(
+                        list,
+                        isClear = true
+                    )
+
                     formatType(vm.brandData.value?.data?.type)
                 }
                 hideProgress()
