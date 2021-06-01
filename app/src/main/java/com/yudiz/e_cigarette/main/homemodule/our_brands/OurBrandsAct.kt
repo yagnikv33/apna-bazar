@@ -75,7 +75,6 @@ class OurBrandsAct : BaseAct<ActivityOurBrandsBinding, HomeVM>(Layouts.activity_
                             it,
                             isClear = true
                         )
-                        "Response: If Success $it".logD()
                     }
                     showViews()
                     hideProgress()

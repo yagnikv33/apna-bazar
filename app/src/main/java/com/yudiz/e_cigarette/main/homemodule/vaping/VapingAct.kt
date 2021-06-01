@@ -5,6 +5,10 @@ import android.view.View
 import com.yudiz.BR
 import com.yudiz.databinding.ActivityVapingBinding
 import com.yudiz.e_cigarette.AppConstants
+import com.yudiz.e_cigarette.AppConstants.App.Buttons.KNOW_THE_FACTS
+import com.yudiz.e_cigarette.AppConstants.App.Buttons.PG_VS_VG
+import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BRAND_ITEM_ID
+import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BUTTON_ITEM_ID
 import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandsItem
 import com.yudiz.e_cigarette.data.model.response.ButtonsItem
@@ -56,7 +60,7 @@ class VapingAct : BaseAct<ActivityVapingBinding, HomeVM>(Layouts.activity_vaping
             Intent(
                 this,
                 BrandsDetailAct::class.java
-            ).putExtra(AppConstants.Communication.BundleData.BRAND_ITEM_ID, item.id)
+            ).putExtra(BRAND_ITEM_ID, item.id)
         )
     }
 
@@ -64,9 +68,21 @@ class VapingAct : BaseAct<ActivityVapingBinding, HomeVM>(Layouts.activity_vaping
         buttonAdapter = BaseRvBindingAdapter(
             Layouts.raw_home_buttons,
             mutableListOf(),
+            clickListener = ::rvButtonClickListener,
             br = BR.data
         )
         binding.rvVapingBtn.adapter = buttonAdapter
+    }
+
+    private fun rvButtonClickListener(v: View, item: ButtonsItem, pos: Int) {
+        when (item.id) {
+            KNOW_THE_FACTS -> {
+                startActivity(KnowTheFactsAct::class.java, null, null, shouldAnimate = true)
+            }
+            PG_VS_VG -> {
+
+            }
+        }
     }
 
     private fun setView() {
@@ -86,15 +102,12 @@ class VapingAct : BaseAct<ActivityVapingBinding, HomeVM>(Layouts.activity_vaping
                         )
 
                     }
-                    "Response: ${apiRenderState.result.data.buttons}".logE()
-
                     apiRenderState.result.data.brands?.let {
                         brandAdapter.addData(
                             it,
                             isClear = true
                         )
                     }
-                    "Response: ${apiRenderState.result.data.brands}".logE()
                     hideProgress()
                     setView()
                 }

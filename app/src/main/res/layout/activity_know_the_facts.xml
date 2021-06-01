@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="data"
+            type="com.yudiz.e_cigarette.data.model.response.KnowFactsResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".e_cigarette.main.homemodule.vaping.KnowTheFactsAct">
+
+        <TextView
+            android:id="@+id/tv_know_facts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/helvetica_bold_font"
+            android:text="@string/tv_know_the_fact"
+            android:textColor="@color/black_20"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/card_home"
+            app:layout_constraintEnd_toStartOf="@+id/card_home"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_home" />
+
+        <!--home image-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_home"
+            android:layout_width="@dimen/_29sdp"
+            android:layout_height="@dimen/_19sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:backgroundTint="@color/light_blue"
+            android:onClick="@{click::onClick}"
+            app:cardCornerRadius="-2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                app:srcCompat="@drawable/home" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--RecyclerView-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_know_facts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/cl_ads"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_home"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintWidth_percent="0.5"
+            tools:itemCount="6"
+            tools:listitem="@layout/raw_know_the_fact" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ads"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_know_facts">
+
+            <!--exo player-->
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/brand_ads_player"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:resize_mode="fill"
+                app:show_shuffle_button="false"
+                app:use_controller="false" />
+
+            <!--image view-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_ads_viewer"
+                path="@{data.data.advertisements.ads}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ads" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

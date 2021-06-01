@@ -1,10 +1,7 @@
 package com.yudiz.e_cigarette.main.homemodule.repo
 
 import com.yudiz.e_cigarette.api.service.HomeApiModule
-import com.yudiz.e_cigarette.data.model.response.BrandItemResponse
-import com.yudiz.e_cigarette.data.model.response.HomeResponse
-import com.yudiz.e_cigarette.data.model.response.OurBrandsResponse
-import com.yudiz.e_cigarette.data.model.response.VapingResponse
+import com.yudiz.e_cigarette.data.model.response.*
 import com.yudiz.e_cigarette.main.base.ApiResult
 import com.yudiz.e_cigarette.main.base.BaseRepo
 
@@ -45,6 +42,16 @@ class HomeRepo(private val apiCall: HomeApiModule) : BaseRepo() {
         onError: (ApiResult<Any>) -> Unit
     ): VapingResponse? {
         return with(apiCall(executable = { apiCall.getVapingList() })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    suspend fun getFactsList(
+        onError: (ApiResult<Any>) -> Unit
+    ): KnowFactsResponse? {
+        return with(apiCall(executable = { apiCall.getFactsList() })) {
             if (data == null)
                 onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
             this.data

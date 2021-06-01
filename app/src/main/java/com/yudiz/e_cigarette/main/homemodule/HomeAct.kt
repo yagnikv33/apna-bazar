@@ -133,6 +133,7 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 if (apiRenderState.result is HomeResponse) {
+
                     apiRenderState.result.data?.buttons?.let {
                         buttonAdapter.addData(
                             it,
