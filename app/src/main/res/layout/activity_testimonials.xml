@@ -4,6 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
 
     </data>
 
@@ -13,13 +23,103 @@
         tools:context=".e_cigarette.main.homemodule.testimonials.TestimonialsAct">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tv_testimonials"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Testimonials"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/helvetica_bold_font"
+            android:text="@string/tv_testimonials"
+            android:textColor="@color/black_20"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home"
+            app:layout_constraintEnd_toStartOf="@+id/iv_home"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_home" />
+
+        <!--home image-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_home"
+            android:layout_width="@dimen/_29sdp"
+            android:layout_height="@dimen/_19sdp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/light_blue"
+            android:onClick="@{click::onClick}"
+            android:padding="@dimen/_3sdp"
+            android:elevation="@dimen/_4sdp"
+            android:paddingTop="@dimen/_1sdp"
+            android:paddingBottom="@dimen/_1sdp"
+            android:translationZ="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/home" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_testimonials"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/cl_ads"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.68"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_home"
+            tools:itemCount="2"
+            tools:listitem="@layout/raw_testimonials" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ads"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/rv_testimonials"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintVertical_bias="1.0">
+
+            <!--exo player-->
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/brand_ads_player"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:resize_mode="fill"
+                app:show_shuffle_button="false"
+                app:use_controller="false" />
+
+            <!--image view-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_ads_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ads"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

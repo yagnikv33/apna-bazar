@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile_photo"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:padding="@dimen/_2sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/user_avater"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:shapeAppearance="@style/CircularImage"
+            app:strokeColor="@color/light_blue"
+            app:strokeWidth="@dimen/_1sdp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_decs"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="@dimen/_2sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.82"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.9">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:text="Sophia, 30"
+                    android:textColor="@color/black_20"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/view_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_48sdp"
+                    android:background="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_review_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_review_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/helvetica_bold_font"
+                    android:padding="@dimen/_2sdp"
+                    android:text="No more smelling like an ashtray"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.060000002" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_review_title">
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/helvetica"
+                        android:lineSpacingExtra="1dp"
+                        android:textSize="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_6sdp"
+                        android:paddingEnd="@dimen/_6sdp"
+                        android:scrollbars="vertical"
+                        android:text=" I am 30 and have been smoking about 2 packs a day for 12 years. Almost Every other adult family member and friend smokes cigarettes and I could no longer take the smell and feel my health depleted. My husband and I decided that was it we were going to try vaping after all other attempts to quit had failed us. That was it I quit after taking my first puff off a novo vape. It has only been 2 weeks but we have not picked up a regular smoke since. Already i smell everything around me and can breathe better. If it was not for the vape I truly  I am 30 and have been smoking about 2 packs a day for 12 years. Almost Every other adult family member and friend smokes cigarettes and I could no longer take the smell and feel my health depleted. My husband and I decided that was it we were going to try vaping after all other attempts to quit had failed us. That was it I quit after taking my first puff off a novo vape. It has only been 2 weeks but we have not picked up a regular smoke since. Already i smell everything around me and can breathe better. If it was not for the vape I truly"
+                        android:textColor="@color/black_20"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_review_title" />
+                </ScrollView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
