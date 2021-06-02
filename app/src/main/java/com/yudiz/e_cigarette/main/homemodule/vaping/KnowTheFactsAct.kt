@@ -16,6 +16,7 @@ import com.yudiz.e_cigarette.helper.util.logE
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.common.ApiRenderState
+import com.yudiz.e_cigarette.main.homemodule.HomeAct
 import com.yudiz.e_cigarette.main.homemodule.model.HomeVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +35,16 @@ class KnowTheFactsAct :
     override fun init() {
         vm.getFactsList()
         setAdapter()
+    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when(v){
+            binding.ivHome -> {
+                startActivity(HomeAct::class.java,null,null,true)
+                finish()
+            }
+        }
     }
 
     private fun setAdapter() {
@@ -100,21 +111,6 @@ class KnowTheFactsAct :
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 if (apiRenderState.result is KnowFactsResponse) {
-
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        apiRenderState.result.data?.knowTheFacts?.forEach {
-                            it.description = HtmlCompat.fromHtml(
-                                it.description,
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
-                            ).toString()
-                        }
-                    } else {
-                        apiRenderState.result.data?.knowTheFacts?.forEach {
-                            it.description = Html.fromHtml(
-                                it.description
-                            ).toString()
-                        }
-                    }*/
 
                     factsAdapter.addData(
                         apiRenderState.result.data?.knowTheFacts.orEmpty(),

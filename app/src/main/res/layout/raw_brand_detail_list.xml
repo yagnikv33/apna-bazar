@@ -30,20 +30,11 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0.0px"
-            android:elevation="8dp"
-            app:cardPreventCornerOverlap="false"
+            app:cardElevation="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            card_view:cardElevation="10dp"
-            card_view:cardPreventCornerOverlap="false">
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_brand_logo"

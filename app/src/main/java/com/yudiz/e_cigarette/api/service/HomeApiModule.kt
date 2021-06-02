@@ -3,8 +3,10 @@ package com.yudiz.e_cigarette.api.service
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.BRAND_DETAIL
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.BRAND_LIST
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.KNOW_THE_FACTS
+import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.PG_VG
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.PORTAL
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.VAPING_LIST
+import com.yudiz.e_cigarette.AppConstants.App.Buttons.PG_VS_VG
 import com.yudiz.e_cigarette.data.model.response.*
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -29,4 +31,7 @@ interface HomeApiModule {
 
     @POST(KNOW_THE_FACTS)
     suspend fun getFactsList(): KnowFactsResponse
+
+    @POST(PG_VG)
+    suspend fun getPgVgData(): PgVgResponse
 }

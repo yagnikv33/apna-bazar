@@ -39,7 +39,7 @@ class BrandsDetailAct :
     override fun onClick(v: View) {
         super.onClick(v)
         when (v) {
-            binding.cardClose -> {
+            binding.ivClose -> {
                 finish()
             }
         }
@@ -95,8 +95,8 @@ class BrandsDetailAct :
     private fun setViews() {
         binding.data = vm.brandData.value
         binding.tvLogo.visibility = View.VISIBLE
-        binding.tvBrandDetails.visibility = View.VISIBLE
-        binding.cardClose.visibility = View.VISIBLE
+        binding.cardDecs.visibility = View.VISIBLE
+        binding.ivClose.visibility = View.VISIBLE
     }
 
     private fun formatType(type: String?) {

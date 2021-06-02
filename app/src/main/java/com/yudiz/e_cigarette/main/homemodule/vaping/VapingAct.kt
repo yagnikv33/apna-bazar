@@ -80,7 +80,7 @@ class VapingAct : BaseAct<ActivityVapingBinding, HomeVM>(Layouts.activity_vaping
                 startActivity(KnowTheFactsAct::class.java, null, null, shouldAnimate = true)
             }
             PG_VS_VG -> {
-
+                startActivity(PgVgAct::class.java, null, null, shouldAnimate = true)
             }
         }
     }

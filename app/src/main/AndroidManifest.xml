@@ -16,10 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
-        <activity android:name=".e_cigarette.main.homemodule.vaping.PgVgAct"></activity>
+
+        <activity
+            android:name=".e_cigarette.main.homemodule.vaping.PgVgAct"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".e_cigarette.main.homemodule.vaping.KnowTheFactsAct"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".e_cigarette.main.brand_listmodule.BrandsDetailAct"
             android:screenOrientation="landscape" />
@@ -50,7 +53,7 @@
         </activity>
         <activity
             android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

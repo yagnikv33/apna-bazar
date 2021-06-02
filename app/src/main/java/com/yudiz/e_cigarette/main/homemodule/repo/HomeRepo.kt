@@ -57,4 +57,14 @@ class HomeRepo(private val apiCall: HomeApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    suspend fun getPgVgData(
+        onError: (ApiResult<Any>) -> Unit
+    ): PgVgResponse? {
+        return with(apiCall(executable = { apiCall.getPgVgData() })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
 }

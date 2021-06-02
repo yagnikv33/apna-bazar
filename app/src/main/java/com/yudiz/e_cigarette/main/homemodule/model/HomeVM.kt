@@ -2,6 +2,7 @@ package com.yudiz.e_cigarette.main.homemodule.model
 
 import androidx.lifecycle.MutableLiveData
 import com.yudiz.e_cigarette.data.model.response.*
+import com.yudiz.e_cigarette.helper.util.logE
 import com.yudiz.e_cigarette.main.base.BaseVM
 import com.yudiz.e_cigarette.main.common.ApiRenderState
 import com.yudiz.e_cigarette.main.homemodule.repo.HomeRepo
@@ -13,6 +14,7 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
     var brandList = MutableLiveData(OurBrandsResponse())
     var vapingData = MutableLiveData(VapingResponse())
     var factsData = MutableLiveData(KnowFactsResponse())
+    var pgVgData = MutableLiveData(PgVgResponse())
 
     private val progressBar = MutableLiveData(false)
 
@@ -75,14 +77,28 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
 
     fun getFactsList() {
         scope {
-            //progressBar.postValue(true)
+            progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
             repo.getFactsList {
                 onApiError
             }.let {
                 factsData.postValue(it)
                 state.emit(ApiRenderState.ApiSuccess(it))
-                //progressBar.postValue(true)
+                progressBar.postValue(true)
+            }
+        }
+    }
+
+    fun getPgVgData() {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getPgVgData {
+                onApiError
+            }.let {
+                pgVgData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(true)
             }
         }
     }
