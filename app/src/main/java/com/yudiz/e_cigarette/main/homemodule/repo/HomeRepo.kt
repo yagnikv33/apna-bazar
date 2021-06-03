@@ -77,4 +77,14 @@ class HomeRepo(private val apiCall: HomeApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    suspend fun getPersonaliseVapeData(
+        onError: (ApiResult<Any>) -> Unit
+    ): PersonaliseVapeResponse? {
+        return with(apiCall(executable = { apiCall.getPersonaliseVapeData() })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
 }

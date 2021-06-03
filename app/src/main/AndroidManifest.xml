@@ -40,7 +40,14 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".e_cigarette.main.homemodule.HomeAct"
             android:screenOrientation="landscape">

@@ -1,25 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="progress"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="que_item"
+            type="com.yudiz.e_cigarette.data.model.response.QuestionsItem" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_know_facts_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Vape"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/helvetica_bold_font"
+            android:text="@string/tv_tell_us_more_about_your_habits"
+            android:textColor="@color/black_20"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home"
+            app:layout_constraintEnd_toStartOf="@+id/iv_home"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_smoking_title"
+            app:layout_constraintTop_toTopOf="@+id/iv_home" />
+
+        <!--home image-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_home"
+            android:layout_width="@dimen/_29sdp"
+            android:layout_height="@dimen/_19sdp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@color/light_blue"
+            android:elevation="@dimen/_4sdp"
+            android:onClick="@{click::onClick}"
+            android:padding="@dimen/_3sdp"
+            android:paddingTop="@dimen/_1sdp"
+            android:paddingBottom="@dimen/_1sdp"
+            android:translationZ="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_brands"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/home" />
+
+        <!--smoking recyclerView-->
+        <TextView
+            android:id="@+id/tv_smoking_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:fontFamily="@font/helvetica"
+            android:text="@{que_item.question}"
+            android:textColor="@color/black_20"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_smoking"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/rv_smoking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_know_facts_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_smoking"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/rv_cigarette"
+            app:layout_constraintHeight_percent="0.14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_smoking_title"
+            app:layout_constraintWidth_percent="0.75"
+            tools:itemCount="4"
+            tools:listitem="@layout/raw_personalise_smoking_buttons" />
+
+        <!--cigarette recyclerView-->
+        <TextView
+            android:id="@+id/tv_cigarette_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/helvetica"
+            android:text="Cigarettes Per Day"
+            android:textColor="@color/black_20"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="@+id/rv_cigarette"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/rv_cigarette"
+            app:layout_constraintTop_toBottomOf="@+id/rv_smoking" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cigarette"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/rv_brands"
+            app:layout_constraintHeight_percent="0.14"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cigarette_title"
+            app:layout_constraintWidth_percent="0.75"
+            tools:itemCount="4"
+            tools:listitem="@layout/raw_personalise_cigarette_buttons" />
+
+        <!--previous-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_previous"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_margin="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:backgroundTint="@color/light_blue"
+            android:elevation="@dimen/_4sdp"
+            android:onClick="@{click::onClick}"
+            android:paddingBottom="@dimen/_6sdp"
+            android:visibility="visible"
+            app:cardCornerRadius="-2dp"
+            app:cardElevation="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_home"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/helvetica"
+                android:gravity="center"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="@string/tv_next"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp" />
+        </androidx.cardview.widget.CardView>
+
+        <!--vertical brand list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_brands"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_home"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toEndOf="@+id/cl_ads"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.15"
+            tools:itemCount="4"
+            tools:listitem="@layout/raw_personalise_brands" />
+
+        <!--asd viewer-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ads"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_cigarette"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_percent="0.73">
+
+            <!--exo player-->
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/brand_ads_player"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:resize_mode="fill"
+                app:show_shuffle_button="false"
+                app:use_controller="false" />
+
+            <!--image view-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_ads_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                android:src="@drawable/ads"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

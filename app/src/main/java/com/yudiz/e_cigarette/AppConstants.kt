@@ -1,5 +1,7 @@
 package com.yudiz.e_cigarette
 
+import com.yudiz.e_cigarette.data.model.response.PersonaliseVape
+
 class AppConstants {
 
     object App {
@@ -40,6 +42,7 @@ class AppConstants {
             const val KNOW_THE_FACTS = "know-the-facts"
             const val PG_VG = "PG-vs-VG"
             const val TESTIMONIALS = "testimonials"
+            const val PERSONALISE_VAPE = "personalise_your_vape"
         }
 
         object Value {

@@ -3,6 +3,7 @@ package com.yudiz.e_cigarette.api.service
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.BRAND_DETAIL
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.BRAND_LIST
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.KNOW_THE_FACTS
+import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.PERSONALISE_VAPE
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.PG_VG
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.PORTAL
 import com.yudiz.e_cigarette.AppConstants.Api.EndUrl.TESTIMONIALS
@@ -38,4 +39,7 @@ interface HomeApiModule {
 
     @POST(TESTIMONIALS)
     suspend fun getTestimonialsData(): TestimonialsResponse
+
+    @POST(PERSONALISE_VAPE)
+    suspend fun getPersonaliseVapeData(): PersonaliseVapeResponse
 }

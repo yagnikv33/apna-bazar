@@ -10,9 +10,9 @@
             name="click"
             type="android.view.View.OnClickListener" />
 
-        <variable
+        <!--<variable
             name="data"
-            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />
+            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:onClick="@{click::onClick}"
                 android:padding="@dimen/_4sdp"
-                path="@{data.logo}"
+
                 app:srcCompat="@drawable/logic"
                 android:scaleType="centerCrop"
                 app:shapeAppearance="@style/CircularImage" />
