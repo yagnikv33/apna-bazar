@@ -39,6 +39,7 @@ class AppConstants {
             const val VAPING_LIST = "vaping-button-list"
             const val KNOW_THE_FACTS = "know-the-facts"
             const val PG_VG = "PG-vs-VG"
+            const val TESTIMONIALS = "testimonials"
         }
 
         object Value {

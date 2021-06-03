@@ -67,4 +67,14 @@ class HomeRepo(private val apiCall: HomeApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    suspend fun getTestimonialsData(
+        onError: (ApiResult<Any>) -> Unit
+    ): TestimonialsResponse? {
+        return with(apiCall(executable = { apiCall.getTestimonialsData() })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
 }

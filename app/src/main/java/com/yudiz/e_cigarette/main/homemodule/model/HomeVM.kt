@@ -15,6 +15,7 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
     var vapingData = MutableLiveData(VapingResponse())
     var factsData = MutableLiveData(KnowFactsResponse())
     var pgVgData = MutableLiveData(PgVgResponse())
+    var testimonialsData = MutableLiveData(TestimonialsResponse())
 
     private val progressBar = MutableLiveData(false)
 
@@ -97,6 +98,20 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
                 onApiError
             }.let {
                 pgVgData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(true)
+            }
+        }
+    }
+
+    fun getTestimonialsData() {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getTestimonialsData {
+                onApiError
+            }.let {
+                testimonialsData.postValue(it)
                 state.emit(ApiRenderState.ApiSuccess(it))
                 progressBar.postValue(true)
             }

@@ -14,7 +14,6 @@
             name="progress"
             type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
 
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +30,7 @@
             android:text="@string/tv_testimonials"
             android:textColor="@color/black_20"
             android:textSize="@dimen/_14sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/iv_home"
             app:layout_constraintEnd_toStartOf="@+id/iv_home"
             app:layout_constraintHorizontal_bias="0.02"
@@ -46,14 +46,14 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/light_blue"
+            android:elevation="@dimen/_4sdp"
             android:onClick="@{click::onClick}"
             android:padding="@dimen/_3sdp"
-            android:elevation="@dimen/_4sdp"
             android:paddingTop="@dimen/_1sdp"
             android:paddingBottom="@dimen/_1sdp"
             android:translationZ="10dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,14 +112,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
-                android:visibility="visible"
-                app:srcCompat="@drawable/ads"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ads" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/light_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

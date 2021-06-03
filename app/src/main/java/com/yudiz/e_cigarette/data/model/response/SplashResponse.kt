@@ -5,33 +5,33 @@ import com.google.gson.annotations.SerializedName
 data class SplashResponse(
 
     @field:SerializedName("data")
-    val data: Data? = Data(),
+    val data: Data = Data(),
 
     @field:SerializedName("meta")
-    val meta: Meta? = Meta()
+    val meta: Meta = Meta()
 )
 
 data class Meta(
 
     @field:SerializedName("api")
-    val api: String? = "",
+    val api: String = "",
 
     @field:SerializedName("message")
-    val message: String? = "",
+    val message: String = "",
 
     @field:SerializedName("url")
-    val url: String? = ""
+    val url: String = ""
 )
 
 data class Data(
 
     @field:SerializedName("background_color")
-    val backgroundColor: String? = "",
+    val backgroundColor: String = "",
 
     @field:SerializedName("video")
-    val video: String? = "",
+    val video: String = "",
 
     @field:SerializedName("title")
-    val title: String? = ""
+    val title: String = ""
 )
 
