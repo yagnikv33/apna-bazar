@@ -8,7 +8,6 @@ import com.yudiz.e_cigarette.AppConstants
 import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandListData
 import com.yudiz.e_cigarette.data.model.response.OurBrandsResponse
-import com.yudiz.e_cigarette.helper.util.logD
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.brand_listmodule.BrandsDetailAct

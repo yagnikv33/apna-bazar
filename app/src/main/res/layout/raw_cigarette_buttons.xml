@@ -3,7 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.graphics.Color" />
 
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="que_item"
+            type="com.yudiz.e_cigarette.data.model.response.QuestionsItem" />
+
+        <variable
+            name="ope_item"
+            type="com.yudiz.e_cigarette.data.model.response.OptionsItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +34,8 @@
             app:cornerRadius="@dimen/_11sdp"
             app:elevation="@dimen/_4sdp"
             android:gravity="center"
-            android:text="1 - 5"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@{Color.parseColor(que_item.backgroundColor)}"
+            android:text="@{ope_item.option}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

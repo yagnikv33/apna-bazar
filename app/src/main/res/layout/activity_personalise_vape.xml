@@ -16,8 +16,8 @@
             type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
 
         <variable
-            name="que_item"
-            type="com.yudiz.e_cigarette.data.model.response.QuestionsItem" />
+            name="data"
+            type="com.yudiz.e_cigarette.data.model.response.AdvertisementsItem" />
 
     </data>
 
@@ -58,12 +58,10 @@
             android:paddingTop="@dimen/_1sdp"
             android:paddingBottom="@dimen/_1sdp"
             android:translationZ="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_brands"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/home" />
 
         <!--smoking recyclerView-->
@@ -74,7 +72,6 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_14sdp"
             android:fontFamily="@font/helvetica"
-            android:text="@{que_item.question}"
             android:textColor="@color/black_20"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="@+id/rv_smoking"
@@ -93,9 +90,7 @@
             app:layout_constraintHeight_percent="0.14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_smoking_title"
-            app:layout_constraintWidth_percent="0.75"
-            tools:itemCount="4"
-            tools:listitem="@layout/raw_personalise_smoking_buttons" />
+            app:layout_constraintWidth_percent="0.74" />
 
         <!--cigarette recyclerView-->
         <TextView
@@ -105,7 +100,6 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/helvetica"
-            android:text="Cigarettes Per Day"
             android:textColor="@color/black_20"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="@+id/rv_cigarette"
@@ -117,21 +111,19 @@
             android:id="@+id/rv_cigarette"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/rv_brands"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.14"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cigarette_title"
-            app:layout_constraintWidth_percent="0.75"
-            tools:itemCount="4"
-            tools:listitem="@layout/raw_personalise_cigarette_buttons" />
+            app:layout_constraintWidth_percent="0.74" />
 
         <!--previous-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_previous"
+            android:id="@+id/card_next"
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_18sdp"
             android:layout_margin="@dimen/_6sdp"
@@ -163,38 +155,20 @@
         </androidx.cardview.widget.CardView>
 
         <!--vertical brand list-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_brands"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_home"
-            app:layout_constraintHeight_percent="0.95"
-            app:layout_constraintStart_toEndOf="@+id/cl_ads"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.15"
-            tools:itemCount="4"
-            tools:listitem="@layout/raw_personalise_brands" />
 
         <!--asd viewer-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_ads"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_cigarette"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintWidth_percent="0.73">
+            app:layout_constraintEnd_toStartOf="@+id/card_next"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toEndOf="@+id/rv_cigarette"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.16">
 
             <!--exo player-->
             <com.google.android.exoplayer2.ui.PlayerView
@@ -214,10 +188,10 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_ads_viewer"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:visibility="visible"
                 android:src="@drawable/ads"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -20,6 +20,33 @@ data class PersonaliseVapeData(
     val questions: List<QuestionsItem>? = null
 )
 
+data class QuestionsItem(
+
+    @field:SerializedName("question")
+    val question: String = "",
+
+    @field:SerializedName("background_color")
+    val backgroundColor: String = "",
+
+    @field:SerializedName("id")
+    val id: String = "",
+
+    @field:SerializedName("slug")
+    val slug: String = "",
+
+    @field:SerializedName("options")
+    val options: List<OptionsItem>? = null,
+)
+
+data class OptionsItem(
+
+    @field:SerializedName("id")
+    val id: String = "",
+
+    @field:SerializedName("option")
+    val option: String = ""
+)
+
 data class AdvertisementsItem(
 
     @field:SerializedName("ads")
@@ -33,33 +60,6 @@ data class AdvertisementsItem(
 
     @field:SerializedName("slug")
     val slug: String = ""
-)
-
-data class QuestionsItem(
-
-    @field:SerializedName("question")
-    val question: String = "",
-
-    @field:SerializedName("background_color")
-    val backgroundColor: String = "",
-
-    @field:SerializedName("options")
-    val options: List<OptionsItem>? = null,
-
-    @field:SerializedName("id")
-    val id: String = "",
-
-    @field:SerializedName("slug")
-    val slug: String = ""
-)
-
-data class OptionsItem(
-
-    @field:SerializedName("id")
-    val id: String = "",
-
-    @field:SerializedName("option")
-    val option: String = ""
 )
 
 data class PersonaliseVape(

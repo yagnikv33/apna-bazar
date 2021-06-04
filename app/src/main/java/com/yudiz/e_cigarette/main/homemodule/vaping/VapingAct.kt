@@ -4,16 +4,13 @@ import android.content.Intent
 import android.view.View
 import com.yudiz.BR
 import com.yudiz.databinding.ActivityVapingBinding
-import com.yudiz.e_cigarette.AppConstants
 import com.yudiz.e_cigarette.AppConstants.App.Buttons.KNOW_THE_FACTS
 import com.yudiz.e_cigarette.AppConstants.App.Buttons.PG_VS_VG
 import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BRAND_ITEM_ID
-import com.yudiz.e_cigarette.AppConstants.Communication.BundleData.BUTTON_ITEM_ID
 import com.yudiz.e_cigarette.Layouts
 import com.yudiz.e_cigarette.data.model.response.BrandsItem
 import com.yudiz.e_cigarette.data.model.response.ButtonsItem
 import com.yudiz.e_cigarette.data.model.response.VapingResponse
-import com.yudiz.e_cigarette.helper.util.logE
 import com.yudiz.e_cigarette.main.base.BaseAct
 import com.yudiz.e_cigarette.main.base.rv.BaseRvBindingAdapter
 import com.yudiz.e_cigarette.main.brand_listmodule.BrandsDetailAct

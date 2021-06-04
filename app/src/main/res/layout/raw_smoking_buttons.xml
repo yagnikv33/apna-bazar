@@ -16,12 +16,9 @@
             type="com.yudiz.e_cigarette.data.model.response.QuestionsItem" />
 
         <variable
-            name="options_item"
+            name="ope_item"
             type="com.yudiz.e_cigarette.data.model.response.OptionsItem" />
 
-        <variable
-            name="viewModel"
-            type="com.yudiz.e_cigarette.main.homemodule.model.HomeVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +36,8 @@
             app:elevation="@dimen/_4sdp"
             android:gravity="center"
             android:backgroundTint="@{Color.parseColor(que_item.backgroundColor)}"
-            android:text="@{que_item.options.get(1).option}"
+            android:text="@{ope_item.option}"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

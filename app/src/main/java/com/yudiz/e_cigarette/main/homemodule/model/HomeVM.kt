@@ -20,6 +20,7 @@ class HomeVM(private val repo: HomeRepo) : BaseVM() {
 
     private val progressBar = MutableLiveData(false)
 
+
     fun getPortalData() {
         scope {
             progressBar.postValue(true)

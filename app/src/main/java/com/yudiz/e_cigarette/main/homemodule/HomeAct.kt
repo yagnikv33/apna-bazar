@@ -93,11 +93,11 @@ class HomeAct : BaseAct<ActivityHomeBinding, HomeVM>(Layouts.activity_home) {
     }
 
     private fun rvButtonClickListener(v: View, item: ButtonsItem, pos: Int) {
-        onButtonClick(pos)
+        onButtonClick(item.id)
     }
 
-    private fun onButtonClick(pos: Int?) {
-        when (pos) {
+    private fun onButtonClick(id: String?) {
+        when (id) {
             PERSONALISE_VAPE -> {
                 startActivity(PersonaliseVapeAct::class.java, null, null, shouldAnimate = true)
             }

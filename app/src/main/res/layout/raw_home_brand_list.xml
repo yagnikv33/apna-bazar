@@ -10,9 +10,9 @@
             name="click"
             type="android.view.View.OnClickListener" />
 
-        <!--<variable
+        <variable
             name="data"
-            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />-->
+            type="com.yudiz.e_cigarette.data.model.response.BrandsItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -12,7 +12,6 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.*
 import androidx.lifecycle.lifecycleScope
-import com.yudiz.e_cigarette.AppConstants.Api.ResponseCode.UNAUTHORIZED_CODE
 import com.yudiz.BR
 import com.yudiz.R
 import com.yudiz.e_cigarette.helper.util.ToastUtil

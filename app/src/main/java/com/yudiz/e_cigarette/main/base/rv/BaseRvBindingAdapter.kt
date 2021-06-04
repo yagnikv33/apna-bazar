@@ -49,7 +49,6 @@ open class BaseRvBindingAdapter<T>(
             holder.binding.setVariable(br, value)
         }
 
-//        holder.binding.setVariable(BR.position, position)
 
         viewHolder?.invoke(holder,position)
 
