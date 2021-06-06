@@ -33,6 +33,8 @@ class PersonaliseVapeAct :
     override val hasProgress: Boolean
         get() = false
 
+    var myList: MutableList<Any> = mutableListOf()
+
     private var player: SimpleExoPlayer? = null
     private lateinit var smokingAdapter: BaseRvBindingAdapter<QuestionsItem>
     private lateinit var cigaretteAdapter: BaseRvBindingAdapter<QuestionsItem>
@@ -40,7 +42,7 @@ class PersonaliseVapeAct :
     override fun init() {
         vm.getPersonaliseVapeData()
         setSmokingAdapter()
-        setCigaretteAdapter()
+        //setCigaretteAdapter()
     }
 
     override fun onClick(v: View) {
@@ -65,7 +67,7 @@ class PersonaliseVapeAct :
             Layouts.raw_smoking_buttons,
             mutableListOf(),
             clickListener = ::rvSmokingClick,
-            brs = mapOf(BR.que_item to QuestionsItem(), BR.ope_item to OptionsItem())
+            br = BR.queItem
         )
         binding.rvSmoking.adapter = smokingAdapter
     }
@@ -140,33 +142,9 @@ class PersonaliseVapeAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 if (apiRenderState.result is PersonaliseVapeResponse) {
 
-                    /*apiRenderState.result.data.questions?.forEach { it ->
-                        when (it.slug) {
-                            YEARS_SMOKING -> {
-                                apiRenderState.result.data.questions.let {
-                                    smokingAdapter.addData(
-                                        it,
-                                        isClear = true
-                                    )
-                                }
-                                "Response: Smoking ${apiRenderState.result.data.questions}".logE()
-                            }
-                            CIGARETTES_PER_DAY -> {
-                                apiRenderState.result.data.questions.let {
-                                    cigaretteAdapter.addData(
-                                        it,
-                                        isClear = true
-                                    )
-                                }
-                                "Response: Cigarette ${apiRenderState.result.data.questions}".logE()
-                            }
-                        }
-                    }*/
-
                     apiRenderState.result.data.questions?.forEach { it ->
                         when (it.slug) {
                             YEARS_SMOKING -> {
-                                //textview title
                                 binding.tvSmokingTitle.text = it.question
 
                                 apiRenderState.result.data.questions.let {
@@ -176,17 +154,14 @@ class PersonaliseVapeAct :
                                     )
                                 }
                             }
-
                             CIGARETTES_PER_DAY -> {
-                                //textview title
                                 binding.tvCigaretteTitle.text = it.question
-
-                                apiRenderState.result.data.questions.let {
+                                /*apiRenderState.result.data.questions.let {
                                     cigaretteAdapter.addData(
                                         it,
                                         isClear = true
                                     )
-                                }
+                                }*/
                             }
                         }
                         "Response: Success - ${apiRenderState.result.data.questions}".logE()
@@ -203,19 +178,20 @@ class PersonaliseVapeAct :
                             }
                         }
                     }
-                    hideProgress()
+
+                    //hideProgress()
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+                //hideProgress()
             }
             ApiRenderState.Loading -> {
-                showProgress()
+                //showProgress()
             }
             is ApiRenderState.ValidationError -> {
             }
             is ApiRenderState.ApiError<*> -> {
-                hideProgress()
+                //hideProgress()
             }
         }
     }

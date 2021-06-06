@@ -12,12 +12,16 @@
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="que_item"
+            name="queItem"
             type="com.yudiz.e_cigarette.data.model.response.QuestionsItem" />
 
         <variable
-            name="ope_item"
+            name="opeItem"
             type="com.yudiz.e_cigarette.data.model.response.OptionsItem" />
+
+        <variable
+            name="viewModel"
+            type="com.yudiz.e_cigarette.main.homemodule.model.HomeVM" />
 
     </data>
 
@@ -35,8 +39,8 @@
             app:cornerRadius="@dimen/_11sdp"
             app:elevation="@dimen/_4sdp"
             android:gravity="center"
-            android:backgroundTint="@{Color.parseColor(que_item.backgroundColor)}"
-            android:text="@{ope_item.option}"
+            android:backgroundTint="@{Color.parseColor(queItem.backgroundColor)}"
+            android:text="@{queItem.list}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

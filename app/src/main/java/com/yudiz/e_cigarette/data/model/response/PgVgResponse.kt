@@ -1,9 +1,6 @@
 package com.yudiz.e_cigarette.data.model.response
 
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.text.HtmlCompat
 import com.google.gson.annotations.SerializedName
 
 data class PgVgResponse(
