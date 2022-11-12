@@ -1,14 +1,3 @@
 <resources>
-    <string name="tv_select">Select your option to begin</string>
-    <string name="tv_lets">Lets get started!</string>
-    <string name="tv_no_data_found">No Data Available at the moment..</string>
-    <string name="tv_brands">Brands</string>
-    <string name="tv_previous">Previous</string>
-    <string name="tv_questions">Do you have questions?</string>
-    <string name="tv_answers">Here are the answers</string>
-    <string name="tv_know_the_fact">Know The Fact</string>
-    <string name="tv_pg_vs_vg">PG vs VG</string>
-    <string name="tv_testimonials">Testimonials</string>
-    <string name="tv_tell_us_more_about_your_habits">Tell us more about your habits</string>
-    <string name="tv_next">Next</string>
+
 </resources>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.yudiz">
+    package="com.esjayit">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".e_cigarette.App"
+        android:name="com.esjayit.apnabazar.App"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:largeHeap="true"
@@ -17,45 +17,18 @@
         tools:replace="android:label"
         tools:targetApi="n">
 
+
         <activity
-            android:name=".e_cigarette.main.homemodule.vaping.PgVgAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.vaping.KnowTheFactsAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.brand_listmodule.BrandsDetailAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.testimonials.TestimonialsAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.saving_calc.SavingCalcAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.vaping.VapingAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.our_brands.OurBrandsAct"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".e_cigarette.main.homemodule.personalise_vape.PersonaliseVapeAct"
-            android:screenOrientation="landscape">
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.SplashScreenAct"
+            android:screenOrientation="landscape"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".e_cigarette.main.homemodule.HomeAct"
-            android:screenOrientation="landscape">
-            
-        </activity>
-        <activity
-            android:name=".e_cigarette.main.entrymodule.view.SplashScreenAct"
-            android:screenOrientation="landscape" >
 
         </activity>
     </application>

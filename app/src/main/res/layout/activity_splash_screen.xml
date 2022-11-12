@@ -19,7 +19,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".e_cigarette.main.entrymodule.view.SplashScreenAct">
+    tools:context=".apnabazar.main.entrymodule.view.SplashScreenAct">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/player_view"
@@ -35,7 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
     <TextView
         android:id="@+id/tv_to_home"
         android:layout_width="match_parent"

@@ -5,15 +5,15 @@ apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
-        def appName = "E-Cigarette"
+        def appName = "Apna Bazar"
         def vCode = 1
         def vName = "1.0.0"
 
-        applicationId "com.yudiz.e_cigarette"
+        applicationId "com.esjayit.apnabazar"
 
         minSdkVersion 23
-        compileSdkVersion 29
-        targetSdkVersion 29
+        compileSdkVersion 33
+        targetSdkVersion 33
 
         versionCode vCode
         versionName vName
@@ -80,8 +80,8 @@ dependencies {
 
     //image loading
     implementation 'io.coil-kt:coil:0.8.0'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+//    implementation 'com.github.bumptech.glide:glide:4.12.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     //api
     def retrofitVersion = '2.8.1'
