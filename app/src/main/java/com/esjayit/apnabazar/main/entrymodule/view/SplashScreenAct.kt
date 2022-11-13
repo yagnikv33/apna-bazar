@@ -1,20 +1,24 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
-import android.graphics.Color
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.esjayit.databinding.ActivitySplashScreenBinding
+import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
+import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
 import com.esjayit.apnabazar.data.model.response.SplashResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
+import com.esjayit.databinding.ActivitySplashScreenBinding
+import com.google.android.exoplayer2.SimpleExoPlayer
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+
 
 class SplashScreenAct :
     BaseAct<ActivitySplashScreenBinding, EntryVM>(Layouts.activity_splash_screen) {
@@ -23,12 +27,16 @@ class SplashScreenAct :
     override val hasProgress: Boolean = true
 
     private var player: SimpleExoPlayer? = null
+    var uuid: String = UUID.randomUUID().toString()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun init() {
 //        vm.getSplashScreenData()
-        initListeners()
-        initializePlayer()
-        vm.addDeviceInfo(version_release = "10")
+//        vm.addDeviceInfo(uuid = Secure.getString(contentResolver, Secure.ANDROID_ID), isRooted = "0", installedId = "1")
+        vm.checkForUpdate()
     }
 
     override fun onClick(v: View) {
@@ -40,96 +48,24 @@ class SplashScreenAct :
         }
     }
 
-    private fun initViews() {
-        binding.tvToHome.text = vm.splashData.value?.data?.title
-
-        vm.splashData.value?.data?.backgroundColor?.let {
-            binding.tvToHome.setBackgroundColor(
-                Color.parseColor(
-                    it
-                )
-            )
-        }
-    }
-
-    private fun initListeners() {
-        player?.addListener(object : Player.EventListener {
-            override fun onPlayerError(error: ExoPlaybackException) {
-                super.onPlayerError(error)
-                "ExoPlayer ${error.message}".logE()
-            }
-
-            override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
-                super.onPlayWhenReadyChanged(playWhenReady, reason)
-                "ExoPlayer $reason".logE()
-            }
-        })
-    }
-
-    private fun initializePlayer() {
-
-        val trackSelector = DefaultTrackSelector(this)
-        trackSelector.setParameters(trackSelector.buildUponParameters().setMaxVideoSizeSd())
-
-        player = SimpleExoPlayer.Builder(this)
-            .setTrackSelector(trackSelector)
-            .build()
-
-        binding.playerView.player = player
-
-        val mediaItem: MediaItem = vm.splashData.value?.data?.video.let { MediaItem.fromUri(it!!) }
-
-        player?.apply{
-
-            setMediaItem(mediaItem)
-            playWhenReady = true
-            prepare()
-            volume = 0f
-        }
-    }
-
     override fun onStart() {
         super.onStart()
-        initializePlayer()
     }
 
     override fun onResume() {
         super.onResume()
-        hideSystemUi()
-        initializePlayer()
-    }
-
-    private fun hideSystemUi() {
-        binding.playerView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
     override fun onPause() {
         super.onPause()
-        releasePlayer()
-        player?.stop()
     }
 
     override fun onStop() {
         super.onStop()
-        releasePlayer()
-        player?.stop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        player?.stop()
-    }
-
-    private fun releasePlayer() {
-        if (player != null) {
-            player!!.release()
-            player = null
-        }
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
@@ -137,9 +73,13 @@ class SplashScreenAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is SplashResponse -> {
-                        initViews()
-                        initializePlayer()
-                        hideProgress()
+
+                    }
+                    is AddDeviceInfoResponse -> {
+                        "Add Device Info Success".logE()
+                    }
+                    is CheckUpdateResponse -> {
+                        "Check Update Response Success".logE()
                     }
                 }
             }
@@ -150,9 +90,10 @@ class SplashScreenAct :
                 showProgress()
             }
             is ApiRenderState.ValidationError -> {
+                "Error API CALLING".logE()
             }
             is ApiRenderState.ApiError<*> -> {
-                hideProgress()
+                "Error API CALLING API ERROR".logE()
             }
         }
     }

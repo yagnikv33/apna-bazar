@@ -28,18 +28,21 @@ class AppConstants {
 
     object Api {
 
+        //For First 4 API
         const val BASE_URL = "http://developerapis.esjayit.com/"
+        //Testing Server
+        const val TEST_URL = "http://testapis.apnabazarrajkot.com/"
         object EndUrl {
-            const val HOME = "home"
-            const val PORTAL = "portal"
-            const val BRAND_DETAIL = "brand-detail"
-            const val BRAND_LIST = "brand-list"
-            const val VAPING_LIST = "vaping-button-list"
-            const val KNOW_THE_FACTS = "know-the-facts"
-            const val PG_VG = "PG-vs-VG"
-            const val TESTIMONIALS = "testimonials"
-            const val PERSONALISE_VAPE = "personalise_your_vape"
+            const val  HOME = "home"
+            //BASE_URL
             const val ADD_DEVICE_INFO = "adddeviceinfo"
+            const val CHECK_UPDATE = "checkupdate"
+            const val LOG_ERROR = "logerror"
+            const val APP_LAUNCH_STATUS = "appfirstlaunch"
+            //TEST_URL
+            const val CHECK_USER_ACTIVE = "checkactiveuser"
+
+
         }
 
         object Value {
