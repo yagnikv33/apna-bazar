@@ -28,8 +28,7 @@ class AppConstants {
 
     object Api {
 
-        const val BASE_URL = "https://webdevprojects.cloud/php/laravel/ecigarette-admin/api/v1/"
-
+        const val BASE_URL = "http://developerapis.esjayit.com/"
         object EndUrl {
             const val HOME = "home"
             const val PORTAL = "portal"
@@ -40,6 +39,7 @@ class AppConstants {
             const val PG_VG = "PG-vs-VG"
             const val TESTIMONIALS = "testimonials"
             const val PERSONALISE_VAPE = "personalise_your_vape"
+            const val ADD_DEVICE_INFO = "adddeviceinfo"
         }
 
         object Value {

@@ -34,4 +34,3 @@ data class Data(
     @field:SerializedName("title")
     val title: String = ""
 )
-

@@ -25,9 +25,10 @@ class SplashScreenAct :
     private var player: SimpleExoPlayer? = null
 
     override fun init() {
-        vm.getSplashScreenData()
+//        vm.getSplashScreenData()
         initListeners()
         initializePlayer()
+        vm.addDeviceInfo(version_release = "10")
     }
 
     override fun onClick(v: View) {
@@ -134,10 +135,12 @@ class SplashScreenAct :
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
-                if (apiRenderState.result is SplashResponse) {
-                    initViews()
-                    initializePlayer()
-                    hideProgress()
+                when (apiRenderState.result) {
+                    is SplashResponse -> {
+                        initViews()
+                        initializePlayer()
+                        hideProgress()
+                    }
                 }
             }
             ApiRenderState.Idle -> {

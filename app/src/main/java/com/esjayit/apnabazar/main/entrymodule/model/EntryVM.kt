@@ -24,4 +24,19 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
             }
         }
     }
+
+    fun addDeviceInfo(version_release: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.addDeviceInfo(
+                version_relese = version_release,
+                onApiError
+            ).let {
+//                splashData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
 }
