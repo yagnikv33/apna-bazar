@@ -1,3 +1,7 @@
 <resources>
-
+<string name="header_sign_in">Sign In</string>
+    <string name="txt_user_name">USERNAME</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_otp_subtitle">Please enter the OTP code sent to your Register Mobile Number.</string>
+    <string name="hint_esjayit">ESJAYIT</string>
 </resources>

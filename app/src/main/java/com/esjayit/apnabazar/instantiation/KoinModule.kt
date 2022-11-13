@@ -6,6 +6,7 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.api.HeaderHttpInterceptor
 import com.esjayit.apnabazar.api.service.EntryApiModule
 import com.esjayit.apnabazar.helper.util.NetworkUtil
+import com.esjayit.apnabazar.helper.util.PrefUtil
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
 import okhttp3.OkHttpClient
@@ -18,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object KoinModule {
 
     val utilModule = module {
+        single { PrefUtil(get()) }
         single { NetworkUtil(get()) }
     }
 
@@ -29,7 +31,7 @@ object KoinModule {
                         if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
                     )
                 )
-                .addInterceptor(HeaderHttpInterceptor())
+                .addInterceptor(HeaderHttpInterceptor(get()))
                 .build()
         }
 

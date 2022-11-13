@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="headerText"
+            type="String" />
+
+        <variable
+            name="descText"
+            type="String" />
+
+        <variable
+            name="descIsVisible"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/pipline_one"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pipline"
+            app:layout_constraintBottom_toTopOf="@id/view_bg"
+            app:layout_constraintStart_toStartOf="@id/view_bg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <ImageView
+            android:id="@+id/pipline_two"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:src="@drawable/pipline"
+            app:layout_constraintBottom_toTopOf="@id/view_bg"
+            app:layout_constraintStart_toEndOf="@id/pipline_one"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_header"
+            style="@style/entry_module_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{headerText}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_desc"
+            app:layout_constraintStart_toEndOf="@id/pipline_two"
+            app:layout_constraintTop_toTopOf="@+id/pipline_two"
+            tools:text="Sign In" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_desc"
+            style="@style/entry_module_desc_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/_26sdp"
+            android:text="@{descText}"
+            android:visibility="@{descIsVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/pipline_two"
+            app:layout_constraintEnd_toEndOf="@id/view_bg"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/tv_header"
+            app:layout_constraintTop_toBottomOf="@id/tv_header"
+            tools:text="Please enter the OTP code sent to your Register Mobile Number."
+            tools:visibility="visible" />
+
+        <View
+            style="@style/bg_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_240sdp"
+            android:layout_marginBottom="@dimen/_26sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view_bg"
+            style="@style/bg_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_160sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:dividerHeight="0.0px"
+            android:outlineAmbientShadowColor="@color/background"
+            android:outlineSpotShadowColor="@color/background"
+            android:shadowColor="@color/background"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardElevation="@dimen/_10sdp"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

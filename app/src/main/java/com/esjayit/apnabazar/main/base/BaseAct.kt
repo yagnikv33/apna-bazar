@@ -20,11 +20,13 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
     @LayoutRes private val layoutId: Int, private val fragFactory: FragmentFactory? = null
 ) : AppCompatActivity(), View.OnClickListener {
 
+    protected val prefs by inject<PrefUtil>()
    protected lateinit var binding: binding
 
     private var progress: ObservableField<Boolean>? = null

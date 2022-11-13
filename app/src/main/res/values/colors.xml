@@ -9,4 +9,9 @@
     <color name="gray">#23000000</color>
     <color name="white">@android:color/white</color>
     <color name="light_blue">#4285F5</color>
+
+    <!-- New Colors -->
+    <color name="text_color">#030F27</color>
+    <color name="background">#DFFFF4</color>
+    <color name="edit_text">#1A1A1A</color>
 </resources>

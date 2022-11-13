@@ -19,6 +19,10 @@ class AppConstants {
 
     }
 
+    object Prefs{
+        const val AUTH_TOKEN = "1"
+    }
+
     object Communication {
 
         object BundleData {
