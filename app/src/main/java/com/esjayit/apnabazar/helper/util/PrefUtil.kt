@@ -2,8 +2,6 @@ package com.esjayit.apnabazar.helper.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.esjayit.R
@@ -39,6 +37,20 @@ class PrefUtil(context: Context) {
 //            prefEditor.putString(USER_INFO, data.convertToString())
 //            prefEditor.apply()
 //        }
+
+    var firstTime: Boolean
+        get() = prefs.getBoolean("FIRST_TIME", false)
+        set(value) {
+            prefEditor.putBoolean("FIRST_TIME", value)
+            prefEditor.apply()
+        }
+
+    var installId: String?
+        get() = prefs.getString("INSTALL_ID", "")
+        set(value) {
+            prefEditor.putString("INSTALL_ID", value)
+            prefEditor.apply()
+        }
 
     fun hasKey(key: String) = prefs.contains(key)
 

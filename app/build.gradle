@@ -91,7 +91,6 @@ dependencies {
 
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
-
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
 }
 

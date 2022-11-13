@@ -1,11 +1,6 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
-import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
 import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
@@ -29,10 +24,6 @@ class SplashScreenAct :
     private var player: SimpleExoPlayer? = null
     var uuid: String = UUID.randomUUID().toString()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun init() {
 //        vm.getSplashScreenData()
 //        vm.addDeviceInfo(uuid = Secure.getString(contentResolver, Secure.ANDROID_ID), isRooted = "0", installedId = "1")
@@ -48,24 +39,12 @@ class SplashScreenAct :
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onResume() {
         super.onResume()
-    }
+        if (prefs.firstTime) {
+          prefs.firstTime = false
+        }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
