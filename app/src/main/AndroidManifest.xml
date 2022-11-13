@@ -17,19 +17,16 @@
         tools:replace="android:label"
         tools:targetApi="n">
 
-
         <activity
-            android:name="com.esjayit.apnabazar.main.entrymodule.view.SplashScreenAct"
-            android:screenOrientation="landscape"
-            android:exported="true">
-
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.SignInAct"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

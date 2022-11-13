@@ -16,25 +16,11 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/person/baseline_person_24.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_person" />
-                            <entry key="sourceFile" value="C:\Users\Programmer\AndroidStudioProjects\skeleton-beta-flow" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_username" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/ic_username.svg" />
                           </map>
                         </option>
                       </PersistentState>
