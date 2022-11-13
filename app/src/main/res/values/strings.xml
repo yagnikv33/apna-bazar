@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Apna Bazar</string>
+    <!--  <string name="app_name">Apna Bazar</string>-->
     <string name="header_sign_in">Sign In</string>
     <string name="txt_user_name">USERNAME</string>
     <string name="txt_login">Login</string>

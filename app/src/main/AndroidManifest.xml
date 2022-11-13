@@ -16,7 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
-
+        <activity
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.GetYourCodeAct"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="com.esjayit.apnabazar.main.entrymodule.view.SignInAct"
             android:exported="true"
