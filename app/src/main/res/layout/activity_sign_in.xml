@@ -68,8 +68,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
+                    android:hint="@string/hint_esjayit"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:fontFamily="@font/ralewa_regular"
                     android:textColor="@color/edit_text"
                     android:textSize="@dimen/_12ssp" />
 

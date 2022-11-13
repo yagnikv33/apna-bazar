@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
@@ -13,6 +14,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
     override val hasProgress: Boolean = true
 
     override fun init() {
+
 
     }
 

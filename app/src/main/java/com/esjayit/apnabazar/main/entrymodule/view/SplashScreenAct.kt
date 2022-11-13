@@ -28,6 +28,9 @@ class SplashScreenAct :
         vm.getSplashScreenData()
         initListeners()
         initializePlayer()
+
+        //To store data in pref
+        prefs.authToken = "auth token"
     }
 
     override fun onClick(v: View) {
@@ -134,10 +137,13 @@ class SplashScreenAct :
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
-                if (apiRenderState.result is SplashResponse) {
-                    initViews()
-                    initializePlayer()
-                    hideProgress()
+                when (apiRenderState.result) {
+                    is SplashResponse -> {
+
+                        initViews()
+                        initializePlayer()
+                        hideProgress()
+                    }
                 }
             }
             ApiRenderState.Idle -> {
