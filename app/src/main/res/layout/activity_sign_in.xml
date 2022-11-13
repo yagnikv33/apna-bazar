@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,6 +88,7 @@
                 android:layout_height="@dimen/_42sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:backgroundTint="@color/black"
+                android:onClick="@{click::onClick}"
                 android:text="@string/txt_login" />
 
 

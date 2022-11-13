@@ -4,14 +4,22 @@ import com.google.gson.annotations.SerializedName
 
 data class CheckUpdateResponse(
 
-    @field:SerializedName("data")
-    val data: Data = Data(),
+    @field:SerializedName("statuscode")
+    var statusCode: String = "",
 
-    @field:SerializedName("userdata")
-    val userData: UserData = UserData(),
+    @field:SerializedName("message")
+    var message: String = "",
+
+    @field:SerializedName("data")
+    val updateData: UpdateData = UpdateData(),
 
     @field:SerializedName("extra")
     val meta: Meta = Meta()
+)
+data class UpdateData(
+
+    @field:SerializedName("userdata")
+    val userData: UserData = UserData()
 )
 data class UserData(
 

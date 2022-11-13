@@ -3,15 +3,15 @@ package com.esjayit.apnabazar.api.service
 import android.os.Build
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEVICE_INFO
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.APP_FIRST_LAUNCH_STATUS
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_UPDATE
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_VERIFICATION
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.HOME
-import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
-import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
-import com.esjayit.apnabazar.data.model.response.SplashResponse
+import com.esjayit.apnabazar.data.model.response.*
+import com.google.gson.JsonObject
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import java.util.UUID
 
 interface EntryApiModule {
 
@@ -55,8 +55,30 @@ interface EntryApiModule {
     suspend fun checkUpdate(
         @Field("APPPACKAGENAME") appPackgeName : String = BuildConfig.APPLICATION_ID,
         @Field("APPVERCODE") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
-        @Field("installid") installId : String = ""
+        @Field("installid") installId : String
     ) : CheckUpdateResponse
+
+
+    @FormUrlEncoded
+    @POST(APP_FIRST_LAUNCH_STATUS)
+    suspend fun appFirstLunch(
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("fcmtoken") fcmToken : String,
+        @Field("playerid") playerId : String,
+        @Field("installid") installId : String,
+        @Field("deviceinfo") deviceInfo: JsonObject
+    ) : AppFirstLaunchResponse
+
+
+    @FormUrlEncoded
+    @POST(CHECK_USER_VERIFICATION)
+    suspend fun checkUserVerification(
+        @Field("username") userName : String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : CheckUserVerificationResponse
 
 
 }

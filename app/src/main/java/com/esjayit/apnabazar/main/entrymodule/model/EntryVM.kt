@@ -1,40 +1,48 @@
 package com.esjayit.apnabazar.main.entrymodule.model
 
-import android.content.Context
 import android.os.Build
-import android.provider.Settings.Secure
 import androidx.lifecycle.MutableLiveData
-import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
-import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
-import com.esjayit.apnabazar.data.model.response.SplashResponse
+import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
+import com.google.gson.JsonObject
 import java.io.File
 
 
 class EntryVM(private val repo: EntryRepo) : BaseVM() {
 
     var splashData = MutableLiveData(SplashResponse())
+    //For Splash Screen Data
     var addDeviceData = MutableLiveData(AddDeviceInfoResponse())
     var checkUpdateData = MutableLiveData(CheckUpdateResponse())
+    var appFirstLaunchData = MutableLiveData(AppFirstLaunchResponse())
+    //For SignIn Data
+    var checkUserVerificatonData = MutableLiveData(CheckUserVerificationResponse())
 
     private val progressBar = MutableLiveData(false)
 
-    fun getSplashScreenData() {
+    //For Splash Screen APIs
+    //For App First Time Launch API Function
+    fun appFirstTimeLaunch(fcmToken: String, playerId: String, installId: String, deviceInfoJson: JsonObject) {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
-            repo.getSplashData(
+            repo.appFirstLaunch(
+                fcmToken = fcmToken,
+                playerId = playerId,
+                installId = installId,
+                deviceInfoJson = deviceInfoJson,
                 onApiError
             ).let {
-                splashData.postValue(it)
+                appFirstLaunchData.postValue(it)
                 state.emit(ApiRenderState.ApiSuccess(it))
                 progressBar.postValue(false)
             }
         }
     }
 
+    //For Add Device Info API
     fun addDeviceInfo(uuid: String, isRooted: String, installedId: String) {
         scope {
             progressBar.postValue(true)
@@ -52,17 +60,37 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
         }
     }
 
-    fun checkForUpdate() {
+    //For Checking App Update
+    fun checkForUpdate(installedId: String) {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
-            repo.checkUpdate {  }.let {
+            repo.checkUpdate(installId = installedId, onApiError).let {
                 checkUpdateData.postValue(it)
                 state.emit(ApiRenderState.ApiSuccess(it))
                 progressBar.postValue(false)
             }
         }
     }
+
+    //For SignIn Screen APIs
+    //For Check User Verification
+    fun checkUserVerification(userName: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.checkUserVerification(
+                userName = userName,
+                installed = installedId,
+                onApiError).let {
+                checkUserVerificatonData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+
 
 
     /**

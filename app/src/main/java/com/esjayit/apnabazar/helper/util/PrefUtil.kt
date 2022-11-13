@@ -39,7 +39,7 @@ class PrefUtil(context: Context) {
 //        }
 
     var firstTime: Boolean
-        get() = prefs.getBoolean("FIRST_TIME", false)
+        get() = prefs.getBoolean("FIRST_TIME", true)
         set(value) {
             prefEditor.putBoolean("FIRST_TIME", value)
             prefEditor.apply()

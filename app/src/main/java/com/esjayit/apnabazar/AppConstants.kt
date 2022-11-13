@@ -23,6 +23,13 @@ class AppConstants {
         const val AUTH_TOKEN = "1"
     }
 
+    object Status_Code {
+        const val Success = "1"
+        const val Failed = "0"
+        const val Code2 = "2"
+        const val Code3 = "3"
+    }
+
     object Communication {
 
         object BundleData {
@@ -39,12 +46,14 @@ class AppConstants {
         object EndUrl {
             const val  HOME = "home"
             //BASE_URL
-            const val ADD_DEVICE_INFO = "adddeviceinfo"
-            const val CHECK_UPDATE = "checkupdate"
-            const val LOG_ERROR = "logerror"
-            const val APP_LAUNCH_STATUS = "appfirstlaunch"
+            const val APP_FIRST_LAUNCH_STATUS = BASE_URL + "appfirstlaunch"
+            const val ADD_DEVICE_INFO = BASE_URL + "adddeviceinfo"
+            const val CHECK_UPDATE = BASE_URL + "checkupdate"
+            const val LOG_ERROR = BASE_URL + "logerror"
             //TEST_URL
             const val CHECK_USER_ACTIVE = "checkactiveuser"
+            const val CHECK_USER_VERIFICATION = "checkuserverification"
+
 
 
         }

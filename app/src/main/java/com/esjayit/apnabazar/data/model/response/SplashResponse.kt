@@ -4,6 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class SplashResponse(
 
+    @field:SerializedName("statuscode")
+    var statusCode: String = "",
+
+    @field:SerializedName("message")
+    var message: String = "",
+
     @field:SerializedName("data")
     val data: Data = Data(),
 
@@ -24,7 +30,6 @@ data class Meta(
 )
 
 data class Data(
-
     @field:SerializedName("background_color")
     val backgroundColor: String = "",
 
