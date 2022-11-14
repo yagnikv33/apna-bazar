@@ -5,8 +5,13 @@ import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEVICE_INFO
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.APP_FIRST_LAUNCH_STATUS
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_UPDATE
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_ACTIVE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_VERIFICATION
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.HOME
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.LOGIN
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.NEW_PASSWORD
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.SEND_OTP
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VERIFY_OTP
 import com.esjayit.apnabazar.data.model.response.*
 import com.google.gson.JsonObject
 import retrofit2.http.Field
@@ -79,6 +84,55 @@ interface EntryApiModule {
         @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId : String
     ) : CheckUserVerificationResponse
+
+    @FormUrlEncoded
+    @POST(SEND_OTP)
+    suspend fun sendOTP(
+        @Field("username") userName : String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : SendOTPResponse
+
+    @FormUrlEncoded
+    @POST(VERIFY_OTP)
+    suspend fun verifyOTP(
+        @Field("otpid") otpId : String,
+        @Field("otp") otp : String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : VerifyOTPResponse
+
+    @FormUrlEncoded
+    @POST(NEW_PASSWORD)
+    suspend fun newPassword(
+        @Field("username") userName: String,
+        @Field("password") password : String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : NewPasswordResponse
+
+
+    @FormUrlEncoded
+    @POST(LOGIN)
+    suspend fun login(
+        @Field("username") userName: String,
+        @Field("password") password : String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : LoginResponse
+
+    @FormUrlEncoded
+    @POST(CHECK_USER_ACTIVE)
+    suspend fun checkUserActive(
+        @Field("userid") userId: String,
+        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : CheckUserActiveResponse
 
 
 }
