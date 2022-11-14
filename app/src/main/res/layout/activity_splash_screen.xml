@@ -42,7 +42,6 @@
         android:gravity="center"
         android:onClick="@{click::onClick}"
         android:textAllCaps="true"
-        android:fontFamily="@font/helvetica_bold_font"
         android:textColor="@color/white"
         android:textSize="@dimen/_30sdp"
         app:layout_constraintBottom_toBottomOf="parent"

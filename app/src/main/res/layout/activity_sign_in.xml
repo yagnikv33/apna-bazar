@@ -5,6 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
 
     </data>
 
@@ -60,7 +65,7 @@
                 app:boxCornerRadiusTopStart="0dp"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="@id/tv_username"
+                app:layout_constraintStart_toStartOf="@id/tv_username"
                 app:startIconDrawable="@drawable/ic_username">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -79,6 +84,8 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_login"
+                style="@style/btn_style"
+                android:onClick="@{click::onClick}"
                 app:layout_constraintTop_toBottomOf="@id/edt_username"
                 android:layout_width="match_parent"
                 app:layout_constraintEnd_toEndOf="@id/edt_username"
