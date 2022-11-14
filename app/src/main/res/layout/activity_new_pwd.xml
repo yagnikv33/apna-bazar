@@ -118,7 +118,7 @@
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_pwd">
 
-                <EditText
+                    <EditText
                     android:id="@+id/edt_confirm_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

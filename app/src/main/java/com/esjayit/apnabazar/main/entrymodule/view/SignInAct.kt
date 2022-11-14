@@ -1,11 +1,13 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.CheckUserVerificationResponse
+import com.esjayit.apnabazar.data.model.response.SendOTPResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -20,7 +22,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
     var userName: String = ""
 
     override fun init() {
-        addListeners()
+//        addListeners()
     }
 
     fun addListeners() {
@@ -40,12 +42,15 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
         when (v) {
             binding.btnLogin -> {
                 "Login Button Tapped".logE()
-                userName = binding.editText.text.toString()
-                vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
-                if (userName.isNotEmpty() || userName.isNotBlank()) {
-                } else {
-                    errorToast("Please enter username first")
-                }
+
+                //TEMP API CALL
+                vm.checkUserVerification(userName = "ESJAYIT", installedId = prefs.installId!!)
+//                userName = binding.editText.text.toString()
+//                if (userName.isNotEmpty()) {
+//                    vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
+//                } else {
+//                    errorToast("Please enter username first")
+//                }
             }
         }
     }
@@ -60,10 +65,24 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                             "Go to Password Screen".logE()
                         } else if (statusCode == AppConstants.Status_Code.Code3) {
                             "Send OTP Task and Go to OTP Screen for Verification Check User Verification ${apiRenderState.result.message}".logE()
+                            vm.sendOTP(userName = userName, installedId = prefs.installId!!)
                         } else if (statusCode == AppConstants.Status_Code.Code2) {
                             "Error : Check User Verification ${apiRenderState.result.message}".logE()
                         } else {
                             "Error : Check User Verification ${apiRenderState.result.message}".logE()
+                        }
+                    }
+
+                    is SendOTPResponse -> {
+                        val statusCode = apiRenderState.result.statusCode
+                        if (statusCode == AppConstants.Status_Code.Success) {
+                            val intent = Intent(this, GetYourCodeAct::class.java)
+                            intent.putExtra("SendOTPModel", apiRenderState.result.data)
+                            this.startActivity(intent)
+                        } else if (statusCode == AppConstants.Status_Code.Code2) {
+                            "Error : Send OTP ${apiRenderState.result.message}".logE()
+                        } else {
+                            "Error : Send OTP ${apiRenderState.result.message}".logE()
                         }
                     }
                 }

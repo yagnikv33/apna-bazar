@@ -51,11 +51,13 @@ class AppConstants {
             const val CHECK_UPDATE = BASE_URL + "checkupdate"
             const val LOG_ERROR = BASE_URL + "logerror"
             //TEST_URL
-            const val CHECK_USER_ACTIVE = "checkactiveuser"
             const val CHECK_USER_VERIFICATION = "checkuserverification"
-
-
-
+            const val SEND_OTP = "sendotp"
+            const val VERIFY_OTP = "verifyotp"
+            const val NEW_PASSWORD = "newpassword"
+            const val LOGIN = "login"
+            //Home Screen
+            const val CHECK_USER_ACTIVE = "checkactiveuser"
         }
 
         object Value {

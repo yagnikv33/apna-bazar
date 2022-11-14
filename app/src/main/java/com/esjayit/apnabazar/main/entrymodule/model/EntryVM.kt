@@ -19,6 +19,13 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
     var appFirstLaunchData = MutableLiveData(AppFirstLaunchResponse())
     //For SignIn Data
     var checkUserVerificatonData = MutableLiveData(CheckUserVerificationResponse())
+    var sendOTPData = MutableLiveData(SendOTPResponse())
+    var verifyData = MutableLiveData(VerifyOTPResponse())
+    var newPasswordData = MutableLiveData(NewPasswordResponse())
+    //For Login Data
+    var loginData = MutableLiveData(LoginResponse())
+    //For Home Screen API Data
+    var checkUserActiveData = MutableLiveData(CheckUserActiveResponse())
 
     private val progressBar = MutableLiveData(false)
 
@@ -90,7 +97,88 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
         }
     }
 
+    //For Send OTP
+    fun sendOTP(userName: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.sendOTP(
+                userName = userName,
+                installed = installedId,
+                onApiError).let {
+                sendOTPData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
 
+    //For Verify OTP
+    fun verifyOTP(otpId: String,otp: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.verifyOTP(
+                otpId = otpId,
+                otp = otp,
+                installed = installedId,
+                onApiError).let {
+                verifyData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    //For New Password
+    fun setNewPassword(userName: String, password: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.newPassword(
+                userName = userName,
+                password = password,
+                installed = installedId,
+                onApiError).let {
+                newPasswordData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    //For Login
+    fun login(userName: String, password: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.login(
+                userName = userName,
+                password = password,
+                installed = installedId,
+                onApiError).let {
+                loginData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    //For Check User Active or Not
+    fun checkUserActiveStatus(userId: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.checkUserActive(
+                userId = userId,
+                installed = installedId,
+                onApiError).let {
+                checkUserActiveData.postValue(it)
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
 
 
     /**
