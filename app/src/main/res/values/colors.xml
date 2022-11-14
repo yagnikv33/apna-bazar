@@ -14,4 +14,6 @@
     <color name="text_color">#030F27</color>
     <color name="background">#DFFFF4</color>
     <color name="edit_text">#1A1A1A</color>
+    <color name="sub_desc">#172331</color>
+    <color name="edt_box_bg">#F3F4F8</color>
 </resources>

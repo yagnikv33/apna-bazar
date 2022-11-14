@@ -126,4 +126,28 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
+    <style name="btn_style">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/ralewa_regular</item>
+    </style>
+
+    <style name="sub_header">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+    </style>
+
+    <style name="sub_desc">
+        <item name="android:textColor">@color/sub_desc</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+    </style>
+
+    <style name="edt_label">
+        <item name="android:textColor">@color/sub_desc</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+    </style>
 </resources>
