@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/inc_entry_module"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:descIsVisible="@{false}"
+            bind:headerText="@{@string/txt_set_new_pwd}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_36sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.82">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_enter_pwd"
+                style="@style/sub_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/hearder_new_pwd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_enter_pwd_desc"
+                style="@style/sub_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:text="@string/txt_new_pwd_desc"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- New Pwd -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_new_pwd"
+                style="@style/edt_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="@string/lbl_new_password"
+                android:textColor="#65000000" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_lyt_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@color/transparent"
+                app:boxBackgroundColor="@color/edt_box_bg"
+                app:boxStrokeWidth="0dp"
+                android:hint=""
+                app:boxStrokeWidthFocused="0dp"
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/ic_pwd">
+
+                <EditText
+                    android:id="@+id/edt_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/hint_enter_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="100"
+                    android:nextFocusDown="@+id/next" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Confirm Pwd -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/yv_confirm_pwd"
+                style="@style/edt_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="@string/hint_confirm_password"
+                android:textColor="#7C000000" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_lyt_confirm_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@color/transparent"
+                app:boxBackgroundColor="@color/edt_box_bg"
+                app:boxStrokeWidth="0dp"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:boxStrokeWidthFocused="0dp"
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/ic_pwd">
+
+                <EditText
+                    android:id="@+id/edt_confirm_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/hint_confirm_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="100"
+                    android:nextFocusDown="@+id/next" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pwd_submit"
+                style="@style/btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_42sdp"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:backgroundTint="@color/black"
+                android:onClick="@{click::onClick}"
+                android:text="@string/txt_submit"
+                app:layout_constraintEnd_toEndOf="@id/edt_username"
+                app:layout_constraintStart_toStartOf="@id/edt_username"
+                app:layout_constraintTop_toBottomOf="@id/edt_username" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

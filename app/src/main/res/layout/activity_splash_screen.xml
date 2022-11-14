@@ -7,51 +7,59 @@
         <import type="android.view.View" />
 
         <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="progress"
             type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".apnabazar.main.entrymodule.view.SplashScreenAct">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".apnabazar.main.entrymodule.view.SplashScreenAct">
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.8"
+        app:use_controller="false"
+        app:resize_mode="fill"
+        app:show_shuffle_button="false"
+        app:layout_constraintBottom_toTopOf="@+id/tv_to_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+    <TextView
+        android:id="@+id/tv_to_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:onClick="@{click::onClick}"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_30sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
+    <ProgressBar
+        android:visibility="@{progress ? View.VISIBLE : View.GONE}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_to_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:indeterminateTint="@color/light_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="279dp"
-            android:layout_height="281dp"
-            android:src="@drawable/ic_splash"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <!--    <TextView-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:gravity="center"-->
-        <!--        android:text="Developed By: ESJAYIT"-->
-        <!--        android:textColor="#000000"-->
-        <!--        android:textSize="19dp"-->
-        <!--        android:fontFamily="@font/roboto_medium_numbers"-->
-        <!--        app:layout_constraintRight_toRightOf="parent"-->
-        <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--        android:layout_marginBottom="24dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-        <ProgressBar
-            android:visibility="@{progress ? View.VISIBLE : View.GONE}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/light_blue"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/logo"
-            android:layout_marginTop="@dimen/_100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

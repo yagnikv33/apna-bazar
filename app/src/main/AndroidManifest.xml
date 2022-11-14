@@ -4,7 +4,6 @@
     package="com.esjayit">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name="com.esjayit.apnabazar.App"
@@ -18,9 +17,18 @@
         tools:replace="android:label"
         tools:targetApi="n">
 
-        <activity android:name=".apnabazar.main.entrymodule.view.SignInAct"/>
         <activity
-            android:name=".apnabazar.main.entrymodule.view.SplashScreenAct"
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.NewPwdAct"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.GetYourCodeAct"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.SignInAct"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
