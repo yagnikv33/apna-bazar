@@ -63,6 +63,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Password Screen".logE()
+                            this.startActivity(Intent(this, NewPwdAct::class.java))
                         } else if (statusCode == AppConstants.Status_Code.Code3) {
                             "Send OTP Task and Go to OTP Screen for Verification Check User Verification ${apiRenderState.result.message}".logE()
                             vm.sendOTP(userName = userName, installedId = prefs.installId!!)

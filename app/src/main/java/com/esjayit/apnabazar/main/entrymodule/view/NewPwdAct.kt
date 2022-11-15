@@ -1,5 +1,6 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
+import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.NewPasswordResponse
@@ -18,6 +19,25 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
     override fun init() {
         //Set New Passsword API Call(Temp)
 //        vm?.setNewPassword(userName = "", password = "", installedId = prefs.installId!!)
+    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when (v) {
+            binding.btnPwdSubmit -> {
+                "Password Submit Button Tapped".logE()
+
+                //TEMP API CALL
+                vm?.setNewPassword(userName = "", password = "", installedId = prefs.installId!!)
+//                userName = binding.editText.text.toString()
+//                if (userName.isNotEmpty()) {
+//                    vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
+//                } else {
+//                    errorToast("Please enter username first")
+//                }
+            }
+        }
+
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
