@@ -1,24 +1,27 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.esjayit.R
+import android.content.Intent
+import android.view.View
+import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.NewPasswordResponse
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityNewPwdBinding
-import com.esjayit.databinding.ActivitySignInBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_pwd) {
 
     override val vm: EntryVM? by viewModel()
     override val hasProgress: Boolean = false
+    private var userName: String? = null
 
     override fun init() {
         //Set New Passsword API Call(Temp)
 //        vm?.setNewPassword(userName = "", password = "", installedId = prefs.installId!!)
+        userName = intent.getStringExtra("UserName")
     }
 
     override fun onClick(v: View) {
@@ -48,6 +51,9 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Redirect to password screen".logE()
+                            val intent = Intent(this, PwdAct::class.java)
+                            intent.putExtra("UserName", userName)
+                            this.startActivity(intent)
                         } else {
                             "Error : New passsword Screen (Go to Login Screen) statusCode: ${apiRenderState.result.statusCode} msg: ${apiRenderState.result.message}".logE()
                             error(apiRenderState.result.message)

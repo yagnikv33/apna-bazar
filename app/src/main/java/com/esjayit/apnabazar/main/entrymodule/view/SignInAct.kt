@@ -41,9 +41,10 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
         super.onClick(v)
         when (v) {
             binding.btnLogin -> {
+                errorToast("Login Btn Tapped")
                 "Login Button Tapped".logE()
-
                 //TEMP API CALL
+                userName = "ESJAYIT"
                 vm.checkUserVerification(userName = "ESJAYIT", installedId = prefs.installId!!)
 //                userName = binding.editText.text.toString()
 //                if (userName.isNotEmpty()) {
@@ -63,7 +64,9 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Password Screen".logE()
-                            this.startActivity(Intent(this, NewPwdAct::class.java))
+                            val intent = Intent(this, PwdAct::class.java)
+                            intent.putExtra("UserName", userName)
+                            this.startActivity(intent)
                         } else if (statusCode == AppConstants.Status_Code.Code3) {
                             "Send OTP Task and Go to OTP Screen for Verification Check User Verification ${apiRenderState.result.message}".logE()
                             vm.sendOTP(userName = userName, installedId = prefs.installId!!)
@@ -79,6 +82,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                         if (statusCode == AppConstants.Status_Code.Success) {
                             val intent = Intent(this, GetYourCodeAct::class.java)
                             intent.putExtra("SendOTPModel", apiRenderState.result.data)
+                            intent.putExtra("UserName", userName)
                             this.startActivity(intent)
                         } else if (statusCode == AppConstants.Status_Code.Code2) {
                             "Error : Send OTP ${apiRenderState.result.message}".logE()

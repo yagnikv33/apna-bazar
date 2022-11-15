@@ -30,10 +30,12 @@ class GetYourCodeAct :
     override val hasProgress: Boolean = true
     var sb = StringBuilder()
     private var otpModelObject: OTPData? = null
+    private var userName: String? = null
 
     override fun init() {
         otpModelObject = intent.getSerializableExtra("SendOTPModel") as OTPData?
         "OTP Screen ${otpModelObject?.otpId.toString()}".logE()
+        userName = intent.getStringExtra("UserName")
         setOtpEditTextHandler()
         spanResendText()
     }
@@ -179,7 +181,9 @@ class GetYourCodeAct :
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Redirect to new password screen".logE()
-                            this.startActivity(Intent(this, NewPwdAct::class.java))
+                            val intent = Intent(this, NewPwdAct::class.java)
+                            intent.putExtra("UserName", userName)
+                            this.startActivity(intent)
                         } else {
                             "Error : Check User Verification statusCode: ${apiRenderState.result.statusCode} msg: ${apiRenderState.result.message}".logE()
                             error(apiRenderState.result.message)

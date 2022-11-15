@@ -1,9 +1,11 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -17,12 +19,15 @@ import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivitySplashScreenBinding
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.gson.JsonObject
+import com.onesignal.OSSubscriptionObserver
+import com.onesignal.OSSubscriptionStateChanges
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
 class SplashScreenAct :
-    BaseAct<ActivitySplashScreenBinding, EntryVM>(Layouts.activity_splash_screen) {
+    BaseAct<ActivitySplashScreenBinding, EntryVM>(Layouts.activity_splash_screen),
+    OSSubscriptionObserver {
 
     override val vm: EntryVM by viewModel()
     override val hasProgress: Boolean = true
@@ -35,15 +40,33 @@ class SplashScreenAct :
         checkForLaunchAPIs()
     }
 
+    //For Notification Change One Signal
+    override fun onOSSubscriptionChanged(stateChanges: OSSubscriptionStateChanges) {
+        if (!stateChanges.from.isSubscribed &&
+            stateChanges.to.isSubscribed
+        ) {
+            AlertDialog.Builder(this)
+                .setMessage("You've successfully subscribed to push notifications!")
+                .show()
+            // get player ID
+            prefs.playerId = stateChanges.to.userId
+        }
+        Log.i("Debug", "onOSPermissionChanged: $stateChanges")
+    }
+
     //For Launch App API Calling
-    fun checkForLaunchAPIs(){
+    fun checkForLaunchAPIs() {
         if(prefs.firstTime) {
             // First Time Launch
             "RUN : First Time".logE()
 //            "DATA JSON, ${convertedJSONObject()}".logE()
             vm.checkForUpdate(installedId = uuid)
             vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = "0", installedId = uuid)
-//            vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = "", deviceInfoJson = convertedJSONObject())
+            if (!prefs.playerId.isNullOrBlank()) {
+                "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
+//                vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = "", deviceInfoJson = convertedJSONObject())
+            }
+//
             prefs.installId = uuid
             prefs.firstTime = false
         } else {

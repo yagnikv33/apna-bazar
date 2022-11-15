@@ -52,6 +52,13 @@ class PrefUtil(context: Context) {
             prefEditor.apply()
         }
 
+    var playerId: String?
+        get() = prefs.getString("PLAYER_ID", "")
+        set(value) {
+            prefEditor.putString("PLAYER_ID", value)
+            prefEditor.apply()
+        }
+
     fun hasKey(key: String) = prefs.contains(key)
 
     fun clearPrefs() {
