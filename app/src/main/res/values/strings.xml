@@ -17,4 +17,6 @@
     <string name="hint_enter_password">Enter Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="txt_submit">Submit</string>
+    <string name="txt_pwd">Password</string>
+    <string name="txt_forget_pwd">Forget Password?</string>
 </resources>

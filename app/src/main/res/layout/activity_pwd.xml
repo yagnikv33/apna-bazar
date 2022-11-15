@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/inc_entry_module"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:descIsVisible="@{false}"
+            bind:headerText="@{@string/header_sign_in}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_36sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/label_style"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_26sdp"
+                android:text="@string/txt_pwd" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_txt_lyt_pwd"
+                style="@style/LoginTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_username"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_10sdp"
+                app:boxCornerRadiusBottomEnd="0dp"
+                app:boxCornerRadiusBottomStart="0dp"
+                app:boxCornerRadiusTopEnd="0dp"
+                app:boxCornerRadiusTopStart="0dp"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_username"
+                app:startIconDrawable="@drawable/ic_pwd">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/txt_pwd"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:fontFamily="@font/ralewa_regular"
+                    android:textColor="@color/edit_text"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_forget_pwd"
+                app:layout_constraintEnd_toEndOf="@id/input_txt_lyt_pwd"
+                app:layout_constraintTop_toBottomOf="@id/input_txt_lyt_pwd"
+                android:layout_width="wrap_content"
+               android:textSize="@dimen/_12ssp"
+                android:textColor="@color/text_color"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/txt_forget_pwd" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                style="@style/btn_style"
+                android:onClick="@{click::onClick}"
+                app:layout_constraintTop_toBottomOf="@id/tv_forget_pwd"
+                android:layout_width="match_parent"
+                app:layout_constraintEnd_toEndOf="@id/tv_forget_pwd"
+                app:layout_constraintStart_toStartOf="@id/tv_forget_pwd"
+                android:layout_height="@dimen/_42sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:backgroundTint="@color/black"
+                android:text="@string/txt_login" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
