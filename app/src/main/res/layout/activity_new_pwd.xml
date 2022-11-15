@@ -4,6 +4,7 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="click"
             type="android.view.View.OnClickListener" />
@@ -71,27 +72,28 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_lyt_new_pwd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:background="@color/transparent"
                 app:boxBackgroundColor="@color/edt_box_bg"
                 app:boxStrokeWidth="0dp"
-                android:hint=""
                 app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_pwd">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="@string/hint_enter_password"
+                    android:hint="@string/lbl_new_password"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:maxLength="100"
-                    android:nextFocusDown="@+id/next" />
+                    android:nextFocusDown="@+id/next"
+                    android:padding="@dimen/_6sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Confirm Pwd -->
@@ -110,15 +112,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:background="@color/transparent"
+                android:focusable="true"
                 app:boxBackgroundColor="@color/edt_box_bg"
                 app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:hintAnimationEnabled="false"
                 app:hintEnabled="false"
-                app:boxStrokeWidthFocused="0dp"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_pwd">
 
-                    <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_confirm_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -128,7 +131,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:maxLength="100"
-                    android:nextFocusDown="@+id/next" />
+                    android:nextFocusDown="@+id/next"
+                    android:padding="@dimen/_6sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
