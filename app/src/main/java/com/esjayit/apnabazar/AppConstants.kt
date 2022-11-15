@@ -2,7 +2,10 @@ package com.esjayit.apnabazar
 
 class AppConstants {
 
+
+
     object App {
+        const val ONESIGNAL_APP_ID = "3fd18645-8abc-44a7-842d-61d8b9a34c99"
         object Buttons {
             const val PERSONALISE_VAPE = "XoOcELl3"
             const val OUR_BRANDS = "SsWZFFHf"
@@ -58,6 +61,7 @@ class AppConstants {
             const val LOGIN = "login"
             //Home Screen
             const val CHECK_USER_ACTIVE = "checkactiveuser"
+            const val GET_HOME_DATA = "gethomescreendata"
         }
 
         object Value {

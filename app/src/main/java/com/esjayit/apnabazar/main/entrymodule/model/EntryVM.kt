@@ -164,23 +164,6 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
         }
     }
 
-    //For Check User Active or Not
-    fun checkUserActiveStatus(userId: String, installedId: String) {
-        scope {
-            progressBar.postValue(true)
-            state.emit(ApiRenderState.Loading)
-            repo.checkUserActive(
-                userId = userId,
-                installed = installedId,
-                onApiError).let {
-                checkUserActiveData.postValue(it)
-                state.emit(ApiRenderState.ApiSuccess(it))
-                progressBar.postValue(false)
-            }
-        }
-    }
-
-
     /**
      * Checks if the device is rooted.
      *

@@ -138,20 +138,4 @@ class EntryRepo(private val apiCall: EntryApiModule) : BaseRepo() {
             this.data
         }
     }
-
-    //Check User Active (Home Screen)
-    suspend fun checkUserActive(userId: String, installed: String,
-                      onError: (ApiResult<Any>) -> Unit
-    ): CheckUserActiveResponse? {
-        return with(apiCall(executable = {
-            apiCall.checkUserActive(
-                userId = userId,
-                installId = installed,
-            )
-        })) {
-            if (data == null)
-                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
-            this.data
-        }
-    }
 }

@@ -5,7 +5,6 @@ import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEVICE_INFO
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.APP_FIRST_LAUNCH_STATUS
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_UPDATE
-import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_ACTIVE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_VERIFICATION
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.HOME
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.LOGIN
@@ -124,15 +123,4 @@ interface EntryApiModule {
         @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId : String
     ) : LoginResponse
-
-    @FormUrlEncoded
-    @POST(CHECK_USER_ACTIVE)
-    suspend fun checkUserActive(
-        @Field("userid") userId: String,
-        @Field("packagename") appPackgeName : String = BuildConfig.APPLICATION_ID,
-        @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
-        @Field("installid") installId : String
-    ) : CheckUserActiveResponse
-
-
 }

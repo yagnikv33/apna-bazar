@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     defaultConfig {
@@ -92,5 +93,12 @@ dependencies {
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+
+    //One Signle SDK
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
+    //For Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+
 }
 
