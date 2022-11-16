@@ -16,6 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
+
+        <activity
+            android:name="com.esjayit.apnabazar.main.dashboard.view.DashboardAct"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.esjayit.apnabazar.main.entrymodule.view.PwdAct"
             android:exported="false"
