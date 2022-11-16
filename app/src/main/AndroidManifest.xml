@@ -26,6 +26,13 @@
             android:resource="@color/colorAccent" />
 
         <activity
+            android:name=".DashboardAct"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.esjayit.apnabazar.main.entrymodule.view.PwdAct"
             android:exported="false"
             android:screenOrientation="portrait" />
