@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:hint="@string/txt_pwd"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:fontFamily="@font/ralewa_regular"
                     android:textColor="@color/edit_text"

@@ -2,7 +2,10 @@ package com.esjayit.apnabazar
 
 class AppConstants {
 
+
+
     object App {
+        const val ONESIGNAL_APP_ID = "3fd18645-8abc-44a7-842d-61d8b9a34c99"
         object Buttons {
             const val PERSONALISE_VAPE = "XoOcELl3"
             const val OUR_BRANDS = "SsWZFFHf"
@@ -23,6 +26,13 @@ class AppConstants {
         const val AUTH_TOKEN = "1"
     }
 
+    object Status_Code {
+        const val Success = "1"
+        const val Failed = "0"
+        const val Code2 = "2"
+        const val Code3 = "3"
+    }
+
     object Communication {
 
         object BundleData {
@@ -32,18 +42,26 @@ class AppConstants {
 
     object Api {
 
-        const val BASE_URL = "https://webdevprojects.cloud/php/laravel/ecigarette-admin/api/v1/"
-
+        //For First 4 API
+        const val BASE_URL = "http://developerapis.esjayit.com/"
+        //Testing Server
+        const val TEST_URL = "http://testapis.apnabazarrajkot.com/"
         object EndUrl {
-            const val HOME = "home"
-            const val PORTAL = "portal"
-            const val BRAND_DETAIL = "brand-detail"
-            const val BRAND_LIST = "brand-list"
-            const val VAPING_LIST = "vaping-button-list"
-            const val KNOW_THE_FACTS = "know-the-facts"
-            const val PG_VG = "PG-vs-VG"
-            const val TESTIMONIALS = "testimonials"
-            const val PERSONALISE_VAPE = "personalise_your_vape"
+            const val  HOME = "home"
+            //BASE_URL
+            const val APP_FIRST_LAUNCH_STATUS = BASE_URL + "appfirstlaunch"
+            const val ADD_DEVICE_INFO = BASE_URL + "adddeviceinfo"
+            const val CHECK_UPDATE = BASE_URL + "checkupdate"
+            const val LOG_ERROR = BASE_URL + "logerror"
+            //TEST_URL
+            const val CHECK_USER_VERIFICATION = "checkuserverification"
+            const val SEND_OTP = "sendotp"
+            const val VERIFY_OTP = "verifyotp"
+            const val NEW_PASSWORD = "newpassword"
+            const val LOGIN = "login"
+            //Home Screen
+            const val CHECK_USER_ACTIVE = "checkactiveuser"
+            const val GET_HOME_DATA = "gethomescreendata"
         }
 
         object Value {

@@ -150,4 +150,9 @@
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="fontFamily">@font/raleway_bold</item>
     </style>
+
+    <style name="card_corner">
+        <item name="android:topLeftRadius">@dimen/_16sdp</item>
+        <item name="android:topRightRadius">@dimen/_16sdp</item>
+    </style>
 </resources>

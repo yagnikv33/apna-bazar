@@ -44,7 +44,7 @@ object KoinModule {
         }
 
         single {
-            Retrofit.Builder().baseUrl(AppConstants.Api.BASE_URL)
+            Retrofit.Builder().baseUrl(AppConstants.Api.TEST_URL)
                 .addConverterFactory(
                     GsonConverterFactory.create(
                         GsonBuilder().setPrettyPrinting().create()

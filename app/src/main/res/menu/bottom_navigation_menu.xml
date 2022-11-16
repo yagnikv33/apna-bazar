@@ -11,7 +11,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_stock_view"
         android:title="Stock View" />
-    `
+
     <item
         android:id="@+id/demand_list_page"
         android:enabled="true"
