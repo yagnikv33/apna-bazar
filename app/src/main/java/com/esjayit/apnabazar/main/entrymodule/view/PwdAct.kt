@@ -1,5 +1,6 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
+import android.content.Intent
 import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -7,6 +8,7 @@ import com.esjayit.apnabazar.data.model.response.LoginResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
+import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityPwdBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,6 +50,12 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Home Screen".logE()
+                            "Login Data : ${apiRenderState.result.accessToken}".logE()
+                            "Login Data : ${apiRenderState.result.userId}".logE()
+                            "Login Data : ${apiRenderState.result.message}".logE()
+                            val intent = Intent(this, DashboardAct::class.java)
+                            intent.putExtra("ModelData", apiRenderState.result.data)
+                            this.startActivity(intent)
                         } else {
                             errorToast(apiRenderState.result.message)
                             "Error : Pwd ACT ${apiRenderState.result.message}".logE()

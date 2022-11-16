@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar.data.model.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SplashResponse(
 
@@ -38,4 +39,4 @@ data class Data(
 
     @field:SerializedName("title")
     val title: String = ""
-)
+) : Serializable
