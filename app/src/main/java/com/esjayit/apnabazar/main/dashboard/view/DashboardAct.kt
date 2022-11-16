@@ -7,6 +7,11 @@ import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
+import com.esjayit.apnabazar.main.dashboard.view.demand.DemandListFrag
+import com.esjayit.apnabazar.main.dashboard.view.home.HomeFrag
+import com.esjayit.apnabazar.main.dashboard.view.profile.ProfileFrag
+import com.esjayit.apnabazar.main.dashboard.view.stock_view.StockViewFrag
+import com.esjayit.apnabazar.main.dashboard.view.user_ledger.UserLedgerFrag
 import com.esjayit.databinding.ActivityDashboardBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,7 +26,7 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
         bottomNav()
     }
 
-    fun switchToFragment(frag: Fragment) {
+    private fun switchToFragment(frag: Fragment) {
         val manager: FragmentManager = supportFragmentManager
         manager.beginTransaction().replace(R.id.frag_container, frag).commit()
     }
@@ -30,23 +35,33 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home_page -> {
-                    // Respond to navigation item 1 click
+                    // Respond to navigation HOME
+                    switchToFragment(HomeFrag())
+
                     true
                 }
-                R.id.bill_page -> {
-                    // Respond to navigation item 2 click
+                R.id.stock_view_page -> {
+                    // Respond to navigation STOCK VIEW
+                    switchToFragment(StockViewFrag())
+
                     true
                 }
-                R.id.search_page -> {
-                    // Respond to navigation item 2 click
+                R.id.demand_list_page -> {
+                    // Respond to navigation DEMAND LIST
+                    switchToFragment(DemandListFrag())
+
                     true
                 }
-                R.id.history_page -> {
-                    // Respond to navigation item 2 click
+                R.id.user_ledger_page -> {
+                    // Respond to navigation USER LEDGER
+                    switchToFragment(UserLedgerFrag())
+
                     true
                 }
-                R.id.account_page -> {
-                    // Respond to navigation item 2 click
+                R.id.profile_page -> {
+                    // Respond to navigation PROFILE
+                    switchToFragment(ProfileFrag())
+
                     true
                 }
                 else -> false

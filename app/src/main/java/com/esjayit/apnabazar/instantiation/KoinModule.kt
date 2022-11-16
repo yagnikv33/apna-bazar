@@ -3,9 +3,17 @@ package com.esjayit.apnabazar.instantiation
 import androidx.databinding.library.BuildConfig
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.api.HeaderHttpInterceptor
+import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.api.service.EntryApiModule
 import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.helper.util.PrefUtil
+import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
+import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
+import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
+import com.esjayit.apnabazar.main.dashboard.view.home.model.HomeVM
+import com.esjayit.apnabazar.main.dashboard.view.profile.model.ProfileVM
+import com.esjayit.apnabazar.main.dashboard.view.stock_view.model.StockViewVM
+import com.esjayit.apnabazar.main.dashboard.view.user_ledger.model.UserLedgerVM
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
 import com.google.gson.GsonBuilder
@@ -46,14 +54,22 @@ object KoinModule {
         }
 
         single { get<Retrofit>().create(EntryApiModule::class.java) }
+        single { get<Retrofit>().create(DashboardApiModule::class.java) }
 
     }
 
     val repoModule = module {
         factory { EntryRepo(get()) }
+        factory { DashboardRepo(get()) }
     }
 
     val vmModule = module {
         viewModel { EntryVM(get()) }
+        viewModel { DashboardVM(get()) }
+        viewModel { HomeVM(get()) }
+        viewModel { StockViewVM(get()) }
+        viewModel { DemandListVM(get()) }
+        viewModel { UserLedgerVM(get()) }
+        viewModel { ProfileVM(get()) }
     }
 }

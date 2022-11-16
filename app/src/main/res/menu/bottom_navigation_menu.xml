@@ -7,26 +7,25 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/bill_page"
+        android:id="@+id/stock_view_page"
         android:enabled="true"
-        android:icon="@drawable/ic_bill"
-        android:title="Bill" />
+        android:icon="@drawable/ic_stock_view"
+        android:title="Stock View" />
     `
     <item
-        android:id="@+id/search_page"
+        android:id="@+id/demand_list_page"
         android:enabled="true"
-        android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:icon="@drawable/ic_demand_list"
+        android:title="Demand List" />
 
     <item
-        android:id="@+id/history_page"
+        android:id="@+id/user_ledger_page"
         android:enabled="true"
-        android:icon="@drawable/ic_history"
-        android:title="History" />
-
+        android:icon="@drawable/ic_user_ledger"
+        android:title="User ledger" />
     <item
-        android:id="@+id/account_page"
+        android:id="@+id/profile_page"
         android:enabled="true"
-        android:icon="@drawable/ic_account"
-        android:title="Account" />
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
 </menu>
