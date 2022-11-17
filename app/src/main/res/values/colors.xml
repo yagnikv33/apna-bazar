@@ -16,4 +16,5 @@
     <color name="edit_text">#1A1A1A</color>
     <color name="sub_desc">#172331</color>
     <color name="edt_box_bg">#F3F4F8</color>
+    <color name="txt_profile">#8C8FA5</color>
 </resources>

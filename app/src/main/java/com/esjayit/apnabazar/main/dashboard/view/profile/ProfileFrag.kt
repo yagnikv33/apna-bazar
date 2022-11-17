@@ -17,7 +17,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
-
+        
     }
 
 }
