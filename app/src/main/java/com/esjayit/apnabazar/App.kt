@@ -48,7 +48,10 @@ class App : MultiDexApplication() {
                 if (!it.from.isSubscribed && it.to.isSubscribed) {
                     // get player ID
                     val oneSignalPlayerId = state.to.userId
-                    prefs.playerId = oneSignalPlayerId
+                    if (prefs.playerId != oneSignalPlayerId) {
+                        prefs.playerId = oneSignalPlayerId
+                        // call api
+                    }
                     "One signal $state".logE()
                 }
             }

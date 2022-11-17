@@ -6,6 +6,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants.Prefs.AUTH_TOKEN
+import com.esjayit.apnabazar.data.model.response.LoginResponse
 
 
 class PrefUtil(context: Context) {
@@ -31,12 +32,12 @@ class PrefUtil(context: Context) {
             prefEditor.apply()
         }
 
-//    var userInfo: LoginResModel
-//        get() = prefs.getString(USER_INFO, "") convertToModel LoginResModel::class.java
-//        set(data) {
-//            prefEditor.putString(USER_INFO, data.convertToString())
-//            prefEditor.apply()
-//        }
+    var user: LoginResponse
+        get() = prefs.getString("USER_INFO", "") convertToModel LoginResponse::class.java
+        set(data) {
+            prefEditor.putString("USER_INFO", data.convertToString())
+            prefEditor.apply()
+        }
 
     var firstTime: Boolean
         get() = prefs.getBoolean("FIRST_TIME", true)

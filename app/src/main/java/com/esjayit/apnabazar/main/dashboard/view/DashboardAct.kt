@@ -22,7 +22,6 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
     override val hasProgress: Boolean = false
 
     override fun init() {
-
         bottomNav()
     }
 
