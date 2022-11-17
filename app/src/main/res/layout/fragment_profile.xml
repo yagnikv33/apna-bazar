@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_68sdp"
             android:background="@color/background"
@@ -42,15 +47,255 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:padding="@dimen/_12sdp"
+                    android:src="@drawable/ic_notification"
                     android:translationZ="@dimen/_10sdp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/ic_notification" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
+        <ScrollView
+            android:id="@+id/scrollView"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:text="Party Username"
+                    style="@style/sub_header"
+                    android:textColor="@color/txt_profile"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:text="Party Name"
+                    style="@style/sub_header"
+                    android:textColor="@color/txt_profile"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:textColor="@color/txt_profile"
+                    style="@style/sub_header"
+                    android:text="Party Address"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false"
+                    android:maxLines="4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/_8ssp"
+                        android:layout_weight="2"
+                        style="@style/sub_header"
+                        android:textColor="@color/txt_profile"
+                        android:text="Phone 1"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/_8ssp"
+                        android:layout_weight="2"
+                        style="@style/sub_header"
+                        android:textColor="@color/txt_profile"
+                        android:text="Phone 2"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/partyPhone1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textColor="@color/txt_profile"
+                        style="@style/medium_15"
+                        android:layout_gravity="start"
+                        android:enabled="false" />
+
+                    <EditText
+                        android:id="@+id/partyPhone2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textColor="@color/txt_profile"
+                        style="@style/medium_15"
+                        android:layout_gravity="end"
+                        android:enabled="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:text="Email ID"
+                    android:textColor="@color/txt_profile"
+                    style="@style/sub_desc"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/_8ssp"
+                        android:layout_weight="2"
+                        android:text="City"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/_8ssp"
+                        android:layout_weight="2"
+                        android:text="State"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/partyCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_gravity="start"
+                        android:textColor="@color/txt_profile"
+                        style="@style/medium_15"
+                        android:enabled="false" />
+
+                    <EditText
+                        android:id="@+id/partyState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textColor="@color/txt_profile"
+                        style="@style/medium_15"
+                        android:layout_gravity="end"
+                        android:enabled="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:text="Country"
+                    android:textColor="@color/txt_profile"
+                    style="@style/sub_desc"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8ssp"
+                    android:text="GST No"
+                    android:textColor="@color/txt_profile"
+                    style="@style/sub_desc"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/partyGST"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/txt_profile"
+                    style="@style/medium_15"
+                    android:enabled="false" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            style="@style/btn_style"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{click::onClick}"
+            android:backgroundTint="@color/black"
+            android:text="@string/txt_logout"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
