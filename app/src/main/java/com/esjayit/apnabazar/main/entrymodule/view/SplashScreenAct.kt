@@ -15,7 +15,6 @@ import com.esjayit.apnabazar.data.model.response.SplashResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
-import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivitySplashScreenBinding
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -140,7 +139,6 @@ class SplashScreenAct :
                             var userDataObj = apiRenderState.result.updateData.userData
                             if (userDataObj.isForceUpdate == "0" && userDataObj.isUpdateAvailable == "0") {
                                 "Nothing to Do".logE()
-                                startActivity(DashboardAct::class.java)
                             } else if (userDataObj.isForceUpdate == "0" && userDataObj.isUpdateAvailable == "1") {
                                 "Show Pop up Msg for Update".logE()
                             } else if (userDataObj.isForceUpdate == "1" && userDataObj.isUpdateAvailable == "1") {
@@ -150,6 +148,7 @@ class SplashScreenAct :
                             }
                             //Temp Redirection For SignINACT (Please Check this)
                             this.startActivity(Intent(this, SignInAct::class.java))
+                            finishAct()
                         } else {
                             "Error : Check Update Response ${apiRenderState.result.message}".logE()
                         }

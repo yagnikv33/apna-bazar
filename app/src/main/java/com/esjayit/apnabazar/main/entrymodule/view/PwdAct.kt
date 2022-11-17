@@ -5,6 +5,7 @@ import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.LoginResponse
+import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -13,12 +14,20 @@ import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityPwdBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class LoginModel(
+    val accessToken: String?,
+    val uuid: String?,
+    val tokenType: String?,
+    var expire_in: String?
+) {
+}
+
 class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
     override val vm: EntryVM by viewModel()
     override val hasProgress: Boolean = false
     private var userName: String? = null
-
+    val progressDialog: CustomProgress by lazy { CustomProgress(this) }
 
     override fun init() {
         userName = intent.getStringExtra("UserName")
@@ -30,14 +39,16 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
             binding.btnLogin -> {
                 "Passoword Login Button Tapped ${userName.toString()} ${binding.editText.text.toString()}".logE()
 
-                //TEMP API CALL
-                vm.login(userName = userName.toString(), password = binding.editText.text.toString() ,installedId = prefs.installId!!)
-//                userName = binding.editText.text.toString()
-//                if (binding.editText.text?.isNotBlank() == true) {
-////                    vm.login(userName = userName.toString(), password = binding.editText.text.toString() ,installedId = prefs.installId!!)
-//                } else {
-//                    errorToast("Please enter password")
-//                }
+                if (binding.editText.text?.isNotBlank() == true) {
+                    progressDialog?.showProgress()
+                    vm.login(
+                        userName = userName.toString(),
+                        password = binding.editText.text.toString(),
+                        installedId = prefs.installId!!
+                    )
+                } else {
+                    errorToast("Please enter password")
+                }
             }
         }
     }
@@ -50,12 +61,11 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Home Screen".logE()
-                            "Login Data : ${apiRenderState.result.accessToken}".logE()
-                            "Login Data : ${apiRenderState.result.userId}".logE()
-                            "Login Data : ${apiRenderState.result.message}".logE()
+                            progressDialog?.hideProgress()
+//                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             val intent = Intent(this, DashboardAct::class.java)
-                            intent.putExtra("ModelData", apiRenderState.result.data)
                             this.startActivity(intent)
+                            finishAffinity()
                         } else {
                             errorToast(apiRenderState.result.message)
                             "Error : Pwd ACT ${apiRenderState.result.message}".logE()
