@@ -62,6 +62,9 @@ class AppConstants {
             //Home Screen
             const val CHECK_USER_ACTIVE = "checkactiveuser"
             const val GET_HOME_DATA = "gethomescreendata"
+
+            //Demand
+            const val GET_MEDIUM = "getmediumlist"
         }
 
         object Value {
