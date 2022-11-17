@@ -8,6 +8,8 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.CheckUserVerificationResponse
 import com.esjayit.apnabazar.data.model.response.SendOTPResponse
+import com.esjayit.apnabazar.helper.custom.CustomProgress
+import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -18,8 +20,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_in) {
 
     override val vm: EntryVM by viewModel()
-    override val hasProgress: Boolean = false
+    override val hasProgress: Boolean = true
     var userName: String = ""
+    val progressDialog: CustomProgress by lazy { CustomProgress(this) }
 
     override fun init() {
 //        addListeners()
@@ -33,6 +36,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
 //                    userName = s
                 }
             }
+
             override fun afterTextChanged(s: Editable) {}
         })
     }
@@ -41,17 +45,19 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
         super.onClick(v)
         when (v) {
             binding.btnLogin -> {
-                errorToast("Login Btn Tapped")
+                binding.editText.hideSoftKeyboard()
+                // errorToast("Login Btn Tapped")
                 "Login Button Tapped".logE()
+                progressDialog?.showProgress()
                 //TEMP API CALL
-                userName = "ESJAYIT"
-                vm.checkUserVerification(userName = "ESJAYIT", installedId = prefs.installId!!)
-//                userName = binding.editText.text.toString()
-//                if (userName.isNotEmpty()) {
-//                    vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
-//                } else {
-//                    errorToast("Please enter username first")
-//                }
+                // userName = "ESJAYIT"
+                // vm.checkUserVerification(userName = binding.editText.text.toString(), installedId = prefs.installId!!)
+                userName = binding.editText.text.toString()
+                if (userName.isNotEmpty()) {
+                    vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
+                } else {
+                    errorToast("Please enter username first")
+                }
             }
         }
     }
@@ -61,19 +67,26 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is CheckUserVerificationResponse -> {
-                        val statusCode = apiRenderState.result.statusCode
-                        if (statusCode == AppConstants.Status_Code.Success) {
-                            "Go to Password Screen".logE()
-                            val intent = Intent(this, PwdAct::class.java)
-                            intent.putExtra("UserName", userName)
-                            this.startActivity(intent)
-                        } else if (statusCode == AppConstants.Status_Code.Code3) {
-                            "Send OTP Task and Go to OTP Screen for Verification Check User Verification ${apiRenderState.result.message}".logE()
-                            vm.sendOTP(userName = userName, installedId = prefs.installId!!)
-                        } else if (statusCode == AppConstants.Status_Code.Code2) {
-                            "Error : Check User Verification ${apiRenderState.result.message}".logE()
-                        } else {
-                            "Error : Check User Verification ${apiRenderState.result.message}".logE()
+                        when (apiRenderState.result.statusCode) {
+                            AppConstants.Status_Code.Success -> {
+                                "Go to Password Screen".logE()
+                                progressDialog?.hideProgress()
+                                val intent = Intent(this, PwdAct::class.java)
+                                intent.putExtra("UserName", userName)
+                                this.startActivity(intent)
+                            }
+                            AppConstants.Status_Code.Code3 -> {
+                                "Send OTP Task and Go to OTP Screen for Verification Check User Verification ${apiRenderState.result.message}".logE()
+                                vm.sendOTP(userName = userName, installedId = prefs.installId!!)
+                            }
+//                            AppConstants.Status_Code.Code2 -> {
+//                                error(apiRenderState.result.message)
+//                                //"Error : Check User Verification ${apiRenderState.result.message}".logE()
+//                            }
+                            else -> {
+                                errorToast(apiRenderState.result.message)
+                                //"Error : Check User Verification ${apiRenderState.result.message}".logE()
+                            }
                         }
                     }
 

@@ -93,8 +93,7 @@
                 android:layout_height="@dimen/_42sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:backgroundTint="@color/black"
-                android:text="@string/txt_login" />
-
+                android:text="@string/txt_next" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

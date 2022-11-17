@@ -148,6 +148,7 @@ class SplashScreenAct :
                             }
                             //Temp Redirection For SignINACT (Please Check this)
                             this.startActivity(Intent(this, SignInAct::class.java))
+                            finishAct()
                         } else {
                             "Error : Check Update Response ${apiRenderState.result.message}".logE()
                         }
