@@ -15,6 +15,7 @@ import com.esjayit.apnabazar.data.model.response.SplashResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
+import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivitySplashScreenBinding
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -56,28 +57,32 @@ class SplashScreenAct :
 
     //For Launch App API Calling
     fun checkForLaunchAPIs() {
-        if(prefs.firstTime) {
-            // First Time Launch
-            "RUN : First Time".logE()
+        if (prefs.authToken.isNullOrEmpty())  {
+                //login
+            if(prefs.firstTime) {
+                // First Time Launch
+                "RUN : First Time".logE()
 //            "DATA JSON, ${convertedJSONObject()}".logE()
-            vm.checkForUpdate(installedId = uuid)
-            vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = "0", installedId = uuid)
-            if (!prefs.playerId.isNullOrBlank()) {
-                "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
+                vm.checkForUpdate(installedId = uuid)
+                vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = "0", installedId = uuid)
+                if (!prefs.playerId.isNullOrBlank()) {
+                    "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
 //                vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = "", deviceInfoJson = convertedJSONObject())
-            }
-//
-            prefs.installId = uuid
-            prefs.firstTime = false
-        } else {
-            // App is not First Time Launch
-            "RUN : Not First Time".logE()
-            if (TextUtils.isEmpty(prefs.installId)) {
-                "InstallId is Empty Please check it!!!!".logE()
+                }
+                prefs.installId = uuid
+                prefs.firstTime = false
             } else {
-                "Found InstallId ${prefs.installId!!}".logE()
-                vm.checkForUpdate(installedId = prefs.installId!!)
+                // App is not First Time Launch
+                "RUN : Not First Time".logE()
+                if (TextUtils.isEmpty(prefs.installId)) {
+                    "InstallId is Empty Please check it!!!!".logE()
+                } else {
+                    "Found InstallId ${prefs.installId!!}".logE()
+                    vm.checkForUpdate(installedId = prefs.installId!!)
+                }
             }
+        } else {
+            this.startActivity(Intent(this, DashboardAct::class.java))
         }
     }
 
@@ -123,9 +128,6 @@ class SplashScreenAct :
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
-                    is SplashResponse -> {
-
-                    }
                     is AddDeviceInfoResponse -> {
                         if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
                             "Add Device Info API Success".logE()

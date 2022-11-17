@@ -13,15 +13,6 @@ import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityPwdBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
-class LoginModel(
-    val accessToken: String?,
-    val uuid: String?,
-    val tokenType: String?,
-    var expire_in: String?
-) {
-}
-
 class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
     override val vm: EntryVM by viewModel()
@@ -63,6 +54,8 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                             "Go to Home Screen".logE()
                             progressDialog?.hideProgress()
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
+                            prefs.user = apiRenderState.result
+                            prefs.authToken = apiRenderState.result.accessToken
                             val intent = Intent(this, DashboardAct::class.java)
                             this.startActivity(intent)
                             finishAffinity()
