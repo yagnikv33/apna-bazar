@@ -169,8 +169,8 @@
     </style>
     
     <style name="txt_demand_lbl">
-        <item name="android:textColor">@color/demand_lbl_text</item>
-        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textColor">@color/txt_profile</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
         <item name="fontFamily">@font/raleway_bold</item>
     </style>
 

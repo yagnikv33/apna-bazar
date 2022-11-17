@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <!-- Row 1 -->
         <LinearLayout
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -50,7 +52,6 @@
 
         </LinearLayout>
 
-        <!-- Row 1 -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_select_medium"
             style="@style/txt_demand_lbl"
@@ -92,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="@id/txt_fld_slct_medim_lyt"
             app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
             app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt">
@@ -112,7 +113,7 @@
                 style="@style/txt_demand_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_22sdp"
+                android:layout_marginEnd="@dimen/_32sdp"
                 android:layout_weight="1"
                 android:text="@string/txt_date"
                 app:layout_constraintStart_toStartOf="@+id/txt_fld_slct_date_lyt"
@@ -124,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -133,7 +134,6 @@
                 android:id="@+id/txt_fld_slct_standard_lyt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_weight="1"
                 app:boxBackgroundColor="@color/white"
                 app:endIconDrawable="@drawable/ic_down"
@@ -181,20 +181,32 @@
         </LinearLayout>
 
         <!-- Row 3 -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/rounded_corner"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="abc" />
+                android:layout_marginStart="@dimen/_6sdp"
+                android:background="@color/transparent"
+                android:fontFamily="@font/robotor_regular"
+                android:text="Abc"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

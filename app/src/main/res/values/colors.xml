@@ -17,4 +17,5 @@
     <color name="sub_desc">#172331</color>
     <color name="edt_box_bg">#F3F4F8</color>
     <color name="txt_profile">#8C8FA5</color>
+    <color name="bg_color">#E3E4E7</color>
 </resources>
