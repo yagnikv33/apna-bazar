@@ -10,9 +10,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     fun getMediumList(
         userid: String,
-        installid: String,
-        versioncode: String,
-        packagename: String
+        installid: String
     ) {
         scope {
             progressBar.postValue(true)
@@ -20,8 +18,6 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
             repo.getMediumList(
                 userid = userid,
                 installid = installid,
-                versioncode = versioncode,
-                packagename = packagename,
                 onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))

@@ -24,4 +24,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_demand_list">Demand List</string>
     <string name="txt_profile">Profile</string>
+    <string name="txt_add_demand">Add Demand</string>
+    <string name="txt_select_meduim">Select Meduim</string>
+    <string name="txt_date">Date</string>
 </resources>

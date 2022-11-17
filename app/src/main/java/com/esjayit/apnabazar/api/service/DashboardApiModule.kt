@@ -33,7 +33,7 @@ interface DashboardApiModule {
     suspend fun getMediumList(
         @Field("userid") userid: String,
         @Field("installid") installid: String,
-        @Field("versioncode") versioncode: String,
-        @Field("packagename") packagename: String
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): MediumResponse
 }

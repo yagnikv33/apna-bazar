@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_back" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="@string/txt_add_demand"
+                android:textAlignment="center" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:padding="@dimen/_12sdp"
+                android:src="@drawable/ic_notification" />
+
+        </LinearLayout>
+
+        <!-- Row 1 -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_select_medium"
+            style="@style/txt_demand_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/txt_select_meduim"
+            app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
+            app:layout_constraintTop_toBottomOf="@id/top_app_bar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_fld_slct_medim_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            app:boxBackgroundColor="@color/white"
+            app:endIconDrawable="@drawable/ic_down"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_select_medium">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/et_module"
+                style="@style/ans_demand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint=""
+                android:padding="16dp"
+                android:text="text"
+                android:textAllCaps="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Row 2 -->
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/txt_fld_slct_medim_lyt"
+            app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
+            app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_select_standard"
+                style="@style/txt_demand_lbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/txt_select_meduim"
+                app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
+                app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_date"
+                style="@style/txt_demand_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:layout_weight="1"
+                android:text="@string/txt_date"
+                app:layout_constraintStart_toStartOf="@+id/txt_fld_slct_date_lyt"
+                app:layout_constraintTop_toTopOf="@+id/tv_select_standard" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_fld_slct_standard_lyt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@color/white"
+                app:endIconDrawable="@drawable/ic_down"
+                app:endIconMode="custom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_standard">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/et_standard"
+                    style="@style/ans_demand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint=""
+                    android:padding="16dp"
+                    android:text="text"
+                    android:textAllCaps="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_fld_slct_date_lyt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@color/white"
+                app:endIconDrawable="@drawable/ic_down"
+                app:endIconMode="custom"
+                app:layout_constraintEnd_toEndOf="@+id/txt_fld_slct_medim_lyt"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/et_date"
+                    style="@style/ans_demand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint=""
+                    android:padding="16dp"
+                    android:text="text"
+                    android:textAllCaps="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="abc" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

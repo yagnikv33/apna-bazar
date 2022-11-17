@@ -31,6 +31,9 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
     }
 
     private fun bottomNav() {
+
+        switchToFragment(HomeFrag())
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home_page -> {

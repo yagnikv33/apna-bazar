@@ -10,16 +10,12 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     suspend fun getMediumList(
         userid: String,
         installid: String,
-        versioncode: String,
-        packagename: String,
         onError: (ApiResult<Any>) -> Unit
     ): MediumResponse? {
         return with(apiCall(executable = {
             apiCall.getMediumList(
                 userid = userid,
-                installid = installid,
-                versioncode = versioncode,
-                packagename = packagename
+                installid = installid
             )
         })) {
             if (data == null)
