@@ -17,11 +17,14 @@
         tools:replace="android:label"
         tools:targetApi="n">
         <activity
-            android:name=".AddDemandAct"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.DashboardAct"
@@ -47,12 +50,12 @@
             android:name="com.esjayit.apnabazar.main.entrymodule.view.SplashScreenAct"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 
