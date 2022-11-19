@@ -18,6 +18,7 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.OTPData
 import com.esjayit.apnabazar.data.model.response.VerifyOTPResponse
+import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -36,6 +37,7 @@ class GetYourCodeAct :
     private var otpModelObject: OTPData? = null
     private var userName: String? = null
     private lateinit var countdownTimer: CountDownTimer
+    val progressDialog: CustomProgress by lazy { CustomProgress(this) }
 
     override fun init() {
         otpModelObject = intent.getSerializableExtra("SendOTPModel") as OTPData?
@@ -134,41 +136,6 @@ class GetYourCodeAct :
         })
 
     }
-//    binding.edt1.addTextChangedListener(new TextWatcher()
-//    {
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            if (sb.length() == 0&edtPasscode1.length() == 1)
-//            {
-//                sb.append(s);
-//                edtPasscode1.clearFocus();
-//                edtPasscode2.requestFocus();
-//                edtPasscode2.setCursorVisible(true);
-//
-//            }
-//        }
-//
-//        public void beforeTextChanged(
-//            CharSequence s, int start, int count,
-//            int after
-//        ) {
-//
-//            if (sb.length() == 1) {
-//
-//                sb.deleteCharAt(0);
-//
-//            }
-//
-//        }
-//
-//        public void afterTextChanged(Editable s) {
-//            if (sb.length() == 0) {
-//
-//                edtPasscode1.requestFocus();
-//            }
-//
-//        }
-//    }
 
     override fun onClick(v: View) {
         super.onClick(v)
@@ -181,8 +148,13 @@ class GetYourCodeAct :
             }
             binding.btnVerifyAndProceed -> {
                 var otpTxt = "${binding.edt1.text}${binding.edt2.text}${binding.edt3.text}${binding.edt4.text}${binding.edt5.text}${binding.edt6.text}"
-                "OTP Screen CODE ${otpTxt}".logE()
-                vm?.verifyOTP(otpId = otpModelObject?.otpId.toString(), otp = otpTxt, installedId = prefs.installId!!)
+                if (otpTxt.isNotBlank()) {
+                    progressDialog?.showProgress()
+                    "OTP Screen CODE ${otpTxt}".logE()
+                    vm?.verifyOTP(otpId = otpModelObject?.otpId.toString(), otp = otpTxt, installedId = prefs.installId!!)
+                } else {
+                    errorToast("Please Enter OTP")
+                }
             }
         }
     }
@@ -213,6 +185,7 @@ class GetYourCodeAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is VerifyOTPResponse -> {
+                        progressDialog?.hideProgress()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Redirect to new password screen".logE()
@@ -236,6 +209,7 @@ class GetYourCodeAct :
                 "Error API CALLING".logE()
             }
             is ApiRenderState.ApiError<*> -> {
+                progressDialog?.showProgress()
                 "Error API CALLING API ERROR".logE()
             }
         }
@@ -246,8 +220,8 @@ class GenericKeyEvent internal constructor(private val currentView: EditText, pr
     override fun onKey(p0: View?, keyCode: Int, event: KeyEvent?): Boolean {
         if(event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.edt_1 && currentView.text.isEmpty()) {
             //If current is empty then previous EditText's number will also be deleted
-            previousView!!.requestFocus()
             previousView!!.text = null
+            previousView!!.requestFocus()
             return true
         }
         return false
