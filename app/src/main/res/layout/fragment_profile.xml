@@ -43,6 +43,7 @@
 
                 <androidx.constraintlayout.utils.widget.ImageFilterView
                     android:onClick="@{click::onClick}"
+                    android:id="@+id/btnLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -82,12 +83,11 @@
                     android:textColor="@color/txt_profile"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
-                    style="@style/medium_15"
+                    style="@style/medium_15_disable"
                     android:enabled="false" />
 
                 <TextView
@@ -99,13 +99,13 @@
                     android:textColor="@color/txt_profile"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
                     android:inputType="textPersonName"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     style="@style/medium_15" />
 
                 <TextView
@@ -117,15 +117,15 @@
                     android:text="Party Address"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:inputType="textMultiLine"
                     android:id="@+id/partyAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     android:gravity="top|start"
-                    android:textColor="@color/txt_profile"
                     style="@style/medium_15"
+                    android:imeOptions="actionNext"
                     android:minLines="2"
                     android:maxLines="4" />
 
@@ -162,25 +162,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/partyPhone1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textColor="@color/txt_profile"
-                        style="@style/medium_15"
+                        style="@style/medium_15_disable"
                         android:enabled="false"
                         android:inputType="phone"
                         android:layout_gravity="start"/>
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/partyPhone2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textColor="@color/txt_profile"
                         style="@style/medium_15"
                         android:inputType="phone"
+                        android:imeOptions="actionNext"
                         android:maxLength="10"
                         android:layout_gravity="end" />
                 </LinearLayout>
@@ -194,13 +193,13 @@
                     style="@style/sub_desc"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     style="@style/medium_15" />
 
                 <LinearLayout
@@ -232,24 +231,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/partyCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:layout_gravity="start"
-                        android:textColor="@color/txt_profile"
                         android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
                         style="@style/medium_15"/>
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/partyState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textColor="@color/txt_profile"
                         style="@style/medium_15"
                         android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
                         android:layout_gravity="end"/>
                 </LinearLayout>
 
@@ -262,12 +263,13 @@
                     style="@style/sub_desc"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyCountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
                     android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     style="@style/medium_15"/>
 
                 <TextView
@@ -279,12 +281,12 @@
                     style="@style/sub_desc"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyGST"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     style="@style/medium_15" />
 
                 <TextView
@@ -296,14 +298,14 @@
                     style="@style/sub_desc"
                     android:textSize="@dimen/_12ssp" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/partyPanNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/txt_profile"
                     android:maxLines="1"
                     android:maxLength="10"
-                    style="@style/medium_15" />
+                    style="@style/medium_15"
+                    android:imeOptions="actionDone"/>
             </LinearLayout>
 
 

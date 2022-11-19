@@ -1,5 +1,8 @@
 package com.esjayit.apnabazar.main.dashboard.view.profile
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.util.Patterns
 import android.view.View
 import com.esjayit.apnabazar.AppConstants
@@ -11,8 +14,10 @@ import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.profile.model.ProfileVM
+import com.esjayit.apnabazar.main.entrymodule.view.SignInAct
 import com.esjayit.databinding.FragmentProfileBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment_profile) {
 
@@ -91,30 +96,49 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
             binding.btnEditProfile -> {
                 progressDialog?.showProgress()
                 "Edit Profile Button Tapped".logE()
-                if (vaildForAPI()) {
-                    progressDialog?.showProgress()
-                    vm?.editUserProfile(
-                        userId = prefs.user.userId,
-                        name = binding.partyName.text.toString(),
-                        address = binding.partyAddress.text.toString(),
-                        phone1 = binding.partyPhone1.text.toString(),
-                        phone2 = binding.partyPhone2.text.toString(),
-                        email = binding.partyEmail.text.toString(),
-                        city = binding.partyCity.text.toString(),
-                        stateStr = binding.partyState.text.toString(),
-                        country = binding.partyCountry.text.toString(),
-                        gstNo = binding.partyGST.text.toString(),
-                        panNo = binding.partyPanNo.text.toString(),
-                        installedId = prefs.installId!!
-                    )
-                } else {
-                    progressDialog?.hideProgress()
-                    "In-VALID FOR API ERROR".logE()
-                }
+                manageAPIs()
+            }
+            binding.btnLogout -> {
+                manageAPIs(isLogout = true)
             }
         }
     }
 
+
+    fun manageAPIs(isLogout: Boolean = false) {
+        //For Logout API
+        if (isLogout) {
+            AlertDialog.Builder(requireActivity())
+                .setMessage("Are you sure you want to logout?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        prefs.clearPrefs()
+                        this.startActivity(Intent(requireActivity(), SignInAct::class.java))})
+                .setNegativeButton("No", null)
+                .show()
+        } else {
+            if (vaildForAPI()) {
+                progressDialog?.showProgress()
+                vm?.editUserProfile(
+                    userId = prefs.user.userId,
+                    name = binding.partyName.text.toString(),
+                    address = binding.partyAddress.text.toString(),
+                    phone1 = binding.partyPhone1.text.toString(),
+                    phone2 = binding.partyPhone2.text.toString(),
+                    email = binding.partyEmail.text.toString(),
+                    city = binding.partyCity.text.toString(),
+                    stateStr = binding.partyState.text.toString(),
+                    country = binding.partyCountry.text.toString(),
+                    gstNo = binding.partyGST.text.toString(),
+                    panNo = binding.partyPanNo.text.toString(),
+                    installedId = prefs.installId!!
+                )
+            } else {
+                "In-VALID FOR API ERROR".logE()
+            }
+        }
+    }
 
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {

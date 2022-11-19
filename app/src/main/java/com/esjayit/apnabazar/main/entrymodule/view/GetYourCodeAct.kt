@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.EditText
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
-import androidx.core.view.isGone
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -218,7 +217,7 @@ class GetYourCodeAct :
 }
 class GenericKeyEvent internal constructor(private val currentView: EditText, private val previousView: EditText?) : View.OnKeyListener{
     override fun onKey(p0: View?, keyCode: Int, event: KeyEvent?): Boolean {
-        if(event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.edt_1 && currentView.text.isEmpty()) {
+        if(event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.edt_1 && !currentView.text.isEmpty()) {
             //If current is empty then previous EditText's number will also be deleted
             previousView!!.text = null
             previousView!!.requestFocus()
@@ -233,8 +232,8 @@ class GenericTextWatcher internal constructor(private val currentView: View, pri
         val text = editable.toString()
         when (currentView.id) {
             R.id.edt_1 -> if (text.length == 1) nextView!!.requestFocus()
-            R.id.edt_3 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.edt_2 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_3 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.edt_4 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.edt_5 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.edt_6 -> if (text.length == 1) nextView!!.requestFocus()
