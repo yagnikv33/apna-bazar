@@ -5,10 +5,7 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
-import com.esjayit.apnabazar.data.model.response.CheckUserActiveResponse
-import com.esjayit.apnabazar.data.model.response.EditProfileDetailResponse
-import com.esjayit.apnabazar.data.model.response.MediumResponse
-import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
+import com.esjayit.apnabazar.data.model.response.*
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -30,7 +27,7 @@ interface DashboardApiModule {
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId: String
-    ): CheckUserActiveResponse
+    ): HomeScreenListResponse
 
     @FormUrlEncoded
     @POST(GET_MEDIUM)

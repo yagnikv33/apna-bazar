@@ -2,6 +2,7 @@ package com.esjayit.apnabazar.main.dashboard.repo
 
 import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.data.model.response.EditProfileDetailResponse
+import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
 import com.esjayit.apnabazar.data.model.response.MediumResponse
 import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
 import com.esjayit.apnabazar.main.base.ApiResult
@@ -18,6 +19,24 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             apiCall.getMediumList(
                 userid = userid,
                 installid = installid
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //Get Home List Messgaes
+    suspend fun getHomeList(
+        userId: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): HomeScreenListResponse? {
+        return with(apiCall(executable = {
+            apiCall.getHomeMessageList(
+                userId = userId,
+                installId = installId
             )
         })) {
             if (data == null)

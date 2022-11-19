@@ -214,6 +214,7 @@
                         android:layout_marginTop="@dimen/_8ssp"
                         android:layout_weight="2"
                         android:text="City"
+                        style="@style/sub_desc"
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
@@ -223,6 +224,7 @@
                         android:layout_marginTop="@dimen/_8ssp"
                         android:layout_weight="2"
                         android:text="State"
+                        style="@style/sub_desc"
                         android:textSize="@dimen/_12ssp" />
                 </LinearLayout>
 

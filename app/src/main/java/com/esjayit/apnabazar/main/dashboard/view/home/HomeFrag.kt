@@ -3,6 +3,7 @@ package com.esjayit.apnabazar.main.dashboard.view.home
 import android.content.Intent
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
 import com.esjayit.apnabazar.data.model.response.LoginResponse
 import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
@@ -21,11 +22,15 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
     override val hasProgress: Boolean = false
 
     override fun init() {
+        if (prefs.user != null && prefs.installId != null) {
+            vm?.getHomeScreen(userId = prefs.user.userId, installedId = prefs.installId!!)
+        }
         if (prefs.user.userId.isNullOrEmpty()) {
             errorToast("Facing issue with user id")
         } else {
             if (prefs.userProfileDetail != null) {
                 "already user profile fetched".logE()
+                binding.userName.setText(prefs.userProfileDetail.userData?.detail?.uname.toString())
             } else  {
                 vm?.getUserProfile(userId = prefs.user.userId, installedId = prefs.installId!!)
             }
@@ -36,11 +41,22 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
+                    is HomeScreenListResponse -> {
+                        val statusCode = apiRenderState.result.statuscode
+                        if (statusCode == AppConstants.Status_Code.Success) {
+                            successToast("LISTING ${apiRenderState.result.data?.list}")
+                           "HOME DATA LISTING ${apiRenderState.result.data?.list}".logE()
+                        } else {
+                            errorToast(apiRenderState.result.message.toString())
+                            "Error : Home Frag ${apiRenderState.result.message}".logE()
+                        }
+                    }
                     is UserProfileDetailResponse -> {
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "User Profile Fetched".logE()
                             prefs.userProfileDetail = apiRenderState.result
+                            binding.userName.setText(prefs.userProfileDetail.userData?.detail?.uname.toString())
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
