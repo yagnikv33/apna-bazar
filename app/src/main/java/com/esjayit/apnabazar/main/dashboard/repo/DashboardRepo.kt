@@ -1,14 +1,14 @@
 package com.esjayit.apnabazar.main.dashboard.repo
 
+import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.api.service.DashboardApiModule
-import com.esjayit.apnabazar.data.model.response.EditProfileDetailResponse
-import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
-import com.esjayit.apnabazar.data.model.response.MediumResponse
-import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
+import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseRepo
 
 class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
+    //For Home Screen API Data
+    var checkUserActiveData = MutableLiveData(CheckUserActiveResponse())
 
     suspend fun getMediumList(
         userid: String,
@@ -19,6 +19,23 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             apiCall.getMediumList(
                 userid = userid,
                 installid = installid
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    suspend fun checkUserActive(
+        userId: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CheckUserActiveResponse? {
+        return with(apiCall(executable = {
+            apiCall.checkUserActive(
+                userId = userId,
+                installId = installId
             )
         })) {
             if (data == null)

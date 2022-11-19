@@ -9,7 +9,22 @@ import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
 class HomeVM(private val repo: DashboardRepo) : BaseVM() {
     private val progressBar = MutableLiveData(false)
 
-    //For User Detail Profile
+    //For User Active Status
+    fun checkUserActiveStatus(userId: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.checkUserActive(
+                userId = userId,
+                installId = installedId,
+                onApiError).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    //For Home Screen Message Listing
     fun getHomeScreen(userId: String, installedId: String) {
         scope {
             progressBar.postValue(true)
