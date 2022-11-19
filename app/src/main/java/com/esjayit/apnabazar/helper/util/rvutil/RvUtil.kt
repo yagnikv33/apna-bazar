@@ -34,10 +34,10 @@ class RvUtil(
 
         if (lm != null)
             this.rv!!.layoutManager = lm
-        else this.lm = rv.layoutManager!!
+        else this.lm = rv.layoutManager
 
         this.rvAdapter = adapter
-        this.rv!!.adapter = adapter
+        this.rv?.adapter = adapter
 
         manageVisibility(isInitialisation)
 
@@ -54,7 +54,7 @@ class RvUtil(
     }
 
     fun notifyAdapter() {
-        rvAdapter!!.notifyDataSetChanged()
+        rvAdapter?.notifyDataSetChanged()
         manageVisibility()
     }
 

@@ -2,6 +2,7 @@ package com.esjayit.apnabazar.main.dashboard.view.demand.model
 
 import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.data.model.response.ItemData
+import com.esjayit.apnabazar.data.model.response.ItemlistItem
 import com.esjayit.apnabazar.helper.util.PrefUtil
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -12,7 +13,8 @@ import kotlinx.coroutines.withContext
 class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     private val progressBar = MutableLiveData(false)
-    val subjectData = MutableLiveData<ItemData>()
+    val subjectData = mutableListOf<ItemlistItem?>()
+    val mediumItem = MutableLiveData<String>()
 
     fun getMediumList(
         userid: String,

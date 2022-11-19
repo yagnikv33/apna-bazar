@@ -20,7 +20,6 @@ import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityAddDemandBinding
-import com.google.android.material.datepicker.MaterialDatePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +30,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     override val vm: DemandListVM by viewModel()
     override val hasProgress: Boolean = false
     val progressDialog: CustomProgress by lazy { CustomProgress(this) }
-    private var datePicker: MaterialDatePicker<Long>? = null
 
     var mediumDialog: AlertDialog.Builder? = null
     var standardDialog: AlertDialog.Builder? = null
@@ -47,6 +45,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     lateinit var subjectData: BaseRvBindingAdapter<ItemlistItem?>
     var rvUtil: RvUtil? = null
+    var clickedPosition = -1
 
     override fun init() {
         vm.apply {
@@ -55,6 +54,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
         setSelectDropdown()
         getCurrentDateTime()
+        setRecyclerView()
 
         progressDialog.showProgress()
     }
@@ -67,11 +67,31 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     private fun setRecyclerView() {
         subjectData = BaseRvBindingAdapter(
-            list = mutableListOf(),
+            layoutId = R.layout.raw_add_demand,
+            list = vm.subjectData,
             br = BR.data,
             clickListener = { v, t, p ->
+                when (v.id) {
+                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
+                        vm.subjectData.forEach {
+                            it?.isTextVisible = false
+                        }
 
-            },
+                        t?.isTextVisible = !t?.isTextVisible!!
+
+                        rvUtil?.notifyAdapter()
+                    }
+                    R.id.main_view -> {
+                        vm.subjectData.forEach {
+                            it?.isTextVisible = false
+                        }
+
+                        t?.isTextVisible = !t?.isTextVisible!!
+
+                        rvUtil?.notifyAdapter()
+                    }
+                }
+            }
         )
 
         rvUtil = RvUtil(
@@ -86,6 +106,13 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         mediumDialog?.setItems(castedMediumLanguageList) { _, which ->
             binding.etModule.setText(castedMediumLanguageList?.get(which))
             mediumItem = castedMediumLanguageList?.get(which).toString()
+
+            vm.getSubjectListData(
+                userid = prefs.user.userId,
+                installid = prefs.installId.orEmpty(),
+                userMedium = castedMediumLanguageList?.get(which).toString(),
+                standard = binding.etStandard.text.toString()
+            )
         }
     }
 
@@ -94,7 +121,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         standardDialog?.setItems(castedSelectStandardList) { _, which ->
             binding.etStandard.setText(castedSelectStandardList?.get(which))
             subjectItem = castedSelectStandardList?.get(which).toString()
+
+            vm.getSubjectListData(
+                userid = prefs.user.userId,
+                installid = prefs.installId.orEmpty(),
+                userMedium = binding.etModule.text.toString(),
+                standard = castedSelectStandardList?.get(which).toString()
+            )
         }
+
+
     }
 
     override fun onClick(v: View) {
@@ -123,12 +159,20 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         castedMediumLanguageList = mediumLanguage.toTypedArray()
                         setMediumDropdown()
                         binding.etModule.setText(castedMediumLanguageList?.get(0))
+                        mediumItem = castedMediumLanguageList?.get(0).toString()
 
                         vm.getStandard(
                             userid = prefs.user.userId,
                             userMedium = castedMediumLanguageList?.get(0).orEmpty(),
                             installid = prefs.user.installId
                         )
+
+                        subjectData.list.map {
+                            it?.mediumItem = castedMediumLanguageList?.get(0).orEmpty()
+                        }
+                        if (clickedPosition != -1) {
+                            rvUtil?.rvAdapter?.notifyItemChanged(clickedPosition)
+                        }
                     }
                     is StandardResponse -> {
                         castedSelectStandardList = emptyArray()
@@ -139,6 +183,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         castedSelectStandardList = selectStandard.toTypedArray()
                         setSelectDropdown()
                         binding.etStandard.setText(castedSelectStandardList?.get(0))
+                        subjectItem = castedSelectStandardList?.get(0).toString()
 
                         castedSelectStandardList?.get(0)?.let {
                             vm.getSubjectListData(
@@ -150,17 +195,25 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         }
                     }
                     is GetDemandDataResponse -> {
-                        "Response: data - ${apiRenderState.result.data}".logE()
-                        setRecyclerView()
+
+                        vm.subjectData.clear()
+
+                        apiRenderState.result.data?.itemlist?.map {
+                            it?.mediumItem = binding.etModule.text.toString()
+                            vm.subjectData.add(it)
+                        }
+
+                        "RcvSize = ${vm.subjectData.size}".logE()
 
                         //Add data to table
-                        apiRenderState.result.data?.itemlist?.let {
-                            subjectData.addData(
-                                it,
-                                isClear = true
-                            )
-                        }
-                        subjectData.notifyDataSetChanged()
+//                        apiRenderState.result.data?.itemlist?.let {
+//                            subjectData.addData(
+//                                it,
+//                                isClear = true
+//                            )
+//                        }
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                        //subjectData.notifyDataSetChanged()
                         progressDialog.hideProgress()
                     }
                 }

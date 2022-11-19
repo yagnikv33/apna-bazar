@@ -10,10 +10,10 @@ import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
-import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityPwdBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
     override val vm: EntryVM by viewModel()
@@ -57,8 +57,7 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             prefs.user = apiRenderState.result
                             prefs.authToken = apiRenderState.result.accessToken
-                          //  val intent = Intent(this, DashboardAct::class.java)
-                            val intent = Intent(this, AddDemandAct::class.java)
+                            val intent = Intent(this, DashboardAct::class.java)
                             this.startActivity(intent)
                             finishAffinity()
                         } else {
