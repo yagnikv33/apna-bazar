@@ -65,6 +65,10 @@ class AppConstants {
 
             //Demand
             const val GET_MEDIUM = "getmediumlist"
+
+            //Profile Related
+            const val GET_USER_PROFILE = "getuserdetails"
+            const val EDIT_USER_PROFILE = "edituserprofile"
         }
 
         object Value {

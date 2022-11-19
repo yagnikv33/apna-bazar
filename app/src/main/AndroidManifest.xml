@@ -17,7 +17,7 @@
         tools:replace="android:label"
         tools:targetApi="n">
         <activity
-            android:name=".AddDemandAct"
+            android:name=".apnabazar.main.dashboard.view.demand.AddDemandAct"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,7 +36,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.esjayit.apnabazar.main.entrymodule.view.SplashScreenAct"
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.GetYourCodeAct"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -44,7 +44,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.esjayit.apnabazar.main.entrymodule.view.GetYourCodeAct"
+            android:name="com.esjayit.apnabazar.main.entrymodule.view.SplashScreenAct"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

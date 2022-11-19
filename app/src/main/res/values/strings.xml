@@ -25,6 +25,7 @@
     <string name="tv_demand_list">Demand List</string>
     <string name="txt_profile">Profile</string>
     <string name="txt_logout">Logout</string>
+    <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_add_demand">Add Demand</string>
     <string name="txt_select_meduim">Select Meduim</string>
     <string name="txt_date">Date</string>

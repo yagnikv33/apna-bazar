@@ -138,7 +138,7 @@ class SplashScreenAct :
                     is CheckUpdateResponse -> {
                         if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
                             "Check Update Response Success".logE()
-                            var userDataObj = apiRenderState.result.updateData.userData
+                            var userDataObj = apiRenderState.result.updateData.updateDataModel
                             if (userDataObj.isForceUpdate == "0" && userDataObj.isUpdateAvailable == "0") {
                                 "Nothing to Do".logE()
                             } else if (userDataObj.isForceUpdate == "0" && userDataObj.isUpdateAvailable == "1") {
