@@ -1,14 +1,18 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
 import android.content.Intent
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextPaint
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.view.KeyEvent
 import android.view.View
+import android.widget.EditText
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
+import androidx.core.view.isGone
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -31,6 +35,7 @@ class GetYourCodeAct :
     var sb = StringBuilder()
     private var otpModelObject: OTPData? = null
     private var userName: String? = null
+    private lateinit var countdownTimer: CountDownTimer
 
     override fun init() {
         otpModelObject = intent.getSerializableExtra("SendOTPModel") as OTPData?
@@ -38,8 +43,35 @@ class GetYourCodeAct :
         userName = intent.getStringExtra("UserName")
         setOtpEditTextHandler()
         spanResendText()
+
+        //GenericTextWatcher here works only for moving to next EditText when a number is entered
+//first parameter is the current EditText and second parameter is next EditText
+        edt_1.addTextChangedListener(GenericTextWatcher(edt_1, edt_2))
+        edt_2.addTextChangedListener(GenericTextWatcher(edt_2, edt_3))
+        edt_3.addTextChangedListener(GenericTextWatcher(edt_3, edt_4))
+        edt_4.addTextChangedListener(GenericTextWatcher(edt_4, edt_5))
+        edt_5.addTextChangedListener(GenericTextWatcher(edt_5, edt_6))
+
+//GenericKeyEvent here works for deleting the element and to switch back to previous EditText
+//first parameter is the current EditText and second parameter is previous EditText
+        edt_1.setOnKeyListener(GenericKeyEvent(edt_1, null))
+        edt_2.setOnKeyListener(GenericKeyEvent(edt_2, edt_1))
+        edt_3.setOnKeyListener(GenericKeyEvent(edt_3, edt_2))
+        edt_4.setOnKeyListener(GenericKeyEvent(edt_4,edt_3))
+        edt_5.setOnKeyListener(GenericKeyEvent(edt_5, edt_4))
+        edt_6.setOnKeyListener(GenericKeyEvent(edt_6,edt_5))
     }
 
+    private fun startTimer() {
+        countdownTimer = object : CountDownTimer(3000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.tvResend.setText(millisUntilFinished.toString()).toString()
+            }
+            override fun onFinish() {
+
+            }
+        }.start()
+    }
 
     private fun setOtpEditTextHandler() {
 
@@ -142,12 +174,15 @@ class GetYourCodeAct :
         super.onClick(v)
         when (v) {
             binding.tvResend -> {
-                startActivity(NewPwdAct::class.java)
+//                startActivity(NewPwdAct::class.java)
+                "Username in GET CODE ${userName}"
+                startTimer()
+                vm?.sendOTP(userName = userName!!, installedId = prefs.installId!!)
             }
             binding.btnVerifyAndProceed -> {
                 var otpTxt = "${binding.edt1.text}${binding.edt2.text}${binding.edt3.text}${binding.edt4.text}${binding.edt5.text}${binding.edt6.text}"
                 "OTP Screen CODE ${otpTxt}".logE()
-//                vm?.verifyOTP(otpId = otpModelObject?.otpId.toString(), otp = otpTxt, installedId = prefs.installId!!)
+                vm?.verifyOTP(otpId = otpModelObject?.otpId.toString(), otp = otpTxt, installedId = prefs.installId!!)
             }
         }
     }
@@ -206,4 +241,45 @@ class GetYourCodeAct :
         }
     }
 
+}
+class GenericKeyEvent internal constructor(private val currentView: EditText, private val previousView: EditText?) : View.OnKeyListener{
+    override fun onKey(p0: View?, keyCode: Int, event: KeyEvent?): Boolean {
+        if(event!!.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentView.id != R.id.edt_1 && currentView.text.isEmpty()) {
+            //If current is empty then previous EditText's number will also be deleted
+            previousView!!.requestFocus()
+            previousView!!.text = null
+            return true
+        }
+        return false
+    }
+}
+
+class GenericTextWatcher internal constructor(private val currentView: View, private val nextView: View?) : TextWatcher {
+    override fun afterTextChanged(editable: Editable) { // TODO Auto-generated method stub
+        val text = editable.toString()
+        when (currentView.id) {
+            R.id.edt_1 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_3 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_2 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_4 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_5 -> if (text.length == 1) nextView!!.requestFocus()
+            R.id.edt_6 -> if (text.length == 1) nextView!!.requestFocus()
+        }
+    }
+
+    override fun beforeTextChanged(
+        arg0: CharSequence,
+        arg1: Int,
+        arg2: Int,
+        arg3: Int
+    ) { // TODO Auto-generated method stub
+    }
+
+    override fun onTextChanged(
+        arg0: CharSequence,
+        arg1: Int,
+        arg2: Int,
+        arg3: Int
+    ) { // TODO Auto-generated method stub
+    }
 }

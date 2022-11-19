@@ -73,6 +73,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:cursorVisible="false"
+                    android:inputType="number"
                     android:hint="@string/x"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />
@@ -96,7 +98,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:cursorVisible="false"
                     android:hint="@string/x"
+                    android:inputType="number"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />
 
@@ -122,6 +126,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:hint="@string/x"
+                    android:inputType="number"
+                    android:cursorVisible="false"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />
             </com.google.android.material.card.MaterialCardView>
@@ -144,7 +150,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:cursorVisible="false"
                     android:hint="@string/x"
+                    android:inputType="number"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />
 
@@ -168,6 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:cursorVisible="false"
+                    android:inputType="number"
                     android:hint="@string/x"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />
@@ -192,6 +202,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:cursorVisible="false"
+                    android:inputType="number"
                     android:hint="@string/x"
                     android:maxLength="1"
                     android:textSize="@dimen/_15ssp" />

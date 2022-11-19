@@ -48,12 +48,12 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                 binding.editText.hideSoftKeyboard()
                 // errorToast("Login Btn Tapped")
                 "Login Button Tapped".logE()
-                progressDialog?.showProgress()
                 //TEMP API CALL
                 // userName = "ESJAYIT"
                 // vm.checkUserVerification(userName = binding.editText.text.toString(), installedId = prefs.installId!!)
                 userName = binding.editText.text.toString()
                 if (userName.isNotEmpty()) {
+                    progressDialog?.showProgress()
                     vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
                 } else {
                     errorToast("Please enter username first")
@@ -67,10 +67,10 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is CheckUserVerificationResponse -> {
+                        progressDialog?.hideProgress()
                         when (apiRenderState.result.statusCode) {
                             AppConstants.Status_Code.Success -> {
                                 "Go to Password Screen".logE()
-                                progressDialog?.hideProgress()
                                 val intent = Intent(this, PwdAct::class.java)
                                 intent.putExtra("UserName", userName)
                                 this.startActivity(intent)
@@ -91,6 +91,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                     }
 
                     is SendOTPResponse -> {
+                        progressDialog?.hideProgress()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             val intent = Intent(this, GetYourCodeAct::class.java)
@@ -115,6 +116,7 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                 "Error API CALLING".logE()
             }
             is ApiRenderState.ApiError<*> -> {
+                progressDialog?.showProgress()
                 "Error API CALLING API ERROR".logE()
             }
         }
