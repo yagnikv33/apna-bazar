@@ -56,7 +56,7 @@ class SplashScreenAct :
     }
 
     //For Launch App API Calling
-    fun checkForLaunchAPIs() {
+    private fun checkForLaunchAPIs() {
         if (prefs.authToken.isNullOrEmpty())  {
                 //login
             if(prefs.firstTime) {

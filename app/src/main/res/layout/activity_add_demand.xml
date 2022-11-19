@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <!-- Row 1 -->
+        <!-- Top App Bar -->
         <LinearLayout
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
@@ -55,6 +56,7 @@
 
         </LinearLayout>
 
+        <!-- Select Medium -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_select_medium"
             style="@style/txt_demand_lbl"
@@ -70,7 +72,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:onClick="@{click::onClick}"
             app:boxBackgroundColor="@color/white"
             app:endIconDrawable="@drawable/ic_down"
             app:endIconMode="custom"
@@ -83,20 +84,20 @@
                 style="@style/ans_demand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="false"
+                android:onClick="@{click::onClick}"
+                android:padding="16dp"
                 android:textColor="@color/txt_profile" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--Row 2 -->
-
+        <!-- Select Standard -->
         <LinearLayout
             android:id="@+id/ll_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_6sdp"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@id/ll_2"
@@ -108,7 +109,7 @@
                 style="@style/txt_demand_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_select_meduim"
+                android:text="@string/txt_select_standard"
                 app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
                 app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt" />
 
@@ -127,21 +128,22 @@
                     style="@style/ans_demand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint=""
-                    android:text="text"
-                    android:textAllCaps="true"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:onClick="@{click::onClick}"
                     android:textColor="@color/txt_profile" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
+        <!-- Date -->
         <LinearLayout
             android:id="@+id/ll_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@id/txt_fld_slct_medim_lyt"
             app:layout_constraintStart_toEndOf="@id/ll_1"
@@ -169,8 +171,9 @@
                     style="@style/ans_demand"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_37sdp"
-                    android:hint=""
-                    android:text="2022-03-26  11:33  A.M"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:onClick="@{click::onClick}"
                     android:textAllCaps="true"
                     android:textColor="@color/txt_profile" />
 
@@ -178,8 +181,9 @@
 
         </LinearLayout>
 
-        <!-- Row 3 -->
+        <!--Search -->
         <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_12sdp"
@@ -207,5 +211,131 @@
                 android:textSize="@dimen/_16ssp" />
 
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add_demand_tbl_header"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_search">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30dp"
+                android:background="@drawable/square_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_ad_subject_name"
+                    style="@style/add_demand_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tv_subject_name" />
+
+                <TextView
+                    android:id="@+id/tv_ad_qty"
+                    style="@style/add_demand_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_qty"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/tv_ad_bunch"
+                    style="@style/add_demand_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/txt_bunch" />
+
+                <TextView
+                    android:id="@+id/tv_ad_standard"
+                    style="@style/add_demand_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tv_standard"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add_demand_tbl_data"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/cl_add_demand_tbl_header"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintStart_toStartOf="@id/cl_add_demand_tbl_header"
+            app:layout_constraintTop_toBottomOf="@id/cl_add_demand_tbl_header">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/square_data"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_subject_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:itemCount="5"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                tools:listitem="@layout/raw_add_demand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/btn_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:backgroundTint="@color/black"
+            android:onClick="@{click::onClick}"
+            android:text="@string/txt_add_demand"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cl_add_demand_tbl_data"
+            app:layout_constraintStart_toStartOf="@id/cl_add_demand_tbl_data"
+            app:layout_constraintTop_toBottomOf="@id/cl_add_demand_tbl_data" />
+
+
+        <!--Recycler View-->
+        <!--   <androidx.recyclerview.widget.RecyclerView
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:layout_margin="@dimen/_12sdp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+
+               app:layout_constraintTop_toBottomOf="@+id/ll_search" />
+   -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -53,11 +53,12 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Home Screen".logE()
-                            progressDialog?.hideProgress()
+                            progressDialog.hideProgress()
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             prefs.user = apiRenderState.result
                             prefs.authToken = apiRenderState.result.accessToken
-                            val intent = Intent(this, DashboardAct::class.java)
+                          //  val intent = Intent(this, DashboardAct::class.java)
+                            val intent = Intent(this, AddDemandAct::class.java)
                             this.startActivity(intent)
                             finishAffinity()
                         } else {

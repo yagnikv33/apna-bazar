@@ -29,4 +29,9 @@
     <string name="txt_select_meduim">Select Meduim</string>
     <string name="txt_date">Date</string>
     <string name="txt_search">Search</string>
+    <string name="txt_select_standard">Select Standard</string>
+    <string name="tv_subject_name">Subject Name</string>
+    <string name="txt_qty">qty</string>
+    <string name="txt_bunch">Bunch</string>
+    <string name="tv_standard">STANDARD</string>
 </resources>

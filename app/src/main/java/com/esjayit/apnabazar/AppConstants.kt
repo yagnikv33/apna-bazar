@@ -65,6 +65,9 @@ class AppConstants {
 
             //Demand
             const val GET_MEDIUM = "getmediumlist"
+            const val GET_STANDARD = "getstandardlist"
+            const val GET_SUBJECT_LIST = "getsubjectlist"
+            const val GET_ITEM_DETAIL = "getitemdetail"
         }
 
         object Value {

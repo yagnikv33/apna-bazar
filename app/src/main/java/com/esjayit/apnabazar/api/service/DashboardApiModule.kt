@@ -2,9 +2,10 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
-import com.esjayit.apnabazar.data.model.response.CheckUserActiveResponse
-import com.esjayit.apnabazar.data.model.response.MediumResponse
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
+import com.esjayit.apnabazar.data.model.response.*
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -36,4 +37,25 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): MediumResponse
+
+    @FormUrlEncoded
+    @POST(GET_STANDARD)
+    suspend fun getStandardList(
+        @Field("userid") userid: String,
+        @Field("medium") userMedium: String,
+        @Field("installid") installid: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): StandardResponse
+
+    @FormUrlEncoded
+    @POST(GET_SUBJECT_LIST)
+    suspend fun getSubjectList(
+        @Field("userid") userid: String,
+        @Field("medium") userMedium: String,
+        @Field("standard") standard: String,
+        @Field("installid") installid: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): GetDemandDataResponse
 }
