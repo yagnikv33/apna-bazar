@@ -24,8 +24,6 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
     var newPasswordData = MutableLiveData(NewPasswordResponse())
     //For Login Data
     var loginData = MutableLiveData(LoginResponse())
-    //For Home Screen API Data
-    var checkUserActiveData = MutableLiveData(CheckUserActiveResponse())
 
     private val progressBar = MutableLiveData(false)
 

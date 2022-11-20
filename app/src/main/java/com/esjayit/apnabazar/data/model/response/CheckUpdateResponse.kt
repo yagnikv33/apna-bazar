@@ -19,9 +19,9 @@ data class CheckUpdateResponse(
 data class UpdateData(
 
     @field:SerializedName("userdata")
-    val userData: UserData = UserData()
+    val updateDataModel: UpdateDataModel = UpdateDataModel()
 )
-data class UserData(
+data class UpdateDataModel(
 
     @field:SerializedName("isUpdateAvailable")
     val isUpdateAvailable: String = "",
