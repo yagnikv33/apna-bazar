@@ -35,7 +35,7 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
         } else if (!binding.edtPwd.text.toString().equals(binding.edtConfirmPwd.text.toString())) {
             msg = "Password and confirm password should be same"
         }
-        
+
         return if(msg.isEmpty()) { true } else {
             errorToast(msg)
             false
@@ -67,7 +67,6 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Redirect to password screen".logE()
                             successToast(apiRenderState.result.message)
-
                             val intent = Intent(this, SignInAct::class.java)
                             intent.putExtra("UserName", userName)
                             this.startActivity(intent)
