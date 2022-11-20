@@ -5,6 +5,7 @@ import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.LoginResponse
+import com.esjayit.apnabazar.data.model.response.SendOTPResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
@@ -42,6 +43,10 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                     errorToast("Please enter password")
                 }
             }
+
+            binding.tvForgetPwd -> {
+                vm.sendOTP(userName = userName!!, installedId = prefs.installId!!)
+            }
         }
     }
 
@@ -51,9 +56,9 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                 when (apiRenderState.result) {
                     is LoginResponse -> {
                         val statusCode = apiRenderState.result.statusCode
+                        progressDialog.hideProgress()
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Go to Home Screen".logE()
-                            progressDialog.hideProgress()
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             prefs.user = apiRenderState.result
                             prefs.authToken = apiRenderState.result.accessToken
@@ -63,6 +68,21 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                         } else {
                             errorToast(apiRenderState.result.message)
                             "Error : Pwd ACT ${apiRenderState.result.message}".logE()
+                        }
+                    }
+
+                    is SendOTPResponse -> {
+                        progressDialog?.hideProgress()
+                        val statusCode = apiRenderState.result.statusCode
+                        if (statusCode == AppConstants.Status_Code.Success) {
+                            val intent = Intent(this, GetYourCodeAct::class.java)
+                            intent.putExtra("SendOTPModel", apiRenderState.result.data)
+                            intent.putExtra("UserName", userName)
+                            this.startActivity(intent)
+                        } else if (statusCode == AppConstants.Status_Code.Code2) {
+                            "Error : Send OTP ${apiRenderState.result.message}".logE()
+                        } else {
+                            "Error : Send OTP ${apiRenderState.result.message}".logE()
                         }
                     }
                 }

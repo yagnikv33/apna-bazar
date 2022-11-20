@@ -5,6 +5,7 @@ import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.NewPasswordResponse
+import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -17,6 +18,7 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
     override val vm: EntryVM? by viewModel()
     override val hasProgress: Boolean = false
     private var userName: String? = null
+    val progressDialog: CustomProgress by lazy { CustomProgress(this) }
 
     override fun init() {
         //Set New Passsword API Call(Temp)
@@ -24,23 +26,35 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
         userName = intent.getStringExtra("UserName")
     }
 
+    fun isVaildForAPI(): Boolean {
+        var msg = ""
+        if (binding.edtPwd.text.isNullOrEmpty()) {
+            msg = "Please enter password"
+        } else if (binding.edtConfirmPwd.text.isNullOrEmpty()) {
+            msg = "Please enter confirm password"
+        } else if (!binding.edtPwd.text.toString().equals(binding.edtConfirmPwd.text.toString())) {
+            msg = "Password and confirm password should be same"
+        }
+        
+        return if(msg.isEmpty()) { true } else {
+            errorToast(msg)
+            false
+        }
+    }
+
     override fun onClick(v: View) {
         super.onClick(v)
         when (v) {
             binding.btnPwdSubmit -> {
                 "Password Submit Button Tapped".logE()
-
-                //TEMP API CALL
-                vm?.setNewPassword(userName = "", password = "", installedId = prefs.installId!!)
-//                userName = binding.editText.text.toString()
-//                if (userName.isNotEmpty()) {
-//                    vm.checkUserVerification(userName = userName, installedId = prefs.installId!!)
-//                } else {
-//                    errorToast("Please enter username first")
-//                }
+                if (isVaildForAPI()) {
+                    progressDialog?.showProgress()
+                    vm?.setNewPassword(userName = userName!!, password = binding.edtPwd.text.toString(), installedId = prefs.installId!!)
+                } else {
+                    "Issue with API".logE()
+                }
             }
         }
-
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
@@ -48,10 +62,13 @@ class NewPwdAct : BaseAct<ActivityNewPwdBinding, EntryVM>(Layouts.activity_new_p
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is NewPasswordResponse -> {
+                        progressDialog?.hideProgress()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "Redirect to password screen".logE()
-                            val intent = Intent(this, PwdAct::class.java)
+                            successToast(apiRenderState.result.message)
+
+                            val intent = Intent(this, SignInAct::class.java)
                             intent.putExtra("UserName", userName)
                             this.startActivity(intent)
                         } else {
