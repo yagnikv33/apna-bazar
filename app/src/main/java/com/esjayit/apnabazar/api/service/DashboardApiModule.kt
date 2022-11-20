@@ -30,7 +30,7 @@ interface DashboardApiModule {
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId: String
-    ): CheckUserActiveResponse
+    ): HomeScreenListResponse
 
     @FormUrlEncoded
     @POST(GET_MEDIUM)
