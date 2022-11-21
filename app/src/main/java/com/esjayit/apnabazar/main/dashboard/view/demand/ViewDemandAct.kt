@@ -1,10 +1,14 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.DemandListItem
+import com.esjayit.apnabazar.data.model.response.ItemlistItem
 import com.esjayit.apnabazar.data.model.response.ViewDemandDetailsData
 import com.esjayit.apnabazar.data.model.response.ViewDemandDetailsResponse
 import com.esjayit.apnabazar.helper.util.logE
+import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
+import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityViewDemandBinding
@@ -16,12 +20,9 @@ class ViewDemandAct :
     override val vm: DemandListVM by viewModel()
     override val hasProgress: Boolean = false
 
+
     override fun init() {
-        vm.getViewDemandList(
-            userid = prefs.user.userId,
-            demandid = "C6EEC52F-BD47-43DE-B15D-F6FCD52259E8",
-            installid = prefs.installId.orEmpty()
-        )
+
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
@@ -29,7 +30,7 @@ class ViewDemandAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is ViewDemandDetailsResponse -> {
-                        "Response: ${apiRenderState.result.data}".logE()
+
                     }
                 }
             }

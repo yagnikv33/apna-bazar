@@ -215,4 +215,21 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    suspend fun getDemandList(
+        userId: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): DemandListResponse? {
+        return with(apiCall(executable = {
+            apiCall.demandList(
+                userId = userId,
+                installId = installId
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
 }

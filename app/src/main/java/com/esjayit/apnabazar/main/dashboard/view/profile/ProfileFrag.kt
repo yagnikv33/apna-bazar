@@ -120,7 +120,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
         } else {
             if (vaildForAPI()) {
                 progressDialog?.showProgress()
-                vm?.editUserProfile(
+                vm.editUserProfile(
                     userId = prefs.user.userId,
                     name = binding.partyName.text.toString(),
                     address = binding.partyAddress.text.toString(),
