@@ -2,8 +2,12 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
+import com.esjayit.apnabazar.data.model.response.*
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.data.model.response.*
@@ -69,4 +73,32 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): ViewDemandDetailsResponse
+
+    @FormUrlEncoded
+    @POST(GET_USER_PROFILE)
+    suspend fun getUserProfile(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): UserProfileDetailResponse
+
+    @FormUrlEncoded
+    @POST(EDIT_USER_PROFILE)
+    suspend fun editUserProfile(
+        @Field("userid") userId: String,
+        @Field("uname") uName: String,
+        @Field("uaddress") uAddress: String,
+        @Field("ucity") uCity: String,
+        @Field("ustate") uState: String,
+        @Field("ucountry") uCountry: String,
+        @Field("uphone1") uPhone1: String,
+        @Field("uphone2") uPhone2: String,
+        @Field("gstno") uGstNo: String,
+        @Field("panno") uPanNo: String,
+        @Field("uemail") uEmail: String,
+        @Field("installid") installId: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): EditProfileDetailResponse
 }

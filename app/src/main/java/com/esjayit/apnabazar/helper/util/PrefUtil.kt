@@ -7,6 +7,7 @@ import androidx.security.crypto.MasterKeys
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants.Prefs.AUTH_TOKEN
 import com.esjayit.apnabazar.data.model.response.LoginResponse
+import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
 
 
 class PrefUtil(context: Context) {
@@ -36,6 +37,13 @@ class PrefUtil(context: Context) {
         get() = prefs.getString("USER_INFO", "") convertToModel LoginResponse::class.java
         set(data) {
             prefEditor.putString("USER_INFO", data.convertToString())
+            prefEditor.apply()
+        }
+
+    var userProfileDetail: UserProfileDetailResponse
+        get() = prefs.getString("USER_DETAIL_INFO", "") convertToModel UserProfileDetailResponse::class.java
+        set(data) {
+            prefEditor.putString("USER_DETAIL_INFO", data.convertToString())
             prefEditor.apply()
         }
 

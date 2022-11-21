@@ -21,7 +21,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintHeight_percent="0.37"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -51,11 +51,13 @@
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Esjay It Solutions Pvt. Ltd. "
+                android:text=""
+                android:maxLines="1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_16ssp" />
 
@@ -65,7 +67,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="Bank Name:" />
+                android:text="Bank Name : Rajkot Nagrik Sahakari Bank Ltd." />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/home_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="Name : Rajkot District Central Con. Co. Op. Soc. Ltd" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/home_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="IFSC Code : RNSB0000001" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/home_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="Account No : 019003800000736" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/home_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="Address : Bhupendra road, Rajkot" />
+
+
+
+
+
 
         </LinearLayout>
 

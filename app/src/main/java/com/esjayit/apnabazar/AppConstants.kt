@@ -68,6 +68,10 @@ class AppConstants {
             const val GET_STANDARD = "getstandardlist"
             const val GET_SUBJECT_LIST = "getsubjectlist"
             const val GET_ITEM_DETAIL = "getitemdetail"
+
+            //Profile Related
+            const val GET_USER_PROFILE = "getuserdetails"
+            const val EDIT_USER_PROFILE = "edituserprofile"
             const val VIEW_DEMAND_LIST = "viewsalesdemand"
         }
 
