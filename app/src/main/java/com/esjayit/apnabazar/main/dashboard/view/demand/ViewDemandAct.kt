@@ -1,10 +1,8 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.data.model.response.GetDemandDataResponse
-import com.esjayit.apnabazar.data.model.response.MediumResponse
-import com.esjayit.apnabazar.data.model.response.StandardResponse
 import com.esjayit.apnabazar.data.model.response.ViewDemandDetailsData
+import com.esjayit.apnabazar.data.model.response.ViewDemandDetailsResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -30,8 +28,8 @@ class ViewDemandAct :
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
-                    is ViewDemandDetailsData -> {
-                        "Response: ${apiRenderState.result.demand}".logE()
+                    is ViewDemandDetailsResponse -> {
+                        "Response: ${apiRenderState.result.data}".logE()
                     }
                 }
             }

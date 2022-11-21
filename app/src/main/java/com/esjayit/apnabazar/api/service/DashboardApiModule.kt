@@ -2,13 +2,11 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
-import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
-import com.esjayit.apnabazar.data.model.response.*
-import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.data.model.response.*
 import retrofit2.http.Field
@@ -32,7 +30,7 @@ interface DashboardApiModule {
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId: String
-    ): CheckUserActiveResponse
+    ): HomeScreenListResponse
 
     @FormUrlEncoded
     @POST(GET_MEDIUM)
