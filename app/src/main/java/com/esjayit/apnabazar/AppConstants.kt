@@ -72,6 +72,7 @@ class AppConstants {
             //Profile Related
             const val GET_USER_PROFILE = "getuserdetails"
             const val EDIT_USER_PROFILE = "edituserprofile"
+            const val VIEW_DEMAND_LIST = "viewsalesdemand"
         }
 
         object Value {

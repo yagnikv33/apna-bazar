@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".apnabazar.main.dashboard.view.demand.ViewDemandAct">
+
+        <!-- Top App Bar -->
+        <LinearLayout
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_back" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="@string/tv_view_demand"
+                android:textAlignment="center" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:padding="@dimen/_12sdp"
+                android:src="@drawable/ic_notification" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_detail_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/top_app_bar"
+            app:layout_constraintStart_toStartOf="@id/top_app_bar"
+            app:layout_constraintTop_toBottomOf="@id/top_app_bar">
+
+            <!-- Select Standard -->
+            <LinearLayout
+                android:id="@+id/ll_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/ll_2"
+                app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
+                app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_select_standard"
+                    style="@style/txt_demand_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_select_standard"
+                    app:layout_constraintStart_toStartOf="@id/txt_fld_slct_medim_lyt"
+                    app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_fld_slct_standard_lyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    app:endIconDrawable="@drawable/ic_down"
+                    app:endIconMode="custom"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_select_standard">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/et_standard"
+                        style="@style/ans_demand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="@string/tv_enter_demand_no"
+                        android:onClick="@{click::onClick}"
+                        android:textColor="@color/txt_profile" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- Date -->
+            <LinearLayout
+                android:id="@+id/ll_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/txt_fld_slct_medim_lyt"
+                app:layout_constraintStart_toEndOf="@id/ll_1"
+                app:layout_constraintTop_toBottomOf="@id/txt_fld_slct_medim_lyt">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date"
+                    style="@style/txt_demand_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_date"
+                    app:layout_constraintStart_toStartOf="@+id/txt_fld_slct_date_lyt"
+                    app:layout_constraintTop_toTopOf="@+id/tv_select_standard" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_fld_slct_date_lyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_fld_slct_medim_lyt"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_date">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/et_date"
+                        style="@style/ans_demand"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="DD - MM - YYYY"
+                        android:onClick="@{click::onClick}"
+                        android:textAllCaps="true"
+                        android:textColor="@color/txt_profile" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Table -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add_demand_tbl_header"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_detail_main">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30dp"
+                android:background="@drawable/square_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_ad_subject_name"
+                    style="@style/add_demand_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/tv_subject_name" />
+
+                <TextView
+                    android:id="@+id/tv_ad_qty"
+                    style="@style/add_demand_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_62sdp"
+                    android:layout_weight="1"
+                    android:text="@string/txt_qty"
+                    android:textAlignment="center"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/tv_ad_bunch"
+                    style="@style/add_demand_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_weight="1"
+                    android:text="@string/txt_bunch"
+                    android:textAlignment="center" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add_demand_tbl_data"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/cl_add_demand_tbl_header"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintStart_toStartOf="@id/cl_add_demand_tbl_header"
+            app:layout_constraintTop_toBottomOf="@id/cl_add_demand_tbl_header">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/square_data"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_subject_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:orientation="vertical"
+                android:translationZ="@dimen/_20sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="5"
+                tools:listitem="@layout/raw_view_demand" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginVertical="@dimen/_12sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_add_demand_tbl_data">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/view_demand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount : 7450.00" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/view_demand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disc.(12.5 %)   :  500" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/view_demand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Round Off   :  0.50" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/view_demand"
+                android:textSize="@dimen/_16ssp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grand Total : 7450.00" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

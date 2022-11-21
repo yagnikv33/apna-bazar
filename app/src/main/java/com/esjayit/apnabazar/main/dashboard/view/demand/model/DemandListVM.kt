@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.data.model.response.ItemData
 import com.esjayit.apnabazar.data.model.response.ItemlistItem
 import com.esjayit.apnabazar.helper.util.PrefUtil
+import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
@@ -14,7 +15,6 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     private val progressBar = MutableLiveData(false)
     val subjectData = mutableListOf<ItemlistItem?>()
-    val mediumItem = MutableLiveData<String>()
 
     fun getMediumList(
         userid: String,
@@ -68,6 +68,26 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
                 installid = installid,
                 userMedium = userMedium,
                 standard = standard,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    fun getViewDemandList(
+        userid: String,
+        demandid: String,
+        installid: String
+    ){
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getViewDemandList(
+                userid = userid,
+                installid = installid,
+                demandid = demandid,
                 onError = onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))

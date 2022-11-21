@@ -40,6 +40,8 @@ data class ItemlistItem(
     @field:SerializedName("itemrate")
     val itemrate: String? = null,
 
+    var qty:String? = null,
+
     var mediumItem: String? = null,
 
     var isTextVisible: Boolean = false

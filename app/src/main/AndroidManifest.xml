@@ -20,16 +20,23 @@
         tools:replace="android:label"
         tools:targetApi="n">
         <activity
+            android:name="com.esjayit.apnabazar.main.dashboard.view.demand.ViewDemandAct"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"
             android:exported="true"
-            android:screenOrientation="portrait"/>
-           <!-- <intent-filter>
+            android:screenOrientation="portrait" />
+        <!--
+ <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
+        -->
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.DashboardAct"
             android:exported="false"

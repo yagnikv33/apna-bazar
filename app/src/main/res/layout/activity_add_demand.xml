@@ -200,12 +200,14 @@
                 android:src="@drawable/ic_search" />
 
             <EditText
+                android:id="@+id/ed_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_6sdp"
                 android:background="@color/transparent"
                 android:fontFamily="@font/roboto_medium_numbers"
                 android:hint="@string/txt_search"
+                android:imeOptions="actionSearch"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/_16ssp" />
@@ -317,7 +319,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_add_demand"
             style="@style/btn_style"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_42sdp"
