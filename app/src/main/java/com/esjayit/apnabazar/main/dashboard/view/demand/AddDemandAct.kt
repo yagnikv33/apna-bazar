@@ -6,9 +6,7 @@ import android.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.R
@@ -145,16 +143,33 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 "click Items: $t".logE()
 
 
-                v.findViewById<EditText>(R.id.edt_qty).setOnEditorActionListener { v, actionId, event ->
+                v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
+                    override fun onTextChanged(
+                        searchText: CharSequence?,
+                        p1: Int,
+                        p2: Int,
+                        p3: Int
+                    ) {
 
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            "click Items: $t".logE()
-                            "click Items: ${v.findViewById<EditText>(R.id.edt_qty).text}".logE()
-                            return@setOnEditorActionListener true
-                        }
-
-                        false
                     }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                        "etTextResData: $p0".logE()
+                    }
+
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+                })
+//                    .setOnEditorActionListener { v, actionId, event ->
+//
+//                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                            "click Items: $t".logE()
+//                            "click Items: ${v.findViewById<EditText>(R.id.edt_qty).text}".logE()
+//                            return@setOnEditorActionListener true
+//                        }
+//
+//                        false
+//                    }
             }
         )
 
@@ -216,6 +231,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is MediumResponse -> {
+
+                        "Response: getMedium Data - ${apiRenderState.result.data}".logE()
+
                         castedMediumLanguageList = emptyArray()
                         mediumLanguage.clear()
                         apiRenderState.result.data?.mediumlist?.forEachIndexed { index, mediumlistItem ->
@@ -240,6 +258,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         }
                     }
                     is StandardResponse -> {
+
+                        "Response: getStandard Data - ${apiRenderState.result.data}".logE()
+
                         castedSelectStandardList = emptyArray()
                         selectStandard.clear()
                         apiRenderState.result.data?.stdlist?.forEachIndexed { index, stdlist ->
@@ -260,6 +281,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         }
                     }
                     is GetDemandDataResponse -> {
+
+                        "Response: getDemand Data - ${apiRenderState.result.data}".logE()
 
                         vm.subjectData.clear()
 
