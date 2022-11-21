@@ -19,4 +19,8 @@
     <color name="txt_profile">#8C8FA5</color>
     <color name="bg_color">#E3E4E7</color>
     <color name="box_border">#B5B5B5</color>
+    <color name="card_bg">#172238</color>
+    <color name="status_green">#47C87A</color>
+    <color name="status_purple">#7895FD</color>
+    <color name="status_yellow">#EDDC81</color>
 </resources>

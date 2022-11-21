@@ -2,6 +2,7 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
@@ -99,4 +100,13 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): EditProfileDetailResponse
+
+    @FormUrlEncoded
+    @POST(DEMAND_LIST)
+    suspend fun demandList(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+    ): DemandListResponse
 }

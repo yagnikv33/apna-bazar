@@ -17,7 +17,7 @@ open class BaseRvBindingAdapter<T>(
     private var br: Int = -1,
     private var brs: Map<Int, Any>? = null,
     private var clickListener: ((view: View, item: T, pos : Int) -> Unit)? = null,
-    private var viewHolder: ((holder: RecyclerView.ViewHolder, position: Int) -> Unit)? = null
+    private var viewHolder: ((view: View, item: T, pos: Int) -> Unit)? = null
 ) : RecyclerView.Adapter<BaseRvBindingAdapter<T>.ViewHolder>() {
 
     override fun getItemCount() = list.size
@@ -50,7 +50,9 @@ open class BaseRvBindingAdapter<T>(
         }
 
 
-        viewHolder?.invoke(holder,position)
+        //viewHolder?.invoke(holder,position)
+
+        list[position]?.let { viewHolder?.invoke(holder.itemView, it, position) }
 
         holder.binding.setVariable(
             BR.click,
