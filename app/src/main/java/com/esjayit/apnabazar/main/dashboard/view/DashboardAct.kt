@@ -39,31 +39,26 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
                 R.id.home_page -> {
                     // Respond to navigation HOME
                     switchToFragment(HomeFrag())
-
                     true
                 }
                 R.id.stock_view_page -> {
                     // Respond to navigation STOCK VIEW
                     switchToFragment(StockViewFrag())
-
                     true
                 }
                 R.id.demand_list_page -> {
                     // Respond to navigation DEMAND LIST
                     switchToFragment(DemandListFrag())
-
                     true
                 }
                 R.id.user_ledger_page -> {
                     // Respond to navigation USER LEDGER
                     switchToFragment(UserLedgerFrag())
-
                     true
                 }
                 R.id.profile_page -> {
                     // Respond to navigation PROFILE
                     switchToFragment(ProfileFrag())
-
                     true
                 }
                 else -> false
