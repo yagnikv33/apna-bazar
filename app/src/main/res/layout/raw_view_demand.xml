@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,7 +12,7 @@
 
         <variable
             name="data"
-            type="com.esjayit.apnabazar.data.model.response.ItemlistItem" />
+            type="com.esjayit.apnabazar.data.model.response.ViewDemandDetailsData" />
 
         <variable
             name="vm"
@@ -34,39 +35,37 @@
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_105sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@{data.subname}"
+                android:maxLines="1"
+                tools:text="MERYGOLD ENGLISHMEDIUM"
                 android:textAlignment="textStart" />
 
-            <EditText
+          <!--  <EditText
                 android:id="@+id/edt_qty"
                 style="@style/add_demand_row"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:onClick="@{click::onClick}"
-                android:text="@={data.qty}"
-                android:textAlignment="center" />
+                android:text="0"
+                android:textAlignment="center" />-->
 
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_14sdp"
-                android:text="@{data.thock}"
+                android:maxLines="1"
+                tools:text="20"
                 android:textAlignment="textEnd" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:maxLines="1"
+                tools:text="20"
                 android:layout_height="wrap_content"
-                android:text="@{data.standard}"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>
@@ -77,16 +76,14 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:onClick="@{click::onClick}"
-            android:orientation="horizontal"
-            android:visibility="@{data.textVisible ? View.VISIBLE : View.GONE}">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_subject_sub_header"
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{`Standard : `+ data.standard}"
+                android:layout_weight="4"
                 android:textAlignment="textStart" />
 
             <TextView
@@ -95,24 +92,13 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{`Rate : `+ data.itemrate}"
-                android:textAlignment="textEnd" />
-
-            <!--     <TextView
-                     android:id="@+id/tv_branch_sub_header"
-                     style="@style/add_demand_sub_header_row"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:text="Medium"
-                     android:textAlignment="center" />-->
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_standard_sub_header"
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:text="@{`Medium : `+data.mediumItem}"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>

@@ -2,9 +2,10 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
-import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.data.model.response.*
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -58,4 +59,14 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): GetDemandDataResponse
+
+    @FormUrlEncoded
+    @POST(VIEW_DEMAND_LIST)
+    suspend fun getViewDemandList(
+        @Field("userid") userid: String,
+        @Field("demandid") demandid: String,
+        @Field("installid") installid: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): ViewDemandDetailsResponse
 }

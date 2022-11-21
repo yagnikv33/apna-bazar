@@ -34,4 +34,6 @@
     <string name="txt_qty">qty</string>
     <string name="txt_bunch">Bunch</string>
     <string name="tv_standard">STANDARD</string>
+    <string name="tv_view_demand">View Demand</string>
+    <string name="tv_enter_demand_no">Enter demand no.</string>
 </resources>
