@@ -79,6 +79,10 @@ class AppConstants {
 
             //For 2nd Tab
             const val GET_RETURN_LISTING  = "getreturnlist"
+
+            //Notification
+            const val GET_NOTIFICATION_LISTING = "getuserinboxlist"
+            const val SET_NOTIFICATION_READ  = "setinboxreadstatus"
         }
 
         object Value {

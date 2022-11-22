@@ -5,6 +5,7 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.api.HeaderHttpInterceptor
 import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.api.service.EntryApiModule
+import com.esjayit.apnabazar.api.service.NotificationApiModule
 import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.helper.util.PrefUtil
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
@@ -16,6 +17,8 @@ import com.esjayit.apnabazar.main.dashboard.view.stock_view.model.StockViewVM
 import com.esjayit.apnabazar.main.dashboard.view.user_ledger.model.UserLedgerVM
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
+import com.esjayit.apnabazar.main.notificationmodule.model.NotificationVM
+import com.esjayit.apnabazar.main.notificationmodule.repo.NotificationRepo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,12 +58,14 @@ object KoinModule {
 
         single { get<Retrofit>().create(EntryApiModule::class.java) }
         single { get<Retrofit>().create(DashboardApiModule::class.java) }
+        single { get<Retrofit>().create(NotificationApiModule::class.java) }
 
     }
 
     val repoModule = module {
         factory { EntryRepo(get()) }
         factory { DashboardRepo(get()) }
+        factory { NotificationRepo(get()) }
         factory { HttpLoggingInterceptor(get()) }
     }
 
@@ -72,5 +77,6 @@ object KoinModule {
         viewModel { DemandListVM(get()) }
         viewModel { UserLedgerVM(get()) }
         viewModel { ProfileVM(get()) }
+        viewModel { NotificationVM(get()) }
     }
 }

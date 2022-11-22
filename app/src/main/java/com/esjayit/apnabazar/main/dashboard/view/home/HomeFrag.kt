@@ -18,6 +18,7 @@ import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
 import com.esjayit.apnabazar.main.dashboard.view.home.adapter.HomeListingAdapter
 import com.esjayit.apnabazar.main.dashboard.view.home.model.HomeVM
 import com.esjayit.apnabazar.main.entrymodule.view.SignInAct
+import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -79,6 +80,10 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         when (v) {
             binding.btnAddDemand -> {
                 startActivity(AddDemandAct::class.java)
+            }
+            binding.btnNotification -> {
+                startActivity(NotificationAct::class.java)
+//                successToast("CLICK NOTIF")
             }
         }
     }
