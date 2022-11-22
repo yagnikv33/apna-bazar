@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingHorizontal="@dimen/_8sdp"
-                    android:text="@string/tv_demand_list"
+                    android:text="@string/tv_ledger"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

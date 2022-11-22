@@ -1,28 +1,32 @@
 package com.esjayit.apnabazar.main.dashboard.view.home
 
-import android.view.View
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.helper.custom.CustomProgress
-import com.esjayit.apnabazar.data.model.response.*
+import com.esjayit.apnabazar.data.model.response.CheckUserActiveResponse
+import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
+import com.esjayit.apnabazar.data.model.response.ListItem
+import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
-import com.esjayit.apnabazar.main.dashboard.view.DashboardAct
+import com.esjayit.apnabazar.main.dashboard.view.home.adapter.HomeListingAdapter
 import com.esjayit.apnabazar.main.dashboard.view.home.model.HomeVM
 import com.esjayit.apnabazar.main.entrymodule.view.SignInAct
+import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentHomeBinding
-import org.koin.androidx.viewmodel.compat.ScopeCompat.viewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
 
     override val vm: HomeVM by viewModel()
     override val hasProgress: Boolean = false
+    private var listingAdapter: HomeListingAdapter? = null
 
     override fun init() {
         if (prefs.user != null && prefs.installId != null) {
@@ -35,7 +39,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
             if (prefs.userProfileDetail != null) {
                 "already user profile fetched".logE()
                 binding.userName.setText(prefs.userProfileDetail.userData?.detail?.uname.toString())
-            } else  {
+            } else {
                 vm?.getUserProfile(userId = prefs.user.userId, installedId = prefs.installId!!)
             }
         }
@@ -45,7 +49,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         //Not Null
         val data = obj.data
         var msg = ""
-        if (!data.isActive.isNullOrEmpty() && !data.isMultiDeviceAllow.isNullOrEmpty() ) {
+        if (!data.isActive.isNullOrEmpty() && !data.isMultiDeviceAllow.isNullOrEmpty()) {
             if (data.isActive == "1" && data.isMultiDeviceAllow == "1") {
                 //Temp Show Msg
                 successToast(obj.message)
@@ -66,15 +70,20 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
             .setPositiveButton("Okay",
                 DialogInterface.OnClickListener { dialog, id ->
                     prefs.clearPrefs()
-                    this.startActivity(Intent(requireActivity(), SignInAct::class.java))})
+                    this.startActivity(Intent(requireActivity(), SignInAct::class.java))
+                })
             .show()
     }
 
     override fun onClick(v: View) {
         super.onClick(v)
-        when(v){
+        when (v) {
             binding.btnAddDemand -> {
                 startActivity(AddDemandAct::class.java)
+            }
+            binding.btnNotification -> {
+                startActivity(NotificationAct::class.java)
+//                successToast("CLICK NOTIF")
             }
         }
     }
@@ -83,6 +92,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
+                    //For Check User Active
                     is CheckUserActiveResponse -> {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -92,17 +102,19 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
                         }
                     }
-
+                    //For Home Screen Message Listing
                     is HomeScreenListResponse -> {
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
 //                            successToast("LISTING ${apiRenderState.result.data?.list}")
-                           "HOME DATA LISTING ${apiRenderState.result.data?.list}".logE()
+                            "HOME DATA LISTING ${apiRenderState.result.data?.list}".logE()
+                            setAdapter(apiRenderState.result.data?.list)
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
                         }
                     }
+                    //For User Profile Details
                     is UserProfileDetailResponse -> {
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -129,6 +141,12 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
                 "Error API CALLING API ERROR".logE()
             }
         }
+    }
+
+    private fun setAdapter(list: List<ListItem?>?) {
+        binding.rvHomeListing.layoutManager = LinearLayoutManager(requireContext())
+        listingAdapter = HomeListingAdapter(list as List<ListItem>)
+        binding.rvHomeListing.adapter = listingAdapter
     }
 
 }

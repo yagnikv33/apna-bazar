@@ -79,7 +79,16 @@ class AppConstants {
             //Profile Related
             const val GET_USER_PROFILE = "getuserdetails"
             const val EDIT_USER_PROFILE = "edituserprofile"
+
+            const val PARTY_LEDGER = "getuserledgerlist"
             const val VIEW_DEMAND_LIST = "viewsalesdemand"
+
+            //For 2nd Tab
+            const val GET_RETURN_LISTING  = "getreturnlist"
+
+            //Notification
+            const val GET_NOTIFICATION_LISTING = "getuserinboxlist"
+            const val SET_NOTIFICATION_READ  = "setinboxreadstatus"
         }
 
         object Value {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,6 +16,7 @@
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/llDetails"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/background"
@@ -42,6 +44,9 @@
                     android:textSize="@dimen/_16ssp" />
 
                 <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/btn_notification"
+                    android:onClick="@{click::onClick}"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -56,8 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/raleway_bold"
-                android:text=""
                 android:maxLines="1"
+                android:text=""
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_16ssp" />
 
@@ -98,10 +103,25 @@
                 android:text="Address : Bhupendra road, Rajkot" />
 
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llDetails">
 
-
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeListing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                tools:itemCount="2"
+                tools:listitem="@layout/raw_home_item_2" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -178,6 +178,42 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         }
     }
 
+    suspend fun getPartyLedger(
+        userId: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): PartyLedgerResponse? {
+        return with(apiCall(executable = {
+            apiCall.getPartyLedger(
+                userId = userId,
+                installId = installId
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+
+    //For 5% Listing
+    suspend fun getReturnListing(
+        userId: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): GetReturnLisitngResponse? {
+        return with(apiCall(executable = {
+            apiCall.getReturnListing(
+                userId = userId,
+                installId = installId
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
     suspend fun getDemandList(
         userId: String,
         installId: String,

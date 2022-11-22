@@ -214,6 +214,7 @@
                         android:layout_marginTop="@dimen/_8ssp"
                         android:layout_weight="2"
                         android:text="City"
+                        android:textColor="@color/txt_profile"
                         style="@style/sub_desc"
                         android:textSize="@dimen/_12ssp" />
 
@@ -222,6 +223,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/_8ssp"
+                        android:textColor="@color/txt_profile"
                         android:layout_weight="2"
                         android:text="State"
                         style="@style/sub_desc"

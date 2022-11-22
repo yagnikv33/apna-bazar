@@ -6,9 +6,11 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEMAND
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_LISTING
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.PARTY_LEDGER
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.data.model.response.*
 import retrofit2.http.Field
@@ -101,6 +103,26 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): CommonResponse
+
+    //For Party Ledger API
+    @FormUrlEncoded
+    @POST(PARTY_LEDGER)
+    suspend fun getPartyLedger(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): PartyLedgerResponse
+
+    //For Get 5% Lising
+    @FormUrlEncoded
+    @POST(GET_RETURN_LISTING)
+    suspend fun getReturnListing(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): GetReturnLisitngResponse
 
     @FormUrlEncoded
     @POST(DEMAND_LIST)
