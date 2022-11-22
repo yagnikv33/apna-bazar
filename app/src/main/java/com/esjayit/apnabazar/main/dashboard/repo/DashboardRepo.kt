@@ -2,10 +2,6 @@ package com.esjayit.apnabazar.main.dashboard.repo
 
 import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.api.service.DashboardApiModule
-import com.esjayit.apnabazar.data.model.response.GetDemandDataResponse
-import com.esjayit.apnabazar.data.model.response.MediumResponse
-import com.esjayit.apnabazar.data.model.response.StandardResponse
-import com.esjayit.apnabazar.data.model.response.ViewDemandDetailsResponse
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseRepo
@@ -158,7 +154,8 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         panNo: String,
         email: String,
         installId: String,
-        onError: (ApiResult<Any>) -> Unit): EditProfileDetailResponse? {
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
         return with(apiCall(executable = {
             apiCall.editUserProfile(
                 userId = userId,
@@ -172,7 +169,8 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 uGstNo = gstNo,
                 uPanNo = panNo,
                 uEmail = email,
-                installId = installId)
+                installId = installId
+            )
         })) {
             if (data == null)
                 onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
@@ -189,6 +187,29 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             apiCall.demandList(
                 userId = userId,
                 installId = installId
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    suspend fun addDemand(
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        itemslist: Array<SendDemandItem>,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.addDemand(
+                userid = userid,
+                demanddate = demanddate,
+                totalamt = totalamt,
+                itemslist = itemslist,
+                installid = installid
             )
         })) {
             if (data == null)

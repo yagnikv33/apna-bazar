@@ -3,6 +3,7 @@ package com.esjayit.apnabazar.main.dashboard.view.demand.model
 import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.data.model.response.DemandListItem
 import com.esjayit.apnabazar.data.model.response.ItemlistItem
+import com.esjayit.apnabazar.data.model.response.SendDemandItem
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
@@ -103,6 +104,30 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
             repo.getDemandList(
                 userId = userid,
                 installId = installId,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    fun addDemand(
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        itemslist: Array<SendDemandItem>,
+        installid: String
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.addDemand(
+                userid = userid,
+                totalamt = totalamt,
+                itemslist = itemslist,
+                installid = installid,
+                demanddate = demanddate,
                 onError = onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))
