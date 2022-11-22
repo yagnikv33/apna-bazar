@@ -3,7 +3,11 @@ package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
+import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.Layouts
@@ -12,6 +16,7 @@ import com.esjayit.apnabazar.data.model.response.ItemlistItem
 import com.esjayit.apnabazar.data.model.response.MediumResponse
 import com.esjayit.apnabazar.data.model.response.StandardResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
+import com.esjayit.apnabazar.helper.util.MiscUtil
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
@@ -40,12 +45,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
 
+
     var subjectItem: String = ""
     var mediumItem: String = ""
+    var searchKeyword: String = ""
+    val localSubjectData = mutableListOf<ItemlistItem?>()
 
-    lateinit var subjectData: BaseRvBindingAdapter<ItemlistItem?>
+    lateinit var subjectDataAdapter: BaseRvBindingAdapter<ItemlistItem?>
     var rvUtil: RvUtil? = null
     var clickedPosition = -1
+    private lateinit var debounceListener: (String) -> Unit
 
     override fun init() {
         vm.apply {
@@ -55,8 +64,44 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         setSelectDropdown()
         getCurrentDateTime()
         setRecyclerView()
+        doSearch()
 
         progressDialog.showProgress()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun doSearch() {
+        debounceListener =
+            MiscUtil.throttleLatest(scope = lifecycleScope, intervalMs = 500L) { searchText ->
+                if (searchText.length > 1) {
+                    if (searchText == vm.subjectData[2]?.subname) {
+                        vm.subjectData.map {
+                            localSubjectData.add(it)
+                        }
+                        subjectDataAdapter.addData(localSubjectData, isClear = true)
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                    }
+                }
+            }
+
+        /** Key Board OnTextChangeListener */
+        binding.edSearch.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(searchText: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                searchKeyword = searchText.toString()
+                localSubjectData.filter {
+                    "Search data: $searchText + ${it?.subname.toString()}".logE()
+                    searchText!!.contains(it?.subname.toString())
+                }.let {
+                    subjectDataAdapter.addData(it, isClear = true)
+                    "Filterd Data: $it".logE()
+                    rvUtil?.rvAdapter?.notifyDataSetChanged()
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
     }
 
     private fun getCurrentDateTime() {
@@ -66,7 +111,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     }
 
     private fun setRecyclerView() {
-        subjectData = BaseRvBindingAdapter(
+        subjectDataAdapter = BaseRvBindingAdapter(
             layoutId = R.layout.raw_add_demand,
             list = vm.subjectData,
             br = BR.data,
@@ -90,12 +135,46 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         rvUtil?.notifyAdapter()
                     }
+                    R.id.edt_qty -> {
+                        "CLICK tab".logE()
+                    }
                 }
+
+                "click Items: $t".logE()
+
+
+                v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
+                    override fun onTextChanged(
+                        searchText: CharSequence?,
+                        p1: Int,
+                        p2: Int,
+                        p3: Int
+                    ) {
+
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                        "etTextResData: $p0".logE()
+                    }
+
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+                })
+//                    .setOnEditorActionListener { v, actionId, event ->
+//
+//                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                            "click Items: $t".logE()
+//                            "click Items: ${v.findViewById<EditText>(R.id.edt_qty).text}".logE()
+//                            return@setOnEditorActionListener true
+//                        }
+//
+//                        false
+//                    }
             }
         )
 
         rvUtil = RvUtil(
-            adapter = subjectData,
+            adapter = subjectDataAdapter,
             rv = binding.rvSubjectData,
             decoration = RvItemDecoration.buildDecoration(this, R.dimen._8sdp),
         )
@@ -129,8 +208,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 standard = castedSelectStandardList?.get(which).toString()
             )
         }
-
-
     }
 
     override fun onClick(v: View) {
@@ -142,6 +219,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             binding.etStandard -> {
                 standardDialog?.show()
             }
+            binding.btnAddDemand -> {
+                startActivity(ViewDemandAct::class.java)
+            }
         }
     }
 
@@ -151,6 +231,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is MediumResponse -> {
+
+                        "Response: getMedium Data - ${apiRenderState.result.data}".logE()
+
                         castedMediumLanguageList = emptyArray()
                         mediumLanguage.clear()
                         apiRenderState.result.data?.mediumlist?.forEachIndexed { index, mediumlistItem ->
@@ -167,7 +250,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             installid = prefs.user.installId
                         )
 
-                        subjectData.list.map {
+                        subjectDataAdapter.list.map {
                             it?.mediumItem = castedMediumLanguageList?.get(0).orEmpty()
                         }
                         if (clickedPosition != -1) {
@@ -175,6 +258,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         }
                     }
                     is StandardResponse -> {
+
+                        "Response: getStandard Data - ${apiRenderState.result.data}".logE()
+
                         castedSelectStandardList = emptyArray()
                         selectStandard.clear()
                         apiRenderState.result.data?.stdlist?.forEachIndexed { index, stdlist ->
@@ -196,14 +282,15 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                     is GetDemandDataResponse -> {
 
+                        "Response: getDemand Data - ${apiRenderState.result.data}".logE()
+
                         vm.subjectData.clear()
 
                         apiRenderState.result.data?.itemlist?.map {
                             it?.mediumItem = binding.etModule.text.toString()
                             vm.subjectData.add(it)
+                            localSubjectData.add(it)
                         }
-
-                        "RcvSize = ${vm.subjectData.size}".logE()
 
                         //Add data to table
 //                        apiRenderState.result.data?.itemlist?.let {

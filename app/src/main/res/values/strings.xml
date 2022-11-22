@@ -23,6 +23,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_demand_list">Demand List</string>
+    <string name="tv_ledger">Ledger</string>
+    <string name="txt_return_list">5% Return </string>
     <string name="txt_profile">Profile</string>
     <string name="txt_logout">Logout</string>
     <string name="txt_edit_profile">Edit Profile</string>
@@ -35,4 +37,6 @@
     <string name="txt_qty">qty</string>
     <string name="txt_bunch">Bunch</string>
     <string name="tv_standard">STANDARD</string>
+    <string name="tv_view_demand">View Demand</string>
+    <string name="tv_enter_demand_no">Enter demand no.</string>
 </resources>

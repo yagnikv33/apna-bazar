@@ -87,6 +87,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
+                    //For Check User Active
                     is CheckUserActiveResponse -> {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -96,7 +97,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
                         }
                     }
-
+                    //For Home Screen Message Listing
                     is HomeScreenListResponse -> {
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -108,6 +109,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
                         }
                     }
+                    //For User Profile Details
                     is UserProfileDetailResponse -> {
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {

@@ -61,6 +61,7 @@ object KoinModule {
     val repoModule = module {
         factory { EntryRepo(get()) }
         factory { DashboardRepo(get()) }
+        factory { HttpLoggingInterceptor(get()) }
     }
 
     val vmModule = module {

@@ -67,6 +67,7 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                             finishAffinity()
                         } else {
                             errorToast(apiRenderState.result.message)
+                            progressDialog.hideProgress()
                             "Error : Pwd ACT ${apiRenderState.result.message}".logE()
                         }
                     }
