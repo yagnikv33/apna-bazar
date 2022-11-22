@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="click"
             type="android.view.View.OnClickListener" />
@@ -39,175 +40,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.57">
 
-            <!-- Main OTP -->
-            <EditText
-                android:id="@+id/edt_otp"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_38sdp"
-                android:background="@color/transparent"
-                android:cursorVisible="false"
-                android:inputType="number"
-                android:maxLength="6"
-                android:textColor="@color/transparent"
+            <in.aabhasjindal.otptextview.OtpTextView
+                android:id="@+id/otpView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                app:bar_active_color="@color/red"
+                app:bar_enabled="true"
+                app:bar_height="2dp"
+                app:height="@dimen/_38sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/cv6"
-                app:layout_constraintStart_toStartOf="@id/cv1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.27999997" />
-
-            <!-- OTP 1 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv1"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@id/cv2"
-                app:layout_constraintStart_toStartOf="@id/edt_otp"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-                <EditText
-                    android:id="@+id/edt_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:cursorVisible="false"
-                    android:inputType="number"
-                    android:hint="@string/x"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- OTP 2 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv2"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toEndOf="@id/cv1"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-                <EditText
-                    android:id="@+id/edt_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:cursorVisible="false"
-                    android:hint="@string/x"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- OTP 3 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv3"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@id/cv4"
-                app:layout_constraintStart_toEndOf="@id/cv2"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-
-                <EditText
-                    android:id="@+id/edt_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:hint="@string/x"
-                    android:inputType="number"
-                    android:cursorVisible="false"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- OTP 4 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv4"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@id/cv3"
-                app:layout_constraintStart_toEndOf="@id/cv5"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-                <EditText
-                    android:id="@+id/edt_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:cursorVisible="false"
-                    android:hint="@string/x"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- OTP 5 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv5"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@id/cv6"
-                app:layout_constraintStart_toEndOf="@id/cv4"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-                <EditText
-                    android:id="@+id/edt_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:cursorVisible="false"
-                    android:inputType="number"
-                    android:hint="@string/x"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- OTP 6 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv6"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/edt_otp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="@id/edt_otp"
-                app:layout_constraintStart_toEndOf="@id/cv5"
-                app:layout_constraintTop_toTopOf="@id/edt_otp">
-
-                <EditText
-                    android:id="@+id/edt_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:cursorVisible="false"
-                    android:inputType="number"
-                    android:hint="@string/x"
-                    android:maxLength="1"
-                    android:textSize="@dimen/_15ssp" />
-            </com.google.android.material.card.MaterialCardView>
+                app:layout_constraintVertical_bias="0.27999997"
+                app:length="6"
+                app:otp_text_size="@dimen/_16ssp"
+                app:width="@dimen/_32sdp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_not_receive_otp"
@@ -218,8 +67,8 @@
                 android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.38"
-                app:layout_constraintStart_toStartOf="@+id/edt_otp"
-                app:layout_constraintTop_toBottomOf="@id/edt_otp" />
+                app:layout_constraintStart_toStartOf="@+id/otpView"
+                app:layout_constraintTop_toBottomOf="@id/otpView" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_resend"
