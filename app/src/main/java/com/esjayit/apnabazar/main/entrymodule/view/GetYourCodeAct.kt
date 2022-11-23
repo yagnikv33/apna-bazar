@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
 import `in`.aabhasjindal.otptextview.OTPListener
+import `in`.aabhasjindal.otptextview.OtpTextView
 import android.content.Intent
 import android.os.CountDownTimer
 import android.text.TextPaint
@@ -9,6 +10,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
+import androidx.core.view.size
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -21,6 +23,8 @@ import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivityGetYourCodeBinding
+import kotlinx.android.synthetic.main.activity_get_your_code.*
+import kotlinx.android.synthetic.main.activity_get_your_code.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -40,6 +44,7 @@ class GetYourCodeAct :
         "OTP Screen ${otpModelObject?.otpId.toString()}".logE()
         userName = intent.getStringExtra("UserName")
 //        setOtpEditTextHandler()
+//        binding.otpView.le
         spanResendText()
 
         binding.otpView.otpListener = object : OTPListener {

@@ -5,10 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<!--        <import type="android.view.View" />-->
 
         <variable
             name="click"
             type="android.view.View.OnClickListener" />
+
+<!--        <variable-->
+<!--            name="otpModel"-->
+<!--            type="com.esjayit.apnabazar.data.model.response.SendOTPResponse" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

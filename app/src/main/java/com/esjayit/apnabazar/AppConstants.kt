@@ -3,9 +3,9 @@ package com.esjayit.apnabazar
 class AppConstants {
 
 
-
     object App {
         const val ONESIGNAL_APP_ID = "3fd18645-8abc-44a7-842d-61d8b9a34c99"
+
         object Buttons {
             const val PERSONALISE_VAPE = "XoOcELl3"
             const val OUR_BRANDS = "SsWZFFHf"
@@ -22,7 +22,7 @@ class AppConstants {
 
     }
 
-    object Prefs{
+    object Prefs {
         const val AUTH_TOKEN = "1"
     }
 
@@ -44,21 +44,26 @@ class AppConstants {
 
         //For First 4 API
         const val BASE_URL = "http://developerapis.esjayit.com/"
+
         //Testing Server
         const val TEST_URL = "http://testapis.apnabazarrajkot.com/"
+
         object EndUrl {
-            const val  HOME = "home"
+            const val HOME = "home"
+
             //BASE_URL
             const val APP_FIRST_LAUNCH_STATUS = BASE_URL + "appfirstlaunch"
             const val ADD_DEVICE_INFO = BASE_URL + "adddeviceinfo"
             const val CHECK_UPDATE = BASE_URL + "checkupdate"
             const val LOG_ERROR = BASE_URL + "logerror"
+
             //TEST_URL
             const val CHECK_USER_VERIFICATION = "checkuserverification"
             const val SEND_OTP = "sendotp"
             const val VERIFY_OTP = "verifyotp"
             const val NEW_PASSWORD = "newpassword"
             const val LOGIN = "login"
+
             //Home Screen
             const val CHECK_USER_ACTIVE = "checkactiveuser"
             const val GET_HOME_DATA = "gethomescreendata"
@@ -69,6 +74,7 @@ class AppConstants {
             const val GET_SUBJECT_LIST = "getsubjectlist"
             const val GET_ITEM_DETAIL = "getitemdetail"
             const val DEMAND_LIST = "getdemandlist"
+            const val ADD_DEMAND = "demanddate"
 
             //Profile Related
             const val GET_USER_PROFILE = "getuserdetails"
@@ -79,6 +85,10 @@ class AppConstants {
 
             //For 2nd Tab
             const val GET_RETURN_LISTING  = "getreturnlist"
+
+            //Notification
+            const val GET_NOTIFICATION_LISTING = "getuserinboxlist"
+            const val SET_NOTIFICATION_READ  = "setinboxreadstatus"
         }
 
         object Value {

@@ -23,5 +23,7 @@ data class OTPData (
     var otpId: String = "",
 
     @field:SerializedName("otpcount")
-    var otpCount: String = ""
+    var otpCount: String = "",
+
+    var otpCounInt: Int = 6
 ) : Serializable

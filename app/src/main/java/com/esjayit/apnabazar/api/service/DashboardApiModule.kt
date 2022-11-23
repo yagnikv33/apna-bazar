@@ -2,6 +2,7 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEMAND
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
@@ -101,7 +102,7 @@ interface DashboardApiModule {
         @Field("installid") installId: String,
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
-    ): EditProfileDetailResponse
+    ): CommonResponse
 
     //For Party Ledger API
     @FormUrlEncoded
@@ -131,4 +132,16 @@ interface DashboardApiModule {
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): DemandListResponse
+
+    @FormUrlEncoded
+    @POST(ADD_DEMAND)
+    suspend fun addDemand(
+        @Field("demanddate") demanddate: String,
+        @Field("userid") userid: String,
+        @Field("totalamt") totalamt: String,
+        @Field("itemslist") itemslist: Array<SendDemandItem>,
+        @Field("installid") installid: String,
+        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+    ): CommonResponse
 }

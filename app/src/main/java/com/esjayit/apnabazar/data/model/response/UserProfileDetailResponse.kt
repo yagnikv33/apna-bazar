@@ -2,7 +2,7 @@ package com.esjayit.apnabazar.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class EditProfileDetailResponse(
+data class CommonResponse(
 
 	@field:SerializedName("statuscode")
 	val statusCode: String? = null,

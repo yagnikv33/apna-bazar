@@ -7,6 +7,8 @@ import com.google.gson.JsonObject
 
 class EntryRepo(private val apiCall: EntryApiModule) : BaseRepo() {
 
+    var sendOTPData = mutableListOf<SendOTPResponse?>()
+
     suspend fun getSplashData(
                onError: (ApiResult<Any>) -> Unit
     ): SplashResponse? {

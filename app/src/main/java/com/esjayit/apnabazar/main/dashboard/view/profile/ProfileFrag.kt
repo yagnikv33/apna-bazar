@@ -7,7 +7,7 @@ import android.util.Patterns
 import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.data.model.response.EditProfileDetailResponse
+import com.esjayit.apnabazar.data.model.response.CommonResponse
 import com.esjayit.apnabazar.data.model.response.UserProfileDetailResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
@@ -144,7 +144,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
-                    is EditProfileDetailResponse -> {
+                    is CommonResponse -> {
                         progressDialog?.hideProgress()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {

@@ -13,6 +13,10 @@
             name="data"
             type="com.esjayit.apnabazar.data.model.response.ItemlistItem" />
 
+        <!--   <variable
+               name="showProgress"
+               type="androidx.databinding.ObservableField&lt;Boolean&gt;" />-->
+
         <variable
             name="vm"
             type="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct" />
@@ -46,6 +50,7 @@
                 style="@style/add_demand_row"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
+                android:editable="true"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="3"
@@ -113,7 +118,7 @@
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:text="@{`Medium : `+data.mediumItem}"
+                android:text="@{`Medium : `+ data.mediumItem}"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>

@@ -16,3 +16,18 @@ data class AddDeviceInfoResponse(
     @field:SerializedName("extra")
     val meta: Meta = Meta()
 )
+
+data class ReadNotificationResponse(
+
+    @field:SerializedName("statuscode")
+    var statusCode: String = "",
+
+    @field:SerializedName("message")
+    var message: String = "",
+
+    @field:SerializedName("data")
+    val data: Data = Data(),
+
+    @field:SerializedName("extra")
+    val meta: Meta = Meta()
+)
