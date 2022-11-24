@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import com.esjayit.R
@@ -44,6 +45,29 @@ class UserLedgerFrag :
         vm?.getPartyLedgerData(userId = prefs.user.userId, installedId = prefs.installId!!)
     }
 
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when (v) {
+            binding.btnDownload -> {
+                checkForPermission()
+            }
+        }
+    }
+
+    fun checkForPermission() {
+        if (Build.VERSION.SDK_INT < 29) {
+            requestPermissions(
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ), 1
+            )
+        } else {
+            Toast.makeText(requireContext(),"Downloading...",Toast.LENGTH_LONG).show()
+            createPDF(data)
+        }
+    }
+
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
@@ -53,18 +77,7 @@ class UserLedgerFrag :
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "USER LEDGER API ${apiRenderState.result.data}".logE()
-                            successToast(apiRenderState.result.data.toString())
                             data = apiRenderState.result.data
-                            if (Build.VERSION.SDK_INT < 29) {
-                                requestPermissions(
-                                    arrayOf(
-                                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                    ), 1
-                                )
-                            } else {
-                                createPDF(apiRenderState.result.data)
-                            }
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                         }
@@ -430,11 +443,13 @@ class UserLedgerFrag :
             val file =
                 File(folder, Date().time.toString()  + ".pdf")
             myPdfDocument.writeTo(FileOutputStream(file));
-            Toast.makeText(requireContext(), "File path : ${file.path}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Pdf downloaded!",Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireContext(), "File path : ${file.path}", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace();
         }
         myPdfDocument.close();
+
     }
 
 }

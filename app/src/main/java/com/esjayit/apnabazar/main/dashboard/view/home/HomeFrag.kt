@@ -52,7 +52,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         if (!data.isActive.isNullOrEmpty() && !data.isMultiDeviceAllow.isNullOrEmpty()) {
             if (data.isActive == "1" && data.isMultiDeviceAllow == "1") {
                 //Temp Show Msg
-                successToast(obj.message)
+//                successToast(obj.message)
             } else if (data.isActive == "1" && data.isMultiDeviceAllow == "1") {
                 msg = obj.message
                 showAlert(msg = msg)
