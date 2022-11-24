@@ -33,6 +33,8 @@
                 android:orientation="horizontal">
 
                 <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/btn_back"
+                    android:onClick="@{click::onClick}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

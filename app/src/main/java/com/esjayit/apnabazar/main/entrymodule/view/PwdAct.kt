@@ -62,8 +62,7 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             prefs.user = apiRenderState.result
                             prefs.authToken = apiRenderState.result.accessToken
-                            val intent = Intent(this, DashboardAct::class.java)
-                            this.startActivity(intent)
+                            this.startActivity(Intent(this, DashboardAct::class.java))
                             finishAffinity()
                         } else {
                             errorToast(apiRenderState.result.message)

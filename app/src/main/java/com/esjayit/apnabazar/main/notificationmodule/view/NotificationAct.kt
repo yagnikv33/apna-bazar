@@ -38,6 +38,7 @@ import android.content.IntentFilter
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
+import android.view.View
 import android.webkit.URLUtil
 import android.app.DownloadManager as DownloadManager1
 
@@ -61,6 +62,15 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
         activity =this
         checkWriteAccess()
         vm?.getNotificationList(userId = prefs.user.userId!!, installId = prefs.installId!!)
+    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when (v) {
+            binding.btnBack -> {
+                finishAct()
+            }
+        }
     }
 
     private fun checkWriteAccess() {

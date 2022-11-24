@@ -94,7 +94,6 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
         super.onClick(v)
         when (v) {
             binding.btnEditProfile -> {
-                progressDialog?.showProgress()
                 "Edit Profile Button Tapped".logE()
                 manageAPIs()
             }

@@ -24,6 +24,7 @@ import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.user_ledger.model.UserLedgerVM
+import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentUserLedgerBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -50,6 +51,9 @@ class UserLedgerFrag :
         when (v) {
             binding.btnDownload -> {
                 checkForPermission()
+            }
+            binding.btnNotification -> {
+                startActivity(NotificationAct::class.java)
             }
         }
     }
