@@ -1,13 +1,11 @@
 package com.esjayit.apnabazar.main.dashboard.view.user_ledger
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.graphics.pdf.PdfDocument.PageInfo
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
@@ -27,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
 
 
 class UserLedgerFrag :
@@ -54,7 +53,7 @@ class UserLedgerFrag :
                             "USER LEDGER API ${apiRenderState.result.data}".logE()
                             successToast(apiRenderState.result.data.toString())
                             data = apiRenderState.result.data
-                            if (Build.VERSION.SDK_INT > 22) {
+                            if (Build.VERSION.SDK_INT < 29) {
                                 requestPermissions(
                                     arrayOf(
                                         android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -114,9 +113,6 @@ class UserLedgerFrag :
         val myPage1 = myPdfDocument.startPage(myPageInfo1)
         val canvas: Canvas = myPage1.canvas
 
-//        myPaint.setColor(Color.rgb(139, 0, 139))
-
-//        myPaint.setColor(Color.rgb(139, 0, 139))
         myPaint.color = Color.BLACK
         canvas.drawLine(100F, 100F, (pageWidth - 100).toFloat(), 100F, myPaint)
         canvas.drawLine(100F, 140F, (pageWidth - 100).toFloat(), 140F, myPaint)
@@ -232,7 +228,6 @@ class UserLedgerFrag :
         canvas.drawText("Credit", 710F, 330F, myPaint)
         canvas.drawText("Debit", 844F, 330F, myPaint)
         canvas.drawText("Balance", 978F, 330F, myPaint)
-
 
         myPaint.color = Color.BLACK
 //        canvas.drawLine(100F, 340F, 100F, 380F, myPaint)
@@ -423,22 +418,21 @@ class UserLedgerFrag :
 
         myPdfDocument.finishPage(myPage1)
 
-        var filePath = Environment.getExternalStorageDirectory()
-            .getAbsolutePath() + "/" + System.currentTimeMillis() + ".pdf";
-        var file = File(filePath);
+        val filePath: String? = Objects.requireNonNull(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+        ).absolutePath
+        val folder = File(filePath, requireContext().resources.getString(R.string.app_name))
 
         try {
+            folder.mkdirs()
+            val file =
+                File(folder, Date().time.toString() + "." + ".pdf")
             myPdfDocument.writeTo(FileOutputStream(file));
-            var sendIntent = Intent();
-            sendIntent.setAction(Intent.ACTION_VIEW);
-            var url = "https://api.whatsapp.com/send?phone= 91" + 9104545759 + "&text=" + "";
-            sendIntent.setData(Uri.parse(url));
-            startActivity(sendIntent);
+            Toast.makeText(requireContext(), "File path : ${file.path}", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace();
         }
         myPdfDocument.close();
-
     }
 
 }
