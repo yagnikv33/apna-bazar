@@ -2,8 +2,8 @@ package com.esjayit.apnabazar.main.dashboard.view.demand.model
 
 import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.data.model.response.DemandListItem
+import com.esjayit.apnabazar.data.model.response.DummyAddDemand
 import com.esjayit.apnabazar.data.model.response.ItemlistItem
-import com.esjayit.apnabazar.data.model.response.SendDemandItem
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
@@ -113,19 +113,19 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     }
 
     fun addDemand(
+        itemslist: Array<DummyAddDemand>,
         demanddate: String,
         userid: String,
         totalamt: String,
-        itemslist: Array<SendDemandItem>,
         installid: String
     ) {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
             repo.addDemand(
+                itemList = itemslist,
                 userid = userid,
                 totalamt = totalamt,
-                itemslist = itemslist,
                 installid = installid,
                 demanddate = demanddate,
                 onError = onApiError

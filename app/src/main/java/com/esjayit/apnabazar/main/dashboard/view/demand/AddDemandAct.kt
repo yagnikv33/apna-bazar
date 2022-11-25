@@ -3,20 +3,24 @@ package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.R
+import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.ADD_DEMAND
+import com.esjayit.apnabazar.AppConstants.Communication.BundleData.DEMAND_LIST_ITEMS
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.data.model.response.GetDemandDataResponse
-import com.esjayit.apnabazar.data.model.response.ItemlistItem
-import com.esjayit.apnabazar.data.model.response.MediumResponse
-import com.esjayit.apnabazar.data.model.response.StandardResponse
+import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.MiscUtil
+import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
@@ -28,6 +32,7 @@ import com.esjayit.databinding.ActivityAddDemandBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.activity_add_demand) {
@@ -55,6 +60,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     var rvUtil: RvUtil? = null
     var clickedPosition = -1
     private lateinit var debounceListener: (String) -> Unit
+    private val addDemandList = hashSetOf<DummyAddDemand>()
+    private lateinit var debounceListenerForRcv: (String) -> Unit
 
     override fun init() {
         vm.apply {
@@ -139,37 +146,75 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         "CLICK tab".logE()
                     }
                 }
+            },
+            viewHolder = { v, t, p ->
 
-                "click Items: $t".logE()
+                /** Text Change */
+                /* v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
+                     override fun beforeTextChanged(
+                         s: CharSequence?,
+                         start: Int,
+                         count: Int,
+                         after: Int
+                     ) {
+                     }
 
+                     override fun onTextChanged(
+                         s: CharSequence?,
+                         start: Int,
+                         before: Int,
+                         count: Int
+                     ) {
 
-                v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
-                    override fun onTextChanged(
-                        searchText: CharSequence?,
-                        p1: Int,
-                        p2: Int,
-                        p3: Int
-                    ) {
+                     }
 
+                     override fun afterTextChanged(s: Editable?) {
+ //                        addDemandList.add(
+ //                            DummyAddDemand(
+ //                                subjectName = t?.subname.orEmpty(),
+ //                                qty = s.toString(),
+ //                                bunch = t?.thock,
+ //                                standard = t?.standard
+ //                            )
+ //                        )
+                         debounceListener.invoke(s.toString())
+                         //"click Items: afterTextChanged $s".logE()
+                     }
+                 })
+
+                 debounceListener =
+                     MiscUtil.throttleLatest(
+                         scope = lifecycleScope,
+                         intervalMs = 500L
+                     ) { qty ->
+
+                         "click Items: DEBOUNCED!!!!".logE()
+
+                         if (qty.length > 1) {
+                             addDemandList.add(
+                                 DummyAddDemand(
+                                     subjectName = t?.subname.orEmpty(),
+                                     qty = qty,
+                                     bunch = t?.thock,
+                                     standard = t?.standard
+                                 )
+                             )
+
+                             "click Items: SIZE - ${addDemandList.size}".logE()
+                         }
+                     }*/
+
+                /** Ime DONE Action */
+                v.findViewById<EditText>(R.id.edt_qty)
+                    .setOnEditorActionListener { v, actionId, event ->
+
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            v.hideSoftKeyboard()
+                            return@setOnEditorActionListener true
+                        }
+
+                        false
                     }
-
-                    override fun afterTextChanged(p0: Editable?) {
-                        "etTextResData: $p0".logE()
-                    }
-
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    }
-                })
-//                    .setOnEditorActionListener { v, actionId, event ->
-//
-//                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                            "click Items: $t".logE()
-//                            "click Items: ${v.findViewById<EditText>(R.id.edt_qty).text}".logE()
-//                            return@setOnEditorActionListener true
-//                        }
-//
-//                        false
-//                    }
             }
         )
 
@@ -220,9 +265,34 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 standardDialog?.show()
             }
             binding.btnAddDemand -> {
+
+                val productNameList = subjectDataAdapter.list.filter { it?.qty?.toInt()!! > 0 }.map {
+                        DummyAddDemand(
+                            subjectName = it?.subname,
+                            qty = it?.qty,
+                            bunch = it?.thock,
+                            standard = it?.standard,
+                            itemId = it?.itemid,
+                            rate = it?.itemrate,
+                            amount = getAmount(it?.itemrate?.toFloat(), it?.qty?.toInt()).toString()
+                        )
+                    }
+
+                "Data List: OBJECT $productNameList".logE()
+
+                AppConstants.App.itemlistItem.addAll(productNameList)
                 startActivity(ViewDemandAct::class.java)
+
+
             }
         }
+    }
+
+    private fun getAmount(rate: Float?, qty: Int?): Int {
+        if (rate != null) {
+            return rate.roundToInt() * qty!!
+        }
+        return 0
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -231,8 +301,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is MediumResponse -> {
-
-                        "Response: getMedium Data - ${apiRenderState.result.data}".logE()
 
                         castedMediumLanguageList = emptyArray()
                         mediumLanguage.clear()
@@ -259,8 +327,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                     is StandardResponse -> {
 
-                        "Response: getStandard Data - ${apiRenderState.result.data}".logE()
-
                         castedSelectStandardList = emptyArray()
                         selectStandard.clear()
                         apiRenderState.result.data?.stdlist?.forEachIndexed { index, stdlist ->
@@ -281,8 +347,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         }
                     }
                     is GetDemandDataResponse -> {
-
-                        "Response: getDemand Data - ${apiRenderState.result.data}".logE()
 
                         vm.subjectData.clear()
 

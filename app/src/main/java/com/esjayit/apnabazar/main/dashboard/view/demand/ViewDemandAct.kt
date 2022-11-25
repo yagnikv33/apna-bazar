@@ -1,5 +1,6 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
+import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.DemandListItem
 import com.esjayit.apnabazar.data.model.response.ItemlistItem
@@ -22,6 +23,9 @@ class ViewDemandAct :
 
 
     override fun init() {
+        "GetListData: ${AppConstants.App.itemlistItem}".logE()
+
+
 
     }
 

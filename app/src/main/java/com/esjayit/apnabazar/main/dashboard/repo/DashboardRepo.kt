@@ -5,6 +5,7 @@ import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseRepo
+import com.google.gson.JsonObject
 
 class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     //For Home Screen API Data
@@ -232,10 +233,10 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     }
 
     suspend fun addDemand(
+        itemList: Array<DummyAddDemand>,
         demanddate: String,
         userid: String,
         totalamt: String,
-        itemslist: Array<SendDemandItem>,
         installid: String,
         onError: (ApiResult<Any>) -> Unit
     ): CommonResponse? {
@@ -244,8 +245,17 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 userid = userid,
                 demanddate = demanddate,
                 totalamt = totalamt,
-                itemslist = itemslist,
-                installid = installid
+                installid = installid,
+                itemList = JsonObject().apply {
+                    itemList.forEach {
+                        this.addProperty("itemid", it.itemId)
+                        this.addProperty("qty", it.qty)
+                        this.addProperty("rate", it.rate)
+                        this.addProperty("amount", it.amount)
+                        this.addProperty("bunchqty", it.bunch)
+                    }
+
+                }
             )
         })) {
             if (data == null)

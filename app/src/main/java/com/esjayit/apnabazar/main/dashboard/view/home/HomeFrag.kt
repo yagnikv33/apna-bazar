@@ -83,7 +83,6 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
             }
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)
-//                successToast("CLICK NOTIF")
             }
         }
     }

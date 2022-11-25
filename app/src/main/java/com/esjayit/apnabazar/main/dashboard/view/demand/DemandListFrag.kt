@@ -35,7 +35,7 @@ class DemandListFrag :
             list = vm.demandList,
             br = BR.demandListData,
             clickListener = { v, t, p ->
-                //Edit demand code navigation HERE
+                "DemandListData: $t".logE()
             },
             viewHolder = { v, t, p ->
                 when (t?.demandcolorcode) {

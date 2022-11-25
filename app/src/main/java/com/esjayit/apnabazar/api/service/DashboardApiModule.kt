@@ -13,9 +13,11 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.PARTY_LEDGER
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.data.model.response.*
+import com.google.gson.JsonObject
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface DashboardApiModule {
     @FormUrlEncoded
@@ -139,7 +141,7 @@ interface DashboardApiModule {
         @Field("demanddate") demanddate: String,
         @Field("userid") userid: String,
         @Field("totalamt") totalamt: String,
-        @Field("itemslist") itemslist: Array<SendDemandItem>,
+        @Query("itemslist") itemList: JsonObject,
         @Field("installid") installid: String,
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
