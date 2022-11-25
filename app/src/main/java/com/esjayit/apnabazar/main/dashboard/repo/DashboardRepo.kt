@@ -362,7 +362,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //Add 5% Return Book
     suspend fun addReturnBook(
-        returnList: Array<Returnitems>,
+        returnList: Array<ReturnitemsItem>,
         billDate: String,
         userid: String,
         billAmount: String,

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="returnListData"
+            type="com.esjayit.apnabazar.data.model.response.RetunlistItem" />
+    </data>
+
+    <LinearLayout
+        android:onClick="@{click::onClick}"
+        android:id="@+id/ll_main_return_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/return_list_main_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bg_color"
+            app:cardCornerRadius="@dimen/_12sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_12sdp">
+
+                    <TextView
+                        android:id="@+id/return_list_no"
+                        style="@style/demand_list_label_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="1"
+                        android:text="@{returnListData.billno}" />
+
+                    <TextView
+                        android:id="@+id/return_list_date"
+                        style="@style/demand_list_label_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        tools:text="04-Oct-2022"
+                        android:text="@{returnListData.billdate}" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_6sdp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/return_card_edit_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_14sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:cardBackgroundColor="@color/status_purple"
+                        app:cardCornerRadius="@dimen/_2sdp">
+
+                        <TextView
+                            style="@style/demand_list_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_16sdp"
+                            android:padding="@dimen/_4sdp"
+                            tools:text="Edit"
+                            android:text="@{returnListData.approvestatus}" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/return_card_demand_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="@dimen/_14sdp"
+                        app:cardBackgroundColor="@color/status_yellow"
+                        app:cardCornerRadius="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/return_card_edit_status">
+
+                        <TextView
+                            style="@style/demand_list_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@{returnListData.approvestatus}"
+                            tools:text="PENDING" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</layout>

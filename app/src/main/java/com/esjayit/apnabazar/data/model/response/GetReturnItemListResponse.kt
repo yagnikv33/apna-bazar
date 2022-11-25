@@ -8,7 +8,7 @@ data class GetReturnItemListResponse(
 	val statuscode: String? = null,
 
 	@field:SerializedName("data")
-	val data: ReturnItems? = null,
+	val data: ReturnItemsData? = null,
 
 	@field:SerializedName("extra")
 	val extra: Extra? = null,
@@ -17,7 +17,7 @@ data class GetReturnItemListResponse(
 	val message: String? = null
 )
 
-data class ReturnItems(
+data class ReturnItemsData(
 
 	@field:SerializedName("returnitems")
 	val returnitems: List<ReturnitemsItem?>? = null

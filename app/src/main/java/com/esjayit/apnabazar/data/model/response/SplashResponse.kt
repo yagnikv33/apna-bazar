@@ -30,13 +30,13 @@ data class Meta(
     val url: String = ""
 )
 
-data class Data(
-    @field:SerializedName("background_color")
-    val backgroundColor: String = "",
-
-    @field:SerializedName("video")
-    val video: String = "",
-
-    @field:SerializedName("title")
-    val title: String = ""
-) : Serializable
+//data class Data(
+//    @field:SerializedName("background_color")
+//    val backgroundColor: String = "",
+//
+//    @field:SerializedName("video")
+//    val video: String = "",
+//
+//    @field:SerializedName("title")
+//    val title: String = ""
+//) : Serializable

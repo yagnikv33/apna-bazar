@@ -17,10 +17,6 @@ data class MediumResponse(
 	val message: String? = null
 )
 
-data class Extra(
-	val any: Any? = null
-)
-
 data class MediumlistItem(
 
 	@field:SerializedName("text")

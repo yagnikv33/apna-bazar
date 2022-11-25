@@ -17,7 +17,7 @@ data class GetReturnSingleDetailResponse(
 	val message: String? = null
 )
 
-data class Returnitems(
+data class ReturnitemsSingle(
 
 	@field:SerializedName("standard")
 	val standard: String? = null,
@@ -51,5 +51,5 @@ data class Returnitems(
 data class ReturnSingleItem(
 
 	@field:SerializedName("returnitems")
-	val returnitems: Returnitems? = null
+	val returnitems: ReturnitemsSingle? = null
 )
