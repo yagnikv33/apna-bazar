@@ -2,16 +2,22 @@ package com.esjayit.apnabazar.api.service
 
 import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_BOOK_RETURN
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.ADD_DEMAND
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_EDIT_DATA
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_LIST
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_DEMAND
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_ITEM_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_LISTING
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_SINGLE_ITEM_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_STANDARD
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_SUBJECT_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_USER_PROFILE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.PARTY_LEDGER
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_PARTY_RETURN
 import com.esjayit.apnabazar.data.model.response.*
 import com.google.gson.JsonObject
 import retrofit2.http.Field
@@ -146,4 +152,77 @@ interface DashboardApiModule {
         @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): CommonResponse
+
+    //Data for Demand Edit
+    @FormUrlEncoded
+    @POST(DEMAND_EDIT_DATA)
+    suspend fun getDemandEditData(
+        @Field("userid") userid: String,
+        @Field("demandid") demandid: String,
+        @Field("installid") installid: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): EditDemandDataResponse
+
+    //For when Edit Demand
+    @FormUrlEncoded
+    @POST(EDIT_DEMAND)
+    suspend fun editDemand(
+        @Field("demanddate") demanddate: String,
+        @Field("demandid") demandid: String,
+        @Field("userid") userid: String,
+        @Field("totalamt") totalamt: String,
+        @Query("itemslist") itemList: JsonObject,
+        @Field("installid") installid: String,
+        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+    ): CommonResponse
+
+
+    //For Get 5% Item Lising
+    @FormUrlEncoded
+    @POST(GET_RETURN_ITEM_LIST)
+    suspend fun getReturnItemList(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("medium") userMedium: String,
+        @Field("standard") standard: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): GetReturnItemListResponse
+
+    //For Get 5% Return Single Item
+    @FormUrlEncoded
+    @POST(GET_RETURN_SINGLE_ITEM_LIST)
+    suspend fun getReturnSingleItem(
+        @Field("userid") userId: String,
+        @Field("installid") installId: String,
+        @Field("itemid") itemId: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): GetReturnSingleDetailResponse
+
+    //Add 5% Return Book
+    @FormUrlEncoded
+    @POST(ADD_BOOK_RETURN)
+    suspend fun addReturnBook(
+        @Field("billdate") billDate: String,
+        @Field("userid") userid: String,
+        @Field("billamount") billAmount: String,
+        @Query("retutranlist") returnList: JsonObject,
+        @Field("installid") installid: String,
+        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
+        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+    ): CommonResponse
+
+    //View 5% Return
+    @FormUrlEncoded
+    @POST(VIEW_PARTY_RETURN)
+    suspend fun viewReturn(
+        @Field("userid") userid: String,
+        @Field("returnid") returnid: String,
+        @Field("installid") installid: String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): ViewBookReturnDataResponse
 }

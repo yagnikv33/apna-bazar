@@ -13,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_36sdp"
+            android:layout_marginBottom="@dimen/_10dp"
             app:cardBackgroundColor="#FFC5CA"
             app:cardCornerRadius="@dimen/_6sdp">
 

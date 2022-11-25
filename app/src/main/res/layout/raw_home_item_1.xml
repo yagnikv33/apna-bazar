@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_36sdp"
             app:cardBackgroundColor="#47C87A"
+            android:layout_marginBottom="@dimen/_10dp"
             app:cardCornerRadius="@dimen/_6sdp">
 
             <androidx.appcompat.widget.LinearLayoutCompat

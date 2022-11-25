@@ -196,7 +196,6 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         }
     }
 
-
     //For 5% Listing
     suspend fun getReturnListing(
         userId: String,
@@ -232,6 +231,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         }
     }
 
+    //Add Demand
     suspend fun addDemand(
         itemList: Array<DummyAddDemand>,
         demanddate: String,
@@ -254,7 +254,6 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                         this.addProperty("amount", it.amount)
                         this.addProperty("bunchqty", it.bunch)
                     }
-
                 }
             )
         })) {
@@ -263,4 +262,154 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    //Fetch Data For Edit Demand
+    suspend fun getEditDemandData(
+        userid: String,
+        demandid: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): EditDemandDataResponse? {
+        return with(apiCall(executable = {
+            apiCall.getDemandEditData(
+                userid = userid,
+                installid = installid,
+                demandid = demandid
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //For Edit Demand API
+    suspend fun editDemand(
+        itemList: Array<DummyAddDemand>,
+        demandid: String,
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.editDemand(
+                userid = userid,
+                demandid = demandid,
+                demanddate = demanddate,
+                totalamt = totalamt,
+                installid = installid,
+                itemList = JsonObject().apply {
+                    itemList.forEach {
+                        this.addProperty("itemid", it.itemId)
+                        this.addProperty("qty", it.qty)
+                        this.addProperty("rate", it.rate)
+                        this.addProperty("amount", it.amount)
+                        this.addProperty("bunchqty", it.bunch)
+                    }
+                }
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+
+    //For 5% Item Listing
+    suspend fun getReturnItemListing(
+        userId: String,
+        installId: String,
+        userMedium: String,
+        standard: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): GetReturnItemListResponse? {
+        return with(apiCall(executable = {
+            apiCall.getReturnItemList(
+                userId = userId,
+                installId = installId,
+                standard = standard,
+                userMedium = userMedium
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //For 5% Return Single Details
+    suspend fun getReturnSingleDetail(
+        userId: String,
+        installId: String,
+        itemId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): GetReturnSingleDetailResponse? {
+        return with(apiCall(executable = {
+            apiCall.getReturnSingleItem(
+                userId = userId,
+                installId = installId,
+                itemId = itemId
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //Add 5% Return Book
+    suspend fun addReturnBook(
+        returnList: Array<Returnitems>,
+        billDate: String,
+        userid: String,
+        billAmount: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.addReturnBook(
+                userid = userid,
+                billAmount = billAmount,
+                billDate = billDate,
+                installid = installid,
+                returnList = JsonObject().apply {
+                    returnList.forEach {
+                        this.addProperty("itemid", it.itemid)
+                        this.addProperty("buyqty", it.buyqty)
+                        this.addProperty("maxretu", it.maxretu)
+                        this.addProperty("rate", it.rate)
+                        this.addProperty("retuqty", it.maxretu) //Please change with edit text Field return qty
+                    }
+                }
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //Get 5% Return View
+    suspend fun getReturnViewData(
+        userid: String,
+        returnid: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): ViewBookReturnDataResponse? {
+        return with(apiCall(executable = {
+            apiCall.viewReturn(
+                userid = userid,
+                installid = installid,
+                returnid = returnid
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
 }

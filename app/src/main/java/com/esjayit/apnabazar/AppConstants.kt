@@ -78,7 +78,7 @@ class AppConstants {
             const val GET_SUBJECT_LIST = "getsubjectlist"
             const val GET_ITEM_DETAIL = "getitemdetail"
             const val DEMAND_LIST = "getdemandlist"
-            const val ADD_DEMAND = "demanddate"
+            const val ADD_DEMAND = "addsalesdemand"
 
             //Profile Related
             const val GET_USER_PROFILE = "getuserdetails"
@@ -86,9 +86,15 @@ class AppConstants {
 
             const val PARTY_LEDGER = "getuserledgerlist"
             const val VIEW_DEMAND_LIST = "viewsalesdemand"
+            const val DEMAND_EDIT_DATA = "salesdemanddataforedit"
+            const val EDIT_DEMAND = "editsalesdemand"
 
             //For 2nd Tab
             const val GET_RETURN_LISTING = "getreturnlist"
+            const val GET_RETURN_ITEM_LIST = "getreturnitemslist"
+            const val GET_RETURN_SINGLE_ITEM_LIST = "getreturnitem"
+            const val ADD_BOOK_RETURN = "addbooksreturn"
+            const val VIEW_PARTY_RETURN = "viewpartyreturn"
 
             //Notification
             const val GET_NOTIFICATION_LISTING = "getuserinboxlist"

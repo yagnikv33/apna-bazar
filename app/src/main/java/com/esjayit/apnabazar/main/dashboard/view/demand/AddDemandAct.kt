@@ -72,7 +72,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         getCurrentDateTime()
         setRecyclerView()
         doSearch()
-
         progressDialog.showProgress()
     }
 
@@ -366,6 +365,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
                         //subjectData.notifyDataSetChanged()
                         progressDialog.hideProgress()
+                    }
+
+                    //For Add Demand
+                    is CommonResponse -> {
+                        successToast(apiRenderState.result.message.toString())
                     }
                 }
             }

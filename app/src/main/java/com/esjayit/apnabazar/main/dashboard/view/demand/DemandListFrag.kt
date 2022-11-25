@@ -26,7 +26,6 @@ class DemandListFrag :
 
     override fun init() {
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-        setRcv()
     }
 
     private fun setRcv() {
@@ -35,6 +34,10 @@ class DemandListFrag :
             list = vm.demandList,
             br = BR.demandListData,
             clickListener = { v, t, p ->
+                //For when only view demand
+//                vm.getViewDemandList(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), demandid = "")
+                //For when edit demand
+//                vm.getEditDemandData(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), demandid = "")
                 "DemandListData: $t".logE()
             },
             viewHolder = { v, t, p ->
@@ -67,6 +70,7 @@ class DemandListFrag :
                         apiRenderState.result.data?.demandlist?.map {
                             vm.demandList.add(it)
                         }
+                        setRcv()
                     }
                 }
             }

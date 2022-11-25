@@ -24,9 +24,8 @@ class ViewDemandAct :
 
     override fun init() {
         "GetListData: ${AppConstants.App.itemlistItem}".logE()
-
-
-
+        //For when only view demand
+//        vm.getViewDemandList(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), demandid = "")
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {
