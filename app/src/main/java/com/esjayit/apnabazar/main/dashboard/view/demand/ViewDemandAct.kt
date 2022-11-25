@@ -1,5 +1,6 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
+import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.DemandListItem
@@ -26,6 +27,15 @@ class ViewDemandAct :
         "GetListData: ${AppConstants.App.itemlistItem}".logE()
         //For when only view demand
 //        vm.getViewDemandList(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), demandid = "")
+    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when(v){
+            binding.ivBack -> {
+                finishAct()
+            }
+        }
     }
 
     override fun renderState(apiRenderState: ApiRenderState) {

@@ -10,6 +10,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     private val progressBar = MutableLiveData(false)
     val subjectData = mutableListOf<ItemlistItem?>()
+    val editDemandData = mutableListOf<ItemslistItem?>()
     var demandList = mutableListOf<DemandListItem?>()
 
     fun getMediumList(

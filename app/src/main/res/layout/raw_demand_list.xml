@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_6sdp"
-        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_6sdp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
@@ -78,11 +78,12 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_6sdp"
                         android:visibility="invisible"
+                        tools:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:cardBackgroundColor="@color/status_purple"
-                        app:cardCornerRadius="@dimen/_2sdp">
+                        app:cardBackgroundColor="@color/status_purple"
+                        app:cardCornerRadius="@dimen/_3sdp">
 
                         <TextView
                             style="@style/demand_list_status"
@@ -90,8 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
                             android:padding="@dimen/_4sdp"
-                            tools:text="Edit"
-                            android:text="@{demandListData.demandstatus}" />
+                            android:text="@string/txt_edit" />
 
                     </androidx.cardview.widget.CardView>
 

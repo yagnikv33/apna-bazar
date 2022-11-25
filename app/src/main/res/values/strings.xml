@@ -40,4 +40,6 @@
     <string name="tv_standard">STANDARD</string>
     <string name="tv_view_demand">View Demand</string>
     <string name="tv_enter_demand_no">Enter demand no.</string>
+    <string name="txt_edit">Edit</string>
+    <string name="txt_edit_demand">Edit Demand</string>
 </resources>

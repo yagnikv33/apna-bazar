@@ -6,7 +6,6 @@ import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.data.model.response.DemandListItem
 import com.esjayit.apnabazar.data.model.response.GetReturnLisitngResponse
 import com.esjayit.apnabazar.data.model.response.RetunlistItem
 import com.esjayit.apnabazar.helper.custom.CustomProgress
@@ -15,7 +14,6 @@ import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
-import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
 import com.esjayit.apnabazar.main.dashboard.view.stock_view.model.StockViewVM
 import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentStockViewBinding
@@ -30,8 +28,8 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
     var rvUtil: RvUtil? = null
 
     override fun init() {
-        progressDialog?.showProgress()
-        vm?.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
+        progressDialog.showProgress()
+        vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
     }
 
     override fun onClick(v: View) {
@@ -78,14 +76,17 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is GetReturnLisitngResponse -> {
-                        progressDialog?.hideProgress()
+
+                        progressDialog.hideProgress()
                         val statusCode = apiRenderState.result.statuscode
+
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString())
                             "Get 5% Return Data ${apiRenderState.result.data}".logE()
                             apiRenderState.result.data?.retunlist?.map {
                                 vm.returnList.add(it)
                             }
+
                             setRcv()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
@@ -93,17 +94,8 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                     }
                 }
             }
-            ApiRenderState.Idle -> {
-                hideProgress()
-            }
-            ApiRenderState.Loading -> {
-                showProgress()
-            }
-            is ApiRenderState.ValidationError -> {
-                "Error API CALLING".logE()
-            }
-            is ApiRenderState.ApiError<*> -> {
-                "Error API CALLING API ERROR".logE()
+            else -> {
+
             }
         }
     }

@@ -9,6 +9,12 @@ class AppConstants {
         var itemlistItem = ArrayList<DummyAddDemand>()
         const val ONESIGNAL_APP_ID = "3fd18645-8abc-44a7-842d-61d8b9a34c99"
 
+        object BundleData{
+            const val EDIT_DEMAND_DATA = "edit_demand_data"
+            const val FOR_EDIT_DEMAND = "for_edit_demand"
+            const val VIEW_DEMAND_ID = "view_demand_id"
+        }
+
         object Buttons {
             const val PERSONALISE_VAPE = "XoOcELl3"
             const val OUR_BRANDS = "SsWZFFHf"

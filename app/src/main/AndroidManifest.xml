@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,11 +21,11 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
+
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.ViewDemandAct"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"
             android:exported="true"

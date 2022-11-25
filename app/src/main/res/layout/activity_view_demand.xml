@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/_6sdp"
+                android:onClick="@{click::onClick}"
                 android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_back" />
 
@@ -48,12 +49,14 @@
                 android:textAlignment="center" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:padding="@dimen/_12sdp"
-                android:src="@drawable/ic_notification" />
+                android:src="@drawable/ic_notification"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -291,12 +294,12 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/view_demand"
-                android:textSize="@dimen/_16ssp"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grand Total : 7450.00" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="Grand Total : 7450.00"
+                android:textSize="@dimen/_16ssp" />
 
         </LinearLayout>
 
