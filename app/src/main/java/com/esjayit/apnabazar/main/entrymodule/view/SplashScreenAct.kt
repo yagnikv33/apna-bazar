@@ -63,13 +63,13 @@ class SplashScreenAct :
                 // First Time Launch
                 "RUN : First Time".logE()
 //            "DATA JSON, ${convertedJSONObject()}".logE()
+                prefs.installId = uuid
                 vm.checkForUpdate(installedId = uuid)
                 vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = "0", installedId = uuid)
                 if (!prefs.playerId.isNullOrBlank()) {
                     "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
 //                vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = "", deviceInfoJson = convertedJSONObject())
                 }
-                prefs.installId = uuid
                 prefs.firstTime = false
             } else {
                 // App is not First Time Launch
