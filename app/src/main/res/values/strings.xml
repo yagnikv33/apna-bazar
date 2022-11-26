@@ -30,7 +30,7 @@
     <string name="txt_logout">Logout</string>
     <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_add_demand">Add Demand</string>
-    <string name="txt_select_meduim">Select Meduim</string>
+    <string name="txt_select_meduim">Select Medium</string>
     <string name="txt_date">Date</string>
     <string name="txt_search">Search</string>
     <string name="txt_select_standard">Select Standard</string>
@@ -48,4 +48,5 @@
     <string name="txt_max_qty">Max Qty</string>
     <string name="txt_return_qty">Return Qty</string>
     <string name="_5_return_book">5% Return Book</string>
+    <string name="_5_return_view">5% Return View</string>
 </resources>

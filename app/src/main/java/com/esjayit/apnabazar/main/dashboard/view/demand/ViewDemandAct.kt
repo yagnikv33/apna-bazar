@@ -63,7 +63,6 @@ class ViewDemandAct :
         }
     }
 
-
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
