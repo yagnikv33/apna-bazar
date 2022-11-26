@@ -27,6 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_16sdp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -78,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_10sdp"
             android:onClick="@{click::onClick}"
             android:orientation="horizontal">
 
@@ -87,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:text="@{`Standard :`  + data.standard}"
+                android:text="@{`Standard : `  + data.standard}"
                 tools:text="Standard : 1"
                 android:textAlignment="textStart" />
 
@@ -97,7 +99,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{`Rate :`  + data.rate}"
+                android:text="@{`Rate : `  + data.rate}"
                 tools:text="Rate : 65.00"
                 android:textAlignment="center" />
 
@@ -108,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:text="Bunch : 10"
-                android:text="@{`Bunch :` + data.maxretu}"
+                android:text="@{`Bunch : ` + data.maxretu}"
                 android:textAlignment="textEnd" />
 
             <TextView
