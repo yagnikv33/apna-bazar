@@ -64,7 +64,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     var clickedPosition = -1
     private lateinit var debounceListener: (String) -> Unit
-    private val addDemandList = hashSetOf<DummyAddDemand>()
     private lateinit var debounceListenerForRcv: (String) -> Unit
     var did: String? = null
     var demandDate: String? = null
@@ -248,7 +247,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
-                decoration = RvItemDecoration.buildDecoration(this, R.dimen._8sdp),
+                decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, color = R.color.grey)
             )
         }
     }
@@ -300,7 +299,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
-                decoration = RvItemDecoration.buildDecoration(this, R.dimen._8sdp),
+                decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp,R.color.grey),
             )
         }
     }
@@ -555,7 +554,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                             //localSubjectData.add(it)
                         }
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                        editRvUtil?.rvAdapter?.notifyDataSetChanged()
                         progressDialog.hideProgress()
                     }
                 }

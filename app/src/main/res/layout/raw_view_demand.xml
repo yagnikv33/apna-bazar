@@ -14,16 +14,12 @@
             name="data"
             type="com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem" />
 
-        <variable
-            name="vm"
-            type="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct" />
     </data>
 
     <LinearLayout
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/pipline_bottom"
         android:onClick="@{click::onClick}"
         android:orientation="vertical">
 

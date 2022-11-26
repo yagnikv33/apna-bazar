@@ -102,5 +102,7 @@ data class ViewDemandItemslistItem(
 	val subcode: String? = null,
 
 	@field:SerializedName("medium")
-	val medium: String? = null
+	val medium: String? = null,
+
+	var isTextVisible:Boolean? = null
 )

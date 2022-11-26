@@ -1,13 +1,23 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
+import android.annotation.SuppressLint
 import android.view.View
-import com.esjayit.apnabazar.AppConstants
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import com.esjayit.BR
+import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.VIEW_DEMAND_ID
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.ViewDemandDemand
+import com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem
 import com.esjayit.apnabazar.data.model.response.ViewDemandRes
+import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
+import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
+import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
+import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityViewDemandBinding
@@ -23,9 +33,10 @@ class ViewDemandAct :
 
     var did: String = ""
     var dno: String = ""
+    var viewDemandAdapter: BaseRvBindingAdapter<ViewDemandItemslistItem?>? = null
+    var rvUtil: RvUtil? = null
 
     override fun init() {
-        "GetListData: ${AppConstants.App.itemlistItem}".logE()
 
         val bundle = intent.extras
 
@@ -44,6 +55,59 @@ class ViewDemandAct :
         )
 
         getCurrentDateTime()
+
+        setRv()
+    }
+
+    fun setRv() {
+        viewDemandAdapter = BaseRvBindingAdapter(
+            layoutId = R.layout.raw_view_demand,
+            list = mutableListOf(),
+            br = BR.data,
+            clickListener = { v, t, p ->
+                when (v.id) {
+                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
+                        vm.subjectData.forEach {
+                            it?.isTextVisible = false
+                        }
+
+                        t?.isTextVisible = !t?.isTextVisible!!
+
+                        rvUtil?.notifyAdapter()
+                    }
+                    R.id.main_view -> {
+                        vm.subjectData.forEach {
+                            it?.isTextVisible = false
+                        }
+
+                        t?.isTextVisible = !t?.isTextVisible!!
+
+                        rvUtil?.notifyAdapter()
+                    }
+                }
+            },
+            viewHolder = { v, t, p ->
+                /** Ime DONE Action */
+                v.findViewById<EditText>(R.id.edt_qty)
+                    .setOnEditorActionListener { v, actionId, event ->
+
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            v.hideSoftKeyboard()
+                            return@setOnEditorActionListener true
+                        }
+
+                        false
+                    }
+            }
+        )
+
+        //   rvUtil = ?.let {
+        RvUtil(
+            adapter = viewDemandAdapter!!,
+            rv = binding.rvViewDemand,
+            decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, color = R.color.grey)
+        )
+        //  }
     }
 
     private fun getCurrentDateTime() {
@@ -62,17 +126,91 @@ class ViewDemandAct :
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is ViewDemandRes -> {
                         "Response: ${apiRenderState.result}".logE()
-                        val demand = apiRenderState.result.data?.demand
+//                        val demand = apiRenderState.result.data?.demand
+
+                        val list = mutableListOf(
+                            ViewDemandItemslistItem(
+                                thock = "12",
+                                itemid = "123",
+                                std = "1",
+                                amount = "12321312",
+                                bunchqty = "11",
+                                rate = "1230",
+                                subname = "ENGMOOO",
+                                qty = "123",
+                                rank = "1",
+                                subcode = "1",
+                                medium = "ENG"
+                            )
+                        )
+                        val demand = ViewDemandDemand(
+                            discountamt = "120",
+                            partyname = "Abhishek Bakhai",
+                            demanddate = "26-11-2022",
+                            itemslist = list,
+                            viewdemanddate = "12-11-2022",
+                            demandid = "658",
+                            totalamt = "123450",
+                            billdate = "12-11-2022",
+                            grandtotal = "123440",
+                            demandno = "12",
+                            viewbilldate = "12-11-2022",
+                            roundoff = "0.50",
+                            billno = "1"
+                        )
+
+                        for (i in 1..15) {
+                            vm.viewDemandList.add(
+                                ViewDemandItemslistItem(
+                                    thock = "20",
+                                    itemid = "D2SDNS33hj6",
+                                    std = "8",
+                                    amount = "4237",
+                                    bunchqty = "23",
+                                    rate = "65.00",
+                                    subcode = "312",
+                                    rank = "5",
+                                    medium = "English",
+                                    qty = "10",
+                                    subname = "English GOLD - 1",
+                                    isTextVisible = false
+                                )
+                            )
+                        }
+                        binding.etDate.setText(demand?.billdate.orEmpty())
                         binding.txtVTotalAmount.setText("Total Amount  : " + demand?.totalamt.orEmpty())
                         binding.txtVDiscount.setText("Disc.(12.5 %)   : " + demand?.discountamt.orEmpty())
                         binding.txtVRoundOff.setText("Round Off   : " + demand?.roundoff.orEmpty())
-                        binding.txtVGrandTotal.setText("Grand Total  : " +demand?.grandtotal.orEmpty())
+                        binding.txtVGrandTotal.setText("Grand Total  : " + demand?.grandtotal.orEmpty())
+
+                        viewDemandAdapter?.list?.addAll(
+                            listOf(
+                                ViewDemandItemslistItem(
+                                    thock = "12",
+                                    itemid = "123",
+                                    std = "1",
+                                    amount = "12321312",
+                                    bunchqty = "11",
+                                    rate = "1230",
+                                    subname = "ENGMOOO",
+                                    qty = "123",
+                                    rank = "1",
+                                    subcode = "1",
+                                    medium = "ENG"
+                                )
+                            )
+                        )
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                        //"LIST: ${viewDemandAdapter?.list}".logE()
+                        "LIST: ${demand}".logE()
                     }
                 }
             }

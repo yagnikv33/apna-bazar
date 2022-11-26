@@ -26,7 +26,6 @@
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/pipline_bottom"
         android:onClick="@{click::onClick}"
         android:orientation="vertical">
 
@@ -40,8 +39,9 @@
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
                 android:layout_width="@dimen/_105sdp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:ellipsize="end"
+                android:paddingBottom="@dimen/_6sdp"
                 android:maxLines="2"
                 android:text="@{data.subname}"
                 android:textAlignment="textStart" />
@@ -79,6 +79,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginBottom="@dimen/_6sdp"
             android:id="@+id/ll_sub_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
