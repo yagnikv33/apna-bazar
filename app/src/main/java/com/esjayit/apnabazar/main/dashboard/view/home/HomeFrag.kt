@@ -6,7 +6,7 @@ import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esjayit.apnabazar.AppConstants
-import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
+//import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.CheckUserActiveResponse
 import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
@@ -55,7 +55,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         if (!data.isActive.isNullOrEmpty() && !data.isMultiDeviceAllow.isNullOrEmpty()) {
             if (data.isActive == "1" && data.isMultiDeviceAllow == "1") {
                 //Temp Show Msg
-                successToast(obj.message)
+//                successToast(obj.message)
             } else if (data.isActive == "1" && data.isMultiDeviceAllow == "1") {
                 msg = obj.message
                 showAlert(msg = msg)

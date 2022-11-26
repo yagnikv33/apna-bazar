@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{click::onClick}"
+        android:background="@drawable/pipline_bottom"
         android:orientation="vertical">
 
         <LinearLayout
@@ -38,7 +39,7 @@
                 android:maxLines="2"
                 android:text="@{data.subname}"
                 tools:text="MARIGOLD ENGLISH-20"
-                android:textAlignment="center" />
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/tv_branch"
@@ -47,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_14sdp"
                 android:text="@{data.buyqty}"
-                android:textAlignment="textEnd"
+                android:textAlignment="textStart"
                 tools:text="0" />
 
             <TextView
@@ -88,7 +89,7 @@
                 android:layout_weight="10"
                 android:text="@{`Standard :`  + data.standard}"
                 tools:text="Standard : 1"
-                android:textAlignment="center" />
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/tv_rate"
@@ -98,7 +99,7 @@
                 android:layout_weight="2"
                 android:text="@{`Rate :`  + data.rate}"
                 tools:text="Rate : 65.00"
-                android:textAlignment="center" />
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/tv_branch_sub_header"
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:text="Bunch : 10"
-                android:text="@{data.thock}"
+                android:text="@{`Bunch :` + data.maxretu}"
                 android:textAlignment="textEnd" />
 
             <TextView

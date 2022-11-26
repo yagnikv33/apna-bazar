@@ -68,6 +68,11 @@ class ViewDemandAct :
                 when (apiRenderState.result) {
                     is ViewDemandRes -> {
                         "Response: ${apiRenderState.result}".logE()
+                        val demand = apiRenderState.result.data?.demand
+                        binding.txtVTotalAmount.setText("Total Amount  : " + demand?.totalamt.orEmpty())
+                        binding.txtVDiscount.setText("Disc.(12.5 %)   : " + demand?.discountamt.orEmpty())
+                        binding.txtVRoundOff.setText("Round Off   : " + demand?.roundoff.orEmpty())
+                        binding.txtVGrandTotal.setText("Grand Total  : " +demand?.grandtotal.orEmpty())
                     }
                 }
             }

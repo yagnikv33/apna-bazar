@@ -16,6 +16,7 @@ class AppConstants {
             const val VIEW_DEMAND_ID = "view_demand_id"
             const val DEMAND_NO ="demand_no"
             const val BILL_DATE = "bill_date"
+            const val RETURN_MODEL = "return_model"
             const val RETURN_ID = "return_id"
             const val RETURN_DATE = "return_date"
 

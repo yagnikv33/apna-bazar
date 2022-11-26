@@ -96,7 +96,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="@color/white"
-                    app:endIconDrawable="@drawable/ic_down"
                     app:endIconMode="custom"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_select_standard">
@@ -108,7 +107,6 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false"
-                        android:hint="@string/tv_enter_demand_no"
                         android:onClick="@{click::onClick}"
                         android:textColor="@color/txt_profile" />
 
@@ -153,7 +151,6 @@
                         android:layout_height="@dimen/_37sdp"
                         android:clickable="true"
                         android:focusable="false"
-                        android:hint="DD - MM - YYYY"
                         android:onClick="@{click::onClick}"
                         android:textAllCaps="true"
                         android:textColor="@color/txt_profile" />
@@ -275,24 +272,28 @@
             app:layout_constraintTop_toBottomOf="@id/cl_add_demand_tbl_data">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtV_total_amount"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Amount : 7450.00" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtV_discount"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Disc.(12.5 %)   :  500" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtV_round_Off"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Round Off   :  0.50" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtV_grand_total"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

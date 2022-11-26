@@ -8,8 +8,10 @@ import androidx.core.os.bundleOf
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_ID
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_LIST_CODE
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_MODEL
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.GetReturnLisitngResponse
 import com.esjayit.apnabazar.data.model.response.RetunlistItem
@@ -67,7 +69,7 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                 //For when only view return
 //                vm.getReturnSingleItem(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), itemid = "")
 
-                startActivity(ViewReturnAct::class.java, bundleOf(RETURN_ID to t?.id))
+                startActivity(ViewReturnAct::class.java, bundleOf(RETURN_ID to t?.id, RETURN_DATE to t?.billdate))
 
             },
             viewHolder = { v, t, p ->
