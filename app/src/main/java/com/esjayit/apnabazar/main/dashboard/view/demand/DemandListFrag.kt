@@ -20,9 +20,11 @@ import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+//class DemandListFrag :
+//    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list),
+//    IOnBackPressed {
 class DemandListFrag :
-    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list),
-    IOnBackPressed {
+    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list) {
 
     override val hasProgress: Boolean = false
     override val vm: DemandListVM by viewModel()
