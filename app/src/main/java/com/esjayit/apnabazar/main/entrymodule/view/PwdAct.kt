@@ -34,6 +34,7 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
                 if (binding.editText.text?.isNotBlank() == true) {
                     progressDialog?.showProgress()
+                    "INSATLL ID ${prefs.installId!!}".logE()
                     vm.login(
                         userName = userName.toString(),
                         password = binding.editText.text.toString(),
@@ -62,6 +63,8 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 //                            LoginModel(apiRenderState.result.accessToken, apiRenderState.result.userId, apiRenderState.result.tokenType, apiRenderState.result.expiresIn)
                             prefs.user = apiRenderState.result
                             prefs.authToken = apiRenderState.result.accessToken
+                            prefs.installId = apiRenderState.result.installId
+                            "USER DATA LOGIN API  ${apiRenderState.result}".logE()
                             val intent = Intent(this, DashboardAct::class.java)
                             this.startActivity(intent)
                             finishAffinity()

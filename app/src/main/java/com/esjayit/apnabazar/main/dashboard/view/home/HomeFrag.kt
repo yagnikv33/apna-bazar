@@ -30,6 +30,8 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
     private var listingAdapter: HomeListingAdapter? = null
 
     override fun init() {
+        "USER DATA ${prefs.user}".logE()
+        "INSATLL ID ${prefs.installId!!}".logE()
         if (prefs.user != null && prefs.installId != null) {
             vm?.checkUserActiveStatus(userId = prefs.user.userId, installedId = prefs.installId!!)
             vm?.getHomeScreen(userId = prefs.user.userId, installedId = prefs.installId!!)

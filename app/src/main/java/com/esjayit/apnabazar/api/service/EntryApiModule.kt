@@ -8,6 +8,7 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_UPDATE
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.CHECK_USER_VERIFICATION
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.HOME
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.LOGIN
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.LOG_ERROR
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.NEW_PASSWORD
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.SEND_OTP
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VERIFY_OTP
@@ -123,4 +124,15 @@ interface EntryApiModule {
         @Field("versioncode") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
         @Field("installid") installId : String
     ) : LoginResponse
+
+    @FormUrlEncoded
+    @POST(LOG_ERROR)
+    suspend fun logError(
+        @Field("UDID") uuid: String,
+        @Field("ERRORLOG") errorLog : String,
+        @Field("APPPACKAGENAME") appPackgeName : String = BuildConfig.APPLICATION_ID,
+        @Field("APPVERCODE") appVerCode : String = BuildConfig.VERSION_CODE.toString(),
+        @Field("installid") installId : String
+    ) : CommonResponse
+
 }

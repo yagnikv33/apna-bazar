@@ -126,8 +126,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 }.let {
                     subjectDataAdapter?.addData(it, isClear = true)
                     "Filterd Data: $it".logE()
-                    rvUtil?.rvAdapter?.notifyDataSetChanged()
+//                    rvUtil?.rvAdapter?.notifyDataSetChanged()
                 }
+                rvUtil?.rvAdapter?.notifyDataSetChanged()
             }
 
             override fun afterTextChanged(p0: Editable?) {}

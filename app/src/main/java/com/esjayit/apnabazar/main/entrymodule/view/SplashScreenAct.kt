@@ -35,8 +35,10 @@ class SplashScreenAct :
 
     private var player: SimpleExoPlayer? = null
     var uuid: String = UUID.randomUUID().toString()
+    var isRooted = if (EntryVM.RootUtil.isDeviceRooted) "1" else "0"
 
     override fun init() {
+        "isRooted : ${isRooted}".logE()
         "UUID ${Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)} RandomUUID : ${uuid}".logE()
         checkForLaunchAPIs()
     }
@@ -62,14 +64,15 @@ class SplashScreenAct :
             if(prefs.firstTime) {
                 // First Time Launch
                 "RUN : First Time".logE()
+
 //            "DATA JSON, ${convertedJSONObject()}".logE()
+                prefs.installId = uuid
                 vm.checkForUpdate(installedId = uuid)
-                vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = "0", installedId = uuid)
+                vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = isRooted, installedId = uuid)
                 if (!prefs.playerId.isNullOrBlank()) {
                     "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
 //                vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = "", deviceInfoJson = convertedJSONObject())
                 }
-                prefs.installId = uuid
                 prefs.firstTime = false
             } else {
                 // App is not First Time Launch
