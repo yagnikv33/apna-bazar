@@ -99,7 +99,7 @@
                 android:layout_weight="2"
                 android:text="@{`Rate :`  + data.rate}"
                 tools:text="Rate : 65.00"
-                android:textAlignment="textStart" />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_branch_sub_header"

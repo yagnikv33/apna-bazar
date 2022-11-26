@@ -65,7 +65,7 @@ class DemandListFrag :
                         //For when only view demand
                         startActivity(
                             ViewDemandAct::class.java,
-                            bundle = bundleOf(VIEW_DEMAND_ID to t.did)
+                            bundle = bundleOf(VIEW_DEMAND_ID to t.did, DEMAND_NO to t.demandno)
                         )
                     }
                 }
@@ -84,6 +84,7 @@ class DemandListFrag :
                             .setCardBackgroundColor(resources.getColor(R.color.status_yellow))
                     }
                     "1" -> {
+                        v.findViewById<CardView>(R.id.card_edit_status).visibility = View.GONE
                         v.findViewById<CardView>(R.id.card_demand_status)
                             .setCardBackgroundColor(resources.getColor(R.color.status_green))
                     }
@@ -102,7 +103,7 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                        // "Response: ${apiRenderState.result.data}".logE()
+                         "Response: ${apiRenderState.result.data}".logE()
 
                         apiRenderState.result.data?.demandlist?.map {
                             vm.demandList.add(it)
