@@ -7,7 +7,9 @@ import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
 import com.google.gson.JsonObject
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 
 
 class EntryVM(private val repo: EntryRepo) : BaseVM() {
@@ -162,46 +164,61 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
         }
     }
 
-    /**
-     * Checks if the device is rooted.
-     *
-     * @return `true` if the device is rooted, `false` otherwise.
-     */
-    fun isRooted(): Boolean {
-
-        // get from build info
-        val buildTags = Build.TAGS
-        if (buildTags != null && buildTags.contains("test-keys")) {
-            return true
-        }
-
-        // check if /system/app/Superuser.apk is present
-        try {
-            val file = File("/system/app/Superuser.apk")
-            if (file.exists()) {
-                return true
+    //For Error Logs
+    fun logErrorAPI(uuid: String, errorLog: String, installedId: String) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.logErrorAdd(
+                uuid = uuid,
+                logError = errorLog,
+                installId = installedId,
+                onApiError).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
             }
-        } catch (e1: Exception) {
-            // ignore
         }
-
-        // try executing commands
-        return (canExecuteCommand("/system/xbin/which su")
-                || canExecuteCommand("/system/bin/which su") || canExecuteCommand("which su"))
     }
 
-    // executes a command on the system
-    private fun canExecuteCommand(command: String): Boolean {
-        val executedSuccesfully: Boolean
-        executedSuccesfully = try {
-            Runtime.getRuntime().exec(command)
-            true
-        } catch (e: Exception) {
-            false
+    object RootUtil {
+        val isDeviceRooted: Boolean
+            get() = checkRootMethod1() || checkRootMethod2() || checkRootMethod3()
+
+        private fun checkRootMethod1(): Boolean {
+            val buildTags = Build.TAGS
+            return buildTags != null && buildTags.contains("test-keys")
         }
-        return executedSuccesfully
+
+        private fun checkRootMethod2(): Boolean {
+            val paths = arrayOf(
+                "/system/app/Superuser.apk",
+                "/sbin/su",
+                "/system/bin/su",
+                "/system/xbin/su",
+                "/data/local/xbin/su",
+                "/data/local/bin/su",
+                "/system/sd/xbin/su",
+                "/system/bin/failsafe/su",
+                "/data/local/su",
+                "/su/bin/su"
+            )
+            for (path in paths) {
+                if (File(path).exists()) return true
+            }
+            return false
+        }
+
+        private fun checkRootMethod3(): Boolean {
+            var process: Process? = null
+            return try {
+                process = Runtime.getRuntime().exec(arrayOf("/system/xbin/which", "su"))
+                val `in` = BufferedReader(InputStreamReader(process.inputStream))
+                if (`in`.readLine() != null) true else false
+            } catch (t: Throwable) {
+                false
+            } finally {
+                process?.destroy()
+            }
+        }
     }
-
-
-
 }

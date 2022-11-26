@@ -1,4 +1,5 @@
 package com.esjayit.apnabazar.main.entrymodule.repo
+import android.widget.MultiAutoCompleteTextView.CommaTokenizer
 import com.esjayit.apnabazar.api.service.EntryApiModule
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
@@ -133,6 +134,26 @@ class EntryRepo(private val apiCall: EntryApiModule) : BaseRepo() {
                 userName = userName,
                 password = password,
                 installId = installed,
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //All Application Error Log Send to Server
+    suspend fun logErrorAdd(
+        uuid: String,
+        logError: String,
+        installId: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.logError(
+                uuid = uuid,
+                errorLog = logError,
+                installId = installId,
             )
         })) {
             if (data == null)
