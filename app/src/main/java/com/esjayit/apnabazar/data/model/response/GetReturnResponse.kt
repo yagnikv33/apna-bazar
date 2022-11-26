@@ -2,28 +2,32 @@ package com.esjayit.apnabazar.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetReturnItemListResponse(
+data class GetReturnResponse(
 
 	@field:SerializedName("statuscode")
 	val statuscode: String? = null,
 
 	@field:SerializedName("data")
-	val data: ReturnItemsData? = null,
+	val data: ReturnData? = null,
 
 	@field:SerializedName("extra")
-	val extra: Extra? = null,
+	val extra: ReturnExtra? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
 )
 
-data class ReturnItemsData(
-
-	@field:SerializedName("returnitems")
-	val returnitems: List<ReturnitemsItem?>? = null
+data class ReturnExtra(
+	val any: Any? = null
 )
 
-data class ReturnitemsItem(
+data class ReturnData(
+
+	@field:SerializedName("returnitems")
+	val returnitems: List<ReturnReturnitemsItem?>? = null
+)
+
+data class ReturnReturnitemsItem(
 
 	@field:SerializedName("itemid")
 	val itemid: String? = null,

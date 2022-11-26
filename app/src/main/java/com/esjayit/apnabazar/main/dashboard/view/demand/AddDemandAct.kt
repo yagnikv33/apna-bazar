@@ -1,17 +1,21 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
 
-import android.annotation.SuppressLint
+import  android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
+import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
 import com.esjayit.apnabazar.AppConstants.App.BundleData.FOR_EDIT_DEMAND
 import com.esjayit.apnabazar.Layouts
@@ -47,7 +51,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
 
-
     var subjectItem: String = ""
     var mediumItem: String = ""
     var searchKeyword: String = ""
@@ -64,15 +67,20 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     private val addDemandList = hashSetOf<DummyAddDemand>()
     private lateinit var debounceListenerForRcv: (String) -> Unit
     var did: String? = null
+    var demandDate: String? = null
+    var demandNo: Int? = null
     var isFromEditDemand = false
+    var subectDemandData: List<DummyAddDemand>? = null
+    var editDemandData: List<DummyAddDemand>? = null
 
     override fun init() {
 
         val bundel = intent?.extras
         did = bundel?.getString(EDIT_DEMAND_DATA)
+        demandDate = bundel?.getString(DEMAND_DATE)
         isFromEditDemand = bundel?.getBoolean(FOR_EDIT_DEMAND) == true
 
-        "From Edit : ${bundel?.getString(EDIT_DEMAND_DATA)}, ${bundel?.getBoolean(FOR_EDIT_DEMAND)}".logE()
+        "From Edit : ${bundel?.getString(EDIT_DEMAND_DATA)}, ${bundel?.getBoolean(FOR_EDIT_DEMAND)}, $demandDate, $demandNo".logE()
 
         vm.apply {
             getMediumList(userid = prefs.user.userId, installid = prefs.installId.orEmpty())
@@ -82,8 +90,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         getCurrentDateTime()
         if (isFromEditDemand) {
             editDemandRcv()
+            binding.apply {
+                tvHeader.text = getString(R.string.txt_edit_demand)
+            }
         } else {
-            setRecyclerView()
+            addDemandRcv()
         }
 
         doSearch()
@@ -131,9 +142,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         binding.etDate.setText(currentDateandTime)
     }
 
-    private fun setRecyclerView() {
+    private fun addDemandRcv() {
         subjectDataAdapter = BaseRvBindingAdapter(
-            layoutId = R.layout.raw_edit_demand,
+            layoutId = R.layout.raw_add_demand,
             list = vm.subjectData,
             br = BR.data,
             clickListener = { v, t, p ->
@@ -266,67 +277,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         rvUtil?.notifyAdapter()
                     }
-                    R.id.edt_qty -> {
-                        "CLICK tab".logE()
-                    }
                 }
             },
             viewHolder = { v, t, p ->
-
-                /** Text Change */
-                /* v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
-                     override fun beforeTextChanged(
-                         s: CharSequence?,
-                         start: Int,
-                         count: Int,
-                         after: Int
-                     ) {
-                     }
-
-                     override fun onTextChanged(
-                         s: CharSequence?,
-                         start: Int,
-                         before: Int,
-                         count: Int
-                     ) {
-
-                     }
-
-                     override fun afterTextChanged(s: Editable?) {
- //                        addDemandList.add(
- //                            DummyAddDemand(
- //                                subjectName = t?.subname.orEmpty(),
- //                                qty = s.toString(),
- //                                bunch = t?.thock,
- //                                standard = t?.standard
- //                            )
- //                        )
-                         debounceListener.invoke(s.toString())
-                         //"click Items: afterTextChanged $s".logE()
-                     }
-                 })
-
-                 debounceListener =
-                     MiscUtil.throttleLatest(
-                         scope = lifecycleScope,
-                         intervalMs = 500L
-                     ) { qty ->
-
-                         "click Items: DEBOUNCED!!!!".logE()
-
-                         if (qty.length > 1) {
-                             addDemandList.add(
-                                 DummyAddDemand(
-                                     subjectName = t?.subname.orEmpty(),
-                                     qty = qty,
-                                     bunch = t?.thock,
-                                     standard = t?.standard
-                                 )
-                             )
-
-                             "click Items: SIZE - ${addDemandList.size}".logE()
-                         }
-                     }*/
 
                 /** Ime DONE Action */
                 v.findViewById<EditText>(R.id.edt_qty)
@@ -386,6 +339,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onClick(v: View) {
         super.onClick(v)
         when (v) {
@@ -396,27 +350,99 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 standardDialog?.show()
             }
             binding.btnAddDemand -> {
+                progressDialog.showProgress()
 
-                val productNameList =
-                    subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                        DummyAddDemand(
-                            subjectName = it?.subname,
-                            qty = it?.qty,
-                            bunch = it?.thock,
-                            standard = it?.standard,
-                            itemId = it?.itemid,
-                            rate = it?.itemrate,
-                            amount = getAmount(it?.itemrate?.toFloat(), it?.qty?.toInt()).toString()
-                        )
+                //From EditDemand
+                if (isFromEditDemand) {
+                    editDemandData =
+                        editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                            DummyAddDemand(
+                                subjectName = it?.subname,
+                                qty = it?.qty,
+                                bunch = it?.thock,
+                                standard = it?.std,
+                                itemId = it?.itemid,
+                                rate = it?.rate,
+                                amount = getAmount(it?.rate?.toFloat(), it?.qty?.toInt()).toString()
+                            )
+                        }
+
+                    if (editDemandData != null) {
+                        var totalQty = 0
+                        val totalAmount: Int = 0
+                        var amt = 0
+
+                        AppConstants.App.itemlistItem.addAll(editDemandData!!)
+
+                        editDemandData?.forEachIndexed { index, itemlistItem ->
+                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
+                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
+                                ?.times(itemlistItem.qty?.toInt()!!)!!
+                        }
+
+                        editDemandData?.toTypedArray()?.let {
+                            vm.editDemand(
+                                demanddate = binding.etDate.text.toString(),
+                                userid = prefs.user.userId,
+                                totalamt = totalAmount.toString(),
+                                installid = prefs.installId.orEmpty(),
+                                itemslist = it,
+                                demandid = did.orEmpty()
+                            )
+                        }
                     }
 
-                if (productNameList != null) {
-                    AppConstants.App.itemlistItem.addAll(productNameList)
+                } else {
+                    //From Add Demand
+                    subectDemandData =
+                        subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                            DummyAddDemand(
+                                subjectName = it?.subname,
+                                qty = it?.qty,
+                                bunch = it?.thock,
+                                standard = it?.standard,
+                                itemId = it?.itemid,
+                                rate = it?.itemrate,
+                                amount = getAmount(
+                                    it?.itemrate?.toFloat(),
+                                    it?.qty?.toInt()
+                                ).toString()
+                            )
+                        }
+                    if (subectDemandData != null) {
+                        var totalQty = 0
+                        val totalAmount: Int
+                        var amt = 0
+
+                        AppConstants.App.itemlistItem.addAll(subectDemandData!!)
+                        subectDemandData?.forEachIndexed { index, itemlistItem ->
+                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
+                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
+                                ?.times(itemlistItem.qty?.toInt()!!)!!
+                        }
+
+                        totalAmount = amt * totalQty
+
+                        subectDemandData?.toTypedArray()?.let {
+
+                            "AddDemnand Data: ${binding.etDate.text}, ${prefs.user.userId}, $totalAmount , ${
+                                prefs.installId.orEmpty()
+                            }, ${it.size}".logE()
+
+                            vm.addDemand(
+                                demanddate = binding.etDate.text.toString(),
+                                userid = prefs.user.userId,
+                                totalamt = totalAmount.toString(),
+                                installid = prefs.installId.orEmpty(),
+                                itemslist = it
+                            )
+                        }
+                    }
                 }
-                startActivity(ViewDemandAct::class.java)
             }
         }
     }
+
 
     private fun getAmount(rate: Float?, qty: Int?): Int {
         if (rate != null) {
@@ -468,11 +494,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         subjectItem = castedSelectStandardList?.get(0).toString()
 
                         if (isFromEditDemand) {
-                            vm.getEditDemandData(
-                                userid = prefs.user.userId,
-                                installid = prefs.installId.orEmpty(),
-                                demandid = did.orEmpty()
-                            )
+                            editDemandData?.toTypedArray()?.let {
+                                vm.editDemand(
+                                    demandid = did.orEmpty(),
+                                    userid = prefs?.user?.userId,
+                                    installid = prefs?.installId.orEmpty(),
+                                    demanddate = demandDate.orEmpty(),
+                                    totalamt = "04-Oct-2022",
+                                    itemslist = it
+                                )
+                            }
                         } else {
                             castedSelectStandardList?.get(0)?.let {
                                 vm.getSubjectListData(
@@ -501,7 +532,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                     //For Add Demand
                     is CommonResponse -> {
-                        successToast(apiRenderState.result.message.toString())
+
+                        "Response: ${apiRenderState.result}".logE()
+
+                        // successToast(apiRenderState.result.message.toString(), callback = {
+                        //     if (it) {
+                        finishAct()
+                        //     }
+                        // })
+
+                        progressDialog.hideProgress()
                     }
 
                     is EditDemandDataResponse -> {
@@ -519,17 +559,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                 }
             }
-            ApiRenderState.Idle -> {
-                hideProgress()
-            }
-            ApiRenderState.Loading -> {
-                // showProgress()
-            }
-            is ApiRenderState.ValidationError -> {
-                "Error API CALLING".logE()
-            }
-            is ApiRenderState.ApiError<*> -> {
-                "Error API CALLING API ERROR".logE()
+            else -> {
+                progressDialog.hideProgress()
             }
         }
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -12,7 +11,7 @@
 
         <variable
             name="data"
-            type="com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem" />
+            type="com.esjayit.apnabazar.data.model.response.ReturnitemsItem" />
 
         <variable
             name="vm"
@@ -35,41 +34,42 @@
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_105sdp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="@{data.subname}"
-                android:textAlignment="textStart"
-                tools:text="MERYGOLD ENGLISHMEDIUM" />
-
-            <!--  <EditText
-                  android:id="@+id/edt_qty"
-                  style="@style/add_demand_row"
-                  android:layout_width="@dimen/_50sdp"
-                  android:layout_height="wrap_content"
-                  android:text="0"
-                  android:textAlignment="center" />-->
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@{data.qty}"
-                android:textAlignment="textEnd"
-                tools:text="20" />
+                android:paddingEnd="@dimen/_14sdp"
+                android:text="@{data.buyqty}"
+                android:textAlignment="textEnd" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@{data.thock}"
-                android:textAlignment="textEnd"
-                tools:text="20" />
+                android:text="@{data.maxretu}"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:id="@+id/edt_qty"
+                style="@style/add_demand_row"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="3"
+                android:onClick="@{click::onClick}"
+                android:text="@{data.retuqty}"
+                android:textAlignment="textEnd" />
 
         </LinearLayout>
 
@@ -79,15 +79,16 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:onClick="@{click::onClick}"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{data.textVisible ? View.VISIBLE : View.GONE}">
 
             <TextView
                 android:id="@+id/tv_subject_sub_header"
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@{`Standard : `+ data.std}"
+                android:layout_weight="1"
+                android:text="@{`Standard :`  + data.subname}"
                 android:textAlignment="textStart" />
 
             <TextView
@@ -96,7 +97,16 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{`Rate :` + data.rate}"
+                android:text="@{`Rate :`  + data.rate}"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/tv_branch_sub_header"
+                style="@style/add_demand_sub_header_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Medium"
                 android:textAlignment="center" />
 
             <TextView
@@ -104,11 +114,10 @@
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:text="@{`Medium : `+ data.medium}"
+                android:text="@{`Medium : ` + data.subname}"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>
 
     </LinearLayout>
-
 </layout>

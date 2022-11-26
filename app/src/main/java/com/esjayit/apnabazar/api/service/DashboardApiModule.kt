@@ -82,7 +82,7 @@ interface DashboardApiModule {
         @Field("installid") installid: String,
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
-    ): ViewDemandDetailsResponse
+    ): ViewDemandRes
 
     @FormUrlEncoded
     @POST(GET_USER_PROFILE)
@@ -225,4 +225,15 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): ViewBookReturnDataResponse
+
+//    @FormUrlEncoded
+//    @POST(RETURN_TABLE_DATA)
+//    suspend fun getReturnListTableData(
+//        @Field("userid") userid: String,
+//        @Field("standard") standard: String,
+//        @Field("medium") userMedium: String,
+//        @Field("installid") installid: String,
+//        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+//        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+//    ): GetReturnResponse
 }

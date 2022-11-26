@@ -21,7 +21,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
-
+        <activity
+            android:name="com.esjayit.apnabazar.main.dashboard.view.stock_view.ViewReturnAct"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.esjayit.apnabazar.main.dashboard.view.stock_view.ReturnListAct"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.ViewDemandAct"
             android:exported="false"
@@ -30,15 +37,6 @@
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <!--
- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.DashboardAct"
             android:exported="false"

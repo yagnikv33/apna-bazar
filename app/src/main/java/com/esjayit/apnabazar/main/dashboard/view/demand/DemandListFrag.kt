@@ -5,8 +5,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import com.esjayit.BR
 import com.esjayit.R
-import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
-import com.esjayit.apnabazar.AppConstants.App.BundleData.FOR_EDIT_DEMAND
+import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.VIEW_DEMAND_ID
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.DemandListItem
@@ -34,9 +33,7 @@ class DemandListFrag :
 
     override fun onResume() {
         super.onResume()
-
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-
     }
 
     private fun setRcv() {
@@ -49,9 +46,18 @@ class DemandListFrag :
                 when (t?.demandcolorcode) {
                     "0" -> {
                         //For when edit demand
-                        startActivity(
+                        /*startActivity(
                             AddDemandAct::class.java,
-                            bundle = bundleOf(EDIT_DEMAND_DATA to t.did, FOR_EDIT_DEMAND to true)
+                            bundle = bundleOf(
+                                EDIT_DEMAND_DATA to t.did,
+                                FOR_EDIT_DEMAND to true,
+                                DEMAND_DATE to t.demanddate
+                            )
+                        )*/
+                        //TEMP
+                        startActivity(
+                            ViewDemandAct::class.java,
+                            bundle = bundleOf(VIEW_DEMAND_ID to t.did, DEMAND_NO to t.demandno)
                         )
 
                     }
@@ -96,7 +102,7 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                       // "Response: ${apiRenderState.result.data}".logE()
+                        // "Response: ${apiRenderState.result.data}".logE()
 
                         apiRenderState.result.data?.demandlist?.map {
                             vm.demandList.add(it)

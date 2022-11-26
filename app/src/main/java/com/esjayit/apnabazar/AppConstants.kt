@@ -12,7 +12,15 @@ class AppConstants {
         object BundleData{
             const val EDIT_DEMAND_DATA = "edit_demand_data"
             const val FOR_EDIT_DEMAND = "for_edit_demand"
+            const val DEMAND_DATE = "demand_date"
             const val VIEW_DEMAND_ID = "view_demand_id"
+            const val DEMAND_NO ="demand_no"
+            const val BILL_DATE = "bill_date"
+            const val RETURN_ID = "return_id"
+            const val RETURN_DATE = "return_date"
+
+            //status code
+            const val RETURN_LIST_CODE = 101
         }
 
         object Buttons {
@@ -101,6 +109,7 @@ class AppConstants {
             const val GET_RETURN_SINGLE_ITEM_LIST = "getreturnitem"
             const val ADD_BOOK_RETURN = "addbooksreturn"
             const val VIEW_PARTY_RETURN = "viewpartyreturn"
+          //  const val RETURN_TABLE_DATA = "getreturnitemslist"
 
             //Notification
             const val GET_NOTIFICATION_LISTING = "getuserinboxlist"

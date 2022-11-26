@@ -32,6 +32,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:padding="@dimen/_10sdp"
+                    android:visibility="gone"
                     android:src="@drawable/ic_back" />
 
                 <com.google.android.material.textview.MaterialTextView

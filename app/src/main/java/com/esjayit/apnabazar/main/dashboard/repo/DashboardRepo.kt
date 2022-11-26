@@ -73,7 +73,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         demandid: String,
         installid: String,
         onError: (ApiResult<Any>) -> Unit
-    ): ViewDemandDetailsResponse? {
+    ): ViewDemandRes? {
         return with(apiCall(executable = {
             apiCall.getViewDemandList(
                 userid = userid,
@@ -247,8 +247,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 totalamt = totalamt,
                 installid = installid,
                 itemList = JsonObject().apply {
-                    itemList.forEach {
-                        this.addProperty("itemid", it.itemId)
+                    itemList.forEach {this.addProperty("itemid", it.itemId)
                         this.addProperty("qty", it.qty)
                         this.addProperty("rate", it.rate)
                         this.addProperty("amount", it.amount)
@@ -362,7 +361,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //Add 5% Return Book
     suspend fun addReturnBook(
-        returnList: Array<ReturnitemsItem>,
+        returnList: Array<DummyReturn>,
         billDate: String,
         userid: String,
         billAmount: String,
@@ -381,7 +380,10 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                         this.addProperty("buyqty", it.buyqty)
                         this.addProperty("maxretu", it.maxretu)
                         this.addProperty("rate", it.rate)
-                        this.addProperty("retuqty", it.maxretu) //Please change with edit text Field return qty
+                        this.addProperty(
+                            "retuqty",
+                            it.maxretu
+                        ) //Please change with edit text Field return qty
                     }
                 }
             )
@@ -411,5 +413,4 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             this.data
         }
     }
-
 }

@@ -1,12 +1,9 @@
 package com.esjayit.apnabazar.main.dashboard.view.stock_view.model
 
 import androidx.lifecycle.MutableLiveData
-import com.esjayit.apnabazar.data.model.response.GetReturnLisitngResponse
-import com.esjayit.apnabazar.data.model.response.RetunlistItem
-import com.esjayit.apnabazar.data.model.response.ReturnitemsItem
+import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
-import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
 
 class StockViewVM(private val repo: DashboardRepo) : BaseVM() {
@@ -14,6 +11,68 @@ class StockViewVM(private val repo: DashboardRepo) : BaseVM() {
     private val progressBar = MutableLiveData(false)
     var returnListData = MutableLiveData(GetReturnLisitngResponse())
     var returnList = mutableListOf<RetunlistItem?>()
+    var returnDataList = mutableListOf<ReturnitemsItem?>()
+    var viewReturnList = mutableListOf<RetutranlistItem>()
+
+    fun getSubjectListData(
+        userid: String,
+        userMedium: String,
+        installid: String,
+        standard: String
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getSubjectList(
+                userid = userid,
+                installid = installid,
+                userMedium = userMedium,
+                standard = standard,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    fun getMediumList(
+        userid: String,
+        installid: String
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getMediumList(
+                userid = userid,
+                installid = installid,
+                onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    fun getStandard(
+        userid: String,
+        userMedium: String,
+        installid: String,
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getStandard(
+                userid = userid,
+                installid = installid,
+                userMedium = userMedium,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
 
     //For Return Listing Data
     fun getReturnListData(userId: String, installedId: String) {
@@ -23,7 +82,8 @@ class StockViewVM(private val repo: DashboardRepo) : BaseVM() {
             repo.getReturnListing(
                 userId = userId,
                 installId = installedId,
-                onApiError).let {
+                onApiError
+            ).let {
                 returnListData.postValue(it)
                 state.emit(ApiRenderState.ApiSuccess(it))
                 progressBar.postValue(false)
@@ -75,9 +135,10 @@ class StockViewVM(private val repo: DashboardRepo) : BaseVM() {
         }
     }
 
+
     //Add Return API Call
     fun addReturnBook(
-        returnList: Array<ReturnitemsItem>,
+        returnList: Array<DummyReturn>,
         billAmount: String,
         billDate: String,
         userid: String,

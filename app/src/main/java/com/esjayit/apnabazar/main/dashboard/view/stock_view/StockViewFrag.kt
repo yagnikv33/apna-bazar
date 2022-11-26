@@ -1,10 +1,15 @@
 package com.esjayit.apnabazar.main.dashboard.view.stock_view
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_ID
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_LIST_CODE
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.GetReturnLisitngResponse
 import com.esjayit.apnabazar.data.model.response.RetunlistItem
@@ -38,6 +43,18 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)
             }
+            binding.btnAddReturn -> {
+                startActivityForResult(ReturnListAct::class.java, requestCode = RETURN_LIST_CODE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === RETURN_LIST_CODE) {
+            if (resultCode === Activity.RESULT_OK) {
+                vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
+            }
         }
     }
 
@@ -49,7 +66,9 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
             clickListener = { v, t, p ->
                 //For when only view return
 //                vm.getReturnSingleItem(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), itemid = "")
-                "Return List Data: $t".logE()
+
+                startActivity(ViewReturnAct::class.java, bundleOf(RETURN_ID to t?.id))
+
             },
             viewHolder = { v, t, p ->
                 when (t?.approvecode) {
@@ -76,11 +95,9 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is GetReturnLisitngResponse -> {
+                        apiRenderState.result.statuscode
 
-                        progressDialog.hideProgress()
-                        val statusCode = apiRenderState.result.statuscode
-
-                        if (statusCode == AppConstants.Status_Code.Success) {
+                        if (apiRenderState.result.statuscode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString())
                             "Get 5% Return Data ${apiRenderState.result.data}".logE()
                             apiRenderState.result.data?.retunlist?.map {
@@ -88,6 +105,8 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                             }
 
                             setRcv()
+
+                            progressDialog.hideProgress()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                         }
@@ -95,7 +114,7 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                 }
             }
             else -> {
-
+                progressDialog.hideProgress()
             }
         }
     }
