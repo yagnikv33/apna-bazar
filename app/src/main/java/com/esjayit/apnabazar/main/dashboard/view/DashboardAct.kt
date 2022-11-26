@@ -6,6 +6,7 @@ import com.esjayit.R
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
+import com.esjayit.apnabazar.main.base.IOnBackPressed
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
 import com.esjayit.apnabazar.main.dashboard.view.demand.DemandListFrag
@@ -64,6 +65,14 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
                 }
                 else -> false
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        val fragment =
+            this.supportFragmentManager.findFragmentById(R.id.frag_container)
+        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
+            super.onBackPressed()
         }
     }
 

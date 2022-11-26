@@ -13,6 +13,7 @@ import com.esjayit.apnabazar.data.model.response.DemandListResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseFrag
+import com.esjayit.apnabazar.main.base.IOnBackPressed
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
@@ -20,12 +21,14 @@ import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DemandListFrag :
-    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list) {
+    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list),
+    IOnBackPressed {
 
     override val hasProgress: Boolean = false
     override val vm: DemandListVM by viewModel()
     lateinit var demandListAdapter: BaseRvBindingAdapter<DemandListItem?>
     var rvUtil: RvUtil? = null
+    var usedBackBtn: Boolean = false
 
     override fun init() {
 
@@ -35,6 +38,17 @@ class DemandListFrag :
         super.onResume()
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
     }
+
+//    override fun onBackPressed(): Boolean {
+//        return if (usedBackBtn) {
+//            //action not popBackStack
+//            usedBackBtn = false
+//            true
+//        } else {
+//            usedBackBtn = true
+//            false
+//        }
+//    }
 
     private fun setRcv() {
         BaseRvBindingAdapter(
