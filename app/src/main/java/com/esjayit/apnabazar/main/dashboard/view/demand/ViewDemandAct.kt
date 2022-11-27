@@ -50,8 +50,7 @@ class ViewDemandAct :
             demandid = did
         )
 
-        getCurrentDateTime()
-
+//        getCurrentDateTime()
         setRv()
     }
 
