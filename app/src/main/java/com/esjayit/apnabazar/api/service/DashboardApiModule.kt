@@ -141,22 +141,6 @@ interface DashboardApiModule {
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): DemandListResponse
 
-    @POST(ADD_DEMAND)
-    suspend fun addDemandData(
-        @Body requestJson: JsonObject
-    ): CommonResponse
-
-    @POST(ADD_DEMAND)
-    suspend fun addDemand(
-        @Field("demanddate") demanddate: String,
-        @Field("userid") userid: String,
-        @Field("totalamt") totalamt: String,
-        @Query("itemslist") itemList: JsonObject,
-        @Field("installid") installid: String,
-        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
-        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
-    ): CommonResponse
-
     @FormUrlEncoded
     @POST(ADD_DEMAND)
     suspend fun addDemandString(

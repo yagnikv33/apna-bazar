@@ -498,7 +498,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                     }
                     is GetDemandDataResponse -> {
-
                         vm.subjectData.clear()
                         "DEMAND DATA : ${apiRenderState.result.data}".logE()
                         apiRenderState.result.data?.itemlist?.map {
