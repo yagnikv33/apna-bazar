@@ -166,22 +166,6 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
         }
     }
 
-    //For Error Logs
-    fun logErrorAPI(uuid: String, errorLog: String, installedId: String) {
-        scope {
-            progressBar.postValue(true)
-            state.emit(ApiRenderState.Loading)
-            repo.logErrorAdd(
-                uuid = uuid,
-                logError = errorLog,
-                installId = installedId,
-                onApiError).let {
-                state.emit(ApiRenderState.ApiSuccess(it))
-                progressBar.postValue(false)
-            }
-        }
-    }
-
     object RootUtil {
         val isDeviceRooted: Boolean
             get() = checkRootMethod1() || checkRootMethod2() || checkRootMethod3()
