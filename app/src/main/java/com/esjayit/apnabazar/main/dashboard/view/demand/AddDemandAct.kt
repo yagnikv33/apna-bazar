@@ -30,9 +30,7 @@ import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityAddDemandBinding
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
+import kotlinx.android.synthetic.main.raw_demand_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,6 +56,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     var mediumItem: String = ""
     var searchKeyword: String = ""
     val localSubjectData = mutableListOf<ItemlistItem?>()
+    val savedList = mutableListOf<ItemlistItem?>()
 
     var subjectDataAdapter: BaseRvBindingAdapter<ItemlistItem?>? = null
     var rvUtil: RvUtil? = null
@@ -109,37 +108,86 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     @SuppressLint("NotifyDataSetChanged")
     private fun doSearch() {
         debounceListener =
-            MiscUtil.throttleLatest(scope = lifecycleScope, intervalMs = 500L) { searchText ->
-                if (searchText.length > 1) {
-                    if (searchText == vm.subjectData[2]?.subname) {
-                        vm.subjectData.map {
+            MiscUtil.throttleLatest(scope = lifecycleScope, intervalMs = 1000L) { searchText ->
+
+                "Searched: $searchText".logE()
+
+                if (searchText.isNotEmpty()) {
+
+                    subjectDataAdapter?.list?.forEach {
+                        if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                ?.contains(searchText) == true
+                        ) {
                             localSubjectData.add(it)
                         }
-                        subjectDataAdapter?.addData(localSubjectData, isClear = true)
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
                     }
+                    subjectDataAdapter?.addData(localSubjectData, isClear = true)
+                    rvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                } else {
+                    "Searched: vm size ${vm.subjectData.size}".logE()
+                    subjectDataAdapter?.addData(
+                        vm.subjectData,
+                        isClear = true
+                    )
+                    rvUtil?.rvAdapter?.notifyDataSetChanged()
                 }
             }
 
         /** Key Board OnTextChangeListener */
         binding.edSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(searchText: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                 searchKeyword = searchText.toString()
-                localSubjectData.filter {
-                    "Search data: $searchText + ${it?.subname.toString()}".logE()
-                    searchText!!.contains(it?.subname.toString())
-                }.let {
-                    subjectDataAdapter?.addData(it, isClear = true)
-                    "Filterd Data: $it".logE()
-//                    rvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                if (searchKeyword.isEmpty() || searchKeyword.isBlank()) {
+                    subjectDataAdapter?.addData(
+                        vm.subjectData,
+                        isClear = true
+                    )
+                    rvUtil?.rvAdapter?.notifyDataSetChanged()
                 }
-                rvUtil?.rvAdapter?.notifyDataSetChanged()
             }
 
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
+        /** Ime DONE Action */
+        binding.edSearch
+            .setOnEditorActionListener { v, actionId, event ->
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    v.hideSoftKeyboard()
+
+                    if (searchKeyword.isNotEmpty()) {
+                        subjectDataAdapter?.list?.forEach {
+                            if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                    ?.contains(searchKeyword) == true
+                            ) {
+                                localSubjectData.add(it)
+                            }
+                        }
+                        subjectDataAdapter?.addData(localSubjectData, isClear = true)
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                    }
+//                    else {
+//                        "Searched: vm size ${vm.subjectData.size}".logE()
+//                        subjectDataAdapter?.addData(
+//                            vm.subjectData,
+//                            isClear = true
+//                        )
+//                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+//                    }
+
+                    return@setOnEditorActionListener true
+                }
+
+                false
+            }
     }
 
     private fun getCurrentDateTime() {
@@ -167,62 +215,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 }
             },
             viewHolder = { v, t, p ->
-
-                /** Text Change */
-                /* v.findViewById<EditText>(R.id.edt_qty).addTextChangedListener(object : TextWatcher {
-                     override fun beforeTextChanged(
-                         s: CharSequence?,
-                         start: Int,
-                         count: Int,
-                         after: Int
-                     ) {
-                     }
-
-                     override fun onTextChanged(
-                         s: CharSequence?,
-                         start: Int,
-                         before: Int,
-                         count: Int
-                     ) {
-
-                     }
-
-                     override fun afterTextChanged(s: Editable?) {
- //                        addDemandList.add(
- //                            DummyAddDemand(
- //                                subjectName = t?.subname.orEmpty(),
- //                                qty = s.toString(),
- //                                bunch = t?.thock,
- //                                standard = t?.standard
- //                            )
- //                        )
-                         debounceListener.invoke(s.toString())
-                         //"click Items: afterTextChanged $s".logE()
-                     }
-                 })
-
-                 debounceListener =
-                     MiscUtil.throttleLatest(
-                         scope = lifecycleScope,
-                         intervalMs = 500L
-                     ) { qty ->
-
-                         "click Items: DEBOUNCED!!!!".logE()
-
-                         if (qty.length > 1) {
-                             addDemandList.add(
-                                 DummyAddDemand(
-                                     subjectName = t?.subname.orEmpty(),
-                                     qty = qty,
-                                     bunch = t?.thock,
-                                     standard = t?.standard
-                                 )
-                             )
-
-                             "click Items: SIZE - ${addDemandList.size}".logE()
-                         }
-                     }*/
-
                 /** Ime DONE Action */
                 v.findViewById<EditText>(R.id.edt_qty)
                     .setOnEditorActionListener { v, actionId, event ->
@@ -508,7 +500,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         apiRenderState.result.data?.itemlist?.map {
                             it?.mediumItem = binding.etModule.text.toString()
                             vm.subjectData.add(it)
-                            localSubjectData.add(it)
+                            //localSubjectData.add(it)
                         }
 
                         rvUtil?.rvAdapter?.notifyDataSetChanged()

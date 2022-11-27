@@ -212,6 +212,7 @@
                 android:background="@color/transparent"
                 android:fontFamily="@font/roboto_medium_numbers"
                 android:hint="@string/txt_search"
+                android:inputType="text"
                 android:imeOptions="actionSearch"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
