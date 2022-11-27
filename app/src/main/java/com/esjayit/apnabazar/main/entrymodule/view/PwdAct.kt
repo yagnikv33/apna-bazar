@@ -24,7 +24,6 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
     override fun init() {
         userName = intent.getStringExtra("UserName")
-
     }
 
     override fun onClick(v: View) {
@@ -81,7 +80,6 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             val intent = Intent(this, GetYourCodeAct::class.java)
-                            vm.otpModel.set(apiRenderState.result.data.otpCount.toInt())
                             intent.putExtra("SendOTPModel", apiRenderState.result.data)
                             intent.putExtra("UserName", userName)
                             this.startActivity(intent)
