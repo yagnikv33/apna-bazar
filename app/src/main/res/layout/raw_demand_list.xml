@@ -46,7 +46,7 @@
 
                     <TextView
                         android:id="@+id/_demand_list_no"
-                        style="@style/demand_list_label_status"
+                        style="@style/title_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="1"
@@ -87,11 +87,12 @@
                         app:cardCornerRadius="@dimen/_3sdp">
 
                         <TextView
-                            style="@style/demand_list_status"
-                            android:layout_width="wrap_content"
+                            style="@style/bold_btn_status"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_16sdp"
                             android:padding="@dimen/_4sdp"
+                            android:textAlignment="center"
                             android:text="@string/txt_edit" />
 
                     </androidx.cardview.widget.CardView>
@@ -110,14 +111,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/card_edit_status">
 
                         <TextView
-                            style="@style/demand_list_status"
+                            style="@style/bold_btn_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_3sdp"
                             android:layout_gravity="center"
                             android:layout_marginHorizontal="@dimen/_6sdp"
                             android:text="@{demandListData.demandstatus}"
-                            tools:text="PENDING" />
+                            tools:text="" />
 
                     </androidx.cardview.widget.CardView>
 
