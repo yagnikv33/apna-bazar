@@ -17,7 +17,9 @@
     </data>
 
     <LinearLayout
+        android:paddingHorizontal="@dimen/_10dp"
         android:id="@+id/main_view"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{click::onClick}"
@@ -27,18 +29,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_16sdp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_130sdp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="3"
                 android:text="@{data.subname}"
                 android:textAlignment="textStart"
-                tools:text="MERYGOLD ENGLISHMEDIUM" />
+                tools:text="MERYGOLD ENGLISHMEDIUM MERYGOLD ENGLISHMEDIUMMERYGOLD ENGLISHMEDIUM" />
 
             <TextView
                 android:id="@+id/tv_branch"
@@ -47,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{data.qty}"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 tools:text="20" />
 
             <TextView
@@ -56,7 +59,7 @@
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="@{data.thock}"
+                android:text="@{data.bunchqty}"
                 android:textAlignment="textEnd"
                 tools:text="20" />
 
@@ -67,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:paddingBottom="@dimen/_10sdp"
             android:onClick="@{click::onClick}"
             android:orientation="horizontal">
 
