@@ -115,7 +115,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     }
 
     fun addDemand(
-        itemslist: JsonObject,
+        itemslist: List<DummyAddDemand>,
         demanddate: String,
         userid: String,
         totalamt: String,

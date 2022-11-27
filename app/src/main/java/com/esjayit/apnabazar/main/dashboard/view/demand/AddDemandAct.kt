@@ -412,14 +412,18 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         subectDemandData?.toTypedArray()?.let {
 
-//                            vm.addDemand(
-//                                demanddate = binding.etDate.text.toString(),
-//                                userid = prefs.user.userId,
-//                                totalamt = totalAmount.toString(),
-//                                installid = prefs.installId.orEmpty(),
-//                                itemslist = obj
-//                            )
+
                         }
+
+                        vm.addDemand(
+                            demanddate = binding.etDate.text.toString(),
+                            userid = prefs.user.userId,
+                            totalamt = totalAmount.toString(),
+                            installid = prefs.installId.orEmpty(),
+                            itemslist = subectDemandData!!.toList()
+                        )
+
+                        "List Size: ${subectDemandData!!.size}".logE()
                     }
                 }
             }
@@ -549,8 +553,18 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                 }
             }
-            else -> {
-                progressDialog.hideProgress()
+            ApiRenderState.Idle -> {
+                hideProgress()
+            }
+            ApiRenderState.Loading -> {
+                showProgress()
+            }
+            is ApiRenderState.ValidationError -> {
+                "Error API CALLING".logE()
+            }
+            is ApiRenderState.ApiError<*> -> {
+                progressDialog?.showProgress()
+                "Error API CALLING API ERROR".logE()
             }
         }
     }
