@@ -131,13 +131,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     subjectDataAdapter?.addData(localSubjectData, isClear = true)
                     rvUtil?.rvAdapter?.notifyDataSetChanged()
 
-                } else {
-                    "Searched: vm size ${vm.subjectData.size}".logE()
-                    subjectDataAdapter?.addData(
-                        vm.subjectData,
-                        isClear = true
-                    )
-                    rvUtil?.rvAdapter?.notifyDataSetChanged()
                 }
             }
 
@@ -147,11 +140,13 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                 searchKeyword = searchText.toString()
 
-                if (searchKeyword.isEmpty() || searchKeyword.isBlank()) {
+                if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+
                     subjectDataAdapter?.addData(
-                        vm.subjectData,
+                        savedList,
                         isClear = true
                     )
+
                     rvUtil?.rvAdapter?.notifyDataSetChanged()
                 }
             }
@@ -178,18 +173,10 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             }
                         }
                         subjectDataAdapter?.addData(localSubjectData, isClear = true)
+                        //subjectDataAdapter?.notifyDataSetChanged()
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
 
                     }
-//                    else {
-//                        "Searched: vm size ${vm.subjectData.size}".logE()
-//                        subjectDataAdapter?.addData(
-//                            vm.subjectData,
-//                            isClear = true
-//                        )
-//                        rvUtil?.rvAdapter?.notifyDataSetChanged()
-//                    }
-
                     return@setOnEditorActionListener true
                 }
 
@@ -498,7 +485,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         apiRenderState.result.data?.itemlist?.map {
                             it?.mediumItem = binding.etModule.text.toString()
                             vm.subjectData.add(it)
-                            //localSubjectData.add(it)
+                            savedList.add(it)
                         }
 
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
@@ -522,7 +509,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
 
                     is EditDemandDataResponse -> {
-                        // "Response: edit demand - ${apiRenderState.result.data}".logE()
 
                         vm.editDemandData.clear()
 
