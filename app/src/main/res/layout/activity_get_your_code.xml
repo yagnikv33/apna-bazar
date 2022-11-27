@@ -14,6 +14,10 @@
 <!--        <variable-->
 <!--            name="otpModel"-->
 <!--            type="com.esjayit.apnabazar.data.model.response.SendOTPResponse" />-->
+
+        <variable
+            name="vm"
+            type="com.esjayit.apnabazar.main.entrymodule.model.EntryVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,23 +49,43 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.57">
 
-            <in.aabhasjindal.otptextview.OtpTextView
+            <com.freedomotpview.OTPView
                 android:id="@+id/otpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                app:bar_active_color="@color/red"
-                app:bar_enabled="true"
-                app:bar_height="2dp"
-                app:height="@dimen/_38sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.27999997"
-                app:length="6"
-                app:otp_text_size="@dimen/_16ssp"
-                app:width="@dimen/_32sdp" />
+                app:otpLength="6"
+                app:otpHintText="0"
+                android:lineSpacingExtra="@dimen/_2sdp"
+                app:otpHintTextColor="@color/gray"
+                app:otpTextColor="@color/black"
+                app:otpTextSize="8dp"
+                android:paddingBottom="@dimen/_15sdp"
+                app:otpHeight="@dimen/_34sdp"
+                app:otpWidth="40dp"
+                 />
+
+<!--            <in.aabhasjindal.otptextview.OtpTextView-->
+<!--                android:id="@+id/otpView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:bar_active_color="@color/red"-->
+<!--                app:bar_enabled="true"-->
+<!--                app:bar_height="2dp"-->
+<!--                app:height="@dimen/_38sdp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.27999997"-->
+<!--                app:length="6"-->
+<!--                app:otp_text_size="@dimen/_16ssp"-->
+<!--                app:width="@dimen/_32sdp" />-->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_not_receive_otp"

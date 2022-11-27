@@ -279,21 +279,21 @@
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Total Amount : 7450.00" />
+                tools:text="Total Amount : " />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_discount"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Disc.(12.5 %)   :  500" />
+                tools:text="Disc.(12.5 %)   : " />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_round_Off"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Round Off   :  0.50" />
+                tools:text="Round Off   :  " />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_grand_total"
@@ -302,7 +302,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_14sdp"
-                tools:text="Grand Total : 7450.00"
+                tools:text="Grand Total : "
                 android:textSize="@dimen/_16ssp" />
 
         </LinearLayout>
