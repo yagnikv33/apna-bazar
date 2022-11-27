@@ -19,6 +19,7 @@ class AppConstants {
             const val RETURN_MODEL = "return_model"
             const val RETURN_ID = "return_id"
             const val RETURN_DATE = "return_date"
+            const val ITEM_ID = "item_id"
 
             //status code
             const val RETURN_LIST_CODE = 101

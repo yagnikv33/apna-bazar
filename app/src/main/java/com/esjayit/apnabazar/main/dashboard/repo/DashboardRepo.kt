@@ -1,11 +1,14 @@
 package com.esjayit.apnabazar.main.dashboard.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseRepo
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import org.json.JSONObject
 
 class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     //For Home Screen API Data
@@ -233,7 +236,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //Add Demand
     suspend fun addDemand(
-        itemList: Array<DummyAddDemand>,
+        itemList: JsonObject,
         demanddate: String,
         userid: String,
         totalamt: String,
@@ -246,14 +249,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 demanddate = demanddate,
                 totalamt = totalamt,
                 installid = installid,
-                itemList = JsonObject().apply {
-                    itemList.forEach {this.addProperty("itemid", it.itemId)
-                        this.addProperty("qty", it.qty)
-                        this.addProperty("rate", it.rate)
-                        this.addProperty("amount", it.amount)
-                        this.addProperty("bunchqty", it.bunch)
-                    }
-                }
+                itemList = itemList
             )
         })) {
             if (data == null)
@@ -261,6 +257,52 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             this.data
         }
     }
+
+    //Add Demand
+    suspend fun addDemandData(
+        itemList: List<DummyAddDemand>,
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        installid: String,
+        versioncde: String = BuildConfig.VERSION_CODE.toString(),
+        packagename: String = BuildConfig.APPLICATION_ID,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.addDemandData(JsonObject().apply {
+                this.addProperty("demanddate", demanddate)
+                this.addProperty("userid", userid)
+                this.addProperty("totalamt", totalamt)
+                this.addProperty("installid", installid)
+                this.add("itemList", JsonArray().apply {
+                    itemList.forEach {
+                        this.add(it.qty)
+                        this.add(it.bunch)
+                        this.add(it.itemId)
+                        this.add(it.rate)
+                        this.add(it.amount)
+                        this.add(it.standard)
+                        this.add(it.subjectName)
+                    }
+                })
+                this.addProperty("versioncde", versioncde)
+                this.addProperty("packagename", packagename)
+            })
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+//  @Field("demanddate") demanddate: String,
+//        @Field("userid") userid: String,
+//        @Field("totalamt") totalamt: String,
+//        @Query("itemslist") itemList: JsonObject,
+//        @Field("installid") installid: String,
+//        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
+//        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
 
     //Fetch Data For Edit Demand
     suspend fun getEditDemandData(
@@ -284,7 +326,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //For Edit Demand API
     suspend fun editDemand(
-        itemList: Array<DummyAddDemand>,
+        itemList: Array<DummyEditDemand>,
         demandid: String,
         demanddate: String,
         userid: String,
@@ -301,11 +343,11 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 installid = installid,
                 itemList = JsonObject().apply {
                     itemList.forEach {
-                        this.addProperty("itemid", it.itemId)
+                        this.addProperty("itemid", it.itemid)
                         this.addProperty("qty", it.qty)
                         this.addProperty("rate", it.rate)
                         this.addProperty("amount", it.amount)
-                        this.addProperty("bunchqty", it.bunch)
+                        this.addProperty("bunchqty", it.bunchqty)
                     }
                 }
             )
@@ -406,6 +448,26 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
                 userid = userid,
                 installid = installid,
                 returnid = returnid
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    suspend fun getSingleEditItemDetail(
+        userid: String,
+        itemid: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): SingleEditItemResponse? {
+        return with(apiCall(executable = {
+            apiCall.getSingleEditItemDetail(
+                userid = userid,
+                itemid = itemid,
+                installid = installid
+
             )
         })) {
             if (data == null)

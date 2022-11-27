@@ -30,10 +30,14 @@ import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityAddDemandBinding
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
+
 
 class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.activity_add_demand) {
 
@@ -69,7 +73,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     var demandNo: Int? = null
     var isFromEditDemand = false
     var subectDemandData: List<DummyAddDemand>? = null
-    var editDemandData: List<DummyAddDemand>? = null
+    var editDemandData: List<DummyEditDemand>? = null
+    var clickedPos = -1
+    val l = mutableListOf<Int?>()
 
     override fun init() {
 
@@ -91,6 +97,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             binding.apply {
                 tvHeader.text = getString(R.string.txt_edit_demand)
             }
+            progressDialog.showProgress()
         } else {
             addDemandRcv()
         }
@@ -148,7 +155,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             br = BR.data,
             clickListener = { v, t, p ->
                 when (v.id) {
-                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
+                    R.id.main_view, R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
                         vm.subjectData.forEach {
                             it?.isTextVisible = false
                         }
@@ -156,18 +163,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         t?.isTextVisible = !t?.isTextVisible!!
 
                         rvUtil?.notifyAdapter()
-                    }
-                    R.id.main_view -> {
-                        vm.subjectData.forEach {
-                            it?.isTextVisible = false
-                        }
-
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        rvUtil?.notifyAdapter()
-                    }
-                    R.id.edt_qty -> {
-                        "CLICK tab".logE()
                     }
                 }
             },
@@ -261,24 +256,23 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             list = vm.editDemandData,
             br = BR.data,
             clickListener = { v, t, p ->
+
                 when (v.id) {
-                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
-                        vm.subjectData.forEach {
+                    R.id.main_view, R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
+                        clickedPos = p
+                        vm.getSingleEditItemDetail(
+                            userid = prefs.user.userId,
+                            itemid = t?.itemid.orEmpty(),
+                            installid = prefs.installId.orEmpty()
+                        )
+
+                        vm.editDemandData.forEach {
                             it?.isTextVisible = false
                         }
 
                         t?.isTextVisible = !t?.isTextVisible!!
 
-                        rvUtil?.notifyAdapter()
-                    }
-                    R.id.main_view -> {
-                        vm.subjectData.forEach {
-                            it?.isTextVisible = false
-                        }
-
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        rvUtil?.notifyAdapter()
+                        editRvUtil?.notifyAdapter()
                     }
                 }
             },
@@ -298,7 +292,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             }
         )
 
-        rvUtil = editProfileDataAdapter?.let {
+        editRvUtil = editProfileDataAdapter?.let {
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
@@ -356,43 +350,30 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 progressDialog.showProgress()
 
                 //From EditDemand
-                if (isFromEditDemand) {
-                    editDemandData =
-                        editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                            DummyAddDemand(
-                                subjectName = it?.subname,
-                                qty = it?.qty,
-                                bunch = it?.thock,
-                                standard = it?.std,
-                                itemId = it?.itemid,
-                                rate = it?.rate,
-                                amount = getAmount(it?.rate?.toFloat(), it?.qty?.toInt()).toString()
-                            )
-                        }
 
-                    if (editDemandData != null) {
-                        var totalQty = 0
-                        val totalAmount: Int = 0
-                        var amt = 0
+                editDemandData =
+                    editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                        DummyEditDemand(
+                            itemid = it?.itemid,
+                            qty = it?.qty,
+                            rate = it?.rate,
+                            amount = it?.amount,
+                            bunchqty = it?.bunchqty
+                        )
+                    }
 
-                        AppConstants.App.itemlistItem.addAll(editDemandData!!)
+                if (editDemandData != null) {
+                    val totalAmount: Int = 0
 
-                        editDemandData?.forEachIndexed { index, itemlistItem ->
-                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
-                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
-                                ?.times(itemlistItem.qty?.toInt()!!)!!
-                        }
-
-                        editDemandData?.toTypedArray()?.let {
-                            vm.editDemand(
-                                demanddate = binding.etDate.text.toString(),
-                                userid = prefs.user.userId,
-                                totalamt = totalAmount.toString(),
-                                installid = prefs.installId.orEmpty(),
-                                itemslist = it,
-                                demandid = did.orEmpty()
-                            )
-                        }
+                    editDemandData?.toTypedArray()?.let {
+                        vm.editDemand(
+                            demanddate = binding.etDate.text.toString(),
+                            userid = prefs.user.userId,
+                            totalamt = totalAmount.toString(),
+                            installid = prefs.installId.orEmpty(),
+                            itemslist = it,
+                            demandid = did.orEmpty()
+                        )
                     }
 
                 } else {
@@ -426,19 +407,18 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         totalAmount = amt * totalQty
 
+//                        val gson = Gson()
+//                        gson.toJson(subectDemandData)
+
                         subectDemandData?.toTypedArray()?.let {
 
-                            "AddDemnand Data: ${binding.etDate.text}, ${prefs.user.userId}, $totalAmount , ${
-                                prefs.installId.orEmpty()
-                            }, ${it.size}".logE()
-
-                            vm.addDemand(
-                                demanddate = binding.etDate.text.toString(),
-                                userid = prefs.user.userId,
-                                totalamt = totalAmount.toString(),
-                                installid = prefs.installId.orEmpty(),
-                                itemslist = it
-                            )
+//                            vm.addDemand(
+//                                demanddate = binding.etDate.text.toString(),
+//                                userid = prefs.user.userId,
+//                                totalamt = totalAmount.toString(),
+//                                installid = prefs.installId.orEmpty(),
+//                                itemslist = obj
+//                            )
                         }
                     }
                 }
@@ -500,16 +480,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         subjectItem = castedSelectStandardList?.get(0).toString()
 
                         if (isFromEditDemand) {
-                            editDemandData?.toTypedArray()?.let {
-                                vm.editDemand(
-                                    demandid = did.orEmpty(),
-                                    userid = prefs?.user?.userId,
-                                    installid = prefs?.installId.orEmpty(),
-                                    demanddate = demandDate.orEmpty(),
-                                    totalamt = "42342",
-                                    itemslist = it
-                                )
-                            }
+                            vm.getEditDemandData(
+                                userid = prefs.user.userId,
+                                demandid = did.orEmpty(),
+                                installid = prefs.installId.orEmpty()
+                            )
                         } else {
                             castedSelectStandardList?.get(0)?.let {
                                 vm.getSubjectListData(
@@ -539,7 +514,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     //For Add Demand
                     is CommonResponse -> {
 
-                        //"Response: ${apiRenderState.result}".logE()
+                        "Response: ${apiRenderState.result}".logE()
 
                         successToast(apiRenderState.result.message.toString(), callback = {
                             if (it) {
@@ -551,17 +526,26 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
 
                     is EditDemandDataResponse -> {
-                        "Response: edit demand - ${apiRenderState.result.data}".logE()
+                        // "Response: edit demand - ${apiRenderState.result.data}".logE()
 
                         vm.editDemandData.clear()
 
                         apiRenderState.result.data?.demand?.itemslist?.map {
                             vm.editDemandData.add(it)
-
-                            //localSubjectData.add(it)
                         }
                         editRvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                        editProfileDataAdapter?.list?.forEach {
+                            l.add(it?.qty?.toInt())
+                        }
+
                         progressDialog.hideProgress()
+                    }
+
+                    is SingleEditItemResponse -> {
+                        if (clickedPos >= 0) {
+                            rvUtil?.rvAdapter?.notifyItemChanged(clickedPosition)
+                        }
                     }
                 }
             }

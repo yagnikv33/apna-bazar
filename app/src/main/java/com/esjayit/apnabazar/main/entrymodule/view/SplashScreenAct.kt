@@ -41,6 +41,8 @@ class SplashScreenAct :
         "isRooted : ${isRooted}".logE()
         "UUID ${Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)} RandomUUID : ${uuid}".logE()
         checkForLaunchAPIs()
+
+        "Pref: ${prefs.authToken}".logE()
     }
 
     //For Notification Change One Signal
