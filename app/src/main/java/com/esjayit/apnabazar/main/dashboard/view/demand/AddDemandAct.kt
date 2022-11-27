@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -30,10 +31,15 @@ import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityAddDemandBinding
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import org.json.JSONArray
 import kotlinx.android.synthetic.main.raw_demand_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
@@ -51,6 +57,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
+    var listData: ArrayList<AddDemandForAPI>? = ArrayList()
 
     var subjectItem: String = ""
     var mediumItem: String = ""
@@ -395,27 +402,20 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
                             amt = itemlistItem.rate?.toFloat()?.roundToInt()
                                 ?.times(itemlistItem.qty?.toInt()!!)!!
+
+                            listData?.add(
+                                AddDemandForAPI(itemid = itemlistItem.itemId, qty = itemlistItem.qty, rate = itemlistItem.rate, amount =  ((itemlistItem.qty?.toInt()!! * itemlistItem.rate?.toFloat()?.roundToInt()!!).toString()), bunchqty = itemlistItem.bunch))
                         }
 
                         totalAmount = amt * totalQty
 
-//                        val gson = Gson()
-//                        gson.toJson(subectDemandData)
-
-                        subectDemandData?.toTypedArray()?.let {
-
-
-                        }
-
-                        vm.addDemand(
+                        vm.addDemandString(
                             demanddate = binding.etDate.text.toString(),
                             userid = prefs.user.userId,
                             totalamt = totalAmount.toString(),
                             installid = prefs.installId.orEmpty(),
-                            itemslist = subectDemandData!!.toList()
+                            itemslist = Gson().toJson(listData)
                         )
-
-                        "List Size: ${subectDemandData!!.size}".logE()
                     }
                 }
             }
@@ -424,7 +424,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             }
         }
     }
-
 
     private fun getAmount(rate: Float?, qty: Int?): Int {
         if (rate != null) {
@@ -494,7 +493,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                     }
                     is GetDemandDataResponse -> {
-
                         vm.subjectData.clear()
                         "DEMAND DATA : ${apiRenderState.result.data}".logE()
                         apiRenderState.result.data?.itemlist?.map {
@@ -511,14 +509,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     is CommonResponse -> {
 
                         "Response: ${apiRenderState.result}".logE()
-
-                        successToast(apiRenderState.result.message.toString(), callback = {
-                            if (it) {
-                                finishAct()
-                            }
-                        })
-
-                        progressDialog.hideProgress()
+                        val statusCode = apiRenderState.result.statusCode
+                        if (statusCode == AppConstants.Status_Code.Success) {
+                            successToast(apiRenderState.result.message.toString(), callback = {
+                                if (it) {
+                                    finishAct()
+                                }
+                            })
+                        }  else  {
+                            errorToast(apiRenderState.result.message!!)
+                        }
                     }
 
                     is EditDemandDataResponse -> {

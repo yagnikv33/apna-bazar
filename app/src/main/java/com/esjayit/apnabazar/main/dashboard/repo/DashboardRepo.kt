@@ -235,7 +235,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //Add Demand
     suspend fun addDemand(
-        itemList: List<DummyAddDemand>,
+        itemList: JsonObject,
         demanddate: String,
         userid: String,
         totalamt: String,
@@ -243,21 +243,52 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         onError: (ApiResult<Any>) -> Unit
     ): CommonResponse? {
         return with(apiCall(executable = {
-            apiCall.addDemand(
+            apiCall.addDemandString(
                 userid = userid,
                 demanddate = demanddate,
                 totalamt = totalamt,
                 installid = installid,
-                itemList = JsonObject().apply {
-                    itemList.forEach {
-                        this.addProperty("itemId", it.itemId)
-                        this.addProperty("qty", it.qty)
-                        this.addProperty("rate", it.rate)
-                        this.addProperty("amount", it.amount)
-                        this.addProperty("bunchqty", it.bunch)
-                    }
-                }
+                itemList = itemList
             )
+
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //Add Demand
+    suspend fun addDemandData(
+        itemList: List<DummyAddDemand>,
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        installid: String,
+        versioncde: String = BuildConfig.VERSION_CODE.toString(),
+        packagename: String = BuildConfig.APPLICATION_ID,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.addDemandData(JsonObject().apply {
+                this.addProperty("demanddate", demanddate)
+                this.addProperty("userid", userid)
+                this.addProperty("totalamt", totalamt)
+                this.addProperty("installid", installid)
+                this.add("itemList", JsonArray().apply {
+                    itemList.forEach {
+                        this.add(it.qty)
+                        this.add(it.bunch)
+                        this.add(it.itemId)
+                        this.add(it.rate)
+                        this.add(it.amount)
+                        this.add(it.standard)
+                        this.add(it.subjectName)
+                    }
+                })
+                this.addProperty("versioncde", versioncde)
+                this.addProperty("packagename", packagename)
+            })
         })) {
             if (data == null)
                 onError.invoke(ApiResult(null, resultType, error, resCode = resCode))

@@ -114,8 +114,8 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
         }
     }
 
-    fun addDemand(
-        itemslist: List<DummyAddDemand>,
+    fun addDemandString(
+        itemslist: String,
         demanddate: String,
         userid: String,
         totalamt: String,
@@ -124,7 +124,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
-            repo.addDemand(
+            repo.addDemandString(
                 itemList = itemslist,
                 userid = userid,
                 totalamt = totalamt,
