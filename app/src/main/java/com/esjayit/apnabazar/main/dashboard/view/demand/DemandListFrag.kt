@@ -16,7 +16,6 @@ import com.esjayit.apnabazar.data.model.response.DemandListResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseFrag
-import com.esjayit.apnabazar.main.base.IOnBackPressed
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
@@ -65,15 +64,27 @@ class DemandListFrag :
                 when (t?.demandcolorcode) {
                     "0" -> {
                         //For when edit demand
-                        startActivity(
-                            AddDemandAct::class.java,
-                            bundle = bundleOf(
-                                EDIT_DEMAND_DATA to t.did,
-                                FOR_EDIT_DEMAND to true,
-                                DEMAND_DATE to t.demanddate
-                            )
-                        )
-
+                        when (v.id) {
+                            R.id.card_edit_status -> {
+                                startActivity(
+                                    AddDemandAct::class.java,
+                                    bundle = bundleOf(
+                                        EDIT_DEMAND_DATA to t.did,
+                                        FOR_EDIT_DEMAND to true,
+                                        DEMAND_DATE to t.demanddate
+                                    )
+                                )
+                            }
+                            else -> {
+                                startActivity(
+                                    ViewDemandAct::class.java,
+                                    bundle = bundleOf(
+                                        VIEW_DEMAND_ID to t.did,
+                                        DEMAND_NO to t.demandno
+                                    )
+                                )
+                            }
+                        }
                     }
                     "1" -> {
                         //For when only view demand
@@ -117,7 +128,7 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                         "Response: ${apiRenderState.result.data}".logE()
+                        "Response: ${apiRenderState.result.data}".logE()
 
                         apiRenderState.result.data?.demandlist?.map {
                             vm.demandList.add(it)

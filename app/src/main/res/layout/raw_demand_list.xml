@@ -79,6 +79,7 @@
                         android:layout_marginBottom="@dimen/_6sdp"
                         android:visibility="invisible"
                         tools:visibility="visible"
+                        android:onClick="@{click::onClick}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
