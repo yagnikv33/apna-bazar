@@ -101,6 +101,15 @@
                 android:textAlignment="textStart" />
 
             <TextView
+                android:id="@+id/tv_bunch"
+                style="@style/add_demand_sub_header_row"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@{`Bunch :`  + data.maxretu}"
+                android:textAlignment="textStart" />
+
+            <TextView
                 android:id="@+id/tv_standard_sub_header"
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="@dimen/_90sdp"

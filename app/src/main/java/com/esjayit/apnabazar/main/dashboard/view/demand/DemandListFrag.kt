@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import com.esjayit.BR
 import com.esjayit.R
+import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
@@ -22,6 +23,8 @@ import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
+import com.esjayit.apnabazar.main.dashboard.view.stock_view.ReturnListAct
+import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -60,6 +63,15 @@ class DemandListFrag :
 //            false
 //        }
 //    }
+
+    override fun onClick(v: View) {
+        super.onClick(v)
+        when (v) {
+            binding.btnNotification -> {
+                startActivity(NotificationAct::class.java)
+            }
+        }
+    }
 
     private fun setRcv() {
         BaseRvBindingAdapter(

@@ -30,16 +30,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="#1A172238"
+            app:cardElevation="0dp"
             app:cardCornerRadius="@dimen/_12sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
@@ -59,27 +60,32 @@
                         style="@style/demand_list_label_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_14sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
                         tools:text="BODY"
                         android:text="@{notiListData.body}" />
 
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="@dimen/_110sdp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:id="@+id/noti_download_view"
+                    android:layout_width="@dimen/_60sdp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:visibility="visible"
                     android:background="@color/transparent"
                     android:padding="@dimen/_6sdp">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/download_btn"
-                        android:layout_width="wrap_content"
+                        tools:visibility="visible"
+                        android:onClick="@{click::onClick}"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginHorizontal="@dimen/_14sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:visibility="visible"
+                        app:cardElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -87,10 +93,8 @@
                         app:cardCornerRadius="@dimen/_2sdp">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/_16sdp"
-                            android:padding="@dimen/_4sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             tools:text="Download"
                             android:fontFamily="@font/calibri_bold"
                             android:shadowColor="@color/transparent"

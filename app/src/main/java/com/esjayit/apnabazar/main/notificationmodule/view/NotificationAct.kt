@@ -40,13 +40,15 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.view.View
 import android.webkit.URLUtil
+import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
+import com.esjayit.apnabazar.main.dashboard.view.demand.ViewDemandAct
 import android.app.DownloadManager as DownloadManager1
 
 
 class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Layouts.activity_notification) {
 
     override val vm: NotificationVM by viewModel()
-    override val hasProgress: Boolean = true
+    override val hasProgress: Boolean = false
     val progressDialog: CustomProgress by lazy { CustomProgress(this) }
     lateinit var notificationListAdapter: BaseRvBindingAdapter<NotificationlistItem?>
     var rvUtil: RvUtil? = null
@@ -83,7 +85,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                 ), 1
             )
         } else {
-            progressDialog?.showProgress()
+//            progressDialog?.showProgress()
             writeAcess = true
         }
     }
@@ -121,21 +123,33 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                 //Read API Call
                 //Temp Check PDF Download
 //                downloadPDF(url = "http://img.esjaysoftware.com/commonimages/Apnabazar/Apnabazar_18_(27-07-2022).pdf")
-                if (t?.isread == "0") {
-                    if (!t?.url.isNullOrEmpty()) {
-                        downloadPDF(url = t?.url!!)
+                when (v.id) {
+                    R.id.download_btn -> {
+                        if (!t?.url.isNullOrEmpty()) {
+                            downloadPDF(url = t?.url!!)
+                        }
                     }
-                    vm?.readNotification(inboxId = t?.inboxid.toString(), userId = prefs.user.userId!!, installId = prefs.installId!!)
-                } else {
-                    errorToast("Already Read Message")
+                    R.id.ll_main_noti_list -> {
+                        if (t?.isread == "0") {
+                            vm?.readNotification(inboxId = t?.inboxid.toString(), userId = prefs.user.userId!!, installId = prefs.installId!!)
+                        } else {
+                            errorToast("Already Read Message")
+                        }
+                    }
+                    else -> {
+                        if (t?.isread == "0") {
+                            vm?.readNotification(inboxId = t?.inboxid.toString(), userId = prefs.user.userId!!, installId = prefs.installId!!)
+                        } else {
+                            errorToast("Already Read Message")
+                        }
+                    }
                 }
-
             },
             viewHolder = { v, t, p ->
                 if(!t?.url.isNullOrEmpty()) {
-                    v.findViewById<ConstraintLayout>(R.id.download_btn_view).visibility = VISIBLE
+                    v.findViewById<ConstraintLayout>(R.id.noti_download_view).visibility = VISIBLE
                 } else {
-                    v.findViewById<ConstraintLayout>(R.id.download_btn_view).visibility = GONE
+                    v.findViewById<ConstraintLayout>(R.id.noti_download_view).visibility = GONE
                 }
             }
         ).also { notificationListAdapter = it }
@@ -173,7 +187,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
     private fun onDownloadComplete() {
         val onComplete = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-//                Toast.makeText(context,"Pdf downloaded",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Pdf downloaded",Toast.LENGTH_LONG).show()
             }
         }
         registerReceiver(onComplete, IntentFilter(android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE))
@@ -208,11 +222,11 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                     is ReadNotificationResponse -> {
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
-                            successToast(apiRenderState.result.message)
+//                            successToast(apiRenderState.result.message)
                             "Response: ${apiRenderState.result.data}".logE()
                         } else {
-                            errorToast(apiRenderState.result.message)
-                            "Error : Pwd ACT ${apiRenderState.result.message}".logE()
+//                            errorToast(apiRenderState.result.message)
+                            "Error : Noti ACT ${apiRenderState.result.message}".logE()
                         }
                     }
                 }

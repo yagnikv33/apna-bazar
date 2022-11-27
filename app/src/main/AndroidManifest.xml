@@ -4,9 +4,6 @@
     package="com.esjayit">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -21,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:replace="android:label"
         tools:targetApi="n">
@@ -37,10 +35,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-      <!--  <activity
+       <activity
             android:name="com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct"
             android:exported="false"
-            android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"

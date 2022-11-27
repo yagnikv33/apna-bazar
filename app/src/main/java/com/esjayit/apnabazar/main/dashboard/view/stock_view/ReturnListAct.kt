@@ -87,13 +87,13 @@ class ReturnListAct :
 
                         t?.isTextVisible = !t?.isTextVisible!!
 
+                        vm.getReturnSingleItem(userid = prefs.user.userId!!, installid = prefs.installId.orEmpty(), itemId = t?.itemid.orEmpty())
                         rvUtil?.notifyAdapter()
                     }
                     R.id.main_view -> {
                         vm.returnDataList.forEach {
                             it?.isTextVisible = false
                         }
-
                         t?.isTextVisible = !t?.isTextVisible!!
 
                         rvUtil?.notifyAdapter()
@@ -266,20 +266,20 @@ class ReturnListAct :
                     is GetReturnItemListResponse -> {
 
                         vm.returnList.clear()
-                        for (i in 1..15) {
-                            vm.returnDataList.add(
-                                ReturnitemsItem(
-                                    itemid = "123",
-                                    buyqty = "15",
-                                    rate = "100",
-                                    maxretu = "5",
-                                    subname = "MARIGOLD",
-                                    subcode = "1",
-                                    retuqty = "12",
-                                    true
-                                )
-                            )
-                        }
+//                        for (i in 1..15) {
+//                            vm.returnDataList.add(
+//                                ReturnitemsItem(
+//                                    itemid = "123",
+//                                    buyqty = "15",
+//                                    rate = "100",
+//                                    maxretu = "5",
+//                                    subname = "MARIGOLD",
+//                                    subcode = "1",
+//                                    retuqty = "12",
+//                                    true
+//                                )
+//                            )
+//                        }
                         apiRenderState.result.data?.returnitems?.map {
                             vm.returnDataList.add(it)
                         }

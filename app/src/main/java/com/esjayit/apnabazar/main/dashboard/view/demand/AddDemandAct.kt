@@ -408,7 +408,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         AppConstants.App.itemlistItem.addAll(subectDemandData!!)
                         subectDemandData?.forEachIndexed { index, itemlistItem ->
-                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
+                            totalQty =+ itemlistItem.qty?.toInt()!!
+//                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
                             amt = itemlistItem.rate?.toFloat()?.roundToInt()
                                 ?.times(itemlistItem.qty?.toInt()!!)!!
 

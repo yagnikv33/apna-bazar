@@ -96,9 +96,9 @@ class ViewReturnAct :
                     is ViewBookReturnDataResponse -> {
                         vm.viewReturnList.clear()
                         "Response: viewBookReturn : ${apiRenderState.result}".logE()
-                        for (i in 1..15) {
-                            vm.viewReturnList.add(RetutranlistItem(tranid = null, standard = "ALL", amount = "1523.0", maxretu = "12", approvestatus = "0", subname = "MARIGOLD ENG", subcode = "EN", medium = "ENG", thock = "", itemid = "item", buyqty = "10", rate = "100", approvedate = "12-04-2022", retuqty = "8" ))
-                        }
+//                        for (i in 1..15) {
+//                            vm.viewReturnList.add(RetutranlistItem(tranid = null, standard = "ALL", amount = "1523.0", maxretu = "12", approvestatus = "0", subname = "MARIGOLD ENG", subcode = "EN", medium = "ENG", thock = "", itemid = "item", buyqty = "10", rate = "100", approvedate = "12-04-2022", retuqty = "8" ))
+//                        }
                         apiRenderState.result.data?.jsonMemberReturn?.retutranlist?.map {
                             if (it != null) {
                                 vm.viewReturnList.add(it)
