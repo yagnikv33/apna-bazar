@@ -455,7 +455,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is MediumResponse -> {
-
+                        progressDialog?.hideProgress()
                         castedMediumLanguageList = emptyArray()
                         mediumLanguage.clear()
                         apiRenderState.result.data?.mediumlist?.forEachIndexed { index, mediumlistItem ->
@@ -523,7 +523,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                     //For Add Demand
                     is CommonResponse -> {
-
                         "Response: ${apiRenderState.result}".logE()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -537,6 +536,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         } else {
                             errorToast(apiRenderState.result.message!!)
                         }
+                        progressDialog?.hideProgress()
                     }
                     is EditDemandDataResponse -> {
 
@@ -572,7 +572,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 "Error API CALLING".logE()
             }
             is ApiRenderState.ApiError<*> -> {
-                progressDialog.hideProgress()
+                progressDialog?.hideProgress()
                 "Error API CALLING API ERROR".logE()
                 //errorToast("Error Ocured")
             }

@@ -1,5 +1,6 @@
 package com.esjayit.apnabazar.main.base
 
+import com.esjayit.apnabazar.data.model.response.CommonResponse
 import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.HTTP_ERROR
