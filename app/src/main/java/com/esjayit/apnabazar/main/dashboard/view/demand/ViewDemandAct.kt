@@ -2,8 +2,6 @@ package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
@@ -11,7 +9,6 @@ import com.esjayit.apnabazar.AppConstants.App.BundleData.VIEW_DEMAND_ID
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem
 import com.esjayit.apnabazar.data.model.response.ViewDemandRes
-import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
@@ -62,42 +59,7 @@ class ViewDemandAct :
         viewDemandAdapter = BaseRvBindingAdapter(
             layoutId = R.layout.raw_view_demand,
             list = vm.viewDemandList,
-            br = BR.data,
-            clickListener = { v, t, p ->
-                when (v.id) {
-                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
-                        vm.subjectData.forEach {
-                            it?.isTextVisible = false
-                        }
-
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        rvUtil?.notifyAdapter()
-                    }
-                    R.id.main_view -> {
-                        vm.subjectData.forEach {
-                            it?.isTextVisible = false
-                        }
-
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        rvUtil?.notifyAdapter()
-                    }
-                }
-            },
-            viewHolder = { v, t, p ->
-                /** Ime DONE Action */
-                v.findViewById<EditText>(R.id.edt_qty)
-                    .setOnEditorActionListener { v, actionId, event ->
-
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            v.hideSoftKeyboard()
-                            return@setOnEditorActionListener true
-                        }
-
-                        false
-                    }
-            }
+            br = BR.data
         )
 
         rvUtil = viewDemandAdapter?.let {
@@ -129,7 +91,7 @@ class ViewDemandAct :
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
@@ -139,11 +101,7 @@ class ViewDemandAct :
 //                        val demand = apiRenderState.result.data?.demand
 //                        var list: List<ViewDemandItemslistItem?>? = null
 //                        val demand = ViewDemandDemand(discountamt = "120", partyname = "Abhishek Bakhai", demanddate = "26-11-2022", itemslist = list?.map {  ViewDemandItemslistItem(thock = "12", itemid = "123", std = "1", amount = "12321312", bunchqty = "11", rate = "1230", subname = "ENGMOOO", qty = "123", rank = "1", subcode = "1", medium = "ENG") }, viewdemanddate = "12-11-2022", demandid = "658", totalamt = "123450", billdate = "12-11-2022", grandtotal = "123440", demandno = "12", viewbilldate = "12-11-2022", roundoff = "0.50", billno = "1")
-//                        binding.etDate.setText(demand?.billdate.orEmpty())
-//                        binding.txtVTotalAmount.setText("Total Amount  : " + demand?.totalamt.orEmpty())
-//                        binding.txtVDiscount.setText("Disc.(12.5 %)   : " + demand?.discountamt.orEmpty())
-//                        binding.txtVRoundOff.setText("Round Off   : " + demand?.roundoff.orEmpty())
-//                        binding.txtVGrandTotal.setText("Grand Total  : " +demand?.grandtotal.orEmpty())
+
                         //"Response: ${apiRenderState.result}".logE()
 
                         vm.viewDemandList.clear()
@@ -152,6 +110,16 @@ class ViewDemandAct :
                             vm.viewDemandList.add(it)
                         }
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                        apiRenderState.result.data.let {
+                            binding.etDate.setText(it?.demand?.billdate.orEmpty())
+                            binding.txtVTotalAmount.text = "Total Amount  : " + it?.demand?.totalamt.orEmpty()
+                            binding.txtVDiscount.text = "Disc.(12.5 %)   : " + it?.demand?.discountamt.orEmpty()
+                            binding.txtVRoundOff.text = "Round Off   : " + it?.demand?.roundoff.orEmpty()
+                            binding.txtVGrandTotal.text = "Grand Total  : " + it?.demand?.grandtotal.orEmpty()
+                        }
+
+
 
                         "List Size: ${vm.viewDemandList.size}".logE()
                     }
