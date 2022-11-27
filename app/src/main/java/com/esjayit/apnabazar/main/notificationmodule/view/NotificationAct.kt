@@ -96,6 +96,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             1 -> {
                 if (!(grantResults.size > 0 && grantResults[0] === PackageManager.PERMISSION_GRANTED && grantResults[1] === PackageManager.PERMISSION_GRANTED)) {
@@ -212,6 +213,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                                 vm.notificationListData.add(it)
                             }
                             setRcv()
+                            successToast(apiRenderState.result.message.toString())
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                             "Error : Pwd ACT ${apiRenderState.result.message}".logE()

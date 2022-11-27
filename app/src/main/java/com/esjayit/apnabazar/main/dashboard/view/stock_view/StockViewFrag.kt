@@ -107,7 +107,6 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                             }
 
                             setRcv()
-
                             progressDialog.hideProgress()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
