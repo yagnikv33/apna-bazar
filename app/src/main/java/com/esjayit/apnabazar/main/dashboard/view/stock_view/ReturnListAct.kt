@@ -120,11 +120,7 @@ class ReturnListAct :
             RvUtil(
                 adapter = it,
                 rv = binding.rvReturnList,
-                decoration = RvItemDecoration.buildDecoration(
-                    this,
-                    R.dimen._8sdp,
-                    color = R.color.black
-                ),
+                decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, color = R.color.grey),
             )
         }
     }

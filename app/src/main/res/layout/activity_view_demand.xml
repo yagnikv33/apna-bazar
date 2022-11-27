@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:text="@string/tv_view_demand"
                 android:textAlignment="center" />
@@ -245,7 +246,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_subject_data"
+                android:id="@+id/rv_view_demand"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_4sdp"
@@ -277,21 +278,21 @@
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Amount : 7450.00" />
+                tools:text="Total Amount : 7450.00" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_discount"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Disc.(12.5 %)   :  500" />
+                tools:text="Disc.(12.5 %)   :  500" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_round_Off"
                 style="@style/view_demand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Round Off   :  0.50" />
+                tools:text="Round Off   :  0.50" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtV_grand_total"
@@ -300,7 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:text="Grand Total : 7450.00"
+                tools:text="Grand Total : 7450.00"
                 android:textSize="@dimen/_16ssp" />
 
         </LinearLayout>

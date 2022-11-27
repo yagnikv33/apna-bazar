@@ -71,7 +71,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_edit_status"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_62sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -97,7 +97,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_demand_status"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_64sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -112,7 +112,9 @@
                             style="@style/demand_list_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_4sdp"
+                            android:padding="@dimen/_3sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_6sdp"
                             android:text="@{demandListData.demandstatus}"
                             tools:text="PENDING" />
 

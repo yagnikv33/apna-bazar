@@ -12,7 +12,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     val subjectData = mutableListOf<ItemlistItem?>()
     val editDemandData = mutableListOf<ItemslistItem?>()
     var demandList = mutableListOf<DemandListItem?>()
-    var viewDemandList = mutableListOf<ItemslistItem?>()
+    var viewDemandList = mutableListOf<ViewDemandItemslistItem?>()
 
     fun getMediumList(
         userid: String,

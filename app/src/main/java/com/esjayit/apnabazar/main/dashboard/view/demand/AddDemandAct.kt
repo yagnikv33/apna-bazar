@@ -1,7 +1,7 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
 
-import  android.annotation.SuppressLint
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Build
 import android.text.Editable
@@ -15,7 +15,6 @@ import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
-import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
 import com.esjayit.apnabazar.AppConstants.App.BundleData.FOR_EDIT_DEMAND
 import com.esjayit.apnabazar.Layouts
@@ -64,7 +63,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     var clickedPosition = -1
     private lateinit var debounceListener: (String) -> Unit
-    private val addDemandList = hashSetOf<DummyAddDemand>()
     private lateinit var debounceListenerForRcv: (String) -> Unit
     var did: String? = null
     var demandDate: String? = null
@@ -248,7 +246,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
-                decoration = RvItemDecoration.buildDecoration(this, R.dimen._8sdp),
+                decoration = RvItemDecoration.buildDecoration(
+                    this,
+                    R.dimen._1sdp,
+                    color = R.color.grey
+                )
             )
         }
     }
@@ -300,7 +302,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
-                decoration = RvItemDecoration.buildDecoration(this, R.dimen._8sdp),
+                decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, R.color.grey),
             )
         }
     }
@@ -441,6 +443,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                 }
             }
+            binding.ivBack -> {
+                finishAct()
+            }
         }
     }
 
@@ -555,7 +560,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                             //localSubjectData.add(it)
                         }
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                        editRvUtil?.rvAdapter?.notifyDataSetChanged()
                         progressDialog.hideProgress()
                     }
                 }

@@ -14,6 +14,7 @@ import com.esjayit.apnabazar.data.model.response.RetutranlistItem
 import com.esjayit.apnabazar.data.model.response.ViewBookReturnDataResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
+import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
@@ -63,6 +64,7 @@ class ViewReturnAct :
         setRv()
     }
 
+    @SuppressLint("ResourceType")
     private fun setRv() {
         viewReturnAdapter = BaseRvBindingAdapter(
             layoutId = R.layout.raw_view_return,
@@ -73,6 +75,7 @@ class ViewReturnAct :
         rvUtil = RvUtil(
             adapter = viewReturnAdapter!!,
             rv = binding.rvViewReturn,
+            decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, color = R.color.grey)
         )
     }
 

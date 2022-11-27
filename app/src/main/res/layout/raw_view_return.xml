@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{click::onClick}"
-        android:background="@drawable/pipline_bottom"
         android:orientation="vertical">
 
         <LinearLayout
