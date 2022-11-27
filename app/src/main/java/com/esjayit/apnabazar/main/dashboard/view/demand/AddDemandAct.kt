@@ -78,7 +78,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         demandDate = bundel?.getString(DEMAND_DATE)
         isFromEditDemand = bundel?.getBoolean(FOR_EDIT_DEMAND) == true
 
-        "From Edit : ${bundel?.getString(EDIT_DEMAND_DATA)}, ${bundel?.getBoolean(FOR_EDIT_DEMAND)}, $demandDate, $demandNo".logE()
+        "From Edit : ${bundel?.getString(EDIT_DEMAND_DATA)}, ${bundel?.getBoolean(FOR_EDIT_DEMAND)}, $demandDate".logE()
 
         vm.apply {
             getMediumList(userid = prefs.user.userId, installid = prefs.installId.orEmpty())
@@ -298,7 +298,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             }
         )
 
-        rvUtil = subjectDataAdapter?.let {
+        rvUtil = editProfileDataAdapter?.let {
             RvUtil(
                 adapter = it,
                 rv = binding.rvSubjectData,
@@ -506,7 +506,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                     userid = prefs?.user?.userId,
                                     installid = prefs?.installId.orEmpty(),
                                     demanddate = demandDate.orEmpty(),
-                                    totalamt = "04-Oct-2022",
+                                    totalamt = "42342",
                                     itemslist = it
                                 )
                             }
@@ -539,13 +539,13 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     //For Add Demand
                     is CommonResponse -> {
 
-                        "Response: ${apiRenderState.result}".logE()
+                        //"Response: ${apiRenderState.result}".logE()
 
-                        // successToast(apiRenderState.result.message.toString(), callback = {
-                        //     if (it) {
-                        finishAct()
-                        //     }
-                        // })
+                        successToast(apiRenderState.result.message.toString(), callback = {
+                            if (it) {
+                                finishAct()
+                            }
+                        })
 
                         progressDialog.hideProgress()
                     }
