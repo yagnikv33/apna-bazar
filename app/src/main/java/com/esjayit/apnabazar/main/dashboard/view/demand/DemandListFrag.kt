@@ -16,12 +16,16 @@ import com.esjayit.apnabazar.data.model.response.DemandListResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseFrag
+import com.esjayit.apnabazar.main.base.IOnBackPressed
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+//class DemandListFrag :
+//    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list),
+//    IOnBackPressed {
 class DemandListFrag :
     BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list) {
 
@@ -29,6 +33,7 @@ class DemandListFrag :
     override val vm: DemandListVM by viewModel()
     lateinit var demandListAdapter: BaseRvBindingAdapter<DemandListItem?>
     var rvUtil: RvUtil? = null
+    var usedBackBtn: Boolean = false
 
     override fun init() {
 
@@ -38,6 +43,17 @@ class DemandListFrag :
         super.onResume()
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
     }
+
+//    override fun onBackPressed(): Boolean {
+//        return if (usedBackBtn) {
+//            //action not popBackStack
+//            usedBackBtn = false
+//            true
+//        } else {
+//            usedBackBtn = true
+//            false
+//        }
+//    }
 
     private fun setRcv() {
         BaseRvBindingAdapter(
@@ -63,7 +79,7 @@ class DemandListFrag :
                         //For when only view demand
                         startActivity(
                             ViewDemandAct::class.java,
-                            bundle = bundleOf(VIEW_DEMAND_ID to t.did)
+                            bundle = bundleOf(VIEW_DEMAND_ID to t.did, DEMAND_NO to t.demandno)
                         )
                     }
                 }
@@ -82,6 +98,7 @@ class DemandListFrag :
                             .setCardBackgroundColor(resources.getColor(R.color.status_yellow))
                     }
                     "1" -> {
+                        v.findViewById<CardView>(R.id.card_edit_status).visibility = View.GONE
                         v.findViewById<CardView>(R.id.card_demand_status)
                             .setCardBackgroundColor(resources.getColor(R.color.status_green))
                     }
@@ -100,7 +117,7 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                        // "Response: ${apiRenderState.result.data}".logE()
+                         "Response: ${apiRenderState.result.data}".logE()
 
                         apiRenderState.result.data?.demandlist?.map {
                             vm.demandList.add(it)

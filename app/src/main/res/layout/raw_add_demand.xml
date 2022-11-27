@@ -104,16 +104,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@{`Rate :`  + data.itemrate}"
-            android:textAlignment="textEnd" />
-
-            <TextView
-                android:id="@+id/tv_branch_sub_header"
-                style="@style/add_demand_sub_header_row"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Medium"
                 android:textAlignment="center" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_branch_sub_header"-->
+<!--                style="@style/add_demand_sub_header_row"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Medium"-->
+<!--                android:textAlignment="center" />-->
 
             <TextView
                 android:id="@+id/tv_standard_sub_header"

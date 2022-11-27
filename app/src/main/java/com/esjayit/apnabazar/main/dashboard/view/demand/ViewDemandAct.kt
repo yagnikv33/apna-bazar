@@ -135,6 +135,15 @@ class ViewDemandAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is ViewDemandRes -> {
+                        "Response: ${apiRenderState.result}".logE()
+//                        val demand = apiRenderState.result.data?.demand
+//                        var list: List<ViewDemandItemslistItem?>? = null
+//                        val demand = ViewDemandDemand(discountamt = "120", partyname = "Abhishek Bakhai", demanddate = "26-11-2022", itemslist = list?.map {  ViewDemandItemslistItem(thock = "12", itemid = "123", std = "1", amount = "12321312", bunchqty = "11", rate = "1230", subname = "ENGMOOO", qty = "123", rank = "1", subcode = "1", medium = "ENG") }, viewdemanddate = "12-11-2022", demandid = "658", totalamt = "123450", billdate = "12-11-2022", grandtotal = "123440", demandno = "12", viewbilldate = "12-11-2022", roundoff = "0.50", billno = "1")
+//                        binding.etDate.setText(demand?.billdate.orEmpty())
+//                        binding.txtVTotalAmount.setText("Total Amount  : " + demand?.totalamt.orEmpty())
+//                        binding.txtVDiscount.setText("Disc.(12.5 %)   : " + demand?.discountamt.orEmpty())
+//                        binding.txtVRoundOff.setText("Round Off   : " + demand?.roundoff.orEmpty())
+//                        binding.txtVGrandTotal.setText("Grand Total  : " +demand?.grandtotal.orEmpty())
                         //"Response: ${apiRenderState.result}".logE()
 
                         vm.viewDemandList.clear()

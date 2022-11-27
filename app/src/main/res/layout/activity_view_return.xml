@@ -46,7 +46,7 @@
                 android:layout_weight="2"
                 android:fontFamily="@font/ralewa_regular"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:text="@string/_5_return_book"
+                android:text="@string/_5_return_view"
                 android:textAlignment="center" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
