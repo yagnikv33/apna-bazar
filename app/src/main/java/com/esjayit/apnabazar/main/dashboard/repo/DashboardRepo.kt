@@ -282,53 +282,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
             this.data
         }
     }
-
-    //Add Demand
-    suspend fun addDemandData(
-        itemList: List<DummyAddDemand>,
-        demanddate: String,
-        userid: String,
-        totalamt: String,
-        installid: String,
-        versioncde: String = BuildConfig.VERSION_CODE.toString(),
-        packagename: String = BuildConfig.APPLICATION_ID,
-        onError: (ApiResult<Any>) -> Unit
-    ): CommonResponse? {
-        return with(apiCall(executable = {
-            apiCall.addDemandData(JsonObject().apply {
-                this.addProperty("demanddate", demanddate)
-                this.addProperty("userid", userid)
-                this.addProperty("totalamt", totalamt)
-                this.addProperty("installid", installid)
-                this.add("itemList", JsonArray().apply {
-                    itemList.forEach {
-                        this.add(it.qty)
-                        this.add(it.bunch)
-                        this.add(it.itemId)
-                        this.add(it.rate)
-                        this.add(it.amount)
-                        this.add(it.standard)
-                        this.add(it.subjectName)
-                    }
-                })
-                this.addProperty("versioncde", versioncde)
-                this.addProperty("packagename", packagename)
-            })
-        })) {
-            if (data == null)
-                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
-            this.data
-        }
-    }
-
-//  @Field("demanddate") demanddate: String,
-//        @Field("userid") userid: String,
-//        @Field("totalamt") totalamt: String,
-//        @Query("itemslist") itemList: JsonObject,
-//        @Field("installid") installid: String,
-//        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
-//        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
-
+    
     //Fetch Data For Edit Demand
     suspend fun getEditDemandData(
         userid: String,
