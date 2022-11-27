@@ -114,7 +114,7 @@ class ViewDemandAct :
                             binding.etDate.setText(it?.demand?.demanddate.orEmpty())
                             binding.txtVTotalAmount.text = "Total Amount  : " + it?.demand?.totalamt.orEmpty()
                             binding.txtVDiscount.text = "Disc.(12.5 %)   : " + it?.demand?.discountamt.orEmpty()
-                            binding.txtVRoundOff.text = "Round Off   : " + it?.demand?.roundoff.orEmpty()
+                            binding.txtVRoundOff.text = "Round Off   :  " + it?.demand?.roundoff.orEmpty()
                             binding.txtVGrandTotal.text = "Grand Total  : " + it?.demand?.grandtotal.orEmpty()
                         }
                         "List Size: ${vm.viewDemandList.size}".logE()

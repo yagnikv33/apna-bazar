@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar.main.entrymodule.model
 
 import android.os.Build
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.BaseVM
@@ -26,6 +27,7 @@ class EntryVM(private val repo: EntryRepo) : BaseVM() {
     var newPasswordData = MutableLiveData(NewPasswordResponse())
     //For Login Data
     var loginData = MutableLiveData(LoginResponse())
+    var otpModel = ObservableField<Int>(6)
 
     private val progressBar = MutableLiveData(false)
 

@@ -46,7 +46,7 @@
 
                     <TextView
                         android:id="@+id/_noti_list_no"
-                        style="@style/demand_list_label_status"
+                        style="@style/title_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="TITLE"
@@ -92,8 +92,9 @@
                             android:layout_marginHorizontal="@dimen/_16sdp"
                             android:padding="@dimen/_4sdp"
                             tools:text="Download"
+                            android:fontFamily="@font/calibri_bold"
                             android:shadowColor="@color/transparent"
-                            android:textColor="@color/status_green"
+                            android:textColor="@color/btn_green"
                             android:text="Download" />
 
                     </androidx.cardview.widget.CardView>

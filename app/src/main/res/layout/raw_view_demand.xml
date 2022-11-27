@@ -35,7 +35,8 @@
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_130sdp"
+                android:layout_width="@dimen/_105sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="@{data.qty}"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
                 tools:text="20" />
 
             <TextView
@@ -89,7 +90,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{`Rate :` + data.rate}"
+                android:text="@{`Rate : ` + data.rate}"
                 android:textAlignment="center" />
 
             <TextView
