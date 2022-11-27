@@ -1,7 +1,6 @@
 package com.esjayit.apnabazar
 
 import com.esjayit.apnabazar.data.model.response.DummyAddDemand
-import com.esjayit.apnabazar.data.model.response.ItemlistItem
 
 class AppConstants {
 
@@ -9,12 +8,12 @@ class AppConstants {
         var itemlistItem = ArrayList<DummyAddDemand>()
         const val ONESIGNAL_APP_ID = "3fd18645-8abc-44a7-842d-61d8b9a34c99"
 
-        object BundleData{
+        object BundleData {
             const val EDIT_DEMAND_DATA = "edit_demand_data"
             const val FOR_EDIT_DEMAND = "for_edit_demand"
             const val DEMAND_DATE = "demand_date"
             const val VIEW_DEMAND_ID = "view_demand_id"
-            const val DEMAND_NO ="demand_no"
+            const val DEMAND_NO = "demand_no"
             const val BILL_DATE = "bill_date"
             const val RETURN_MODEL = "return_model"
             const val RETURN_ID = "return_id"
@@ -23,6 +22,7 @@ class AppConstants {
 
             //status code
             const val RETURN_LIST_CODE = 101
+            const val RETURN_TO_SEARCH = 102
         }
 
         object Buttons {
@@ -111,7 +111,7 @@ class AppConstants {
             const val GET_RETURN_SINGLE_ITEM_LIST = "getreturnitem"
             const val ADD_BOOK_RETURN = "addbooksreturn"
             const val VIEW_PARTY_RETURN = "viewpartyreturn"
-          //  const val RETURN_TABLE_DATA = "getreturnitemslist"
+            //  const val RETURN_TABLE_DATA = "getreturnitemslist"
 
             //Notification
             const val GET_NOTIFICATION_LISTING = "getuserinboxlist"

@@ -3,10 +3,10 @@ package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -32,14 +32,10 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.databinding.ActivityAddDemandBinding
 import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import org.json.JSONArray
 import kotlinx.android.synthetic.main.raw_demand_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
@@ -62,21 +58,21 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     var subjectItem: String = ""
     var mediumItem: String = ""
     var searchKeyword: String = ""
-    val localSubjectData = mutableListOf<ItemlistItem?>()
-    val savedList = mutableListOf<ItemlistItem?>()
 
     var subjectDataAdapter: BaseRvBindingAdapter<ItemlistItem?>? = null
     var rvUtil: RvUtil? = null
+    val localSubjectData = mutableListOf<ItemlistItem?>()
+    val savedList = mutableListOf<ItemlistItem?>()
 
     var editProfileDataAdapter: BaseRvBindingAdapter<ItemslistItem?>? = null
     var editRvUtil: RvUtil? = null
+    val localEditListData = mutableListOf<ItemslistItem?>()
+    val editList = mutableListOf<ItemslistItem?>()
 
     var clickedPosition = -1
     private lateinit var debounceListener: (String) -> Unit
-    private lateinit var debounceListenerForRcv: (String) -> Unit
     var did: String? = null
     var demandDate: String? = null
-    var demandNo: Int? = null
     var isFromEditDemand = false
     var subectDemandData: List<DummyAddDemand>? = null
     var editDemandData: List<DummyEditDemand>? = null
@@ -89,8 +85,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         did = bundel?.getString(EDIT_DEMAND_DATA)
         demandDate = bundel?.getString(DEMAND_DATE)
         isFromEditDemand = bundel?.getBoolean(FOR_EDIT_DEMAND) == true
-
-        "From Edit : ${bundel?.getString(EDIT_DEMAND_DATA)}, ${bundel?.getBoolean(FOR_EDIT_DEMAND)}, $demandDate".logE()
 
         vm.apply {
             getMediumList(userid = prefs.user.userId, installid = prefs.installId.orEmpty())
@@ -120,34 +114,52 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 "Searched: $searchText".logE()
 
                 if (searchText.isNotEmpty()) {
-
-                    subjectDataAdapter?.list?.forEach {
-                        if (it?.subname?.toLowerCase(Locale.ENGLISH)
-                                ?.contains(searchText) == true
-                        ) {
-                            localSubjectData.add(it)
+                    if (isFromEditDemand) {
+                        editProfileDataAdapter?.list?.forEach {
+                            if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                    ?.contains(searchText) == true
+                            ) {
+                                localEditListData.add(it)
+                            }
                         }
+                        editProfileDataAdapter?.addData(localEditListData, isClear = true)
+                    } else {
+                        subjectDataAdapter?.list?.forEach {
+                            if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                    ?.contains(searchText) == true
+                            ) {
+                                localSubjectData.add(it)
+                            }
+                        }
+                        subjectDataAdapter?.addData(localSubjectData, isClear = true)
                     }
-                    subjectDataAdapter?.addData(localSubjectData, isClear = true)
                     rvUtil?.rvAdapter?.notifyDataSetChanged()
-
                 }
             }
 
         /** Key Board OnTextChangeListener */
         binding.edSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(searchText: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 searchKeyword = searchText.toString()
 
-                if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+                if (isFromEditDemand) {
 
-                    subjectDataAdapter?.addData(
-                        savedList,
-                        isClear = true
-                    )
+                    if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+                        editProfileDataAdapter?.addData(
+                            editList,
+                            isClear = true
+                        )
+                        editRvUtil?.rvAdapter?.notifyDataSetChanged()
+                    }
+                } else {
 
-                    rvUtil?.rvAdapter?.notifyDataSetChanged()
+                    if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+                        subjectDataAdapter?.addData(
+                            savedList,
+                            isClear = true
+                        )
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                    }
                 }
             }
 
@@ -165,17 +177,27 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     v.hideSoftKeyboard()
 
                     if (searchKeyword.isNotEmpty()) {
-                        subjectDataAdapter?.list?.forEach {
-                            if (it?.subname?.toLowerCase(Locale.ENGLISH)
-                                    ?.contains(searchKeyword) == true
-                            ) {
-                                localSubjectData.add(it)
+                        if (isFromEditDemand) {
+                            editProfileDataAdapter?.list?.forEach {
+                                if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                        ?.contains(searchKeyword) == true
+                                ) {
+                                    localEditListData.add(it)
+                                }
                             }
+                            editProfileDataAdapter?.addData(localEditListData, isClear = true)
+                            editRvUtil?.rvAdapter?.notifyDataSetChanged()
+                        } else {
+                            subjectDataAdapter?.list?.forEach {
+                                if (it?.subname?.toLowerCase(Locale.ENGLISH)
+                                        ?.contains(searchKeyword) == true
+                                ) {
+                                    localSubjectData.add(it)
+                                }
+                            }
+                            subjectDataAdapter?.addData(localSubjectData, isClear = true)
+                            rvUtil?.rvAdapter?.notifyDataSetChanged()
                         }
-                        subjectDataAdapter?.addData(localSubjectData, isClear = true)
-                        //subjectDataAdapter?.notifyDataSetChanged()
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
-
                     }
                     return@setOnEditorActionListener true
                 }
@@ -391,7 +413,15 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                 ?.times(itemlistItem.qty?.toInt()!!)!!
 
                             listData?.add(
-                                AddDemandForAPI(itemid = itemlistItem.itemId, qty = itemlistItem.qty, rate = itemlistItem.rate, amount =  ((itemlistItem.qty?.toInt()!! * itemlistItem.rate?.toFloat()?.roundToInt()!!).toString()), bunchqty = itemlistItem.bunch))
+                                AddDemandForAPI(
+                                    itemid = itemlistItem.itemId,
+                                    qty = itemlistItem.qty,
+                                    rate = itemlistItem.rate,
+                                    amount = ((itemlistItem.qty?.toInt()!! * itemlistItem.rate?.toFloat()
+                                        ?.roundToInt()!!).toString()),
+                                    bunchqty = itemlistItem.bunch
+                                )
+                            )
                         }
 
                         totalAmount = amt * totalQty
@@ -491,7 +521,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
                         progressDialog.hideProgress()
                     }
-
                     //For Add Demand
                     is CommonResponse -> {
 
@@ -500,21 +529,24 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString(), callback = {
                                 if (it) {
+                                    val returnIntent = Intent()
+                                    setResult(RESULT_OK, returnIntent)
                                     finishAct()
                                 }
                             })
-                        }  else  {
+                        } else {
                             errorToast(apiRenderState.result.message!!)
                         }
                     }
-
                     is EditDemandDataResponse -> {
 
                         vm.editDemandData.clear()
 
                         apiRenderState.result.data?.demand?.itemslist?.map {
                             vm.editDemandData.add(it)
+                            editList.add(it)
                         }
+
                         editRvUtil?.rvAdapter?.notifyDataSetChanged()
 
                         editProfileDataAdapter?.list?.forEach {
@@ -523,7 +555,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         progressDialog.hideProgress()
                     }
-
                     is SingleEditItemResponse -> {
                         if (clickedPos >= 0) {
                             rvUtil?.rvAdapter?.notifyItemChanged(clickedPosition)
@@ -541,8 +572,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 "Error API CALLING".logE()
             }
             is ApiRenderState.ApiError<*> -> {
-                progressDialog?.showProgress()
+                progressDialog.hideProgress()
                 "Error API CALLING API ERROR".logE()
+                //errorToast("Error Ocured")
             }
         }
     }

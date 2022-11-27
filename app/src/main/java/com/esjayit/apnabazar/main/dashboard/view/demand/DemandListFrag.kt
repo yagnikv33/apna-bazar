@@ -1,5 +1,7 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
@@ -9,7 +11,7 @@ import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
 import com.esjayit.apnabazar.AppConstants.App.BundleData.FOR_EDIT_DEMAND
-import com.esjayit.apnabazar.AppConstants.App.BundleData.ITEM_ID
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_TO_SEARCH
 import com.esjayit.apnabazar.AppConstants.App.BundleData.VIEW_DEMAND_ID
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.DemandListItem
@@ -36,12 +38,16 @@ class DemandListFrag :
     var usedBackBtn: Boolean = false
 
     override fun init() {
-
+        vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
     }
 
-    override fun onResume() {
-        super.onResume()
-        vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === RETURN_TO_SEARCH) {
+            if (resultCode === Activity.RESULT_OK) {
+                vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+            }
+        }
     }
 
 //    override fun onBackPressed(): Boolean {
@@ -67,23 +73,32 @@ class DemandListFrag :
                         //For when edit demand
                         when (v.id) {
                             R.id.card_edit_status -> {
-                                startActivity(
-                                    AddDemandAct::class.java,
-                                    bundle = bundleOf(
-                                        EDIT_DEMAND_DATA to t.did,
-                                        FOR_EDIT_DEMAND to true,
-                                        DEMAND_DATE to t.demanddate
-                                    )
-                                )
+                                val intent = Intent(requireActivity(), AddDemandAct::class.java)
+                                intent.putExtra(EDIT_DEMAND_DATA, t.did)
+                                intent.putExtra(FOR_EDIT_DEMAND, true)
+                                intent.putExtra(DEMAND_DATE, t.demanddate)
+                                startActivityForResult(intent, RETURN_TO_SEARCH)
+//                                startActivity(
+//                                    AddDemandAct::class.java,
+//                                    bundle = bundleOf(
+//                                        EDIT_DEMAND_DATA to t.did,
+//                                        FOR_EDIT_DEMAND to true,
+//                                        DEMAND_DATE to t.demanddate
+//                                    )
+//                                )
                             }
                             else -> {
-                                startActivity(
-                                    ViewDemandAct::class.java,
-                                    bundle = bundleOf(
-                                        VIEW_DEMAND_ID to t.did,
-                                        DEMAND_NO to t.demandno
-                                    )
-                                )
+                                val intent = Intent(requireActivity(), ViewDemandAct::class.java)
+                                intent.putExtra(VIEW_DEMAND_ID, t.did)
+                                intent.putExtra(DEMAND_NO, t.demandno)
+                                startActivityForResult(intent, RETURN_TO_SEARCH)
+//                                startActivity(
+//                                    ViewDemandAct::class.java,
+//                                    bundle = bundleOf(
+//                                        VIEW_DEMAND_ID to t.did,
+//                                        DEMAND_NO to t.demandno
+//                                    )
+//                                )
                             }
                         }
                     }
