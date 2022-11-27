@@ -259,6 +259,31 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     }
 
     //Add Demand
+    suspend fun addDemandString(
+        itemList: String,
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        installid: String,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.addDemandString(
+                userid = userid,
+                demanddate = demanddate,
+                totalamt = totalamt,
+                installid = installid,
+                itemList = itemList
+            )
+
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+    //Add Demand
     suspend fun addDemandData(
         itemList: List<DummyAddDemand>,
         demanddate: String,

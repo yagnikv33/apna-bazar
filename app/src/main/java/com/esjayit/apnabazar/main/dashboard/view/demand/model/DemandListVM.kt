@@ -138,6 +138,30 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
         }
     }
 
+    fun addDemandString(
+        itemslist: String,
+        demanddate: String,
+        userid: String,
+        totalamt: String,
+        installid: String
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.addDemandString(
+                itemList = itemslist,
+                userid = userid,
+                totalamt = totalamt,
+                installid = installid,
+                demanddate = demanddate,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
     fun getEditDemandData(
         userid: String,
         demandid: String,

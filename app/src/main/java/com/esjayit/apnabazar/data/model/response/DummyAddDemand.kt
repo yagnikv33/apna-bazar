@@ -9,3 +9,11 @@ data class DummyAddDemand(
     var bunch: String?,
     var standard: String?
 )
+
+data class AddDemandForAPI(
+    var itemid:String?,
+    var qty: String?,
+    var rate:String?,
+    var amount:String?,
+    var bunchqty: String?
+)
