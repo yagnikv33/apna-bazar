@@ -8,6 +8,7 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_EDIT_DATA
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_DEMAND
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.EDIT_USER_PROFILE
+import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_ITEM_DETAIL
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_MEDIUM
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_ITEM_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.GET_RETURN_LISTING
@@ -20,10 +21,9 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_PARTY_RETURN
 import com.esjayit.apnabazar.data.model.response.*
 import com.google.gson.JsonObject
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.RequestBody
+import org.json.JSONObject
+import retrofit2.http.*
 
 interface DashboardApiModule {
     @FormUrlEncoded
@@ -141,7 +141,11 @@ interface DashboardApiModule {
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): DemandListResponse
 
-    @FormUrlEncoded
+    @POST(ADD_DEMAND)
+    suspend fun addDemandData(
+        @Body requestJson: JsonObject
+    ): CommonResponse
+
     @POST(ADD_DEMAND)
     suspend fun addDemand(
         @Field("demanddate") demanddate: String,
@@ -225,6 +229,16 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): ViewBookReturnDataResponse
+
+    @FormUrlEncoded
+    @POST(GET_ITEM_DETAIL)
+    suspend fun getSingleEditItemDetail(
+        @Field("userid") userid:String,
+        @Field("itemid") itemid:String,
+        @Field("installid") installid:String,
+        @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
+        @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
+    ): SingleEditItemResponse
 
 //    @FormUrlEncoded
 //    @POST(RETURN_TABLE_DATA)

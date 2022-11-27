@@ -5,6 +5,8 @@ import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
+import com.google.gson.JsonObject
+import org.json.JSONObject
 
 class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
@@ -113,7 +115,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     }
 
     fun addDemand(
-        itemslist: Array<DummyAddDemand>,
+        itemslist: JsonObject,
         demanddate: String,
         userid: String,
         totalamt: String,
@@ -158,7 +160,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     //Edit Demand API Call
     fun editDemand(
-        itemslist: Array<DummyAddDemand>,
+        itemslist: Array<DummyEditDemand>,
         demandid: String,
         demanddate: String,
         userid: String,
@@ -175,6 +177,26 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
                 totalamt = totalamt,
                 installid = installid,
                 demanddate = demanddate,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
+    fun getSingleEditItemDetail(
+        userid: String,
+        itemid: String,
+        installid: String,
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.getSingleEditItemDetail(
+                userid = userid,
+                itemid = itemid,
+                installid = installid,
                 onError = onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))

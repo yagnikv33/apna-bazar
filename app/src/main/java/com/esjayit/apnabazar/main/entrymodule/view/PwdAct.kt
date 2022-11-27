@@ -24,6 +24,7 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
 
     override fun init() {
         userName = intent.getStringExtra("UserName")
+
     }
 
     override fun onClick(v: View) {

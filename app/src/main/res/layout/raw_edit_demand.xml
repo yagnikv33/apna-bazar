@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{click::onClick}"
+        android:layout_marginBottom="@dimen/_6sdp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,12 +52,12 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:editable="true"
+                android:hint="0"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="3"
                 android:onClick="@{click::onClick}"
                 android:text="@{data.qty}"
-                android:hint="0"
                 android:textAlignment="center" />
 
             <TextView
@@ -65,7 +66,7 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/_14sdp"
-                android:text="@{data.thock}"
+                android:text="@{data.bunchqty}"
                 android:textAlignment="textEnd" />
 
             <TextView
@@ -82,6 +83,7 @@
             android:id="@+id/ll_sub_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:background="@color/white"
             android:onClick="@{click::onClick}"
             android:orientation="horizontal"
@@ -93,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{`Standard :`  + data.std}"
+                android:text="@{`Standard   : `  + data.std}"
                 android:textAlignment="textStart" />
 
             <TextView
@@ -102,8 +104,8 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{`Rate :`  + data.itemid}"
-                android:textAlignment="textEnd" />
+                android:text="@{`Rate  : `  + data.rate}"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_branch_sub_header"
@@ -111,15 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Medium"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/tv_standard_sub_header"
-                style="@style/add_demand_sub_header_row"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="wrap_content"
-                android:text="@{`Medium : ` + data.mediumItem}"
+                android:text="@{`Medium   : ` + data.medium}"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>
