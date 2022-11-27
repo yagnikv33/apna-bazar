@@ -40,14 +40,6 @@
                 android:textAlignment="textStart"
                 tools:text="MERYGOLD ENGLISHMEDIUM" />
 
-            <!--  <EditText
-                  android:id="@+id/edt_qty"
-                  style="@style/add_demand_row"
-                  android:layout_width="@dimen/_50sdp"
-                  android:layout_height="wrap_content"
-                  android:text="0"
-                  android:textAlignment="center" />-->
-
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
