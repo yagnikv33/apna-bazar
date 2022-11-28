@@ -26,14 +26,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_105sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -44,27 +45,28 @@
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:paddingEnd="@dimen/_14sdp"
                 android:text="@{data.buyqty}"
-                android:textAlignment="textStart"
+                android:textAlignment="center"
                 tools:text="0" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{data.maxretu}"
                 tools:text="20"
-                android:layout_weight="2"
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/edt_qty"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:onClick="@{click::onClick}"
                 android:text="@{data.retuqty}"
@@ -85,9 +87,9 @@
             <TextView
                 android:id="@+id/tv_subject_sub_header"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:text="@{`Standard : `  + data.standard}"
                 tools:text="Standard : 1"
                 android:textAlignment="textStart" />
@@ -95,9 +97,9 @@
             <TextView
                 android:id="@+id/tv_rate"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:text="@{`Rate : `  + data.rate}"
                 tools:text="Rate : 65.00"
                 android:textAlignment="center" />
@@ -105,8 +107,8 @@
             <TextView
                 android:id="@+id/tv_branch_sub_header"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 tools:text="Bunch : 10"
                 android:text="@{`Bunch : ` + data.maxretu}"
@@ -115,7 +117,8 @@
             <TextView
                 android:id="@+id/tv_standard_sub_header"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="@dimen/_90sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{`Medium : ` + data.medium}"
                 tools:text="Medium : English"

@@ -50,6 +50,8 @@
                 android:textAlignment="center" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/btn_notification"
+                android:onClick="@{click::onClick}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"

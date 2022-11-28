@@ -70,6 +70,9 @@ class DemandListFrag :
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)
             }
+            binding.btnAddReturn -> {
+                startActivityForResult(AddDemandAct::class.java)
+            }
         }
     }
 
@@ -162,7 +165,6 @@ class DemandListFrag :
                             vm.demandList.add(it)
                         }
                         setRcv()
-                        successToast(apiRenderState.result.message.toString())
                     }
                 }
             }

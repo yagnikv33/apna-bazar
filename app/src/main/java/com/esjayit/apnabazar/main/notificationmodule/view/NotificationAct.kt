@@ -213,10 +213,10 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                                 vm.notificationListData.add(it)
                             }
                             setRcv()
-                            successToast(apiRenderState.result.message.toString())
+//                            successToast(apiRenderState.result.message.toString())
                         } else {
                             errorToast(apiRenderState.result.message.toString())
-                            "Error : Pwd ACT ${apiRenderState.result.message}".logE()
+                            "Error : Noti ACT ${apiRenderState.result.message}".logE()
                         }
                     }
 
