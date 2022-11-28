@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/splashImage"
-        android:layout_width="279dp"
-        android:layout_height="281dp"
+        android:layout_width="@dimen/_198sdp"
+        android:layout_height="@dimen/_198sdp"
         android:src="@drawable/ic_splash"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +37,7 @@
         android:gravity="center"
         android:text="Developed By: ESJAYIT"
         android:textColor="#000000"
+        android:fontFamily="@font/roboto_medium_numbers"
         android:textSize="19dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -194,13 +194,13 @@
                     style="@style/add_demand_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
                     android:text="@string/tv_subject_name" />
 
                 <TextView
                     android:id="@+id/tv_ad_qty"
                     style="@style/add_demand_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/txt_buy_qty"
@@ -209,7 +209,7 @@
                 <TextView
                     android:id="@+id/tv_ad_bunch"
                     style="@style/add_demand_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="center"
@@ -218,7 +218,7 @@
                 <TextView
                     android:id="@+id/tv_ad_standard"
                     style="@style/add_demand_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/txt_return_qty"/>

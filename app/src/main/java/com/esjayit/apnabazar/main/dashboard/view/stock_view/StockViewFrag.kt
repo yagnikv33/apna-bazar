@@ -100,12 +100,10 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                         apiRenderState.result.statuscode
 
                         if (apiRenderState.result.statuscode == AppConstants.Status_Code.Success) {
-                            successToast(apiRenderState.result.message.toString())
                             "Get 5% Return Data ${apiRenderState.result.data}".logE()
                             apiRenderState.result.data?.retunlist?.map {
                                 vm.returnList.add(it)
                             }
-
                             setRcv()
                             progressDialog.hideProgress()
                         } else {

@@ -21,8 +21,8 @@
         android:id="@+id/ll_main_noti_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_6sdp"
-        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
