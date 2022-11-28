@@ -17,27 +17,29 @@
     </data>
 
     <LinearLayout
-        android:paddingHorizontal="@dimen/_10dp"
         android:id="@+id/main_view"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:onClick="@{click::onClick}"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/white"
-            android:paddingBottom="@dimen/_16sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_16sdp">
 
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_105sdp"
-                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@{data.subname}"
@@ -47,18 +49,21 @@
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@{data.qty}"
-                android:textAlignment="textEnd"
                 tools:text="20" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
                 android:maxLines="1"
                 android:text="@{data.bunchqty}"
                 android:textAlignment="textEnd"
@@ -71,33 +76,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:paddingBottom="@dimen/_10sdp"
             android:onClick="@{click::onClick}"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_10sdp">
 
             <TextView
                 android:id="@+id/tv_subject_sub_header"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
                 android:text="@{`Standard : `+ data.std}"
                 android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/tv_rate"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="@dimen/_80sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="@{`Rate : ` + data.rate}"
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_standard_sub_header"
                 style="@style/add_demand_sub_header_row"
-                android:layout_width="@dimen/_90sdp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
                 android:text="@{`Medium : `+ data.medium}"
                 android:textAlignment="textEnd" />
 

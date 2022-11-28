@@ -383,8 +383,6 @@ class UserLedgerFrag :
                     ((340 + ((i + 1) * 40)) - 10).toFloat(),
                     myPaint
                 )
-
-
             }
         } else {
             canvas.drawLine(100F, 340F, (pageWidth - 100).toFloat(), 340F, myPaint)
@@ -450,9 +448,9 @@ class UserLedgerFrag :
             Toast.makeText(requireContext(),"Pdf downloaded!",Toast.LENGTH_LONG).show()
 //            Toast.makeText(requireContext(), "File path : ${file.path}", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
-        myPdfDocument.close();
+        myPdfDocument.close()
 
     }
 
