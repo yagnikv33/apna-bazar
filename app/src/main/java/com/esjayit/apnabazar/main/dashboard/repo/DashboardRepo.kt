@@ -365,7 +365,7 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         installId: String,
         itemId: String,
         onError: (ApiResult<Any>) -> Unit
-    ): GetReturnSingleDetailResponse? {
+    ): SingleItemResponse? {
         return with(apiCall(executable = {
             apiCall.getReturnSingleItem(
                 userId = userId,

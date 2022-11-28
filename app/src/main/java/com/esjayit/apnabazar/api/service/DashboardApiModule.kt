@@ -200,7 +200,7 @@ interface DashboardApiModule {
         @Field("itemid") itemId: String,
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
-    ): GetReturnSingleDetailResponse
+    ): SingleItemResponse
 
     //Add 5% Return Book
     @FormUrlEncoded

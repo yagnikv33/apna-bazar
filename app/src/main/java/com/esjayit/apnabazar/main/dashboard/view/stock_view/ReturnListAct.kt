@@ -55,6 +55,7 @@ class ReturnListAct :
     var billDate: String? = null
     var demandNo: Int? = null
     var isFromEditDemand = false
+    var totalBill = 0
 
     override fun init() {
 
@@ -73,31 +74,46 @@ class ReturnListAct :
         progressDialog.showProgress()
     }
 
+    var currentClickItem: ReturnitemsItem? = null
     private fun setRv() {
         returnBookAdapter = BaseRvBindingAdapter(
             layoutId = R.layout.raw_return,
             list = vm.returnDataList,
             br = BR.data,
-            clickListener = { v, t, p ->
-                when (v.id) {
-                    R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header -> {
-                        vm.returnDataList.forEach {
-                            it?.isTextVisible = false
+            clickListener = { v, item, p ->
+
+                item?.returnItemResponse?.let {
+                    // notify data
+                    when (v.id) {
+                        R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header, R.id.main_view -> {
+                            vm.returnDataList.forEach {
+                                it?.isTextVisible = false
+                            }
+                            item.isTextVisible = !item.isTextVisible
+
+                            //Calculating bill
+                            totalBill = item.buyqty?.toInt()
+                                ?.let { it1 ->
+                                    item.rate?.toInt()?.let { it2 ->
+                                        getCurrentBill(
+                                            rate = it2,
+                                            qty = it1
+                                        )
+                                    }
+                                }!!
+
+                            rvUtil?.notifyAdapter()
                         }
-
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        vm.getReturnSingleItem(userid = prefs.user.userId!!, installid = prefs.installId.orEmpty(), itemId = t?.itemid.orEmpty())
-                        rvUtil?.notifyAdapter()
+                        else -> {}
                     }
-                    R.id.main_view -> {
-                        vm.returnDataList.forEach {
-                            it?.isTextVisible = false
-                        }
-                        t?.isTextVisible = !t?.isTextVisible!!
-
-                        rvUtil?.notifyAdapter()
-                    }
+                } ?: run {
+                    vm.getReturnSingleItem(
+                        userid = prefs.user.userId,
+                        installid = prefs.installId.orEmpty(),
+                        itemId = item?.itemid.orEmpty()
+                    )
+                    progressDialog.showProgress()
+                    currentClickItem = item
                 }
             },
             viewHolder = { v, t, p ->
@@ -120,7 +136,11 @@ class ReturnListAct :
             RvUtil(
                 adapter = it,
                 rv = binding.rvReturnList,
-                decoration = RvItemDecoration.buildDecoration(this, R.dimen._1sdp, color = R.color.grey),
+                decoration = RvItemDecoration.buildDecoration(
+                    this,
+                    R.dimen._1sdp,
+                    color = R.color.grey
+                ),
             )
         }
     }
@@ -166,43 +186,49 @@ class ReturnListAct :
     override fun onClick(v: View) {
         super.onClick(v)
         when (v) {
+            binding.etModule -> {
+                mediumDialog?.show()
+            }
+            binding.etStandard -> {
+                standardDialog?.show()
+            }
             binding.btnAddReturn -> {
 
-                /* addReturnBook =
-                     returnBookAdapter?.list?.filter { it?.retuqty?.toInt()!! > 0 }?.map {
-                         DummyReturn(
-                             itemid = it?.itemid,
-                             buyqty = it?.buyqty?.toInt(),
-                             maxretu = it?.maxretu?.toInt(),
-                             retuqty = it?.retuqty?.toInt(),
-                             rate = it?.rate?.toFloat()
-                         )
-                     }*/
+                addReturnBook =
+                    returnBookAdapter?.list?.filter { it?.retuqty?.toInt()!! > 0 }?.map {
+                        DummyReturn(
+                            itemid = it?.itemid,
+                            buyqty = it?.buyqty?.toInt(),
+                            maxretu = it?.maxretu?.toInt(),
+                            retuqty = it?.retuqty?.toInt(),
+                            rate = it?.rate?.toFloat()
+                        )
+                    }
 
                 //TEMP
-                val r: Array<DummyReturn> = Array(1, init = {
-                    DummyReturn(
-                        itemid = "9EB3989A-A23A-4436-9507-AC735DEBC163",
-                        buyqty = 20,
-                        maxretu = 32,
-                        retuqty = 10,
-                        rate = 60.00f
-                    )
-                })
+//                val r: Array<DummyReturn> = Array(1, init = {
+//                    DummyReturn(
+//                        itemid = "9EB3989A-A23A-4436-9507-AC735DEBC163",
+//                        buyqty = 20,
+//                        maxretu = 32,
+//                        retuqty = 10,
+//                        rate = 60.00f
+//                    )
+//                })
 
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
 
-                "addReturn: ${r.size}".logE()
+                // "addReturn: ${r.size}".logE()
 
                 addReturnBook?.map {
                     vm.addReturnBook(
                         userid = prefs.user.userId,
                         installid = prefs.installId.orEmpty(),
-                        billAmount = "4323",
-                        billDate = "2021-10-11",
-                        returnList = r
+                        billAmount = totalBill.toString(),
+                        billDate = binding.etDate.text.toString(),
+                        returnList = addReturnBook!!.toTypedArray()
                     )
                 }
             }
@@ -210,6 +236,10 @@ class ReturnListAct :
                 finishAct()
             }
         }
+    }
+
+    fun getCurrentBill(rate: Int, qty: Int): Int {
+        return rate * qty
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -266,20 +296,7 @@ class ReturnListAct :
                     is GetReturnItemListResponse -> {
 
                         vm.returnList.clear()
-//                        for (i in 1..15) {
-//                            vm.returnDataList.add(
-//                                ReturnitemsItem(
-//                                    itemid = "123",
-//                                    buyqty = "15",
-//                                    rate = "100",
-//                                    maxretu = "5",
-//                                    subname = "MARIGOLD",
-//                                    subcode = "1",
-//                                    retuqty = "12",
-//                                    true
-//                                )
-//                            )
-//                        }
+
                         apiRenderState.result.data?.returnitems?.map {
                             vm.returnDataList.add(it)
                         }
@@ -293,10 +310,32 @@ class ReturnListAct :
 
                         //finishAct()
                     }
+
+                    is SingleItemResponse -> {
+                        "Response: GetReturnSingleDetailResponse - ${apiRenderState.result.data}".logE()
+                        currentClickItem?.returnItemResponse =
+                            apiRenderState.result.data?.returnitems
+                        returnBookAdapter?.list?.forEach {
+                            it?.isTextVisible = false
+                        }
+                        currentClickItem?.isTextVisible = true
+                        returnBookAdapter?.notifyDataSetChanged()
+                        progressDialog.hideProgress()
+                    }
                 }
             }
-            else -> {
+            ApiRenderState.Idle -> {
+                hideProgress()
+            }
+            ApiRenderState.Loading -> {
+                showProgress()
+            }
+            is ApiRenderState.ValidationError -> {
+                "Error API CALLING".logE()
+            }
+            is ApiRenderState.ApiError<*> -> {
                 progressDialog.hideProgress()
+                "Error API CALLING API ERROR".logE()
             }
         }
     }

@@ -2,22 +2,22 @@ package com.esjayit.apnabazar.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetReturnSingleDetailResponse(
+data class SingleItemResponse(
 
 	@field:SerializedName("statuscode")
 	val statuscode: String? = null,
 
 	@field:SerializedName("data")
-	val data: ReturnSingleItem? = null,
+	val data: ReturnSingleData? = null,
 
 	@field:SerializedName("extra")
-	val extra: Extra? = null,
+	val extra: ReturnSingleExtra? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
 )
 
-data class ReturnitemsSingle(
+data class Returnitems(
 
 	@field:SerializedName("standard")
 	val standard: String? = null,
@@ -44,12 +44,15 @@ data class ReturnitemsSingle(
 	val subcode: String? = null,
 
 	@field:SerializedName("medium")
-	val medium: String? = null,
-
+	val medium: String? = null
 )
 
-data class ReturnSingleItem(
+data class ReturnSingleExtra(
+	val any: Any? = null
+)
+
+data class ReturnSingleData(
 
 	@field:SerializedName("returnitems")
-	val returnitems: List<ReturnitemsSingle>? = null
+	val returnitems: ReturnitemsSingle? = null
 )

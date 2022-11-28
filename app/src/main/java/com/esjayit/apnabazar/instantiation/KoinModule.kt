@@ -38,9 +38,7 @@ object KoinModule {
         factory {
             OkHttpClient.Builder()
                 .addInterceptor(
-                    HttpLoggingInterceptor().setLevel(
-                        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-                    )
+                    HttpLoggingInterceptor()
                 )
                 .addInterceptor(HeaderHttpInterceptor(get()))
                 .build()
