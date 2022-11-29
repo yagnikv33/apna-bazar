@@ -32,7 +32,6 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.ActivityAddDemandBinding
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.raw_demand_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -54,7 +53,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
-    var listData: ArrayList<AddDemandForAPI>? = ArrayList()
+    var listData: ArrayList<AddDemandForAPINew>? = ArrayList()
 
     var subjectItem: String = ""
     var mediumItem: String = ""
@@ -412,13 +411,13 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         AppConstants.App.itemlistItem.addAll(subectDemandData!!)
                         subectDemandData?.forEachIndexed { index, itemlistItem ->
-                            totalQty =+ itemlistItem.qty?.toInt()!!
+                            totalQty = +itemlistItem.qty?.toInt()!!
 //                            totalQty = itemlistItem.qty?.toInt()!! + itemlistItem.qty?.toInt()!!
                             amt = itemlistItem.rate?.toFloat()?.roundToInt()
                                 ?.times(itemlistItem.qty?.toInt()!!)!!
 
                             listData?.add(
-                                AddDemandForAPI(
+                                AddDemandForAPINew(
                                     itemid = itemlistItem.itemId,
                                     qty = itemlistItem.qty,
                                     rate = itemlistItem.rate,
@@ -431,12 +430,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         totalAmount = amt * totalQty
 
-                        vm.addDemandString(
+                        val addDemand = AddDemand(
                             demanddate = binding.etDate.text.toString(),
                             userid = prefs.user.userId,
                             totalamt = totalAmount.toString(),
-                            installid = prefs.installId.orEmpty(),
-                            itemslist = Gson().toJson(listData)
+                            itemslist = listData,
+                            installid = prefs.installId.orEmpty()
+                        )
+
+                        vm.addDemandString(
+                            addDemand
                         )
                     }
                 }

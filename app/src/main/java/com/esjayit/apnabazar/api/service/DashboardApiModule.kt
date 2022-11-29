@@ -21,8 +21,6 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_PARTY_RETURN
 import com.esjayit.apnabazar.data.model.response.*
 import com.google.gson.JsonObject
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.http.*
 
 interface DashboardApiModule {
@@ -141,16 +139,9 @@ interface DashboardApiModule {
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): DemandListResponse
 
-    @FormUrlEncoded
     @POST(ADD_DEMAND)
     suspend fun addDemandString(
-        @Field("demanddate") demanddate: String,
-        @Field("userid") userid: String,
-        @Field("totalamt") totalamt: String,
-        @Field("itemslist") itemList: String,
-        @Field("installid") installid: String,
-        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
-        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+        @Body demandModel: AddDemand
     ): CommonResponse
 
     //Data for Demand Edit
@@ -229,9 +220,9 @@ interface DashboardApiModule {
     @FormUrlEncoded
     @POST(GET_ITEM_DETAIL)
     suspend fun getSingleEditItemDetail(
-        @Field("userid") userid:String,
-        @Field("itemid") itemid:String,
-        @Field("installid") installid:String,
+        @Field("userid") userid: String,
+        @Field("itemid") itemid: String,
+        @Field("installid") installid: String,
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): SingleEditItemResponse
