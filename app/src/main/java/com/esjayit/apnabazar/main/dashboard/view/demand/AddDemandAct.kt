@@ -22,6 +22,7 @@ import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.MiscUtil
+import com.esjayit.apnabazar.helper.util.getDateString
 import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
@@ -32,6 +33,7 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.ActivityAddDemandBinding
+import com.google.android.material.datepicker.*
 import kotlinx.android.synthetic.main.raw_demand_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -64,6 +66,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     val localSubjectData = mutableListOf<ItemlistItem?>()
     val savedList = mutableListOf<ItemlistItem?>()
 
+    private var datePicker: MaterialDatePicker<Long>? = null
     var editProfileDataAdapter: BaseRvBindingAdapter<ItemslistItem?>? = null
     var editRvUtil: RvUtil? = null
     val localEditListData = mutableListOf<ItemslistItem?>()
@@ -104,6 +107,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
         doSearch()
         progressDialog.showProgress()
+        binding.tvNoData.visibility = View.GONE
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -145,6 +149,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 if (isFromEditDemand) {
 
                     if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+                        localEditListData.clear()
+                        binding.tvNoData.visibility = View.GONE
                         editProfileDataAdapter?.addData(
                             editList,
                             isClear = true
@@ -154,6 +160,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 } else {
 
                     if (searchText?.isEmpty() == true || searchText?.isBlank() == true) {
+                        localSubjectData.clear()
+                        binding.tvNoData.visibility = View.GONE
                         subjectDataAdapter?.addData(
                             savedList,
                             isClear = true
@@ -183,6 +191,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                         ?.contains(searchKeyword) == true
                                 ) {
                                     localEditListData.add(it)
+                                } else {
+                                    binding.tvNoData.visibility = View.VISIBLE
                                 }
                             }
                             editProfileDataAdapter?.addData(localEditListData, isClear = true)
@@ -193,6 +203,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                         ?.contains(searchKeyword) == true
                                 ) {
                                     localSubjectData.add(it)
+                                } else {
+                                    binding.tvNoData.visibility = View.VISIBLE
                                 }
                             }
                             subjectDataAdapter?.addData(localSubjectData, isClear = true)
@@ -207,10 +219,41 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     }
 
     private fun getCurrentDateTime() {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm a")
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDateandTime: String = sdf.format(Date())
         binding.etDate.setText(currentDateandTime)
     }
+
+    private fun datePicker() {
+
+        datePicker = MaterialDatePicker.Builder.datePicker().apply {
+            setTitleText("")
+            val date = Calendar.getInstance()
+            val dateValidatorMax: CalendarConstraints.DateValidator =
+                DateValidatorPointBackward.before(date.timeInMillis)
+            val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+            listValidators.add(dateValidatorMax)
+            val validators = CompositeDateValidator.allOf(listValidators)
+            setCalendarConstraints(CalendarConstraints.Builder().setValidator(validators).build())
+            setTheme(R.style.DialogTheme)
+            setSelection(date.timeInMillis)
+        }.build()
+
+        datePicker?.addOnPositiveButtonClickListener(materialDateListener)
+        datePicker?.show(supportFragmentManager, "")
+    }
+
+    private val materialDateListener: MaterialPickerOnPositiveButtonClickListener<Long?> =
+        MaterialPickerOnPositiveButtonClickListener<Long?> {
+
+            val dte = datePicker?.selection?.getDateString("dd")
+            val mnt = datePicker?.selection?.getDateString("MM")
+            val yar = datePicker?.selection?.getDateString("YYYY")
+
+            val datTime = "$yar-$mnt-$dte "
+
+            binding.etDate.setText(datTime)
+        }
 
     private fun addDemandRcv() {
         subjectDataAdapter = BaseRvBindingAdapter(
@@ -253,7 +296,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     this,
                     R.dimen._1sdp,
                     color = R.color.grey
-                )
+                ),
+                noDataViews = listOf(binding.tvNoData)
             )
         }
     }
@@ -447,6 +491,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             binding.ivBack -> {
                 finishAct()
             }
+            binding.etDate -> {
+                datePicker()
+            }
         }
     }
 
@@ -519,14 +566,21 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                     is GetDemandDataResponse -> {
                         vm.subjectData.clear()
-                        "DEMAND DATA : ${apiRenderState.result.data}".logE()
-                        apiRenderState.result.data?.itemlist?.map {
-                            it?.mediumItem = binding.etModule.text.toString()
-                            vm.subjectData.add(it)
-                            savedList.add(it)
-                        }
+                        "DEMAND DATA : ${apiRenderState.result}".logE()
 
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+                        if (apiRenderState.result.data?.itemlist?.isNullOrEmpty() == true) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoData.visibility = View.GONE
+
+                            apiRenderState.result.data?.itemlist?.map {
+                                it?.mediumItem = binding.etModule.text.toString()
+                                vm.subjectData.add(it)
+                                savedList.add(it)
+                            }
+
+                            rvUtil?.rvAdapter?.notifyDataSetChanged()
+                        }
                         progressDialog.hideProgress()
                     }
                     //For Add Demand
@@ -544,23 +598,28 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         } else {
                             errorToast(apiRenderState.result.message!!)
                         }
-                        progressDialog?.hideProgress()
+                        progressDialog.hideProgress()
                     }
                     is EditDemandDataResponse -> {
 
                         vm.editDemandData.clear()
 
-                        apiRenderState.result.data?.demand?.itemslist?.map {
-                            vm.editDemandData.add(it)
-                            editList.add(it)
+                        if (apiRenderState.result.data?.demand?.itemslist?.isEmpty() == true) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoData.visibility = View.GONE
+
+                            apiRenderState.result.data?.demand?.itemslist?.map {
+                                vm.editDemandData.add(it)
+                                editList.add(it)
+                            }
+
+                            editRvUtil?.rvAdapter?.notifyDataSetChanged()
+
+                            editProfileDataAdapter?.list?.forEach {
+                                l.add(it?.qty?.toInt())
+                            }
                         }
-
-                        editRvUtil?.rvAdapter?.notifyDataSetChanged()
-
-                        editProfileDataAdapter?.list?.forEach {
-                            l.add(it?.qty?.toInt())
-                        }
-
                         progressDialog.hideProgress()
                     }
                     is SingleEditItemResponse -> {

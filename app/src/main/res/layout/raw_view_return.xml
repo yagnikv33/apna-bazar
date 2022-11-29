@@ -111,8 +111,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 tools:text="Bunch : 10"
-                android:text="@{`Bunch : ` + data.maxretu}"
-                android:textAlignment="textEnd" />
+                android:text="@{`Bunch : ` + data.thock}"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_standard_sub_header"

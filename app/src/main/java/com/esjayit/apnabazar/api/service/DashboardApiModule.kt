@@ -21,6 +21,7 @@ import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_DEMAND_LIST
 import com.esjayit.apnabazar.AppConstants.Api.EndUrl.VIEW_PARTY_RETURN
 import com.esjayit.apnabazar.data.model.response.*
 import com.google.gson.JsonObject
+import org.json.JSONObject
 import retrofit2.http.*
 
 interface DashboardApiModule {
@@ -194,16 +195,9 @@ interface DashboardApiModule {
     ): SingleItemResponse
 
     //Add 5% Return Book
-    @FormUrlEncoded
     @POST(ADD_BOOK_RETURN)
-    suspend fun addReturnBook(
-        @Field("billdate") billDate: String,
-        @Field("userid") userid: String,
-        @Field("billamount") billAmount: String,
-        @Query("retutranlist") returnList: JsonObject,
-        @Field("installid") installid: String,
-        @Field("packagename") appPackgeName: String = BuildConfig.APPLICATION_ID,
-        @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
+    suspend fun addReturnBookData(
+        @Body addReturnBook: AddReturnBook
     ): CommonResponse
 
     //View 5% Return
@@ -216,6 +210,11 @@ interface DashboardApiModule {
         @Field("versioncode") versioncode: String = BuildConfig.VERSION_CODE.toString(),
         @Field("packagename") packagename: String = BuildConfig.APPLICATION_ID,
     ): ViewBookReturnDataResponse
+
+    @POST(ADD_DEMAND)
+    suspend fun addDemandRow(
+        @Body data: JSONObject
+    ): CommonResponse
 
     @FormUrlEncoded
     @POST(GET_ITEM_DETAIL)

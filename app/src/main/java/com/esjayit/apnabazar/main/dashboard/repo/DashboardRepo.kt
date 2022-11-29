@@ -1,12 +1,10 @@
 package com.esjayit.apnabazar.main.dashboard.repo
 
 import androidx.lifecycle.MutableLiveData
-import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.ApiResult
 import com.esjayit.apnabazar.main.base.BaseRepo
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
@@ -259,12 +257,12 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
 
     //Add Demand
     suspend fun addDemandString(
-        demandData : AddDemand,
+        demandData: AddDemand,
         onError: (ApiResult<Any>) -> Unit
     ): CommonResponse? {
         return with(apiCall(executable = {
             apiCall.addDemandString(
-              demandData
+                demandData
             )
 
         })) {
@@ -372,33 +370,15 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
     }
 
     //Add 5% Return Book
-    suspend fun addReturnBook(
-        returnList: Array<DummyReturn>,
-        billDate: String,
-        userid: String,
-        billAmount: String,
-        installid: String,
+    suspend fun addReturnBookData(
+        addReturnBook: AddReturnBook,
         onError: (ApiResult<Any>) -> Unit
     ): CommonResponse? {
         return with(apiCall(executable = {
-            apiCall.addReturnBook(
-                userid = userid,
-                billAmount = billAmount,
-                billDate = billDate,
-                installid = installid,
-                returnList = JsonObject().apply {
-                    returnList.forEach {
-                        this.addProperty("itemid", it.itemid)
-                        this.addProperty("buyqty", it.buyqty)
-                        this.addProperty("maxretu", it.maxretu)
-                        this.addProperty("rate", it.rate)
-                        this.addProperty(
-                            "retuqty",
-                            it.maxretu
-                        ) //Please change with edit text Field return qty
-                    }
-                }
+            apiCall.addReturnBookData(
+                addReturnBook = addReturnBook
             )
+
         })) {
             if (data == null)
                 onError.invoke(ApiResult(null, resultType, error, resCode = resCode))

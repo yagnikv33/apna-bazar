@@ -44,7 +44,7 @@ data class ReturnitemsItem(
     val subcode: String? = null,
 
     @field:SerializedName("retuqty")
-    val retuqty: String? = null,
+    var retuqty: String? = null,
 
     var isTextVisible: Boolean = false
 ) {

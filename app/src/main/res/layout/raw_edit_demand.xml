@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -39,7 +40,7 @@
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_105sdp"
+                android:layout_width="@dimen/_110sdp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -58,6 +59,7 @@
                 android:maxLength="3"
                 android:onClick="@{click::onClick}"
                 android:text="@{data.qty}"
+                android:layout_marginStart="@dimen/_30dp"
                 android:textAlignment="center" />
 
             <TextView
@@ -65,14 +67,15 @@
                 style="@style/add_demand_row"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_14sdp"
                 android:text="@{data.bunchqty}"
+                tools:text="20"
+                android:layout_marginStart="@dimen/_30dp"
                 android:textAlignment="textEnd" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_64sdp"
                 android:layout_height="wrap_content"
                 android:text="@{data.std}"
                 android:textAlignment="textEnd" />

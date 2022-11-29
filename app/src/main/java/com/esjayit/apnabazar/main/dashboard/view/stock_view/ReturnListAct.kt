@@ -12,6 +12,7 @@ import com.esjayit.apnabazar.AppConstants.App.BundleData.BILL_DATE
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.helper.custom.CustomProgress
+import com.esjayit.apnabazar.helper.util.getDateString
 import com.esjayit.apnabazar.helper.util.hideSoftKeyboard
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
@@ -20,8 +21,8 @@ import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.stock_view.model.StockViewVM
-import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.ActivityReturnListBinding
+import com.google.android.material.datepicker.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,6 +43,7 @@ class ReturnListAct :
 
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
+    private var datePicker: MaterialDatePicker<Long>? = null
 
     var subjectItem: String = ""
     var mediumItem: String = ""
@@ -50,13 +52,14 @@ class ReturnListAct :
     var rvUtil: RvUtil? = null
 
     var clickedPosition = -1
-    private var addReturnBook: List<DummyReturn>? = null
+    private var addReturnBook: List<AddRetutranlistItem>? = null
     var did: String? = null
     var demandDate: String? = null
     var billDate: String? = null
     var demandNo: Int? = null
     var isFromEditDemand = false
     var totalBill = 0
+    var isExpandable = true
 
     override fun init() {
 
@@ -73,6 +76,8 @@ class ReturnListAct :
         setRv()
 
         progressDialog.showProgress()
+
+        binding.tvNoData.visibility = View.GONE
     }
 
     var currentClickItem: ReturnitemsItem? = null
@@ -83,39 +88,43 @@ class ReturnListAct :
             br = BR.data,
             clickListener = { v, item, p ->
 
-                item?.returnItemResponse?.let {
-                    // notify data
-                    when (v.id) {
-                        R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header, R.id.main_view -> {
-                            vm.returnDataList.forEach {
-                                it?.isTextVisible = false
+                if (isExpandable) {
+                    item?.returnItemResponse?.let {
+                        // notify data
+
+                        when (v.id) {
+                            R.id.ll_sub_header, R.id.tv_subject_sub_header, R.id.tv_rate, R.id.tv_standard_sub_header, R.id.main_view -> {
+                                vm.returnDataList.forEach {
+                                    it?.isTextVisible = false
+                                }
+                                item.isTextVisible = !item.isTextVisible
+
+                                //Calculating bill
+                                totalBill = item.buyqty?.toInt()
+                                    ?.let { it1 ->
+                                        item.rate?.toInt()?.let { it2 ->
+                                            getCurrentBill(
+                                                rate = it2,
+                                                qty = it1
+                                            )
+                                        }
+                                    } ?: 0
+
+                                rvUtil?.notifyAdapter()
                             }
-                            item.isTextVisible = !item.isTextVisible
-
-                            //Calculating bill
-                            totalBill = item.buyqty?.toInt()
-                                ?.let { it1 ->
-                                    item.rate?.toInt()?.let { it2 ->
-                                        getCurrentBill(
-                                            rate = it2,
-                                            qty = it1
-                                        )
-                                    }
-                                }!!
-
-                            rvUtil?.notifyAdapter()
+                            else -> {}
                         }
-                        else -> {}
+                    } ?: run {
+                        vm.getReturnSingleItem(
+                            userid = prefs.user.userId,
+                            installid = prefs.installId.orEmpty(),
+                            itemId = item?.itemid.orEmpty()
+                        )
+                        progressDialog.showProgress()
+                        currentClickItem = item
                     }
-                } ?: run {
-                    vm.getReturnSingleItem(
-                        userid = prefs.user.userId,
-                        installid = prefs.installId.orEmpty(),
-                        itemId = item?.itemid.orEmpty()
-                    )
-                    progressDialog.showProgress()
-                    currentClickItem = item
                 }
+                isExpandable = true
             },
             viewHolder = { v, t, p ->
 
@@ -124,6 +133,13 @@ class ReturnListAct :
                     .setOnEditorActionListener { v, actionId, event ->
 
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            if (v.text.toString()
+                                    .toInt() > (t?.maxretu?.toInt() ?: 0)
+                            ) {
+                                errorToast("Return quantity must smaller")
+                                v.text = ""
+                                isExpandable = false
+                            }
                             v.hideSoftKeyboard()
                             return@setOnEditorActionListener true
                         }
@@ -145,6 +161,37 @@ class ReturnListAct :
             )
         }
     }
+
+    private fun datePicker() {
+
+        datePicker = MaterialDatePicker.Builder.datePicker().apply {
+            setTitleText("")
+            val date = Calendar.getInstance()
+            val dateValidatorMax: CalendarConstraints.DateValidator =
+                DateValidatorPointBackward.before(date.timeInMillis)
+            val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+            listValidators.add(dateValidatorMax)
+            val validators = CompositeDateValidator.allOf(listValidators)
+            setCalendarConstraints(CalendarConstraints.Builder().setValidator(validators).build())
+            setTheme(R.style.DialogTheme)
+            setSelection(date.timeInMillis)
+        }.build()
+
+        datePicker?.addOnPositiveButtonClickListener(materialDateListener)
+        datePicker?.show(supportFragmentManager, "")
+    }
+
+    private val materialDateListener: MaterialPickerOnPositiveButtonClickListener<Long?> =
+        MaterialPickerOnPositiveButtonClickListener<Long?> {
+
+            val dte = datePicker?.selection?.getDateString("dd")
+            val mnt = datePicker?.selection?.getDateString("MM")
+            val yar = datePicker?.selection?.getDateString("YYYY")
+
+            val datTime = "$yar-$mnt-$dte "
+
+            binding.etDate.setText(datTime)
+        }
 
     private fun setMediumDropdown() {
         mediumDialog = AlertDialog.Builder(this)
@@ -179,7 +226,7 @@ class ReturnListAct :
     }
 
     private fun getCurrentDateTime() {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm a")
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDateandTime: String = sdf.format(Date())
         binding.etDate.setText(currentDateandTime)
     }
@@ -195,51 +242,55 @@ class ReturnListAct :
             }
             binding.btnAddReturn -> {
 
-                addReturnBook =
-                    returnBookAdapter?.list?.filter { it?.retuqty?.toInt()!! > 0 }?.map {
-                        DummyReturn(
-                            itemid = it?.itemid,
-                            buyqty = it?.buyqty?.toInt(),
-                            maxretu = it?.maxretu?.toInt(),
-                            retuqty = it?.retuqty?.toInt(),
-                            rate = it?.rate?.toFloat()
+                if (returnBookAdapter?.list?.all { it?.retuqty?.toInt()!! <= it.maxretu?.toInt()!! } == true) {
+
+                    addReturnBook =
+                        returnBookAdapter?.list?.filter { it?.retuqty?.toInt()!! > 0 }
+                            ?.map {
+                                AddRetutranlistItem(
+                                    itemid = it?.itemid,
+                                    buyqty = it?.buyqty,
+                                    maxretu = it?.maxretu,
+                                    retuqty = it?.retuqty,
+                                    rate = it?.rate
+                                )
+                            }
+
+                    vm.addReturnBookDataVal(
+                        addReturnBook = AddReturnBook(
+                            userid = prefs.user.userId,
+                            installid = prefs.installId,
+                            billamount = totalBill.toString(),
+                            billdate = binding.etDate.text.toString(),
+                            retutranlist = addReturnBook
                         )
-                    }
-
-                //TEMP
-//                val r: Array<DummyReturn> = Array(1, init = {
-//                    DummyReturn(
-//                        itemid = "9EB3989A-A23A-4436-9507-AC735DEBC163",
-//                        buyqty = 20,
-//                        maxretu = 32,
-//                        retuqty = 10,
-//                        rate = 60.00f
-//                    )
-//                })
-
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
-                finish()
-
-                // "addReturn: ${r.size}".logE()
-
-                addReturnBook?.map {
-                    vm.addReturnBook(
-                        userid = prefs.user.userId,
-                        installid = prefs.installId.orEmpty(),
-                        billAmount = totalBill.toString(),
-                        billDate = binding.etDate.text.toString(),
-                        returnList = addReturnBook!!.toTypedArray()
                     )
+
+                } else {
+                    errorToast("Return quantity must smaller")
                 }
+
+
+//                addReturnBook?.map {
+//                    vm.addReturnBook(
+//                        userid = prefs.user.userId,
+//                        installid = prefs.installId.orEmpty(),
+//                        billAmount = totalBill.toString(),
+//                        billDate = binding.etDate.text.toString(),
+//                        returnList = addReturnBook!!.toTypedArray()
+//                    )
+//                }
             }
             binding.ivBack -> {
                 finishAct()
             }
+            binding.etDate -> {
+                datePicker()
+            }
         }
     }
 
-    fun getCurrentBill(rate: Int, qty: Int): Int {
+    private fun getCurrentBill(rate: Int, qty: Int): Int {
         return rate * qty
     }
 
@@ -266,9 +317,6 @@ class ReturnListAct :
                             installid = prefs.user.installId
                         )
 
-//                        returnBookAdapter?.list?.map {
-//                            it?.subname = castedMediumLanguageList?.get(0).orEmpty()
-//                        }
                         if (clickedPosition != -1) {
                             rvUtil?.rvAdapter?.notifyItemChanged(clickedPosition)
                         }
@@ -298,22 +346,32 @@ class ReturnListAct :
 
                         vm.returnList.clear()
 
-                        apiRenderState.result.data?.returnitems?.map {
-                            vm.returnDataList.add(it)
+                        if (apiRenderState.result.data?.returnitems.isNullOrEmpty()) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoData.visibility = View.GONE
+
+                            apiRenderState.result.data?.returnitems?.map {
+                                vm.returnDataList.add(it)
+                            }
+                            //"Response: return - ${apiRenderState.result}".logE()
+                            rvUtil?.rvAdapter?.notifyDataSetChanged()
                         }
-                        "Response: return - ${apiRenderState.result}".logE()
-                        rvUtil?.rvAdapter?.notifyDataSetChanged()
+
                         progressDialog.hideProgress()
                     }
 
                     is CommonResponse -> {
-                        "Response: ${apiRenderState.result}".logE()
 
-                        //finishAct()
+                        successToast(apiRenderState.result.message.toString(), callback = {
+                            val returnIntent = Intent()
+                            setResult(RESULT_OK, returnIntent)
+                            finishAct()
+                        })
                     }
 
                     is SingleItemResponse -> {
-                        "Response: GetReturnSingleDetailResponse - ${apiRenderState.result.data}".logE()
+                        //"Response: GetReturnSingleDetailResponse - ${apiRenderState.result.data}".logE()
                         currentClickItem?.returnItemResponse =
                             apiRenderState.result.data?.returnitems
                         returnBookAdapter?.list?.forEach {

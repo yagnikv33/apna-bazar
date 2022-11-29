@@ -70,7 +70,7 @@
                 android:textAlignment="textStart"
                 tools:text="20" />
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edt_qty"
                 style="@style/add_demand_row"
                 android:layout_width="@dimen/_26sdp"
@@ -81,7 +81,7 @@
                 android:maxLength="3"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:onClick="@{click::onClick}"
-                android:text="@{data.retuqty}"
+                android:text="@={data.retuqty}"
                 android:textAlignment="center" />
 
         </LinearLayout>

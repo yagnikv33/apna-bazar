@@ -137,22 +137,14 @@ class StockViewVM(private val repo: DashboardRepo) : BaseVM() {
 
 
     //Add Return API Call
-    fun addReturnBook(
-        returnList: Array<DummyReturn>,
-        billAmount: String,
-        billDate: String,
-        userid: String,
-        installid: String
+    fun addReturnBookDataVal(
+        addReturnBook: AddReturnBook
     ) {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
-            repo.addReturnBook(
-                returnList = returnList,
-                billDate = billDate,
-                userid = userid,
-                billAmount = billAmount,
-                installid = installid,
+            repo.addReturnBookData(
+                addReturnBook = addReturnBook,
                 onError = onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))

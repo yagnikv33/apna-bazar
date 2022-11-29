@@ -262,6 +262,19 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/raw_view_demand" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_no_data"
+                android:text="No data found"
+                style="@style/label_style"
+                android:visibility="gone"
+                android:translationZ="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="@id/rv_view_demand"
+                app:layout_constraintTop_toTopOf="@id/rv_view_demand"
+                app:layout_constraintBottom_toBottomOf="@id/rv_view_demand"
+                app:layout_constraintStart_toStartOf="@id/rv_view_demand"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

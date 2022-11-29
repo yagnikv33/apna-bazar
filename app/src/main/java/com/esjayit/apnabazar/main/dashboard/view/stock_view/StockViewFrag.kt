@@ -11,7 +11,6 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_ID
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_LIST_CODE
-import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_MODEL
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.GetReturnLisitngResponse
 import com.esjayit.apnabazar.data.model.response.RetunlistItem
@@ -37,6 +36,8 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
     override fun init() {
         progressDialog.showProgress()
         vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
+
+        binding.tvNoData.visibility = View.GONE
     }
 
     override fun onClick(v: View) {
@@ -69,7 +70,10 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                 //For when only view return
 //                vm.getReturnSingleItem(userid = prefs.user.userId, installid = prefs.installId.orEmpty(), itemid = "")
 
-                startActivity(ViewReturnAct::class.java, bundleOf(RETURN_ID to t?.id, RETURN_DATE to t?.billdate))
+                startActivity(
+                    ViewReturnAct::class.java,
+                    bundleOf(RETURN_ID to t?.id, RETURN_DATE to t?.billdate)
+                )
 
             },
             viewHolder = { v, t, p ->
@@ -97,18 +101,26 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is GetReturnLisitngResponse -> {
-                        apiRenderState.result.statuscode
+                        vm.returnList.clear()
 
                         if (apiRenderState.result.statuscode == AppConstants.Status_Code.Success) {
-                            "Get 5% Return Data ${apiRenderState.result.data}".logE()
-                            apiRenderState.result.data?.retunlist?.map {
-                                vm.returnList.add(it)
+
+                            if (apiRenderState.result.data?.retunlist.isNullOrEmpty()) {
+
+                                binding.tvNoData.visibility = View.VISIBLE
+                            } else {
+
+                                binding.tvNoData.visibility = View.GONE
+                                //"Get 5% Return Data ${apiRenderState.result.data}".logE()
+                                apiRenderState.result.data?.retunlist?.map {
+                                    vm.returnList.add(it)
+                                }
+                                setRcv()
                             }
-                            setRcv()
-                            progressDialog.hideProgress()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                         }
+                        progressDialog.hideProgress()
                     }
                 }
             }

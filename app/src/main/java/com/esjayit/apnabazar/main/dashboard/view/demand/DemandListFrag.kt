@@ -7,7 +7,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import com.esjayit.BR
 import com.esjayit.R
-import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
@@ -23,7 +22,6 @@ import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
-import com.esjayit.apnabazar.main.dashboard.view.stock_view.ReturnListAct
 import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,6 +40,8 @@ class DemandListFrag :
 
     override fun init() {
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+
+        binding.tvNoData.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -159,12 +159,18 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                        "Response: ${apiRenderState.result.data}".logE()
+                        //"Response: ${apiRenderState.result.data}".logE()
 
-                        apiRenderState.result.data?.demandlist?.map {
-                            vm.demandList.add(it)
+                        if (apiRenderState.result.data?.demandlist.isNullOrEmpty()) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                        } else {
+                            binding.tvNoData.visibility = View.GONE
+                            apiRenderState.result.data?.demandlist?.map {
+                                vm.demandList.add(it)
+                            }
+                            setRcv()
                         }
-                        setRcv()
+
                     }
                 }
             }

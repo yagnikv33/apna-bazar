@@ -57,6 +57,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="3"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:onClick="@{click::onClick}"
                 android:text="@={data.qty}"
                 android:textAlignment="center" />
@@ -64,16 +65,15 @@
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_14sdp"
                 android:text="@{data.thock}"
-                android:textAlignment="textEnd" />
+                android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/tv_standard"
+              android:paddingEnd="@dimen/_14sdp"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="@dimen/_46sdp"
                 android:layout_height="wrap_content"
                 android:text="@{data.standard}"
                 android:textAlignment="textEnd" />
@@ -88,6 +88,7 @@
             android:background="@color/white"
             android:onClick="@{click::onClick}"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_3sdp"
             android:visibility="@{data.textVisible ? View.VISIBLE : View.GONE}">
 
             <TextView
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@{`Rate :`  + data.itemrate}"
-                android:textAlignment="center" />
+                android:textAlignment="textEnd" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_branch_sub_header"-->
@@ -122,6 +123,7 @@
                 style="@style/add_demand_sub_header_row"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_30dp"
                 android:text="@{`Medium : ` + data.mediumItem}"
             android:textAlignment="textEnd" />
 
