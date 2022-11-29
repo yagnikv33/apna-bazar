@@ -50,7 +50,7 @@ class ViewDemandAct :
 
         setRv()
 
-        binding.tvDate.visibility = View.GONE
+        binding.tvNoData.visibility = View.GONE
     }
 
     private fun setRv() {
@@ -74,7 +74,7 @@ class ViewDemandAct :
     }
 
     private fun getCurrentDateTime() {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm a")
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDateandTime: String = sdf.format(Date())
         binding.etDate.setText(currentDateandTime)
     }

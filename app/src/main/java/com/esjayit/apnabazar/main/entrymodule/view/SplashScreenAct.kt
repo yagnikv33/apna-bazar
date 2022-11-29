@@ -111,6 +111,7 @@ class SplashScreenAct :
             }
         } else {
             this.startActivity(Intent(this, DashboardAct::class.java))
+            finishAffinity()
         }
     }
 
@@ -178,7 +179,7 @@ class SplashScreenAct :
                             }
                             //Temp Redirection For SignINACT (Please Check this)
                             this.startActivity(Intent(this, SignInAct::class.java))
-                            finishAct()
+                            finishAffinity()
                         } else {
                             "Error : Check Update Response ${apiRenderState.result.message}".logE()
                         }

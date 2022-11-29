@@ -57,7 +57,6 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:padding="@dimen/_12sdp"
-                android:visibility="gone"
                 android:src="@drawable/ic_notification" />
 
         </LinearLayout>

@@ -35,10 +35,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
-      <!-- <activity
+       <activity
             android:name="com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct"
             android:exported="false"
-            android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct"

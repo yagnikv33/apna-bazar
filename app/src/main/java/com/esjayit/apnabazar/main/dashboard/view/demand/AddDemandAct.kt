@@ -18,6 +18,7 @@ import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
 import com.esjayit.apnabazar.AppConstants.App.BundleData.FOR_EDIT_DEMAND
+import com.esjayit.apnabazar.AppConstants.App.BundleData.FROM_DEMAND
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.helper.custom.CustomProgress
@@ -591,6 +592,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             successToast(apiRenderState.result.message.toString(), callback = {
                                 if (it) {
                                     val returnIntent = Intent()
+                                    returnIntent.putExtra(FROM_DEMAND,true)
                                     setResult(RESULT_OK, returnIntent)
                                     finishAct()
                                 }

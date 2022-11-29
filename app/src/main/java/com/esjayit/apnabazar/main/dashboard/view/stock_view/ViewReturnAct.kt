@@ -17,6 +17,7 @@ import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.stock_view.model.StockViewVM
+import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.ActivityViewReturnBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -78,6 +79,9 @@ class ViewReturnAct :
         when (v) {
             binding.ivBack -> {
                 finishAct()
+            }
+            binding.btnNotification -> {
+                startActivity(NotificationAct::class.java)
             }
         }
     }

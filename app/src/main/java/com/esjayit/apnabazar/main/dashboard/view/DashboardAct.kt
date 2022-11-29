@@ -1,12 +1,12 @@
 package com.esjayit.apnabazar.main.dashboard.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.esjayit.R
 import com.esjayit.apnabazar.Layouts
-import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
-import com.esjayit.apnabazar.main.base.IOnBackPressed
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
 import com.esjayit.apnabazar.main.dashboard.view.demand.DemandListFrag
@@ -68,11 +68,22 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode === Activity.RESULT_OK) {
+            switchToFragment(DemandListFrag())
+            binding.bottomNavigation.selectedItemId = R.id.demand_list_page
+        }
+    }
+
+
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val fragment =
-            this.supportFragmentManager.findFragmentById(R.id.frag_container)
-        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
+        if (binding.bottomNavigation.selectedItemId == R.id.home_page) {
             super.onBackPressed()
+        } else {
+            switchToFragment(DemandListFrag())
+            binding.bottomNavigation.selectedItemId = R.id.home_page
         }
     }
 
