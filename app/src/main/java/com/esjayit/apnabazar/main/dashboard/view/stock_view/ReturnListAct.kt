@@ -138,7 +138,7 @@ class ReturnListAct :
                             if (v.text.toString()
                                     .toInt() > (t?.maxretu?.toInt() ?: 0)
                             ) {
-                                errorToast("Return quantity must smaller")
+                                errorToast("Return quantity must smaller than max qty")
                                 v.text = ""
                                 isExpandable = false
                             }
@@ -269,7 +269,7 @@ class ReturnListAct :
                     )
 
                 } else {
-                    errorToast("Return quantity must smaller")
+                    errorToast("Return quantity must smaller than max qty")
                 }
 
 
