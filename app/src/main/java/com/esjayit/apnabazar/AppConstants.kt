@@ -18,6 +18,7 @@ class AppConstants {
             const val RETURN_MODEL = "return_model"
             const val RETURN_ID = "return_id"
             const val RETURN_DATE = "return_date"
+            const val BILL_NO = "bill_no"
             const val ITEM_ID = "item_id"
             const val FROM_DEMAND = "from_demand"
 

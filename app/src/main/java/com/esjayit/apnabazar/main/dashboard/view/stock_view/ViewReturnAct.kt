@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import com.esjayit.BR
 import com.esjayit.R
+import com.esjayit.apnabazar.AppConstants.App.BundleData.BILL_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_ID
 import com.esjayit.apnabazar.Layouts
@@ -38,6 +39,7 @@ class ViewReturnAct :
     var rvUtil: RvUtil? = null
     var returnId = ""
     var returnDate = ""
+    var billNo = ""
     var returnModel: RetunlistItem? = null
 
     override fun init() {
@@ -46,10 +48,11 @@ class ViewReturnAct :
 
         returnId = bundle?.getString(RETURN_ID).toString()
         returnDate = bundle?.getString(RETURN_DATE).toString()
+        billNo = bundle?.getString(BILL_NO).toString()
 
         progressDialog.showProgress()
 
-        binding.etDemandNo.setText(returnId)
+        binding.etDemandNo.setText(billNo)
         binding.etDate.setText(returnDate)
 
         //Api Call
