@@ -1,6 +1,5 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
-import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -41,7 +40,12 @@ class SplashScreenAct :
 
     override fun init() {
         "isRooted : ${isRooted}".logE()
-        "UUID ${Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)} RandomUUID : ${uuid}".logE()
+        "UUID ${
+            Settings.Secure.getString(
+                contentResolver,
+                Settings.Secure.ANDROID_ID
+            )
+        } RandomUUID : ${uuid}".logE()
         checkForLaunchAPIs()
 
         "Pref: ${prefs.authToken}".logE()
@@ -77,26 +81,41 @@ class SplashScreenAct :
             // get player ID
             prefs.playerId = stateChanges.to.userId
             "onOSSubscriptionChanged NOTIFICATION API CALL".logE()
-            vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = prefs.playerId.toString(), deviceInfoJson = convertedJSONObject())
+            vm.appFirstTimeLaunch(
+                fcmToken = "",
+                installId = uuid,
+                playerId = prefs.playerId.toString(),
+                deviceInfoJson = convertedJSONObject()
+            )
         }
         Log.i("Debug", "onOSPermissionChanged: $stateChanges")
     }
 
     //For Launch App API Calling
     private fun checkForLaunchAPIs() {
-        if (prefs.authToken.isNullOrEmpty())  {
-                //login
-            if(prefs.firstTime) {
+        if (prefs.authToken.isNullOrEmpty()) {
+            //login
+            if (prefs.firstTime) {
                 // First Time Launch
                 "RUN : First Time".logE()
 
 //            "DATA JSON, ${convertedJSONObject()}".logE()
                 prefs.installId = uuid
                 vm.checkForUpdate(installedId = uuid)
-                vm.addDeviceInfo(uuid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID), isRooted = isRooted, installedId = uuid)
+                vm.addDeviceInfo(
+                    uuid = Settings.Secure.getString(
+                        contentResolver,
+                        Settings.Secure.ANDROID_ID
+                    ), isRooted = isRooted, installedId = uuid
+                )
                 if (!prefs.playerId.isNullOrBlank()) {
                     "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
-                    vm.appFirstTimeLaunch(fcmToken = "", installId = uuid, playerId = prefs.playerId.toString(), deviceInfoJson = convertedJSONObject())
+                    vm.appFirstTimeLaunch(
+                        fcmToken = "",
+                        installId = uuid,
+                        playerId = prefs.playerId.toString(),
+                        deviceInfoJson = convertedJSONObject()
+                    )
                 }
                 prefs.firstTime = false
             } else {
@@ -139,7 +158,10 @@ class SplashScreenAct :
             this.addProperty("TYPE", Build.TYPE)
             this.addProperty("UNKNOWN", Build.UNKNOWN)
             this.addProperty("USER", Build.USER)
-            this.addProperty("UDID", Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
+            this.addProperty(
+                "UDID",
+                Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+            )
             this.addProperty("ISROOTED", "0")
         }
     }
@@ -187,10 +209,10 @@ class SplashScreenAct :
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+
             }
             ApiRenderState.Loading -> {
-                showProgress()
+
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()

@@ -13,6 +13,7 @@ import com.esjayit.apnabazar.data.model.response.RetutranlistItem
 import com.esjayit.apnabazar.data.model.response.ViewBookReturnDataResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.getDateString
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
@@ -157,8 +158,19 @@ class ViewReturnAct :
                     }
                 }
             }
-            else -> {
+            ApiRenderState.Idle -> {
                 progressDialog.hideProgress()
+            }
+            ApiRenderState.Loading -> {
+                progressDialog.showProgress()
+            }
+            is ApiRenderState.ValidationError -> {
+                progressDialog.hideProgress()
+            }
+            is ApiRenderState.ApiError<*> -> {
+                progressDialog.hideProgress()
+                "Error API CALLING API ERROR".logE()
+                //errorToast("Error Ocured")
             }
         }
     }

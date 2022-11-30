@@ -174,8 +174,17 @@ class DemandListFrag :
                     }
                 }
             }
-            else -> {
+            ApiRenderState.Idle -> {
 
+            }
+            ApiRenderState.Loading -> {
+
+            }
+            is ApiRenderState.ValidationError -> {
+                "Error API CALLING".logE()
+            }
+            is ApiRenderState.ApiError<*> -> {
+                "Error API CALLING API ERROR".logE()
             }
         }
     }

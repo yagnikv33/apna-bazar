@@ -25,6 +25,7 @@ class AppConstants {
             //status code
             const val RETURN_LIST_CODE = 101
             const val RETURN_TO_SEARCH = 102
+            const val ADD_DEMAND_CODE = 103
         }
 
         object Buttons {

@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.esjayit.R
+import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -23,6 +25,12 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
     override val vm: DashboardVM by viewModel()
     override val hasProgress: Boolean = false
 
+    val homeFrag = HomeFrag()
+    val stockView = StockViewFrag()
+    val demandList = DemandListFrag()
+    val userLedgerFrag = UserLedgerFrag()
+    val profile = ProfileFrag()
+
     override fun init() {
         bottomNav()
     }
@@ -40,27 +48,27 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
             when (item.itemId) {
                 R.id.home_page -> {
                     // Respond to navigation HOME
-                    switchToFragment(HomeFrag())
+                    switchToFragment(homeFrag)
                     true
                 }
                 R.id.stock_view_page -> {
                     // Respond to navigation STOCK VIEW
-                    switchToFragment(StockViewFrag())
+                    switchToFragment(stockView)
                     true
                 }
                 R.id.demand_list_page -> {
                     // Respond to navigation DEMAND LIST
-                    switchToFragment(DemandListFrag())
+                    switchToFragment(demandList)
                     true
                 }
                 R.id.user_ledger_page -> {
                     // Respond to navigation USER LEDGER
-                    switchToFragment(UserLedgerFrag())
+                    switchToFragment(userLedgerFrag)
                     true
                 }
                 R.id.profile_page -> {
                     // Respond to navigation PROFILE
-                    switchToFragment(ProfileFrag())
+                    switchToFragment(profile)
                     true
                 }
                 else -> false
@@ -70,9 +78,18 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode === Activity.RESULT_OK) {
-            switchToFragment(DemandListFrag())
-            binding.bottomNavigation.selectedItemId = R.id.demand_list_page
+        when (requestCode) {
+            AppConstants.App.BundleData.RETURN_LIST_CODE -> {
+                supportFragmentManager.fragments.find {
+                    it is StockViewFrag
+                }?.onActivityResult(requestCode, resultCode, data)
+            }
+            ADD_DEMAND_CODE -> {
+                if (resultCode === Activity.RESULT_OK) {
+                    switchToFragment(demandList)
+                    binding.bottomNavigation.selectedItemId = R.id.demand_list_page
+                }
+            }
         }
     }
 

@@ -627,8 +627,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString(), callback = {
                                 if (it) {
-                                    val returnIntent = Intent()
-                                    returnIntent.putExtra(FROM_DEMAND, true)
+                                    val returnIntent = Intent().apply {
+                                        putExtra("from", "AddFrag")
+                                    }
                                     setResult(RESULT_OK, returnIntent)
                                     finishAct()
                                 }
@@ -668,16 +669,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+                progressDialog.hideProgress()
             }
             ApiRenderState.Loading -> {
-                showProgress()
+                progressDialog.showProgress()
             }
             is ApiRenderState.ValidationError -> {
-                "Error API CALLING".logE()
+                progressDialog.hideProgress()
             }
             is ApiRenderState.ApiError<*> -> {
-                progressDialog?.hideProgress()
+                progressDialog.hideProgress()
                 "Error API CALLING API ERROR".logE()
                 //errorToast("Error Ocured")
             }

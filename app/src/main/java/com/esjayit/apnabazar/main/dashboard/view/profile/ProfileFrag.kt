@@ -167,16 +167,18 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+                progressDialog.hideProgress()
             }
             ApiRenderState.Loading -> {
-                showProgress()
+                progressDialog.showProgress()
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()
+                progressDialog.hideProgress()
             }
             is ApiRenderState.ApiError<*> -> {
                 "Error API CALLING API ERROR".logE()
+                progressDialog.hideProgress()
             }
         }
     }

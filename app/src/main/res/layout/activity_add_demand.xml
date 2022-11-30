@@ -316,6 +316,7 @@
                 android:layout_marginHorizontal="@dimen/_4sdp"
                 android:orientation="vertical"
                 android:translationZ="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

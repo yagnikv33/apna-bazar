@@ -35,10 +35,11 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
     var rvUtil: RvUtil? = null
 
     override fun init() {
-        progressDialog.showProgress()
+
         vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
 
         binding.tvNoData.visibility = View.GONE
+        progressDialog.showProgress()
     }
 
     override fun onClick(v: View) {
@@ -125,8 +126,19 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                     }
                 }
             }
-            else -> {
+            ApiRenderState.Idle -> {
                 progressDialog.hideProgress()
+            }
+            ApiRenderState.Loading -> {
+                progressDialog.showProgress()
+            }
+            is ApiRenderState.ValidationError -> {
+                progressDialog.hideProgress()
+            }
+            is ApiRenderState.ApiError<*> -> {
+                progressDialog.hideProgress()
+                "Error API CALLING API ERROR".logE()
+                //errorToast("Error Ocured")
             }
         }
     }

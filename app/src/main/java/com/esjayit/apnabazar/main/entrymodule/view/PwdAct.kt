@@ -92,15 +92,17 @@ class PwdAct : BaseAct<ActivityPwdBinding, EntryVM>(Layouts.activity_pwd) {
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+                progressDialog.hideProgress()
             }
             ApiRenderState.Loading -> {
-                showProgress()
+                progressDialog.showProgress()
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()
+                progressDialog.hideProgress()
             }
             is ApiRenderState.ApiError<*> -> {
+                progressDialog.hideProgress()
                 "Error API CALLING API ERROR".logE()
             }
         }

@@ -108,16 +108,17 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                 }
             }
             ApiRenderState.Idle -> {
-                hideProgress()
+                progressDialog.hideProgress()
             }
             ApiRenderState.Loading -> {
-                showProgress()
+                progressDialog.showProgress()
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()
+                progressDialog.hideProgress()
             }
             is ApiRenderState.ApiError<*> -> {
-                progressDialog?.showProgress()
+                progressDialog.hideProgress()
                 "Error API CALLING API ERROR".logE()
             }
         }

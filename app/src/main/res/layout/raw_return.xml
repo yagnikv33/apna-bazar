@@ -45,9 +45,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:paddingBottom="@dimen/_10sdp"
                 android:text="@{data.subname}"
                 android:textAlignment="textStart"
-                tools:text="Math Magic (20)" />
+                tools:text="Math Magic (20) Math Magic (20)" />
 
             <TextView
                 android:id="@+id/tv_branch"

@@ -1,12 +1,13 @@
 package com.esjayit.apnabazar.main.dashboard.view.home
 
+//import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esjayit.apnabazar.AppConstants
-//import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
+import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.CheckUserActiveResponse
 import com.esjayit.apnabazar.data.model.response.HomeScreenListResponse
@@ -82,7 +83,7 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         super.onClick(v)
         when (v) {
             binding.btnAddDemand -> {
-                startActivityForResult(AddDemandAct::class.java)
+                startActivityForResult(AddDemandAct::class.java, requestCode = ADD_DEMAND_CODE)
             }
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)

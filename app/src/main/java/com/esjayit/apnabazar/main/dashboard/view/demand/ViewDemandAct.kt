@@ -10,6 +10,7 @@ import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem
 import com.esjayit.apnabazar.data.model.response.ViewDemandRes
 import com.esjayit.apnabazar.helper.util.getDateString
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
@@ -139,7 +140,7 @@ class ViewDemandAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is ViewDemandRes -> {
-                        // "Response: viewDemand - ${apiRenderState.result.data?.demand?.itemslist}".logE()
+                         "Response: viewDemand - ${apiRenderState.result.data?.demand?.itemslist}".logE()
 
                         vm.viewDemandList.clear()
 
@@ -168,8 +169,19 @@ class ViewDemandAct :
                     }
                 }
             }
-            else -> {
+            ApiRenderState.Idle -> {
 
+            }
+            ApiRenderState.Loading -> {
+
+            }
+            is ApiRenderState.ValidationError -> {
+
+            }
+            is ApiRenderState.ApiError<*> -> {
+
+                "Error API CALLING API ERROR".logE()
+                //errorToast("Error Ocured")
             }
         }
     }
