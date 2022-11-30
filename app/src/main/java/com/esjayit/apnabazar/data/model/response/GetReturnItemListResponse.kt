@@ -32,7 +32,7 @@ data class ReturnitemsItem(
     val buyqty: String? = null,
 
     @field:SerializedName("rate")
-    val rate: String? = null,
+    val rate: Float? = null,
 
     @field:SerializedName("maxretu")
     val maxretu: String? = null,

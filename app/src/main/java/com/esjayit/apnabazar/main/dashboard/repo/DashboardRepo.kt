@@ -292,6 +292,22 @@ class DashboardRepo(private val apiCall: DashboardApiModule) : BaseRepo() {
         }
     }
 
+    suspend fun editDemandData(
+        data: EditDemandDataVal,
+        onError: (ApiResult<Any>) -> Unit
+    ): CommonResponse? {
+        return with(apiCall(executable = {
+            apiCall.editReturnBookData(
+                addReturnBook = data
+            )
+        })) {
+            if (data == null)
+                onError.invoke(ApiResult(null, resultType, error, resCode = resCode))
+            this.data
+        }
+    }
+
+
     //For Edit Demand API
     suspend fun editDemand(
         itemList: Array<DummyEditDemand>,

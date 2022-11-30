@@ -27,6 +27,7 @@ import com.google.android.material.datepicker.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class ReturnListAct :
@@ -103,7 +104,7 @@ class ReturnListAct :
                                 //Calculating bill
                                 totalBill = item.buyqty?.toInt()
                                     ?.let { it1 ->
-                                        item.rate?.toInt()?.let { it2 ->
+                                        item.rate?.roundToInt()?.let { it2 ->
                                             getCurrentBill(
                                                 rate = it2,
                                                 qty = it1
@@ -253,7 +254,7 @@ class ReturnListAct :
                                     buyqty = it?.buyqty,
                                     maxretu = it?.maxretu,
                                     retuqty = it?.retuqty,
-                                    rate = it?.rate
+                                    rate = it?.rate.toString()
                                 )
                             }
 

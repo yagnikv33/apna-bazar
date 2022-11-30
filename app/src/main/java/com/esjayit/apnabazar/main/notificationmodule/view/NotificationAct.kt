@@ -1,14 +1,18 @@
 package com.esjayit.apnabazar.main.notificationmodule.view
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Environment
-import android.view.View.*
+import android.os.Build
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.webkit.DownloadListener
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
@@ -25,27 +29,10 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.notificationmodule.model.NotificationVM
 import com.esjayit.databinding.ActivityNotificationBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.*
-import android.content.BroadcastReceiver
-import android.content.Intent
-import android.content.IntentFilter
-import android.app.AlertDialog
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
-import android.view.View
-import android.webkit.URLUtil
-import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
-import com.esjayit.apnabazar.main.dashboard.view.demand.ViewDemandAct
-import android.app.DownloadManager as DownloadManager1
 
 
-class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Layouts.activity_notification) {
+class NotificationAct :
+    BaseAct<ActivityNotificationBinding, NotificationVM>(Layouts.activity_notification) {
 
     override val vm: NotificationVM by viewModel()
     override val hasProgress: Boolean = false
@@ -57,13 +44,15 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
     lateinit var activity: NotificationAct
     lateinit var downloadListener: DownloadListener
     var writeAcess = false
-    var downloadPage=""
+    var downloadPage = ""
 
     override fun init() {
         context = applicationContext
-        activity =this
+        activity = this
         checkWriteAccess()
         vm?.getNotificationList(userId = prefs.user.userId!!, installId = prefs.installId!!)
+
+        binding.tvNoData.visibility = GONE
     }
 
     override fun onClick(v: View) {
@@ -107,7 +96,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                     ).show()
                     writeAcess = false
                 } else {
-                    Toast.makeText(this,"Waiting for download",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Waiting for download", Toast.LENGTH_LONG).show()
                     writeAcess = true
                 }
             }
@@ -121,8 +110,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
             list = vm.notificationListData,
             br = BR.notiListData,
             clickListener = { v, t, p ->
-                //Read API Call
-                //Temp Check PDF Download
+
 //                downloadPDF(url = "http://img.esjaysoftware.com/commonimages/Apnabazar/Apnabazar_18_(27-07-2022).pdf")
                 when (v.id) {
                     R.id.download_btn -> {
@@ -132,14 +120,22 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                     }
                     R.id.ll_main_noti_list -> {
                         if (t?.isread == "0") {
-                            vm?.readNotification(inboxId = t?.inboxid.toString(), userId = prefs.user.userId!!, installId = prefs.installId!!)
+                            vm.readNotification(
+                                inboxId = t?.inboxid.toString(),
+                                userId = prefs.user.userId!!,
+                                installId = prefs.installId!!
+                            )
                         } else {
                             errorToast("Already Read Message")
                         }
                     }
                     else -> {
                         if (t?.isread == "0") {
-                            vm?.readNotification(inboxId = t?.inboxid.toString(), userId = prefs.user.userId!!, installId = prefs.installId!!)
+                            vm.readNotification(
+                                inboxId = t?.inboxid.toString(),
+                                userId = prefs.user.userId!!,
+                                installId = prefs.installId!!
+                            )
                         } else {
                             errorToast("Already Read Message")
                         }
@@ -147,7 +143,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
                 }
             },
             viewHolder = { v, t, p ->
-                if(!t?.url.isNullOrEmpty()) {
+                if (!t?.url.isNullOrEmpty()) {
                     v.findViewById<ConstraintLayout>(R.id.noti_download_view).visibility = VISIBLE
                 } else {
                     v.findViewById<ConstraintLayout>(R.id.noti_download_view).visibility = GONE
@@ -164,7 +160,7 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
     //For Download PDF File
     fun downloadPDF(url: String) {
         downloadPage = url
-        Toast.makeText(this,"Downloading...",Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Downloading...", Toast.LENGTH_LONG).show()
         createDownloadListener()
 
         onDownloadComplete()
@@ -188,10 +184,13 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
     private fun onDownloadComplete() {
         val onComplete = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                Toast.makeText(context,"Pdf downloaded",Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Pdf downloaded", Toast.LENGTH_LONG).show()
             }
         }
-        registerReceiver(onComplete, IntentFilter(android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        registerReceiver(
+            onComplete,
+            IntentFilter(android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
     }
 
 
@@ -201,22 +200,25 @@ class NotificationAct : BaseAct<ActivityNotificationBinding, NotificationVM>(Lay
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is NotificationListResponse -> {
-                        progressDialog?.hideProgress()
+
                         val statusCode = apiRenderState.result.statuscode
                         progressDialog.hideProgress()
-                        if (statusCode == AppConstants.Status_Code.Success) {
-                            "Notification Response: ${apiRenderState.result.data}".logE()
-                            //Dummmy Data (Remove after check)
-//                             vm.notificationListData.add(NotificationlistItem(datetime = "01-40-2000", isread = "1", title = "Hello User", body = "Dear Customer, Due to Diwali festival Apnabazar is Closed from 23/10/2022 to 27/10/2022", inboxid = "231313", url = "sdadad" ))
-//                            vm.notificationListData.add(NotificationlistItem(datetime = "01-40-2000", isread = "0", title = "Hello User", body = "Dear Customer, Due to Diwali festival Apnabazar is Closed from 23/10/2022 to 27/10/2022", inboxid = "231313", url = "" ))
-                            apiRenderState.result.data?.inboxlist?.map {
-                                vm.notificationListData.add(it)
-                            }
-                            setRcv()
-//                            successToast(apiRenderState.result.message.toString())
+
+                        if (apiRenderState.result.data?.inboxlist.isNullOrEmpty()) {
+                            binding.tvNoData.visibility = View.VISIBLE
                         } else {
-                            errorToast(apiRenderState.result.message.toString())
-                            "Error : Noti ACT ${apiRenderState.result.message}".logE()
+                            binding.tvNoData.visibility = GONE
+
+                            if (statusCode == AppConstants.Status_Code.Success) {
+                                apiRenderState.result.data?.inboxlist?.map {
+                                    vm.notificationListData.add(it)
+                                }
+                                setRcv()
+//                            successToast(apiRenderState.result.message.toString())
+                            } else {
+                                errorToast(apiRenderState.result.message.toString())
+                                "Error : Noti ACT ${apiRenderState.result.message}".logE()
+                            }
                         }
                     }
 

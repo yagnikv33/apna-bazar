@@ -13,7 +13,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
     private val progressBar = MutableLiveData(false)
     val subjectData = mutableListOf<ItemlistItem?>()
-    val editDemandData = mutableListOf<ItemslistItem?>()
+    val editDemandData = mutableListOf<DemandItemslistItem?>()
     var demandList = mutableListOf<DemandListItem?>()
     var viewDemandList = mutableListOf<ViewDemandItemslistItem?>()
 
@@ -177,6 +177,23 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
             }
         }
     }
+
+    fun addEditDemand(
+        data: EditDemandDataVal
+    ) {
+        scope {
+            progressBar.postValue(true)
+            state.emit(ApiRenderState.Loading)
+            repo.editDemandData(
+                data = data,
+                onError = onApiError
+            ).let {
+                state.emit(ApiRenderState.ApiSuccess(it))
+                progressBar.postValue(false)
+            }
+        }
+    }
+
 
     fun getSingleEditItemDetail(
         userid: String,

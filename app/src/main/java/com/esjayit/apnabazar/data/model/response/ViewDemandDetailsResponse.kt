@@ -17,7 +17,7 @@ data class ViewDemandDetailsResponse(
 	val message: String? = null
 )
 
-data class ItemslistItem(
+data class DemandItemslistItem(
 
 	@field:SerializedName("thock")
 	val thock: String? = null,
@@ -75,7 +75,7 @@ data class Demand(
 	val demanddate: String? = null,
 
 	@field:SerializedName("itemslist")
-	val itemslist: List<ItemslistItem?>? = null,
+	val itemslist: List<DemandItemslistItem?>? = null,
 
 	@field:SerializedName("viewdemanddate")
 	val viewdemanddate: String? = null,

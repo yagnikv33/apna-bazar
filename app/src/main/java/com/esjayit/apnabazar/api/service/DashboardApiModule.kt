@@ -170,6 +170,11 @@ interface DashboardApiModule {
         @Field("versioncode") appVerCode: String = BuildConfig.VERSION_CODE.toString(),
     ): CommonResponse
 
+    //Add 5% Return Book
+    @POST(EDIT_DEMAND)
+    suspend fun editReturnBookData(
+        @Body addReturnBook: EditDemandDataVal
+    ): CommonResponse
 
     //For Get 5% Item Lising
     @FormUrlEncoded

@@ -9,6 +9,7 @@ import com.esjayit.apnabazar.AppConstants.App.BundleData.VIEW_DEMAND_ID
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.ViewDemandItemslistItem
 import com.esjayit.apnabazar.data.model.response.ViewDemandRes
+import com.esjayit.apnabazar.helper.util.getDateString
 import com.esjayit.apnabazar.helper.util.rvutil.RvItemDecoration
 import com.esjayit.apnabazar.helper.util.rvutil.RvUtil
 import com.esjayit.apnabazar.main.base.BaseAct
@@ -17,6 +18,7 @@ import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM
 import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.ActivityViewDemandBinding
+import com.google.android.material.datepicker.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +31,8 @@ class ViewDemandAct :
 
     var did: String = ""
     var dno: String = ""
+
+    private var datePicker: MaterialDatePicker<Long>? = null
     var viewDemandAdapter: BaseRvBindingAdapter<ViewDemandItemslistItem?>? = null
     var rvUtil: RvUtil? = null
 
@@ -52,6 +56,40 @@ class ViewDemandAct :
 
         binding.tvNoData.visibility = View.GONE
     }
+
+    private fun datePicker() {
+
+        datePicker = MaterialDatePicker.Builder.datePicker().apply {
+            setTitleText("")
+            val date = Calendar.getInstance()
+
+            val dateValidatorMax: CalendarConstraints.DateValidator =
+                DateValidatorPointForward.now()
+
+            val listValidators = ArrayList<CalendarConstraints.DateValidator>()
+            listValidators.add(dateValidatorMax)
+
+            val validators = CompositeDateValidator.allOf(listValidators)
+            setCalendarConstraints(CalendarConstraints.Builder().setValidator(validators).build())
+            setTheme(R.style.DialogTheme)
+            setSelection(date.timeInMillis)
+        }.build()
+
+        datePicker?.addOnPositiveButtonClickListener(materialDateListener)
+        datePicker?.show(supportFragmentManager, "")
+    }
+
+    private val materialDateListener: MaterialPickerOnPositiveButtonClickListener<Long?> =
+        MaterialPickerOnPositiveButtonClickListener<Long?> {
+
+            val dte = datePicker?.selection?.getDateString("dd")
+            val mnt = datePicker?.selection?.getDateString("MM")
+            val yar = datePicker?.selection?.getDateString("YYYY")
+
+            val datTime = "$yar-$mnt-$dte "
+
+            binding.etDate.setText(datTime)
+        }
 
     private fun setRv() {
         viewDemandAdapter = BaseRvBindingAdapter(
@@ -87,6 +125,9 @@ class ViewDemandAct :
             }
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)
+            }
+            binding.etDate -> {
+                datePicker()
             }
         }
     }
