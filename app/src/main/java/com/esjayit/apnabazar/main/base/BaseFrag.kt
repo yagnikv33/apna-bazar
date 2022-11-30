@@ -229,6 +229,3 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
 
     }
 }
-interface IOnBackPressed {
-    fun onBackPressed(): Boolean
-}

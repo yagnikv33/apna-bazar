@@ -28,11 +28,6 @@ class NetworkUtil() : LiveData<Boolean>() {
 
         val context by inject<Context>()
 
-        fun isInFlightMode() = Settings.System.getInt(
-            context.contentResolver,
-            Settings.Global.AIRPLANE_MODE_ON, 0
-        ) != 0
-
         // Make sure to execute this on a background thread.
         fun execute(socketFactory: SocketFactory): Boolean {
             return try {
@@ -49,35 +44,11 @@ class NetworkUtil() : LiveData<Boolean>() {
         }
     }
 
-    fun isConnected() =
-        cm.getNetworkCapabilities(cm.activeNetwork)?.hasCapability(NET_CAPABILITY_INTERNET) ?: false
-
     fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
-
-    fun isInFlightMode(): Boolean {
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
-            Settings.System.getInt(
-                context.contentResolver,
-                Settings.System.AIRPLANE_MODE_ON,
-                0
-            ) != 0
-        else
-            Settings.Global.getInt(
-                context.contentResolver,
-                Settings.Global.AIRPLANE_MODE_ON,
-                0
-            ) != 0
-    }
-
-    fun changeWifiState(shouldWifiBeEnabled: Boolean) {
-        val wifiManager =
-            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        wifiManager.isWifiEnabled = shouldWifiBeEnabled
     }
 
 

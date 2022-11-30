@@ -40,7 +40,7 @@ class DemandListFrag :
 
     override fun init() {
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-
+        setRcv()
         binding.tvNoData.visibility = View.GONE
     }
 
@@ -168,7 +168,7 @@ class DemandListFrag :
                             apiRenderState.result.data?.demandlist?.map {
                                 vm.demandList.add(it)
                             }
-                            setRcv()
+                            rvUtil?.rvAdapter?.notifyDataSetChanged()
                         }
 
                     }

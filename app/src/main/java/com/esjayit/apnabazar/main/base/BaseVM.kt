@@ -2,7 +2,6 @@ package com.esjayit.apnabazar.main.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -10,10 +9,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.koin.ext.scope
 
 abstract class BaseVM : ViewModel(), KoinComponent {
-    private val baseRepo by inject<BaseRepo>()
 
     internal val apiError = MutableSharedFlow<ApiResult<Any>>()
     protected val onApiError: (ApiResult<Any>) -> Unit = { error ->
@@ -24,33 +21,6 @@ abstract class BaseVM : ViewModel(), KoinComponent {
 
     protected val state = MutableSharedFlow<ApiRenderState>()
     internal fun state(): SharedFlow<ApiRenderState> = state
-
-    //For Error Logs
-//    suspend fun logErrorAPI(uuid: String, errorLog: String, installedId: String) {
-//        scope {
-//            state.emit(ApiRenderState.Loading)
-//            baseRepo.logErrorAdd(
-//                uuid = uuid,
-//                logError = errorLog,
-//                installId = installedId,
-//                onApiError).let {
-//                state.emit(ApiRenderState.ApiSuccess(it))
-//            }
-//        }
-//    }
-
-//    fun <T> getLiveData(executable: suspend LiveDataScope<T>.() -> Unit): LiveData<T> {
-//        return liveData(Dispatchers.IO, timeoutInMs = 0, block = executable)
-//    }
-
-    fun <T> asyncScope(
-        dispatcher: CoroutineDispatcher = IO,
-        executable: suspend CoroutineScope.() -> T
-    ): Deferred<T> {
-        return viewModelScope.async(dispatcher) {
-            executable.invoke(this)
-        }
-    }
 
     fun <T> scope(
         dispatcher: CoroutineDispatcher = IO,

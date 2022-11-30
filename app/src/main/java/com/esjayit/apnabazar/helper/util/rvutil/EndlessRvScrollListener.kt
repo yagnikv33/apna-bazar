@@ -28,13 +28,6 @@ abstract class EndlessRecyclerViewScrollListener(
         return maxSize
     }
 
-    fun reset() {
-        visibleThreshold = 5
-        currentPage = 0
-        previousTotalItemCount = 0
-        startingPageIndex = 0
-    }
-
     override fun onScrolled(view: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
         var lastVisibleItemPosition = 0
         val totalItemCount = mLayoutManager.itemCount
@@ -62,18 +55,10 @@ abstract class EndlessRecyclerViewScrollListener(
         }
     }
 
-    // Call this method whenever performing new searches
-    fun resetState() {
-        this.currentPage = this.startingPageIndex
-        this.previousTotalItemCount = 0
-        this.loading = true
-    }
-
     // Defines the process for actually loading more data based on page
     abstract fun onLoadMore(page: Int, totalItemsCount: Int, view: androidx.recyclerview.widget.RecyclerView?)
 
 }
 
 interface OnLoadMoreListener {
-    fun onLoadMore(page: Int, totalItemCount: Int)
 }

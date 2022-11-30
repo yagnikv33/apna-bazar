@@ -36,10 +36,13 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
 
     override fun init() {
 
-        vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
-
         binding.tvNoData.visibility = View.GONE
-        progressDialog.showProgress()
+        //progressDialog.showProgress()
+        //  lifecycleScope.launchWhenResumed {
+        vm.getReturnListData(userId = prefs.user.userId, installedId = prefs.installId!!)
+        //}
+
+        setRcv()
     }
 
     override fun onClick(v: View) {
@@ -117,7 +120,7 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                                 apiRenderState.result.data?.retunlist?.map {
                                     vm.returnList.add(it)
                                 }
-                                setRcv()
+                                rvUtil?.rvAdapter?.notifyDataSetChanged()
                             }
                         } else {
                             errorToast(apiRenderState.result.message.toString())

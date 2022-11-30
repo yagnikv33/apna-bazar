@@ -68,9 +68,6 @@ class PrefUtil(context: Context) {
             prefEditor.apply()
         }
 
-    fun hasKey(key: String) = prefs.contains(key)
-
-
 
     fun clearPrefs() {
         prefEditor.clear()

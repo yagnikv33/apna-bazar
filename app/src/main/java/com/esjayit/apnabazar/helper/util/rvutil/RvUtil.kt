@@ -68,64 +68,6 @@ class RvUtil(
         }
     }
 
-    fun itemChanged(pos: Int, item: Any? = null) {
-        if (item != null)
-            getDataList()?.set(pos, item)
-        rvAdapter?.notifyItemChanged(pos)
-        manageVisibility()
-    }
-
-    fun addData(data: List<Any>, isClear: Boolean = false, insertPos: Int = -1) {
-        when (rvAdapter) {
-            is BaseRvAdapter<*> -> (rvAdapter as BaseRvAdapter<Any>).addData(
-                data,
-                insertPos,
-                isClear
-            )
-            is BaseRvBindingAdapter<*> -> (rvAdapter as BaseRvBindingAdapter<Any>).addData(
-                data,
-                insertPos,
-                isClear
-            )
-            is BaseRvBindingDiffUtilAdapter<*> -> (rvAdapter as BaseRvBindingDiffUtilAdapter<Any>).addData(
-                data,
-                insertPos,
-                isClear
-            )
-        }
-
-        manageVisibility()
-    }
-
-    fun addDataInReverse(data: List<Any>, isClear: Boolean = false) {
-        when (rvAdapter) {
-            is BaseRvAdapter<*> -> (rvAdapter as BaseRvAdapter<Any>).addDataInReverse(
-                data,
-                isClear
-            )
-            is BaseRvBindingAdapter<*> -> (rvAdapter as BaseRvBindingAdapter<Any>).addDataInReverse(
-                data,
-                isClear
-            )
-            is BaseRvBindingDiffUtilAdapter<*> -> (rvAdapter as BaseRvBindingDiffUtilAdapter<Any>).addDataInReverse(
-                data,
-                isClear
-            )
-        }
-
-        manageVisibility()
-    }
-
-    fun reset() {
-//        getDataList()?.clear()
-//        rvAdapter!!.notifyDataSetChanged()
-
-        rv?.clearOnScrollListeners()
-
-        if (scrollListener != null)
-            scrollListener!!.reset()
-    }
-
     private fun manageVisibility(isInitialisation: Boolean = false) {
         if (isInitialisation)
             hideEverything()
@@ -158,28 +100,6 @@ class RvUtil(
             is BaseRvBindingAdapter<*> -> (rvAdapter as BaseRvBindingAdapter<Any>).list
             else -> (rvAdapter as BaseRvBindingDiffUtilAdapter<Any>).list
         }
-    }
-
-    fun setStackFromEnd() {
-        if (lm is LinearLayoutManager)
-            (lm as LinearLayoutManager).stackFromEnd = true
-    }
-
-    fun setOnLoadMoreListener(onLoadingListener: OnLoadMoreListener, isReverse: Boolean = false) {
-        onLoadMoreListener = onLoadingListener
-        scrollListener = object :
-            EndlessRecyclerViewScrollListener(lm!!, lm is LinearLayoutManager, isReverse) {
-
-            override fun onLoadMore(
-                page: Int,
-                totalItemsCount: Int,
-                view: RecyclerView?
-            ) {
-                if (onLoadMoreListener != null)
-                    onLoadMoreListener!!.onLoadMore(page, totalItemsCount)
-            }
-        }
-        rv!!.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
     }
 
 }
