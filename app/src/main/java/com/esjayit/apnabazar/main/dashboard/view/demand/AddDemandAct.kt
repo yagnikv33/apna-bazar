@@ -11,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.BuildConfig
@@ -341,6 +342,10 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                 /** Ime DONE Action */
                 v.findViewById<EditText>(R.id.edt_qty)
+                    .doOnTextChanged { text, start, before, count ->
+                        editProfileDataAdapter?.list?.get(p)?.qty = text.toString()
+                    }
+                v.findViewById<EditText>(R.id.edt_qty)
                     .setOnEditorActionListener { v, actionId, event ->
 
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -419,6 +424,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     val totalAmount: Int
                     var amt = 0
 
+                    editProfileDataAdapter?.notifyDataSetChanged()
+
                     editDemandData =
                         editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
                             AddItemslistItem(
@@ -431,10 +438,10 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             )
                         }
 
-                    vm.editDemandData.forEachIndexed { index, itemlistItem ->
+                    editDemandData?.forEachIndexed { index, itemlistItem ->
                         totalQty = +itemlistItem?.qty?.toInt()!!
                         amt = itemlistItem.rate?.toFloat()?.roundToInt()
-                            ?.times(itemlistItem.qty.toInt())!!
+                            ?.times(itemlistItem.qty!!.toInt())!!
                     }
 
                     totalAmount = amt * totalQty

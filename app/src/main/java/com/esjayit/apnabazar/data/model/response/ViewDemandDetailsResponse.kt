@@ -41,7 +41,7 @@ data class DemandItemslistItem(
 	val subname: String? = null,
 
 	@field:SerializedName("qty")
-	val qty: String? = null,
+	var qty: String? = null,
 
 	@field:SerializedName("rank")
 	val rank: String? = null,
