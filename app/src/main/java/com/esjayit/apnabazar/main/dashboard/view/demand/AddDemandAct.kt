@@ -627,9 +627,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString(), callback = {
                                 if (it) {
-                                    val returnIntent = Intent().apply {
-                                        putExtra("from", "AddFrag")
-                                    }
+                                    val returnIntent = Intent()
                                     setResult(RESULT_OK, returnIntent)
                                     finishAct()
                                 }

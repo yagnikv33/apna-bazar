@@ -125,14 +125,14 @@ abstract class BaseFrag<binding : ViewDataBinding, VM : BaseVM>(
             }
 
         if (shouldAnimate)
-            startActivityForResult(
+            requireActivity().startActivityForResult(
                 intent,
                 requestCode,
                 ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out)
                     .toBundle()
             )
         else
-            startActivityForResult(intent, requestCode)
+            requireActivity().startActivityForResult(intent, requestCode)
     }
 
     inline fun <reified T : Fragment> addFrag(

@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.core.inject
 
 abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
     @LayoutRes private val layoutId: Int, private val fragFactory: FragmentFactory? = null
@@ -28,7 +29,7 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
 
     protected val prefs by inject<PrefUtil>()
    protected lateinit var binding: binding
-
+    val nwUtil by inject<NetworkUtil>()
     private var progress: ObservableField<Boolean>? = null
 
     protected abstract val vm: VM?
@@ -64,6 +65,14 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
         }
 
         init()
+
+        lifecycleScope.launch {
+            nwUtil.observe(this@BaseAct) { hasInternet ->
+                if (!hasInternet) {
+                    errorToast("No internet connection")
+                }
+            }
+        }
     }
 
     fun startActivity(
@@ -93,6 +102,8 @@ abstract class BaseAct<binding : ViewDataBinding, VM : BaseVM>(
         else
             startActivity(intent)
     }
+
+
 
     fun startActivityForResult(
         act: Class<*>,

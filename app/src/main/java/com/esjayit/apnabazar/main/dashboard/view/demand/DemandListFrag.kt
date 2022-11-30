@@ -71,7 +71,7 @@ class DemandListFrag :
                 startActivity(NotificationAct::class.java)
             }
             binding.btnAddReturn -> {
-                startActivityForResult(AddDemandAct::class.java)
+                startActivity(AddDemandAct::class.java)
             }
         }
     }

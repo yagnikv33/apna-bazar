@@ -205,7 +205,7 @@ class NotificationAct :
                         progressDialog.hideProgress()
 
                         if (apiRenderState.result.data?.inboxlist.isNullOrEmpty()) {
-                            binding.tvNoData.visibility = View.VISIBLE
+                            binding.tvNoData.visibility = VISIBLE
                         } else {
                             binding.tvNoData.visibility = GONE
 

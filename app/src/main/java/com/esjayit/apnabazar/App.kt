@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar
 
 import android.R.attr.phoneNumber
+import android.content.Context
 import android.content.Intent
 import androidx.multidex.MultiDexApplication
 import com.esjayit.apnabazar.helper.util.PrefUtil
@@ -16,7 +17,6 @@ import org.koin.core.context.startKoin
 class App : MultiDexApplication() {
 
     private val prefs by inject<PrefUtil>()
-
     override fun onCreate() {
         super.onCreate()
         initTasks()

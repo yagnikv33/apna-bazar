@@ -1,13 +1,12 @@
 package com.esjayit.apnabazar.main.base
 
-import com.esjayit.apnabazar.data.model.response.CommonResponse
-import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.CANCELLED
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.HTTP_ERROR
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.MISCELLANEOUS
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.NO_INTERNET
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.SUCCESS
 import com.esjayit.apnabazar.main.base.BaseRepo.ApiResultType.TIME_OUT
+import com.esjayit.apnabazar.helper.util.NetworkUtil
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import retrofit2.HttpException

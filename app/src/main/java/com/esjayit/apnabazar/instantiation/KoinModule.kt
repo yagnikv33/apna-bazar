@@ -1,12 +1,10 @@
 package com.esjayit.apnabazar.instantiation
 
-import androidx.databinding.library.BuildConfig
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.api.HeaderHttpInterceptor
 import com.esjayit.apnabazar.api.service.DashboardApiModule
 import com.esjayit.apnabazar.api.service.EntryApiModule
 import com.esjayit.apnabazar.api.service.NotificationApiModule
-import com.esjayit.apnabazar.helper.util.NetworkUtil
 import com.esjayit.apnabazar.helper.util.PrefUtil
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
@@ -20,6 +18,7 @@ import com.esjayit.apnabazar.main.entrymodule.repo.EntryRepo
 import com.esjayit.apnabazar.main.notificationmodule.model.NotificationVM
 import com.esjayit.apnabazar.main.notificationmodule.repo.NotificationRepo
 import com.google.gson.GsonBuilder
+import com.esjayit.apnabazar.helper.util.NetworkUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,7 +30,7 @@ object KoinModule {
 
     val utilModule = module {
         single { PrefUtil(get()) }
-        single { NetworkUtil(get()) }
+        single { NetworkUtil() }
     }
 
     val apiModule = module {
