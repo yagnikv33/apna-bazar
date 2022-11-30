@@ -44,6 +44,7 @@
     <string name="txt_edit_demand">Edit Demand</string>
     <string name="txt_add_return">Add Return</string>
     <string name="txt_demand_no">Demand No.</string>
+    <string name="txt_bill_no">Bill No.</string>
     <string name="txt_buy_qty">Buy Qty</string>
     <string name="txt_max_qty">Max Qty</string>
     <string name="txt_return_qty">Return Qty</string>
