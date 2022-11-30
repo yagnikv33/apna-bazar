@@ -28,19 +28,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{click::onClick}"
-        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginVertical="@dimen/_6sdp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_110sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -50,7 +52,8 @@
             <EditText
                 android:id="@+id/edt_qty"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:editable="true"
                 android:hint="0"
@@ -59,23 +62,23 @@
                 android:maxLength="3"
                 android:onClick="@{click::onClick}"
                 android:text="@{data.qty}"
-                android:layout_marginStart="@dimen/_30dp"
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@{data.bunchqty}"
+                android:text="@{data.thock}"
                 tools:text="20"
-                android:layout_marginStart="@dimen/_30dp"
                 android:textAlignment="textEnd" />
 
             <TextView
                 android:id="@+id/tv_standard"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_64sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{data.std}"
                 android:textAlignment="textEnd" />
