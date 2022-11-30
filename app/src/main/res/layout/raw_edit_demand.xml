@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
+                tools:text="1231312313123123123123213213213"
                 android:text="@{data.subname}"
                 android:textAlignment="textStart" />
 
@@ -70,9 +71,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@{data.thock}"
+                android:text="@{data.bunchqty}"
                 tools:text="20"
-                android:textAlignment="textEnd" />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tv_standard"
@@ -81,7 +82,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{data.std}"
-                android:textAlignment="textEnd" />
+                tools:text="20"
+                android:textAlignment="center" />
 
         </LinearLayout>
 

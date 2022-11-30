@@ -40,10 +40,10 @@
             <TextView
                 android:id="@+id/tv_subject_name"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_105sdp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:ellipsize="end"
-                android:paddingBottom="@dimen/_6sdp"
+                android:layout_weight="1"
                 android:maxLines="2"
                 android:text="@{data.subname}"
                 android:textAlignment="textStart" />
@@ -51,13 +51,13 @@
             <EditText
                 android:id="@+id/edt_qty"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:editable="true"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="3"
-                android:layout_marginStart="@dimen/_12sdp"
                 android:onClick="@{click::onClick}"
                 android:text="@={data.qty}"
                 android:textAlignment="center" />
@@ -65,7 +65,8 @@
             <TextView
                 android:id="@+id/tv_branch"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_65sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{data.thock}"
                 android:textAlignment="center" />
@@ -73,7 +74,8 @@
             <TextView
               android:paddingEnd="@dimen/_14sdp"
                 style="@style/add_demand_row"
-                android:layout_width="@dimen/_46sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@{data.standard}"
                 android:textAlignment="textEnd" />
