@@ -50,7 +50,7 @@ class NotificationAct :
         context = applicationContext
         activity = this
         checkWriteAccess()
-        vm?.getNotificationList(userId = prefs.user.userId!!, installId = prefs.installId!!)
+        vm.getNotificationList(userId = prefs.user.userId, installId = prefs.installId.orEmpty())
 
         binding.tvNoData.visibility = GONE
     }
@@ -232,6 +232,7 @@ class NotificationAct :
 //                            errorToast(apiRenderState.result.message)
                             "Error : Noti ACT ${apiRenderState.result.message}".logE()
                         }
+                        progressDialog.hideProgress()
                     }
                 }
             }
@@ -239,7 +240,7 @@ class NotificationAct :
                 progressDialog.hideProgress()
             }
             ApiRenderState.Loading -> {
-                progressDialog.showProgress()
+               // progressDialog.showProgress()
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()

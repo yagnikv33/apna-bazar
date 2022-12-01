@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.esjayit.apnabazar.data.model.response.ListItem" />
+    </data>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/robotor_regular"
+                    android:text="@{data.message}"
                     android:textSize="@dimen/_12ssp"
                     tools:text="ahfhakahfhakjdshgkafjhgdfkjdahsgfkjfjaghdjfdahgkfjsdgfjdshgkafjhgdfkjdahsgfkjfjaghdjfdahgkfjsdgf" />
 

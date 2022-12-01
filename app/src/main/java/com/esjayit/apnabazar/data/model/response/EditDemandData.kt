@@ -44,7 +44,7 @@ data class AddItemslistItem(
 	val bunchqty: String? = null,
 
 	@field:SerializedName("rate")
-	val rate: String? = null,
+	val rate: Float? = null,
 
 	@field:SerializedName("qty")
 	val qty: String? = null

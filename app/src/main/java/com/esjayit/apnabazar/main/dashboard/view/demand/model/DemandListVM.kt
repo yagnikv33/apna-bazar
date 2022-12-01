@@ -1,13 +1,11 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand.model
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.esjayit.BuildConfig
 import com.esjayit.apnabazar.data.model.response.*
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
-import com.google.gson.JsonObject
-import org.json.JSONObject
 
 class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
@@ -16,6 +14,7 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     val editDemandData = mutableListOf<DemandItemslistItem?>()
     var demandList = mutableListOf<DemandListItem?>()
     var viewDemandList = mutableListOf<ViewDemandItemslistItem?>()
+    var btnEnable = ObservableField(true)
 
     fun getMediumList(
         userid: String,
@@ -116,13 +115,13 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
     }
 
     fun addDemandString(
-        demandData : AddDemand
+        demandData: AddDemand
     ) {
         scope {
             progressBar.postValue(true)
             state.emit(ApiRenderState.Loading)
             repo.addDemandString(
-               demandData,
+                demandData,
                 onError = onApiError
             ).let {
                 state.emit(ApiRenderState.ApiSuccess(it))

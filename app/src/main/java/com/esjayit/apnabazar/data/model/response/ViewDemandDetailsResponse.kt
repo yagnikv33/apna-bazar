@@ -19,6 +19,9 @@ data class ViewDemandDetailsResponse(
 
 data class DemandItemslistItem(
 
+	@field:SerializedName("id")
+	val id: String? = null,
+
 	@field:SerializedName("thock")
 	val thock: String? = null,
 

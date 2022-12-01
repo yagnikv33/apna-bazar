@@ -58,6 +58,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
     private var selectStandard = mutableListOf<String>()
     private var castedSelectStandardList: Array<String>? = null
     var listData: ArrayList<AddDemandForAPINew>? = ArrayList()
+    var isBtnEnable = true
 
     var subjectItem: String = ""
     var mediumItem: String = ""
@@ -111,6 +112,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
         doSearch()
         progressDialog.showProgress()
         binding.tvNoData.visibility = View.GONE
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -417,109 +419,110 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 progressDialog.showProgress()
 
                 //From EditDemand
-                if (isFromEditDemand) {
-                    var totalQty = 0
-                    val totalAmount: Int
-                    var amt = 0
-
-                    editProfileDataAdapter?.notifyDataSetChanged()
-
-                    editDemandData =
-                        editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                            AddItemslistItem(
-                                tranid = "",
-                                itemid = it?.itemid,
-                                amount = it?.amount,
-                                bunchqty = it?.bunchqty,
-                                rate = it?.rate,
-                                qty = it?.qty
-                            )
-                        }
-
-                    editDemandData?.forEachIndexed { index, itemlistItem ->
-                        totalQty = +itemlistItem?.qty?.toInt()!!
-                        amt = itemlistItem.rate?.toFloat()?.roundToInt()
-                            ?.times(itemlistItem.qty!!.toInt())!!
-                    }
-
-                    totalAmount = amt * totalQty
-
-                    vm.addEditDemand(
-                        EditDemandDataVal(
-                            demanddate = binding.etDate.text.toString(),
-                            userid = prefs.user.userId,
-                            demandid = did.orEmpty(),
-                            totalamt = totalAmount.toString(),
-                            packagename = BuildConfig.APPLICATION_ID,
-                            versioncode = BuildConfig.VERSION_CODE.toString(),
-                            installid = prefs.installId,
-                            itemslist = editDemandData
-                        )
-                    )
-
-                    /* editDemandData?.toTypedArray()?.let {
-                         vm.editDemand(
-                             demanddate = binding.etDate.text.toString(),
-                             userid = prefs.user.userId,
-                             totalamt = totalAmount.toString(),
-                             installid = prefs.installId.orEmpty(),
-                             itemslist = it,
-                             demandid = did.orEmpty()
-                         )
-                     }*/
-                } else {
-                    //From Add Demand
-                    subectDemandData =
-                        subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                            DummyAddDemand(
-                                subjectName = it?.subname,
-                                qty = it?.qty,
-                                bunch = it?.thock,
-                                standard = it?.standard,
-                                itemId = it?.itemid,
-                                rate = it?.itemrate,
-                                amount = getAmount(
-                                    it?.itemrate?.toFloat(),
-                                    it?.qty?.toInt()
-                                ).toString()
-                            )
-                        }
-                    if (subectDemandData != null) {
-                        var totalQty = 0
-                        val totalAmount: Int
+                if (isBtnEnable) {
+                    if (isFromEditDemand) {
+                        val totalQty = 0
+                        var totalAmount: Int = 0
                         var amt = 0
 
-                        AppConstants.App.itemlistItem.addAll(subectDemandData!!)
-                        subectDemandData?.forEachIndexed { index, itemlistItem ->
-                            totalQty = +itemlistItem.qty?.toInt()!!
-                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
-                                ?.times(itemlistItem.qty?.toInt()!!)!!
+                        editProfileDataAdapter?.notifyDataSetChanged()
 
-                            listData?.add(
-                                AddDemandForAPINew(
-                                    itemid = itemlistItem.itemId,
-                                    qty = itemlistItem.qty,
-                                    rate = itemlistItem.rate,
-                                    amount = ((itemlistItem.qty?.toInt()!! * itemlistItem.rate?.toFloat()
-                                        ?.roundToInt()!!).toString()),
-                                    bunchqty = itemlistItem.bunch
+                        editDemandData =
+                            editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                                AddItemslistItem(
+                                    tranid = getIdOrEmptyStr(it?.id),
+                                    itemid = it?.itemid,
+                                    amount = it?.amount,
+                                    bunchqty = it?.bunchqty,
+                                    rate = it?.rate?.toFloat(),
+                                    qty = it?.qty
                                 )
-                            )
+                            }
+
+                        editDemandData?.forEachIndexed { index, itemlistItem ->
+                            amt = (itemlistItem.rate?.roundToInt()
+                                ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
+
+                            totalAmount += (itemlistItem.qty?.toInt()
+                                ?.times(itemlistItem.rate.toInt())!!)
+
                         }
 
-                        totalAmount = amt * totalQty
-
-                        val addDemand = AddDemand(
-                            demanddate = binding.etDate.text.toString(),
-                            userid = prefs.user.userId,
-                            totalamt = totalAmount.toString(),
-                            itemslist = listData,
-                            installid = prefs.installId.orEmpty()
+                        vm.addEditDemand(
+                            EditDemandDataVal(
+                                demanddate = binding.etDate.text.toString(),
+                                userid = prefs.user.userId,
+                                demandid = did.orEmpty(),
+                                totalamt = totalAmount.toString(),
+                                packagename = BuildConfig.APPLICATION_ID,
+                                versioncode = BuildConfig.VERSION_CODE.toString(),
+                                installid = prefs.installId,
+                                itemslist = editDemandData
+                            )
                         )
+                    } else {
+                        //From Add Demand
+                        subectDemandData =
+                            subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                                DummyAddDemand(
+                                    subjectName = it?.subname,
+                                    qty = it?.qty,
+                                    bunch = it?.thock,
+                                    standard = it?.standard,
+                                    itemId = it?.itemid,
+                                    rate = it?.itemrate?.toFloat(),
+                                    amount = getAmount(
+                                        it?.itemrate?.toFloat(),
+                                        it?.qty?.toInt()
+                                    ).toString()
+                                )
+                            }
+                        if (subectDemandData != null) {
+                            var totalQty = 0
+                            var totalAmount = 0
+                            var amt = 0
 
-                        vm.addDemandString(
-                            addDemand
-                        )
+                            AppConstants.App.itemlistItem.addAll(subectDemandData!!)
+                            subectDemandData?.forEachIndexed { index, itemlistItem ->
+
+//                            totalQty = +itemlistItem.qty?.toInt()!!
+//                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
+//                                ?.times(itemlistItem.qty?.toInt()!!)!!
+
+                                amt = (itemlistItem.rate?.roundToInt()
+                                    ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
+
+                                totalAmount += (itemlistItem.rate?.toInt()?.let {
+                                    itemlistItem.qty?.toInt()
+                                        ?.times(it)
+                                }!!)
+
+                                listData?.add(
+                                    AddDemandForAPINew(
+                                        itemid = itemlistItem.itemId,
+                                        qty = itemlistItem.qty,
+                                        rate = itemlistItem.rate.toString(),
+                                        amount = ((itemlistItem.qty?.toInt()!! * itemlistItem.rate
+                                            ?.roundToInt()!!).toString()),
+                                        bunchqty = itemlistItem.bunch
+                                    )
+                                )
+                            }
+
+                            // totalAmount = amt * totalQty
+
+                            val addDemand = AddDemand(
+                                demanddate = binding.etDate.text.toString(),
+                                userid = prefs.user.userId,
+                                totalamt = totalAmount.toString(),
+                                itemslist = listData,
+                                installid = prefs.installId.orEmpty()
+                            )
+
+                            vm.addDemandString(
+                                addDemand
+                            )
+                        }
                     }
                 }
             }
@@ -529,6 +532,12 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
             binding.etDate -> {
                 datePicker()
             }
+        }
+    }
+
+    private fun getIdOrEmptyStr(id: String?): String? {
+        return id?.ifEmpty {
+            ""
         }
     }
 
@@ -621,6 +630,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     //For Add Demand
                     is CommonResponse -> {
                         "Response: ${apiRenderState.result}".logE()
+                        isBtnEnable = false
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString(), callback = {
@@ -636,6 +646,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         progressDialog.hideProgress()
                     }
                     is EditDemandDataResponse -> {
+
+                        "Response: data - ${apiRenderState.result.data}".logE()
 
                         vm.editDemandData.clear()
 
@@ -675,6 +687,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 progressDialog.hideProgress()
             }
             is ApiRenderState.ApiError<*> -> {
+                isBtnEnable = true
                 progressDialog.hideProgress()
                 "Error API CALLING API ERROR".logE()
                 //errorToast("Error Ocured")

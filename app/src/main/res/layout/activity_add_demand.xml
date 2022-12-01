@@ -8,6 +8,10 @@
         <variable
             name="click"
             type="android.view.View.OnClickListener" />
+
+        <variable
+            name="vm"
+            type="com.esjayit.apnabazar.main.dashboard.view.demand.model.DemandListVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

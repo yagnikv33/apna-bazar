@@ -140,7 +140,7 @@ class ViewDemandAct :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is ViewDemandRes -> {
-                         "Response: viewDemand - ${apiRenderState.result.data?.demand?.itemslist}".logE()
+                        "Response: viewDemand - ${apiRenderState.result.data?.demand?.itemslist}".logE()
 
                         vm.viewDemandList.clear()
 
@@ -155,15 +155,15 @@ class ViewDemandAct :
                             rvUtil?.rvAdapter?.notifyDataSetChanged()
 
                             apiRenderState.result.data.let {
-                                binding.etDate.setText(it?.demand?.demanddate.orEmpty())
+                                binding.etDate.setText(it.demand?.demanddate.orEmpty())
                                 binding.txtVTotalAmount.text =
-                                    "Total Amount  : " + it?.demand?.totalamt.orEmpty()
+                                    "Total Amount  : " + it.demand?.totalamt.orEmpty()
                                 binding.txtVDiscount.text =
-                                    "Disc.(12.5 %)   : " + it?.demand?.discountamt.orEmpty()
+                                    "Disc.(12.5 %)   : " + it.demand?.discountamt.orEmpty()
                                 binding.txtVRoundOff.text =
-                                    "Round Off   :  " + it?.demand?.roundoff.orEmpty()
+                                    "Round Off   :  " + it.demand?.roundoff.orEmpty()
                                 binding.txtVGrandTotal.text =
-                                    "Grand Total  : " + it?.demand?.grandtotal.orEmpty()
+                                    "Grand Total  : " + it.demand?.grandtotal.orEmpty()
                             }
                         }
                     }

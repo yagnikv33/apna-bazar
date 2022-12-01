@@ -1,6 +1,7 @@
 package com.esjayit.apnabazar.main.dashboard.view.home.model
 
 import androidx.lifecycle.MutableLiveData
+import com.esjayit.apnabazar.data.model.response.ListItem
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
@@ -8,6 +9,7 @@ import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
 
 class HomeVM(private val repo: DashboardRepo) : BaseVM() {
     private val progressBar = MutableLiveData(false)
+    var homeListData = mutableListOf<ListItem?>()
 
     //For User Active Status
     fun checkUserActiveStatus(userId: String, installedId: String) {
