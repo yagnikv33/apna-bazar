@@ -6,6 +6,9 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
+import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esjayit.BR
 import com.esjayit.R
@@ -141,7 +144,8 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "User Profile Fetched".logE()
                             prefs.userProfileDetail = apiRenderState.result
-                            binding.userName.setText(prefs.userProfileDetail.userData?.detail?.uname.toString())
+                            binding.userName.text =
+                                prefs.userProfileDetail.userData?.detail?.uname.toString()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                             "Error : Home Frag ${apiRenderState.result.message}".logE()
@@ -169,6 +173,38 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
             layoutId = R.layout.raw_home_item_2,
             list = vm.homeListData,
             br = BR.data,
+            viewHolder = { view, item, pos ->
+                when (item?.code) {
+                    "0" -> {
+                        view.findViewById<CardView>(R.id.card_main).setCardBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.red
+                            )
+                        )
+                        view.findViewById<ImageView>(R.id.iv_icon).setImageDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_warning
+                            )
+                        )
+                    }
+                    "1" -> {
+                        view.findViewById<CardView>(R.id.card_main).setCardBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.status_green
+                            )
+                        )
+                        view.findViewById<ImageView>(R.id.iv_icon).setImageDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_bell
+                            )
+                        )
+                    }
+                }
+            }
         )
 
         homeRvUtil = homeListAdapter?.let {

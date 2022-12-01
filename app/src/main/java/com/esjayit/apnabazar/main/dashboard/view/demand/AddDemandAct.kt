@@ -458,7 +458,8 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             itemslist = editDemandData
                         )
                     )
-                } else {
+                }
+                else {
                     //From Add Demand
                     subectDemandData =
                         subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
@@ -481,10 +482,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         AppConstants.App.itemlistItem.addAll(subectDemandData!!)
                         subectDemandData?.forEachIndexed { index, itemlistItem ->
-
-//                            totalQty = +itemlistItem.qty?.toInt()!!
-//                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
-//                                ?.times(itemlistItem.qty?.toInt()!!)!!
 
                             amt = (itemlistItem.rate?.roundToInt()
                                 ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
@@ -523,7 +520,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 }
 
                 binding.btnAddDemand.isEnabled = false
-                "Click Tab Tab Tab".logE()
             }
             binding.ivBack -> {
                 finishAct()
@@ -628,7 +624,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     }
                     //For Add Demand
                     is CommonResponse -> {
-                        "Response: ${apiRenderState.result}".logE()
+                        //"Response: ${apiRenderState.result}".logE()
                         isBtnEnable = false
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
@@ -641,6 +637,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                             })
                         } else {
                             errorToast(apiRenderState.result.message!!)
+                            binding.btnAddDemand.isEnabled = true
                         }
                         progressDialog.hideProgress()
                     }

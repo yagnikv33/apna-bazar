@@ -244,6 +244,8 @@ class ReturnListAct :
             }
             binding.btnAddReturn -> {
 
+                binding.btnAddReturn.isEnabled = false
+
                 if (returnBookAdapter?.list?.all { it?.retuqty?.toInt()!! <= it.maxretu?.toInt()!! } == true) {
 
                     addReturnBook =
@@ -295,8 +297,17 @@ class ReturnListAct :
         }
     }
 
-    private fun getCurrentBill(rate: Int, qty: Int): Int {
-        return rate * qty
+    private fun getCurrentBill(rate: Int?, qty: Int?): Int {
+        if (rate == 0) {
+            return 0
+        }
+        if (qty == 0) {
+            return 0
+        }
+        if (rate != null) {
+            return rate * qty!!
+        }
+        return 0
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -373,6 +384,8 @@ class ReturnListAct :
                             setResult(RESULT_OK, returnIntent)
                             finishAct()
                         })
+                        binding.btnAddReturn.isEnabled = true
+                        progressDialog.hideProgress()
                     }
 
                     is SingleItemResponse -> {

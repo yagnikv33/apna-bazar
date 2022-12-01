@@ -25,4 +25,5 @@
     <color name="btn_green">#0B6930</color>
     <color name="status_purple">#7895FD</color>
     <color name="status_yellow">#EDDC81</color>
+    <color name="red">#FFC5CA</color>
 </resources>
