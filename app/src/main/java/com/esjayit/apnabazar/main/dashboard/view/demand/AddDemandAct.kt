@@ -419,112 +419,111 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 progressDialog.showProgress()
 
                 //From EditDemand
-                if (isBtnEnable) {
-                    if (isFromEditDemand) {
-                        val totalQty = 0
-                        var totalAmount: Int = 0
-                        var amt = 0
+                if (isFromEditDemand) {
+                    var totalAmount = 0
+                    var amt = 0
 
-                        editProfileDataAdapter?.notifyDataSetChanged()
+                    editProfileDataAdapter?.notifyDataSetChanged()
 
-                        editDemandData =
-                            editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                                AddItemslistItem(
-                                    tranid = getIdOrEmptyStr(it?.id),
-                                    itemid = it?.itemid,
-                                    amount = it?.amount,
-                                    bunchqty = it?.bunchqty,
-                                    rate = it?.rate?.toFloat(),
-                                    qty = it?.qty
-                                )
-                            }
-
-                        editDemandData?.forEachIndexed { index, itemlistItem ->
-                            amt = (itemlistItem.rate?.roundToInt()
-                                ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
-
-                            totalAmount += (itemlistItem.qty?.toInt()
-                                ?.times(itemlistItem.rate.toInt())!!)
-
+                    editDemandData =
+                        editProfileDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                            AddItemslistItem(
+                                tranid = getIdOrEmptyStr(it?.id),
+                                itemid = it?.itemid,
+                                amount = it?.amount,
+                                bunchqty = it?.bunchqty,
+                                rate = it?.rate?.toFloat(),
+                                qty = it?.qty
+                            )
                         }
 
-                        vm.addEditDemand(
-                            EditDemandDataVal(
-                                demanddate = binding.etDate.text.toString(),
-                                userid = prefs.user.userId,
-                                demandid = did.orEmpty(),
-                                totalamt = totalAmount.toString(),
-                                packagename = BuildConfig.APPLICATION_ID,
-                                versioncode = BuildConfig.VERSION_CODE.toString(),
-                                installid = prefs.installId,
-                                itemslist = editDemandData
-                            )
-                        )
-                    } else {
-                        //From Add Demand
-                        subectDemandData =
-                            subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                                DummyAddDemand(
-                                    subjectName = it?.subname,
-                                    qty = it?.qty,
-                                    bunch = it?.thock,
-                                    standard = it?.standard,
-                                    itemId = it?.itemid,
-                                    rate = it?.itemrate?.toFloat(),
-                                    amount = getAmount(
-                                        it?.itemrate?.toFloat(),
-                                        it?.qty?.toInt()
-                                    ).toString()
-                                )
-                            }
-                        if (subectDemandData != null) {
-                            var totalQty = 0
-                            var totalAmount = 0
-                            var amt = 0
+                    editDemandData?.forEachIndexed { index, itemlistItem ->
+                        amt = (itemlistItem.rate?.roundToInt()
+                            ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
 
-                            AppConstants.App.itemlistItem.addAll(subectDemandData!!)
-                            subectDemandData?.forEachIndexed { index, itemlistItem ->
+                        totalAmount += (itemlistItem.qty?.toInt()
+                            ?.times(itemlistItem.rate.toInt())!!)
+
+                    }
+
+                    vm.addEditDemand(
+                        EditDemandDataVal(
+                            demanddate = binding.etDate.text.toString(),
+                            userid = prefs.user.userId,
+                            demandid = did.orEmpty(),
+                            totalamt = totalAmount.toString(),
+                            packagename = BuildConfig.APPLICATION_ID,
+                            versioncode = BuildConfig.VERSION_CODE.toString(),
+                            installid = prefs.installId,
+                            itemslist = editDemandData
+                        )
+                    )
+                } else {
+                    //From Add Demand
+                    subectDemandData =
+                        subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
+                            DummyAddDemand(
+                                subjectName = it?.subname,
+                                qty = it?.qty,
+                                bunch = it?.thock,
+                                standard = it?.standard,
+                                itemId = it?.itemid,
+                                rate = it?.itemrate?.toFloat(),
+                                amount = getAmount(
+                                    it?.itemrate?.toFloat(),
+                                    it?.qty?.toInt()
+                                ).toString()
+                            )
+                        }
+                    if (subectDemandData != null) {
+                        var totalAmount = 0
+                        var amt = 0
+
+                        AppConstants.App.itemlistItem.addAll(subectDemandData!!)
+                        subectDemandData?.forEachIndexed { index, itemlistItem ->
 
 //                            totalQty = +itemlistItem.qty?.toInt()!!
 //                            amt = itemlistItem.rate?.toFloat()?.roundToInt()
 //                                ?.times(itemlistItem.qty?.toInt()!!)!!
 
-                                amt = (itemlistItem.rate?.roundToInt()
-                                    ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
+                            amt = (itemlistItem.rate?.roundToInt()
+                                ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
 
-                                totalAmount += (itemlistItem.rate?.toInt()?.let {
-                                    itemlistItem.qty?.toInt()
-                                        ?.times(it)
-                                }!!)
+                            totalAmount += (itemlistItem.rate?.toInt()?.let {
+                                itemlistItem.qty?.toInt()
+                                    ?.times(it)
+                            }!!)
 
-                                listData?.add(
-                                    AddDemandForAPINew(
-                                        itemid = itemlistItem.itemId,
-                                        qty = itemlistItem.qty,
-                                        rate = itemlistItem.rate.toString(),
-                                        amount = ((itemlistItem.qty?.toInt()!! * itemlistItem.rate
-                                            ?.roundToInt()!!).toString()),
-                                        bunchqty = itemlistItem.bunch
-                                    )
+                            listData?.add(
+                                AddDemandForAPINew(
+                                    itemid = itemlistItem.itemId,
+                                    qty = itemlistItem.qty,
+                                    rate = itemlistItem.rate.toString(),
+                                    amount = ((itemlistItem.qty?.toInt()!! * itemlistItem.rate
+                                        ?.roundToInt()!!).toString()),
+                                    bunchqty = itemlistItem.bunch
                                 )
-                            }
-
-                            // totalAmount = amt * totalQty
-
-                            val addDemand = AddDemand(
-                                demanddate = binding.etDate.text.toString(),
-                                userid = prefs.user.userId,
-                                totalamt = totalAmount.toString(),
-                                itemslist = listData,
-                                installid = prefs.installId.orEmpty()
-                            )
-
-                            vm.addDemandString(
-                                addDemand
                             )
                         }
+
+                        // totalAmount = amt * totalQty
+
+                        val addDemand = AddDemand(
+                            demanddate = binding.etDate.text.toString(),
+                            userid = prefs.user.userId,
+                            totalamt = totalAmount.toString(),
+                            itemslist = listData,
+                            installid = prefs.installId.orEmpty()
+                        )
+
+                        vm.addDemandString(
+                            addDemand
+                        )
                     }
                 }
+
+                binding.btnAddDemand.isEnabled = false
+                "Click Tab Tab Tab".logE()
             }
             binding.ivBack -> {
                 finishAct()
