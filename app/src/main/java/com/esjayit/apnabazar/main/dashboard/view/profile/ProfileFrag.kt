@@ -144,7 +144,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is CommonResponse -> {
-                        progressDialog?.hideProgress()
+                        progressDialog.hideProgress()
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString())
@@ -155,6 +155,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
                         }
                     }
                     is UserProfileDetailResponse -> {
+                        progressDialog.hideProgress()
                         val statusCode = apiRenderState.result.statuscode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             "User Profile Fetched".logE()

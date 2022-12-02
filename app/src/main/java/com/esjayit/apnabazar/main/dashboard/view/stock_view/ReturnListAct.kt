@@ -246,10 +246,12 @@ class ReturnListAct :
 
                 binding.btnAddReturn.isEnabled = false
 
-                if (returnBookAdapter?.list?.all { it?.retuqty?.toInt()!! <= it.maxretu?.toInt()!! } == true) {
+                if (returnBookAdapter?.list?.all {
+                        (it?.retuqty?.toIntOrNull() ?: 0) <= it?.maxretu?.toInt()!!
+                    } == true) {
 
                     addReturnBook =
-                        returnBookAdapter?.list?.filter { it?.retuqty?.toInt()!! > 0 }
+                        returnBookAdapter?.list?.filter { (it?.retuqty?.toIntOrNull() ?: 0) > 0 }
                             ?.map {
                                 AddRetutranlistItem(
                                     itemid = it?.itemid,
