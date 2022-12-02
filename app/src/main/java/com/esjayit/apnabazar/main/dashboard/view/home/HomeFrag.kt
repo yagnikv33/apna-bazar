@@ -2,6 +2,7 @@ package com.esjayit.apnabazar.main.dashboard.view.home
 
 //import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esjayit.BR
 import com.esjayit.R
@@ -25,6 +27,7 @@ import com.esjayit.apnabazar.main.base.BaseFrag
 import com.esjayit.apnabazar.main.base.rv.BaseRvBindingAdapter
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.view.demand.AddDemandAct
+import com.esjayit.apnabazar.main.dashboard.view.demand.DemandListFrag
 import com.esjayit.apnabazar.main.dashboard.view.home.adapter.HomeListingAdapter
 import com.esjayit.apnabazar.main.dashboard.view.home.model.HomeVM
 import com.esjayit.apnabazar.main.entrymodule.view.SignInAct
@@ -34,7 +37,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
 
-    override val vm: HomeVM by viewModel()
+    override val vm: HomeVM by activityViewModels()
     override val hasProgress: Boolean = false
     private var listingAdapter: HomeListingAdapter? = null
     var homeListAdapter: BaseRvBindingAdapter<ListItem?>? = null
@@ -98,10 +101,20 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
         super.onClick(v)
         when (v) {
             binding.btnAddDemand -> {
-                startActivityForResult(AddDemandAct::class.java, requestCode = ADD_DEMAND_CODE)
+                val i = Intent(requireContext(), AddDemandAct::class.java)
+                requireActivity().startActivityForResult(i, ADD_DEMAND_CODE)
             }
             binding.btnNotification -> {
                 startActivity(NotificationAct::class.java)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            ADD_DEMAND_CODE -> {
+
             }
         }
     }

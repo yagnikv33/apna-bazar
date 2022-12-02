@@ -5,9 +5,10 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.esjayit.R
-import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
+import com.esjayit.apnabazar.AppConstants.App.BundleData.RETURN_LIST_CODE
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.model.DashboardVM
@@ -78,14 +79,24 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        "Data onAct dahsboard - $requestCode, $resultCode, ${data?.data}".logE()
+
         when (requestCode) {
-            AppConstants.App.BundleData.RETURN_LIST_CODE -> {
+            RETURN_LIST_CODE -> {
                 supportFragmentManager.fragments.find {
                     it is StockViewFrag
                 }?.onActivityResult(requestCode, resultCode, data)
             }
             ADD_DEMAND_CODE -> {
                 if (resultCode === Activity.RESULT_OK) {
+
+                    supportFragmentManager.fragments.forEach {
+                        if ((it::class.java.javaClass == HomeFrag::class.java.javaClass) || (it::class.java.javaClass == DemandListFrag::class.java.javaClass)) {
+                            it.onActivityResult(requestCode, resultCode, data)
+                        }
+                    }
+
                     switchToFragment(demandList)
                     binding.bottomNavigation.selectedItemId = R.id.demand_list_page
                 }

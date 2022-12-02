@@ -381,11 +381,11 @@ class ReturnListAct :
 
                     is CommonResponse -> {
 
-                        successToast(apiRenderState.result.message.toString(), callback = {
+                       // successToast(apiRenderState.result.message.toString(), callback = {
                             val returnIntent = Intent()
                             setResult(RESULT_OK, returnIntent)
                             finishAct()
-                        })
+                       // })
                         binding.btnAddReturn.isEnabled = true
                         progressDialog.hideProgress()
                     }

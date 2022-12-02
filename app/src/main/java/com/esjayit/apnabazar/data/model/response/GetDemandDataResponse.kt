@@ -40,7 +40,7 @@ data class ItemlistItem(
     @field:SerializedName("itemrate")
     val itemrate: String? = null,
 
-    var qty:String = "0",
+    var qty:String = "",
 
     var mediumItem: String? = null,
 

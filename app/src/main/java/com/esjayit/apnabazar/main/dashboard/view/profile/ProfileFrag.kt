@@ -34,7 +34,7 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
     }
 
     fun setUserProfileValue() {
-        val detailModel  = prefs.userProfileDetail.userData?.detail
+        val detailModel = prefs.userProfileDetail.userData?.detail
         //Never Editable things
         binding.partyUserName.setText(detailModel?.username)
         binding.partyPhone1.setText(detailModel?.uphone1)
@@ -51,19 +51,19 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
     }
 
     //Check for valid API or not
-    fun vaildForAPI() : Boolean {
+    fun vaildForAPI(): Boolean {
         var msg = ""
         if (binding.partyName.text.toString().isNullOrEmpty()) {
             msg = "Please enter valid user name"
-        } else if(binding.partyAddress.text.toString().isNullOrEmpty()) {
+        } else if (binding.partyAddress.text.toString().isNullOrEmpty()) {
             msg = "Please enter address"
-        } else if(binding.partyPhone2.text.toString().isNullOrEmpty()) {
+        } else if (binding.partyPhone2.text.toString().isNullOrEmpty()) {
             msg = "Please enter Phone Number 2"
         } else if (!isValidMobile(binding.partyPhone2.text.toString())) {
             msg = "Please enter valid Phone Number 2"
-        } else if(binding.partyEmail.text.toString().isNullOrEmpty()) {
+        } else if (binding.partyEmail.text.toString().isNullOrEmpty()) {
             msg = "Please enter email address"
-        } else if(!isValidMail(binding.partyEmail.text.toString())) {
+        } else if (!isValidMail(binding.partyEmail.text.toString())) {
             msg = "Please enter valid email address"
         } else if (binding.partyCity.text.toString().isNullOrEmpty()) {
             msg = "Please enter city"
@@ -76,7 +76,9 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
         } else if (binding.partyPanNo.text.toString().isNullOrEmpty()) {
             msg = "Please enter pancard no"
         }
-        return if(msg.isEmpty()) { true } else {
+        return if (msg.isEmpty()) {
+            true
+        } else {
             errorToast(msg)
             false
         }
@@ -113,7 +115,9 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
                 .setPositiveButton("Yes",
                     DialogInterface.OnClickListener { dialog, id ->
                         prefs.clearPrefs()
-                        this.startActivity(Intent(requireActivity(), SignInAct::class.java))})
+                        this.startActivity(Intent(requireActivity(), SignInAct::class.java))
+                        requireActivity().finishAffinity()
+                    })
                 .setNegativeButton("No", null)
                 .show()
         } else {
@@ -148,7 +152,10 @@ class ProfileFrag : BaseFrag<FragmentProfileBinding, ProfileVM>(Layouts.fragment
                         val statusCode = apiRenderState.result.statusCode
                         if (statusCode == AppConstants.Status_Code.Success) {
                             successToast(apiRenderState.result.message.toString())
-                            vm.getUserProfile(userId = prefs.user.userId, installedId = prefs.installId!!)
+                            vm.getUserProfile(
+                                userId = prefs.user.userId,
+                                installedId = prefs.installId!!
+                            )
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                             "Error : Home Frag ${apiRenderState.result.message}".logE()

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.esjayit.BR
 import com.esjayit.R
@@ -41,7 +42,7 @@ class DemandListFrag :
     BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list) {
 
     override val hasProgress: Boolean = false
-    override val vm: DemandListVM by viewModel()
+    override val vm: DemandListVM by activityViewModels()
     lateinit var demandListAdapter: BaseRvBindingAdapter<DemandListItem?>
     var rvUtil: RvUtil? = null
     var usedBackBtn: Boolean = false
@@ -65,6 +66,9 @@ class DemandListFrag :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        "Data onAct Demand list: $requestCode, $resultCode, ${data?.data}".logE()
+
         if (requestCode === RETURN_TO_SEARCH) {
             if (resultCode === Activity.RESULT_OK) {
                 vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
@@ -115,27 +119,12 @@ class DemandListFrag :
                                 intent.putExtra(FOR_EDIT_DEMAND, true)
                                 intent.putExtra(DEMAND_DATE, t.demanddate)
                                 startActivityForResult(intent, RETURN_TO_SEARCH)
-//                                startActivity(
-//                                    AddDemandAct::class.java,
-//                                    bundle = bundleOf(
-//                                        EDIT_DEMAND_DATA to t.did,
-//                                        FOR_EDIT_DEMAND to true,
-//                                        DEMAND_DATE to t.demanddate
-//                                    )
-//                                )
                             }
                             else -> {
                                 val intent = Intent(requireActivity(), ViewDemandAct::class.java)
                                 intent.putExtra(VIEW_DEMAND_ID, t.did)
                                 intent.putExtra(DEMAND_NO, t.demandno)
                                 startActivityForResult(intent, RETURN_TO_SEARCH)
-//                                startActivity(
-//                                    ViewDemandAct::class.java,
-//                                    bundle = bundleOf(
-//                                        VIEW_DEMAND_ID to t.did,
-//                                        DEMAND_NO to t.demandno
-//                                    )
-//                                )
                             }
                         }
                     }
@@ -181,7 +170,7 @@ class DemandListFrag :
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                        //"Response: ${apiRenderState.result.data}".logE()
+                        "Response: ${apiRenderState.result.data}".logE()
                         vm.demandList.clear()
                         if (apiRenderState.result.data?.demandlist.isNullOrEmpty()) {
                             binding.tvNoData.visibility = View.VISIBLE

@@ -4,7 +4,7 @@ data class DummyAddDemand(
     var itemId:String?,
     var subjectName: String?,
     var qty: String?,
-    var rate:Float?,
+    var rate:Float? = 0.0f,
     var amount:String?,
     var bunch: String?,
     var standard: String?
