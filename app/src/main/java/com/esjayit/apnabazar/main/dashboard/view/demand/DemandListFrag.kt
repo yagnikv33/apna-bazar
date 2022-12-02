@@ -1,12 +1,19 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.view.View
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.esjayit.BR
 import com.esjayit.R
+import com.esjayit.apnabazar.AppConstants
+import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
 import com.esjayit.apnabazar.AppConstants.App.BundleData.EDIT_DEMAND_DATA
@@ -26,6 +33,7 @@ import com.esjayit.apnabazar.main.notificationmodule.view.NotificationAct
 import com.esjayit.databinding.FragmentDemandListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 //class DemandListFrag :
 //    BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list),
 //    IOnBackPressed {
@@ -42,7 +50,18 @@ class DemandListFrag :
         vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
         setRcv()
         binding.tvNoData.visibility = View.GONE
+        //Using BroadCast for api calling (When Add Demand tappd at that time call this)
+//        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(myBroadcastReceiver,IntentFilter("thisIsForMyFragment"));
     }
+
+//    private val myBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+//        override fun onReceive(context: Context, intent: Intent) {
+////            Toast.makeText(activity, "Broadcast received!", Toast.LENGTH_SHORT).show()
+//            vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+//            setRcv()
+//            binding.tvNoData.visibility = View.GONE
+//        }
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -50,6 +69,9 @@ class DemandListFrag :
             if (resultCode === Activity.RESULT_OK) {
                 vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
             }
+        } else if (requestCode === ADD_DEMAND_CODE) {
+            vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+//            setRcv()
         }
     }
 
@@ -71,7 +93,7 @@ class DemandListFrag :
                 startActivity(NotificationAct::class.java)
             }
             binding.btnAddReturn -> {
-                startActivity(AddDemandAct::class.java)
+                startActivityForResult(AddDemandAct::class.java, requestCode = ADD_DEMAND_CODE)
             }
         }
     }
@@ -160,7 +182,7 @@ class DemandListFrag :
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
                         //"Response: ${apiRenderState.result.data}".logE()
-
+                        vm.demandList.clear()
                         if (apiRenderState.result.data?.demandlist.isNullOrEmpty()) {
                             binding.tvNoData.visibility = View.VISIBLE
                         } else {
@@ -168,9 +190,8 @@ class DemandListFrag :
                             apiRenderState.result.data?.demandlist?.map {
                                 vm.demandList.add(it)
                             }
-                            rvUtil?.rvAdapter?.notifyDataSetChanged()
                         }
-
+                        rvUtil?.rvAdapter?.notifyDataSetChanged()
                     }
                 }
             }

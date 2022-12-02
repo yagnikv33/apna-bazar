@@ -111,7 +111,6 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                         if (apiRenderState.result.statuscode == AppConstants.Status_Code.Success) {
 
                             if (apiRenderState.result.data?.retunlist.isNullOrEmpty()) {
-
                                 binding.tvNoData.visibility = View.VISIBLE
                             } else {
 
@@ -120,8 +119,8 @@ class StockViewFrag : BaseFrag<FragmentStockViewBinding, StockViewVM>(Layouts.fr
                                 apiRenderState.result.data?.retunlist?.map {
                                     vm.returnList.add(it)
                                 }
-                                rvUtil?.rvAdapter?.notifyDataSetChanged()
                             }
+                            rvUtil?.rvAdapter?.notifyDataSetChanged()
                         } else {
                             errorToast(apiRenderState.result.message.toString())
                         }

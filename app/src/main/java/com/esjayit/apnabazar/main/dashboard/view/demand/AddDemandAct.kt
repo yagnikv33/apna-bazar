@@ -13,6 +13,7 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.esjayit.BR
 import com.esjayit.BuildConfig
 import com.esjayit.R
@@ -443,7 +444,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         totalAmount += (itemlistItem.qty?.toInt()
                             ?.times(itemlistItem.rate.toInt())!!)
-
                     }
 
                     vm.addEditDemand(
@@ -518,7 +518,6 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         )
                     }
                 }
-
                 binding.btnAddDemand.isEnabled = false
             }
             binding.ivBack -> {
@@ -633,6 +632,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                     val returnIntent = Intent()
                                     setResult(RESULT_OK, returnIntent)
                                     finishAct()
+                                    //For Broad Cast uncomment this code
+//                                    val intent = Intent("thisIsForMyFragment")
+//                                    LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
                                 }
                             })
                         } else {
