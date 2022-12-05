@@ -91,14 +91,15 @@ class DashboardAct : BaseAct<ActivityDashboardBinding, DashboardVM>(Layouts.acti
             ADD_DEMAND_CODE -> {
                 if (resultCode === Activity.RESULT_OK) {
 
-                    supportFragmentManager.fragments.forEach {
+/*                    supportFragmentManager.fragments.forEach {
                         if ((it::class.java.javaClass == HomeFrag::class.java.javaClass) || (it::class.java.javaClass == DemandListFrag::class.java.javaClass)) {
                             it.onActivityResult(requestCode, resultCode, data)
                         }
-                    }
-
+                    }*/
                     switchToFragment(demandList)
                     binding.bottomNavigation.selectedItemId = R.id.demand_list_page
+                    //"Data onAct Demand list: ACT $requestCode, $resultCode, ${data?.extras?.keySet()}".logE()
+                    demandList.onActivityResult(requestCode, resultCode, data)
                 }
             }
         }

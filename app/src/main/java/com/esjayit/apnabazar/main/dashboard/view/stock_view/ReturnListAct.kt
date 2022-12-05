@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import com.esjayit.BR
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants.App.BundleData.BILL_DATE
@@ -130,6 +131,11 @@ class ReturnListAct :
             },
             viewHolder = { v, t, p ->
 
+                v.findViewById<EditText>(R.id.edt_qty)
+                    .doOnTextChanged { text, start, before, count ->
+                        binding.btnAddReturn.isEnabled = true
+                    }
+
                 /** Ime DONE Action */
                 v.findViewById<EditText>(R.id.edt_qty)
                     .setOnEditorActionListener { v, actionId, event ->
@@ -141,6 +147,7 @@ class ReturnListAct :
                                 errorToast("Return quantity must smaller than max qty")
                                 v.text = ""
                                 isExpandable = false
+                                binding.btnAddReturn.isEnabled = false
                             }
                             v.hideSoftKeyboard()
                             return@setOnEditorActionListener true
@@ -245,6 +252,7 @@ class ReturnListAct :
             binding.btnAddReturn -> {
 
                 binding.btnAddReturn.isEnabled = false
+                binding.btnAddReturn.isClickable = false
 
                 if (returnBookAdapter?.list?.all {
                         (it?.retuqty?.toIntOrNull() ?: 0) <= it?.maxretu?.toInt()!!
@@ -381,13 +389,15 @@ class ReturnListAct :
 
                     is CommonResponse -> {
 
-                       // successToast(apiRenderState.result.message.toString(), callback = {
-                            val returnIntent = Intent()
-                            setResult(RESULT_OK, returnIntent)
-                            finishAct()
-                       // })
-                        binding.btnAddReturn.isEnabled = true
+                        // successToast(apiRenderState.result.message.toString(), callback = {
+                        val returnIntent = Intent()
+                        setResult(RESULT_OK, returnIntent)
+                        finishAct()
                         progressDialog.hideProgress()
+
+                        // })
+                        // binding.btnAddReturn.isEnabled = true
+
                     }
 
                     is SingleItemResponse -> {

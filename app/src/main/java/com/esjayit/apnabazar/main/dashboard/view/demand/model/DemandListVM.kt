@@ -2,10 +2,13 @@ package com.esjayit.apnabazar.main.dashboard.view.demand.model
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.esjayit.apnabazar.data.model.response.*
+import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseVM
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.dashboard.repo.DashboardRepo
+import kotlinx.coroutines.launch
 
 class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
 
@@ -100,17 +103,23 @@ class DemandListVM(private val repo: DashboardRepo) : BaseVM() {
         userid: String,
         installId: String
     ) {
-        scope {
-            progressBar.postValue(true)
-            state.emit(ApiRenderState.Loading)
-            repo.getDemandList(
-                userId = userid,
-                installId = installId,
-                onError = onApiError
-            ).let {
-                state.emit(ApiRenderState.ApiSuccess(it))
-                progressBar.postValue(false)
+        try {
+            viewModelScope.launch {
+                /*scope {
+                }*/
+                progressBar.postValue(true)
+                state.emit(ApiRenderState.Loading)
+                repo.getDemandList(
+                    userId = userid,
+                    installId = installId,
+                    onError = onApiError
+                ).let {
+                    state.emit(ApiRenderState.ApiSuccess(it))
+                    progressBar.postValue(false)
+                }
             }
+        } catch (e: Exception) {
+            e.message.toString().logE()
         }
     }
 

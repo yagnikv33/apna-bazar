@@ -37,7 +37,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
 
-    override val vm: HomeVM by activityViewModels()
+    override val vm: HomeVM by viewModel()
     override val hasProgress: Boolean = false
     private var listingAdapter: HomeListingAdapter? = null
     var homeListAdapter: BaseRvBindingAdapter<ListItem?>? = null

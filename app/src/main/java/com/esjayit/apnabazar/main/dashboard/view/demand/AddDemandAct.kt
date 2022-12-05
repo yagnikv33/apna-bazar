@@ -11,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.esjayit.BR
 import com.esjayit.BuildConfig
@@ -339,8 +340,15 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 }
             },
             viewHolder = { v, t, p ->
-                v.findViewById<EditText>(R.id.edt_qty)
-                    .setOnEditorActionListener { v, actionId, event ->
+                v.findViewById<EditText>(R.id.edt_qty).apply {
+
+                    doOnTextChanged { text, start, before, count ->
+                        if (text.toString().contains(" ")) {
+                            return@doOnTextChanged
+                        }
+                    }
+
+                    setOnEditorActionListener { v, actionId, event ->
 
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
                             v.hideSoftKeyboard()
@@ -349,6 +357,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         false
                     }
+                }
             }
         )
 
@@ -403,13 +412,16 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 startActivity(NotificationAct::class.java)
             }
             binding.etModule -> {
-                mediumDialog?.show()
+                if (!isFromEditDemand) {
+                    mediumDialog?.show()
+                }
             }
             binding.etStandard -> {
-                standardDialog?.show()
+                if (!isFromEditDemand) {
+                    standardDialog?.show()
+                }
             }
             binding.btnAddDemand -> {
-                progressDialog.showProgress()
 
                 //From EditDemand
                 if (isFromEditDemand) {
@@ -419,41 +431,51 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     editProfileDataAdapter?.notifyDataSetChanged()
 
                     editDemandData =
-                        editProfileDataAdapter?.list?.filter { it?.qty?.toIntOrNull()!! > 0 }?.map {
-                            AddItemslistItem(
-                                tranid = getIdOrEmptyStr(it?.id),
-                                itemid = it?.itemid,
-                                amount = it?.amount,
-                                bunchqty = it?.bunchqty,
-                                rate = it?.rate?.toFloatOrNull(),
-                                qty = it?.qty
-                            )
+                        editProfileDataAdapter?.list?.filter { (it?.qty?.toIntOrNull() ?: 0) >= 1 }
+                            ?.map {
+                                AddItemslistItem(
+                                    tranid = getIdOrEmptyStr(it?.id),
+                                    itemid = it?.itemid,
+                                    amount = it?.amount,
+                                    bunchqty = it?.bunchqty,
+                                    rate = it?.rate?.toFloatOrNull(),
+                                    qty = it?.qty
+                                )
+                            }
+
+                    //  "ListItem added: $editDemandData".logE()
+
+                    if (!editDemandData.isNullOrEmpty()) {
+                        binding.btnAddDemand.isEnabled = false
+                        progressDialog.showProgress()
+                        editDemandData?.forEachIndexed { index, itemlistItem ->
+                            amt = (itemlistItem.rate?.roundToInt()
+                                ?.let { itemlistItem.qty?.toIntOrNull()?.times(it) }!!)
+
+                            totalAmount += (itemlistItem.qty?.toIntOrNull()
+                                ?.times(itemlistItem.rate.toInt())!!)
                         }
 
-                    editDemandData?.forEachIndexed { index, itemlistItem ->
-                        amt = (itemlistItem.rate?.roundToInt()
-                            ?.let { itemlistItem.qty?.toIntOrNull()?.times(it) }!!)
-
-                        totalAmount += (itemlistItem.qty?.toIntOrNull()
-                            ?.times(itemlistItem.rate.toInt())!!)
+                        vm.addEditDemand(
+                            EditDemandDataVal(
+                                demanddate = binding.etDate.text.toString(),
+                                userid = prefs.user.userId,
+                                demandid = did.orEmpty(),
+                                totalamt = totalAmount.toString(),
+                                packagename = BuildConfig.APPLICATION_ID,
+                                versioncode = BuildConfig.VERSION_CODE.toString(),
+                                installid = prefs.installId,
+                                itemslist = editDemandData
+                            )
+                        )
+                    } else {
+                        errorToast("Enter some value!!!")
                     }
 
-                    vm.addEditDemand(
-                        EditDemandDataVal(
-                            demanddate = binding.etDate.text.toString(),
-                            userid = prefs.user.userId,
-                            demandid = did.orEmpty(),
-                            totalamt = totalAmount.toString(),
-                            packagename = BuildConfig.APPLICATION_ID,
-                            versioncode = BuildConfig.VERSION_CODE.toString(),
-                            installid = prefs.installId,
-                            itemslist = editDemandData
-                        )
-                    )
                 } else {
                     //From Add Demand
                     subectDemandData =
-                        subjectDataAdapter?.list?.filter { (it?.qty?.toIntOrNull() ?: 1) > 0 }
+                        subjectDataAdapter?.list?.filter { (it?.qty?.toIntOrNull() ?: 0) >= 1 }
                             ?.map {
                                 DummyAddDemand(
                                     subjectName = it?.subname,
@@ -468,10 +490,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                     ).toString()
                                 )
                             }
-                    if (subectDemandData != null) {
+                    if (!subectDemandData.isNullOrEmpty()) {
+                        binding.btnAddDemand.isEnabled = false
                         var totalAmount = 0
                         var amt = 0
-
+                        progressDialog.showProgress()
                         AppConstants.App.itemlistItem.addAll(subectDemandData!!)
                         subectDemandData?.forEachIndexed { index, itemlistItem ->
 
@@ -510,15 +533,18 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         vm.addDemandString(
                             addDemand
                         )
+                    } else {
+                        errorToast("Enter some value!!!")
                     }
                 }
-                binding.btnAddDemand.isEnabled = false
             }
             binding.ivBack -> {
                 finishAct()
             }
             binding.etDate -> {
-                datePicker()
+                if (!isFromEditDemand) {
+                    datePicker()
+                }
             }
         }
     }
@@ -637,11 +663,18 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         if (statusCode == AppConstants.Status_Code.Success) {
 //                            successToast(apiRenderState.result.message.toString(), callback = {
 //                                if (it) {
+/*
+                            val intent = Intent("thisIsForMyFragment")
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+*/
+
                             val returnIntent = Intent()
                             setResult(RESULT_OK, returnIntent)
                             finishAct()
 //                                }
 //                            })
+
+                            //For Broad Cast uncomment this code
                         } else {
                             errorToast(apiRenderState.result.message!!)
                             binding.btnAddDemand.isEnabled = true
@@ -668,6 +701,20 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                             editProfileDataAdapter?.list?.forEach {
                                 l.add(it?.qty?.toIntOrNull())
+                            }
+
+                            binding.etModule.setText(
+                                apiRenderState.result.data?.demand?.itemslist?.get(
+                                    0
+                                )?.medium.toString()
+                            )
+
+                            binding.apply {
+                                etModule.isEnabled = false
+                                etModule.isClickable = false
+
+                                etStandard.isEnabled = false
+                                etStandard.isClickable = false
                             }
                         }
                         progressDialog.hideProgress()

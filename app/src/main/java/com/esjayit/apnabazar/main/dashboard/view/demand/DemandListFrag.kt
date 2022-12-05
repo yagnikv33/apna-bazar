@@ -1,19 +1,16 @@
 package com.esjayit.apnabazar.main.dashboard.view.demand
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.esjayit.BR
 import com.esjayit.R
-import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.AppConstants.App.BundleData.ADD_DEMAND_CODE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_DATE
 import com.esjayit.apnabazar.AppConstants.App.BundleData.DEMAND_NO
@@ -42,7 +39,7 @@ class DemandListFrag :
     BaseFrag<FragmentDemandListBinding, DemandListVM>(Layouts.fragment_demand_list) {
 
     override val hasProgress: Boolean = false
-    override val vm: DemandListVM by activityViewModels()
+    override val vm: DemandListVM by viewModel()
     lateinit var demandListAdapter: BaseRvBindingAdapter<DemandListItem?>
     var rvUtil: RvUtil? = null
     var usedBackBtn: Boolean = false
@@ -52,30 +49,33 @@ class DemandListFrag :
         setRcv()
         binding.tvNoData.visibility = View.GONE
         //Using BroadCast for api calling (When Add Demand tappd at that time call this)
-//        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(myBroadcastReceiver,IntentFilter("thisIsForMyFragment"));
+        /*LocalBroadcastManager.getInstance(requireActivity()).registerReceiver(myBroadcastReceiver,
+            IntentFilter("thisIsForMyFragment")
+        )*/
     }
 
-//    private val myBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context, intent: Intent) {
-////            Toast.makeText(activity, "Broadcast received!", Toast.LENGTH_SHORT).show()
-//            vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-//            setRcv()
-//            binding.tvNoData.visibility = View.GONE
-//        }
-//    }
+    private val myBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Toast.makeText(activity, "Broadcast received!", Toast.LENGTH_SHORT).show()
+            vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+            setRcv()
+            binding.tvNoData.visibility = View.GONE
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        "Data onAct Demand list: $requestCode, $resultCode, ${data?.data}".logE()
+        if (resultCode != Activity.RESULT_OK)
+            return
 
-        if (requestCode === RETURN_TO_SEARCH) {
-            if (resultCode === Activity.RESULT_OK) {
-                vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-            }
-        } else if (requestCode === ADD_DEMAND_CODE) {
+        //"Data onAct Demand list: $requestCode, $resultCode, ${data?.extras?.keySet()}".logE()
+        if (requestCode == RETURN_TO_SEARCH) {
             vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
-//            setRcv()
+        } else if (requestCode == ADD_DEMAND_CODE) {
+            //if (isVisible)
+            vm.getDemandList(userid = prefs.user.userId, installId = prefs.installId.orEmpty())
+            // setRcv()
         }
     }
 
@@ -165,30 +165,37 @@ class DemandListFrag :
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
                 when (apiRenderState.result) {
                     is DemandListResponse -> {
-                        "Response: ${apiRenderState.result.data}".logE()
+                        //"Response: ${apiRenderState.result.data}".logE()
                         vm.demandList.clear()
                         if (apiRenderState.result.data?.demandlist.isNullOrEmpty()) {
                             binding.tvNoData.visibility = View.VISIBLE
                         } else {
                             binding.tvNoData.visibility = View.GONE
-                            apiRenderState.result.data?.demandlist?.map {
+                            apiRenderState.result.data?.demandlist?.forEach {
                                 vm.demandList.add(it)
                             }
                         }
+                        "Response: datatList ------- NEW API CALL -----".logE()
+
+                        vm.demandList.forEach {
+                            "Response: datatList  dNo- ${it?.demandno}\n".logE()
+                        }
+
                         rvUtil?.rvAdapter?.notifyDataSetChanged()
                     }
                 }
             }
             ApiRenderState.Idle -> {
-
+                "Error API IDLE".logE()
             }
             ApiRenderState.Loading -> {
-
+                "Error API LOADING".logE()
             }
             is ApiRenderState.ValidationError -> {
                 "Error API CALLING".logE()
