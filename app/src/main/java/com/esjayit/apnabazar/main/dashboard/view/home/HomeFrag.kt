@@ -44,8 +44,8 @@ class HomeFrag : BaseFrag<FragmentHomeBinding, HomeVM>(Layouts.fragment_home) {
     var homeRvUtil: RvUtil? = null
 
     override fun init() {
-        "USER DATA ${prefs.user}".logE()
-        "INSATLL ID ${prefs.installId!!}".logE()
+        //"USER DATA ${prefs.user}".logE()
+       // "INSATLL ID ${prefs.installId!!}".logE()
         if (prefs.installId != null) {
             vm.checkUserActiveStatus(userId = prefs.user.userId, installedId = prefs.installId!!)
             vm.getHomeScreen(userId = prefs.user.userId, installedId = prefs.installId.orEmpty())
