@@ -429,10 +429,11 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                     var amt = 0
 
                     editProfileDataAdapter?.notifyDataSetChanged()
-
+//                    { (it?.qty?.toIntOrNull() ?: 0) >= 1 }
+//                    { !(it?.id == "" && it?.qty == "") }
                     editDemandData =
-                        editProfileDataAdapter?.list?.filter { (it?.qty?.toIntOrNull() ?: 0) >= 1 }
-                            ?.map {
+//                            editProfileDataAdapter?.list?.filter { !(it?.id == "" && it?.qty == "0") }?.map {
+                        editProfileDataAdapter?.list?.filter { !(it?.id == "" && ((it?.qty?.toIntOrNull() ?: 0) >= 0)) || (it?.qty?.toIntOrNull() ?: 0) >= 1 }?.map {
                                 AddItemslistItem(
                                     tranid = getIdOrEmptyStr(it?.id),
                                     itemid = it?.itemid,
@@ -449,11 +450,15 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         binding.btnAddDemand.isEnabled = false
                         progressDialog.showProgress()
                         editDemandData?.forEachIndexed { index, itemlistItem ->
-                            amt = (itemlistItem.rate?.roundToInt()
-                                ?.let { itemlistItem.qty?.toIntOrNull()?.times(it) }!!)
+                            if (itemlistItem.qty == "") {
 
-                            totalAmount += (itemlistItem.qty?.toIntOrNull()
-                                ?.times(itemlistItem.rate.toInt())!!)
+                            } else {
+                                amt = (itemlistItem.rate?.roundToInt()
+                                    ?.let { itemlistItem.qty?.toIntOrNull()?.times(it) }!!)
+
+                                totalAmount += (itemlistItem.qty?.toIntOrNull()
+                                    ?.times(itemlistItem.rate.toInt())!!)
+                            }
                         }
 
                         vm.addEditDemand(

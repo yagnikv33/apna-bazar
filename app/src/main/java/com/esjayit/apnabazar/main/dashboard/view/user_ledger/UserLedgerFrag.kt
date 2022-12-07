@@ -1,19 +1,16 @@
 package com.esjayit.apnabazar.main.dashboard.view.user_ledger
 
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.graphics.pdf.PdfDocument.PageInfo
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.esjayit.R
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
@@ -30,6 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -444,8 +442,9 @@ class UserLedgerFrag :
 
         try {
             folder.mkdirs()
+            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
             val file =
-                File(folder, Date().time.toString()  + ".pdf")
+                    File(folder, "APNABAZAR_" + currentDate + "_" + Date().time.toString()  + ".pdf")
             myPdfDocument.writeTo(FileOutputStream(file));
             Toast.makeText(requireContext(),"Pdf downloaded!",Toast.LENGTH_LONG).show()
 //            Toast.makeText(requireContext(), "File path : ${file.path}", Toast.LENGTH_SHORT).show()
@@ -453,7 +452,7 @@ class UserLedgerFrag :
             e.printStackTrace()
         }
         myPdfDocument.close()
-
     }
+
 
 }
