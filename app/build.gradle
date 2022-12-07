@@ -106,6 +106,6 @@ dependencies {
     implementation 'com.github.aabhasr1:OtpView:v1.1.2'
 //    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
     implementation 'com.github.kishansinghpanwar:FreedomOTPView:v2.0'
-//    implementation 'com.github.kishansinghpanwar:FreedomOTPView:v1.0'
+//    implementation 'com.github.kishansinghpanwar:FreedomOTPView:v1.0'`
 }
 
