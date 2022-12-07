@@ -190,7 +190,7 @@ class UserLedgerFrag :
         canvas.drawText("GST No :", 130F, 250F, myPaint)
 
         canvas.drawText(
-            prefs.userProfileDetail.userData?.detail?.username.toString(),
+            prefs.userProfileDetail.userData?.detail?.uname.toString(),
             380F,
             130F,
             myPaint
