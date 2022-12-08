@@ -431,7 +431,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                     editDemandData =
                         editProfileDataAdapter?.list?.filter {
-                            !(it?.id == "" && ((it.qty.toIntOrNull() ?: 0) >= 0))
+                            !(it?.id == "" && ((it.qty.toIntOrNull() != 0))) || (it.qty.toIntOrNull() != 0)
                         }?.map {
                             AddItemslistItem(
                                 tranid = getIdOrEmptyStr(it?.id),
