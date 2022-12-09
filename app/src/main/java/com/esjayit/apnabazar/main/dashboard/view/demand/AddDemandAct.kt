@@ -439,7 +439,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                 amount = it?.amount,
                                 bunchqty = it?.bunchqty,
                                 rate = it?.rate?.toFloat(),
-                                qty = (it?.qty!!.toIntOrNull()?:0).toString()
+                                qty = (it?.qty!!.toIntOrNull() ?: 0).toString()
                             )
                         }
 
@@ -466,20 +466,21 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 } else {
                     //From Add Demand
                     subectDemandData =
-                        subjectDataAdapter?.list?.filter { it?.qty?.toInt()!! > 0 }?.map {
-                            DummyAddDemand(
-                                subjectName = it?.subname,
-                                qty = it?.qty,
-                                bunch = it?.thock,
-                                standard = it?.standard,
-                                itemId = it?.itemid,
-                                rate = it?.itemrate?.toFloat(),
-                                amount = getAmount(
-                                    it?.itemrate?.toFloat(),
-                                    it?.qty?.toInt()
-                                ).toString()
-                            )
-                        }
+                        subjectDataAdapter?.list?.filter { (it?.qty?.toIntOrNull() ?: 0) > 0 }
+                            ?.map {
+                                DummyAddDemand(
+                                    subjectName = it?.subname,
+                                    qty = it?.qty,
+                                    bunch = it?.thock,
+                                    standard = it?.standard,
+                                    itemId = it?.itemid,
+                                    rate = it?.itemrate?.toFloat(),
+                                    amount = getAmount(
+                                        it?.itemrate?.toFloat(),
+                                        it?.qty?.toIntOrNull() ?: 0
+                                    ).toString()
+                                )
+                            }
                     if (subectDemandData != null) {
                         var totalAmount = 0
                         var amt = 0
@@ -488,11 +489,10 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                         subectDemandData?.forEachIndexed { index, itemlistItem ->
 
                             amt = (itemlistItem.rate?.roundToInt()
-                                ?.let { itemlistItem.qty?.toInt()?.times(it) }!!)
+                                ?.let { (itemlistItem.qty?.toIntOrNull() ?: 0).times(it) }!!)
 
                             totalAmount += (itemlistItem.rate?.toInt()?.let {
-                                itemlistItem.qty?.toInt()
-                                    ?.times(it)
+                                (itemlistItem.qty?.toIntOrNull() ?: 0).times(it)
                             }!!)
 
                             listData?.add(
