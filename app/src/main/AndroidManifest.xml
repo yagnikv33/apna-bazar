@@ -77,4 +77,9 @@
         </activity>
     </application>
 
+    <meta-data
+        android:name="com.onesignal.NotificationServiceExtension"
+        android:value="com.custom.package.oneSignal.OneSignalNotificationService">
+    </meta-data>
+
 </manifest>

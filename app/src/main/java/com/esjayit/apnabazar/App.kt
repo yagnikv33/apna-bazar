@@ -43,6 +43,7 @@ class App : MultiDexApplication() {
         OneSignal.initWithContext(this.applicationContext)
         OneSignal.setAppId(AppConstants.App.ONESIGNAL_APP_ID)
         OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
+//        OneSignal.promptForPushNotifications()
 
         OneSignal.setNotificationOpenedHandler(NotificationOpenedHandlerOneSignal(this))
         OneSignal.addSubscriptionObserver { state ->
@@ -53,7 +54,9 @@ class App : MultiDexApplication() {
                     val oneSignalPlayerId = state.to.userId
                     if (prefs.playerId != oneSignalPlayerId) {
                         prefs.playerId = oneSignalPlayerId
+                        prefs.pushToken = state.to.pushToken
                         // call api
+
                     }
                     "One signal $state".logE()
                 }

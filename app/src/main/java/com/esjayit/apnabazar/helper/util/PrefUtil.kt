@@ -68,6 +68,13 @@ class PrefUtil(context: Context) {
             prefEditor.apply()
         }
 
+    var pushToken: String?
+        get() = prefs.getString("PUSH_TOKEN", "")
+        set(value) {
+            prefEditor.putString("PUSH_TOKEN", value)
+            prefEditor.apply()
+        }
+
 
     fun clearPrefs() {
         prefEditor.clear()

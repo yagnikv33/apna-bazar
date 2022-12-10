@@ -12,6 +12,7 @@ import android.view.View
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
+import com.esjayit.apnabazar.data.model.response.AppFirstLaunchResponse
 import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
@@ -82,7 +83,7 @@ class SplashScreenAct :
             prefs.playerId = stateChanges.to.userId
             "onOSSubscriptionChanged NOTIFICATION API CALL".logE()
             vm.appFirstTimeLaunch(
-                fcmToken = "",
+                fcmToken = prefs.pushToken.toString(),
                 installId = uuid,
                 playerId = prefs.playerId.toString(),
                 deviceInfoJson = convertedJSONObject()
@@ -108,15 +109,13 @@ class SplashScreenAct :
                         Settings.Secure.ANDROID_ID
                     ), isRooted = isRooted, installedId = uuid
                 )
-                if (!prefs.playerId.isNullOrBlank()) {
-                    "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
-                    vm.appFirstTimeLaunch(
-                        fcmToken = "",
-                        installId = uuid,
-                        playerId = prefs.playerId.toString(),
-                        deviceInfoJson = convertedJSONObject()
-                    )
-                }
+                "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
+                vm.appFirstTimeLaunch(
+                    fcmToken = "",
+                    installId = uuid,
+                    playerId = prefs.playerId.toString(),
+                    deviceInfoJson = convertedJSONObject()
+                )
                 prefs.firstTime = false
             } else {
                 // App is not First Time Launch
@@ -184,6 +183,13 @@ class SplashScreenAct :
                             "Add Device Info API Success".logE()
                         } else {
                             "Error : Add Device Info ${apiRenderState.result.message}".logE()
+                        }
+                    }
+                    is AppFirstLaunchResponse -> {
+                        if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
+                            "First Time App Launch Success".logE()
+                        } else {
+                            "Error : First Time App Launch ${apiRenderState.result.message}".logE()
                         }
                     }
                     is CheckUpdateResponse -> {

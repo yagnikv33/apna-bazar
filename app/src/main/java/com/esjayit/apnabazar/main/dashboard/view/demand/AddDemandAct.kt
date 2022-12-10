@@ -296,6 +296,7 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
 
                         false
                     }
+
             }
         )
 
@@ -414,10 +415,14 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 startActivity(NotificationAct::class.java)
             }
             binding.etModule -> {
-                mediumDialog?.show()
+                if (!isFromEditDemand) {
+                    mediumDialog?.show()
+                }
             }
             binding.etStandard -> {
-                standardDialog?.show()
+                if (!isFromEditDemand) {
+                    standardDialog?.show()
+                }
             }
             binding.btnAddDemand -> {
                 progressDialog.showProgress()
@@ -528,7 +533,9 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                 finishAct()
             }
             binding.etDate -> {
-                datePicker()
+                if (!isFromEditDemand) {
+                    datePicker()
+                }
             }
         }
     }
@@ -662,12 +669,12 @@ class AddDemandAct : BaseAct<ActivityAddDemandBinding, DemandListVM>(Layouts.act
                                 vm.editDemandData.add(it)
                                 editList.add(it)
                             }
-
                             editRvUtil?.rvAdapter?.notifyDataSetChanged()
 
                             editProfileDataAdapter?.list?.forEach {
                                 l.add(it?.qty?.toInt())
                             }
+                            binding.etModule.setText(editProfileDataAdapter?.list?.first()?.medium.toString())
                         }
                         progressDialog.hideProgress()
                     }
