@@ -66,6 +66,7 @@ dependencies {
 
     //di
     implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
 
     //architecture components
     def archCompVersion = '2.3.0-beta01'
