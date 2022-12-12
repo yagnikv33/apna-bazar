@@ -75,6 +75,14 @@ class PrefUtil(context: Context) {
             prefEditor.apply()
         }
 
+    //FirstTime Open
+    var uuidRandom: String?
+        get() = prefs.getString("UUID_RANDOM", "")
+        set(value) {
+            prefEditor.putString("UUID_RANDOM", value)
+            prefEditor.apply()
+        }
+
 
     fun clearPrefs() {
         prefEditor.clear()

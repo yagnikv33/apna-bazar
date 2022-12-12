@@ -2,18 +2,20 @@ package com.esjayit.apnabazar.main.entrymodule.view
 
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
 import com.esjayit.apnabazar.data.model.response.AddDeviceInfoResponse
 import com.esjayit.apnabazar.data.model.response.AppFirstLaunchResponse
 import com.esjayit.apnabazar.data.model.response.CheckUpdateResponse
+import com.esjayit.apnabazar.helper.custom.CustomProgress
 import com.esjayit.apnabazar.helper.util.logE
 import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
@@ -22,8 +24,7 @@ import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivitySplashScreenBinding
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.gson.JsonObject
-import com.onesignal.OSSubscriptionObserver
-import com.onesignal.OSSubscriptionStateChanges
+import com.onesignal.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -40,6 +41,7 @@ class SplashScreenAct :
     var isRooted = if (EntryVM.RootUtil.isDeviceRooted) "1" else "0"
 
     override fun init() {
+        OneSignal.addSubscriptionObserver(this)
         "isRooted : ${isRooted}".logE()
         "UUID ${
             Settings.Secure.getString(
@@ -48,15 +50,14 @@ class SplashScreenAct :
             )
         } RandomUUID : ${uuid}".logE()
         checkForLaunchAPIs()
-
         "Pref: ${prefs.authToken}".logE()
     }
 
     override fun onResume() {
         super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.intent.action.SmsReceiver")
-        registerReceiver(mServiceReceiver, filter)
+//        val filter = IntentFilter()
+//        filter.addAction("android.intent.action.SmsReceiver")
+//        registerReceiver(mServiceReceiver, filter)
     }
 
     override fun onPause() {
@@ -76,18 +77,17 @@ class SplashScreenAct :
         if (!stateChanges.from.isSubscribed &&
             stateChanges.to.isSubscribed
         ) {
-//            AlertDialog.Builder(this)
-//                .setMessage("You've successfully subscribed to push notifications!")
-//                .show()
             // get player ID
+            if (prefs.firstTime) {
+                vm.appFirstTimeLaunch(
+                    fcmToken = stateChanges.to.pushToken,
+                    installId = uuid,
+                    playerId = stateChanges.to.userId,
+                    deviceInfoJson = convertedJSONObject()
+                )
+            }
             prefs.playerId = stateChanges.to.userId
-            "onOSSubscriptionChanged NOTIFICATION API CALL".logE()
-            vm.appFirstTimeLaunch(
-                fcmToken = prefs.pushToken.toString(),
-                installId = uuid,
-                playerId = prefs.playerId.toString(),
-                deviceInfoJson = convertedJSONObject()
-            )
+            prefs.pushToken = stateChanges.to.pushToken
         }
         Log.i("Debug", "onOSPermissionChanged: $stateChanges")
     }
@@ -100,24 +100,17 @@ class SplashScreenAct :
                 // First Time Launch
                 "RUN : First Time".logE()
 
-//            "DATA JSON, ${convertedJSONObject()}".logE()
                 prefs.installId = uuid
-                vm.checkForUpdate(installedId = uuid)
+
                 vm.addDeviceInfo(
                     uuid = Settings.Secure.getString(
                         contentResolver,
                         Settings.Secure.ANDROID_ID
                     ), isRooted = isRooted, installedId = uuid
                 )
-                "${prefs.playerId} PLAYERID FOR API CALL APP FIRST TIME LAUNCH"
-                vm.appFirstTimeLaunch(
-                    fcmToken = "",
-                    installId = uuid,
-                    playerId = prefs.playerId.toString(),
-                    deviceInfoJson = convertedJSONObject()
-                )
-                prefs.firstTime = false
+                binding.progress?.set(true)
             } else {
+                binding.progress?.set(true)
                 // App is not First Time Launch
                 "RUN : Not First Time".logE()
                 if (TextUtils.isEmpty(prefs.installId)) {
@@ -174,6 +167,19 @@ class SplashScreenAct :
         }
     }
 
+    fun showUpdatePopUp() {
+        android.app.AlertDialog.Builder(this)
+            .setMessage("Please update new version of this app")
+            .setCancelable(false)
+            .setPositiveButton("Update",
+                DialogInterface.OnClickListener { dialog, id ->
+                    "Open PlayStore"
+                })
+            .setNegativeButton("No", null)
+            .show()
+    }
+
+
     override fun renderState(apiRenderState: ApiRenderState) {
         when (apiRenderState) {
             is ApiRenderState.ApiSuccess<*> -> {
@@ -185,14 +191,19 @@ class SplashScreenAct :
                             "Error : Add Device Info ${apiRenderState.result.message}".logE()
                         }
                     }
+
                     is AppFirstLaunchResponse -> {
                         if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
                             "First Time App Launch Success".logE()
+                            prefs.firstTime = false
+                            vm.checkForUpdate(installedId = uuid)
                         } else {
                             "Error : First Time App Launch ${apiRenderState.result.message}".logE()
                         }
                     }
+
                     is CheckUpdateResponse -> {
+                        binding.progress?.set(false)
                         if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
                             "Check Update Response Success".logE()
                             var userDataObj = apiRenderState.result.updateData.updateDataModel
@@ -200,12 +211,13 @@ class SplashScreenAct :
                                 "Nothing to Do".logE()
                             } else if (userDataObj.isForceUpdate == "0" && userDataObj.isUpdateAvailable == "1") {
                                 "Show Pop up Msg for Update".logE()
+                                showUpdatePopUp()
                             } else if (userDataObj.isForceUpdate == "1" && userDataObj.isUpdateAvailable == "1") {
                                 "Do Forcefully Update".logE()
                             } else {
                                 "Something went wrong".logE()
                             }
-                            //Temp Redirection For SignINACT (Please Check this)
+                            //Temp Redirection For SignINACT
                             this.startActivity(Intent(this, SignInAct::class.java))
                             finishAffinity()
                         } else {

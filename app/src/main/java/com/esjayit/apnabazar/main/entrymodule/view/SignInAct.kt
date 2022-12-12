@@ -1,11 +1,15 @@
 package com.esjayit.apnabazar.main.entrymodule.view
 
 import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.esjayit.apnabazar.AppConstants
 import com.esjayit.apnabazar.Layouts
+import com.esjayit.apnabazar.data.model.response.AppFirstLaunchResponse
 import com.esjayit.apnabazar.data.model.response.CheckUserVerificationResponse
 import com.esjayit.apnabazar.data.model.response.SendOTPResponse
 import com.esjayit.apnabazar.helper.custom.CustomProgress
@@ -15,6 +19,8 @@ import com.esjayit.apnabazar.main.base.BaseAct
 import com.esjayit.apnabazar.main.common.ApiRenderState
 import com.esjayit.apnabazar.main.entrymodule.model.EntryVM
 import com.esjayit.databinding.ActivitySignInBinding
+import com.google.gson.JsonObject
+import com.onesignal.OneSignal
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_in) {
@@ -87,6 +93,16 @@ class SignInAct : BaseAct<ActivitySignInBinding, EntryVM>(Layouts.activity_sign_
                                 errorToast(apiRenderState.result.message)
                                 //"Error : Check User Verification ${apiRenderState.result.message}".logE()
                             }
+                        }
+                    }
+
+                    is AppFirstLaunchResponse -> {
+                        progressDialog?.hideProgress()
+                        if (apiRenderState.result.statusCode == AppConstants.Status_Code.Success) {
+                            "First Time App Launch Success".logE()
+                            prefs.firstTime = false
+                        } else {
+                            "Error : First Time App Launch ${apiRenderState.result.message}".logE()
                         }
                     }
 

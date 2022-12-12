@@ -75,11 +75,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.onesignal.NotificationServiceExtension"
+            android:value="com.onesignal.NotificationReceivedHandlerOneSignal" />
     </application>
-
-    <meta-data
-        android:name="com.onesignal.NotificationServiceExtension"
-        android:value="com.custom.package.oneSignal.OneSignalNotificationService">
-    </meta-data>
-
 </manifest>
